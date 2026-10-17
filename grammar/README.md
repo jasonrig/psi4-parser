@@ -3,7 +3,7 @@
 `PsithonParser.file_input` recognizes the complete mixed input. The imported
 Python grammars and the native overrides generate one lexer and one parser.
 All validation decisions live in these grammars or their required lexer support;
-the public wrapper only collects ANTLR diagnostics.
+the public wrapper exposes ANTLR results and collects diagnostics.
 
 | Concern | Implementation | Primary reference |
 | --- | --- | --- |
@@ -20,6 +20,21 @@ the public wrapper only collects ANTLR diagnostics.
 | Comprehensions and annotations | `psithon_comprehension`, `psithon_restricted_expression` | Comprehension binding conflicts and annotation scopes |
 | Patterns, literals and control flow | `psithon_pattern`, `psithon_literal`, `psithon_interpolated_literal`, `psithon_constraints` | CPython AST validation and code generation |
 | Future and lazy imports | `psithon_future`, `psithon_lazy_import` | Psi4 future-line hoisting; CPython compiler flags and lazy-import restrictions |
+
+The public `parse()` API retains the original text, complete ANTLR token stream,
+CST and diagnostics. `PsithonLexer.g4` records character-boundary offsets in its
+existing input-preparation hook, covering CRLF/CR normalization, the synthetic
+terminal newline and extraction of echoed input from output logs. Comment masking
+preserves prepared-text width. `ParseResult.source_span()` translates ANTLR's
+inclusive token boundaries to exclusive-end intervals in the original string;
+`source_text()` slices that string. Hidden tokens remain in the token stream.
+The tree and token text still represent prepared validation input, so a token
+stream's `getText()` is not an original-file reconstruction. Context spans follow
+ANTLR's first/last-token boundaries and exclude surrounding trivia. For output
+logs, `source` retains the whole log while the CST covers the extracted input.
+Unanchored recovery tokens have no source interval. A local vendored-helper fix
+anchors split interpolation tokens after the retained prefix and accounts for
+newlines in that prefix. No second lexer or bespoke syntax tree is introduced.
 
 The first recognition pass checks native structure and fields. Python context
 restrictions are deferred because rewrites can change names, scope classification

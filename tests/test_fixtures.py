@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from psi4_parser import validate
+from psi4_parser import parse
 
 _FIXTURES = Path(__file__).resolve().parents[1] / "test/fixtures"
 _INPUTS = sorted(_FIXTURES.glob("**/*.dat"))
@@ -37,9 +37,14 @@ def test_fixture(path: Path) -> None:
     """
     expected_rejection = path.relative_to(_FIXTURES).parts[0] == "negative"
 
-    errors = validate(path.read_bytes().decode("utf-8"))
+    source = path.read_bytes().decode("utf-8")
+    result = parse(source)
 
-    assert bool(errors) == expected_rejection, (path, errors)
+    assert bool(result.diagnostics) == expected_rejection, (path, result.diagnostics)
+    assert result.source == source
+    for token in result.tokens.tokens:
+        start, stop = result.source_span(token)
+        assert 0 <= start <= stop <= len(source), (path, token)
 
 
 @pytest.mark.skipif(_BINARY is None, reason="Set PSI4_BINARY for launcher checks")

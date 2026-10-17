@@ -516,9 +516,16 @@ class PythonLexerBase(Lexer):
         token.type = type
         token.text = text
         token.channel = channel
-        token.column += 1
-        token.start += 1
+        # The replacement is the character after the retained token prefix.
+        # Prefixes can span several characters and physical lines.
+        prefix = self._input.getText(token.start, token.stop)
+        token.start = token.stop + 1
         token.stop = token.start
+        if "\n" in prefix:
+            token.line += prefix.count("\n")
+            token.column = len(prefix.rsplit("\n", 1)[-1])
+        else:
+            token.column += len(prefix)
         self._cur_token = token
 
     # ===================== Lexer‑Mode Management =====================

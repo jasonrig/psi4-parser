@@ -1681,10 +1681,21 @@ class PsithonLexer(PsithonLexerBase):
 
 
     def prepare_input(self, stream):
-        """Apply universal newlines and Psi4 comment stripping, retaining line/columns."""
-        if not self.native_input:
-            return stream
+        """Prepare validation text and map its character boundaries to raw source."""
         source = stream.getText(0, stream.size - 1)
+        self.original_source = source
+        if not self.native_input:
+            self.source_offsets = tuple(range(len(source) + 1))
+            return stream
+        # Keep the terminating newline formerly supplied by the public validator.
+        # Its source interval is empty when it was not present in the original.
+        if not source.endswith("\n"):
+            source += "\n"
+        offsets = [
+            min(index, len(self.original_source))
+            for index, char in enumerate(source)
+            if not (char == "\n" and index > 0 and source[index - 1] == "\r")
+        ] + [len(self.original_source)]
         source = source.replace("\r\n", "\n").replace("\r", "\n")
         # The launcher also accepts an output log and extracts its echoed input.
         # Keep blank lines before the extracted section for diagnostic line numbers.
@@ -1707,8 +1718,17 @@ class PsithonLexer(PsithonLexerBase):
                 None,
             )
             if start is None or stop is None:
+                self.source_offsets = (0, *offsets)
                 return InputStream("\x00" + source)
+            starts = [0] + [
+                index + 1 for index, char in enumerate(source) if char == "\n"
+            ]
+            first, last = starts[start], starts[stop]
+            offsets = [offsets[starts[index]] for index in range(start)] + offsets[
+                first : last + 1
+            ]
             source = "\n" * start + "\n".join(lines[start:stop]) + "\n"
+        self.source_offsets = tuple(offsets)
         self._psithon_source = source
         if "#" not in source:
             return InputStream(source)

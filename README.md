@@ -37,6 +37,27 @@ for diagnostic in diagnostics:
 models. An empty tuple means the input passed validation. Each diagnostic has a
 one-based `line`, a zero-based `column`, and a `message`.
 
+For source-preserving CST access, use `parse()`:
+
+```python
+from psi4_parser import parse
+
+result = parse(source)
+tree = result.tree
+tokens = result.tokens
+original = result.source
+```
+
+The result includes the same diagnostics as `validate()`. `source_span(node)`
+returns an exclusive-end character interval for an ANTLR token or rule context;
+`source_text(node)` returns its original text, including interior comments and
+physical newline spelling. Leading and trailing trivia remain in `result.source`.
+The CST and token text describe the prepared validation input; use these source
+helpers to locate original text. Recovered missing tokens without a source
+position raise `ValueError` when queried for a span.
+
+Pass text read with `Path.read_bytes().decode("utf-8")` to retain file line endings.
+
 ## Supported input
 
 The parser supports Python 3.15 statements and expressions alongside Psi4's
@@ -66,7 +87,8 @@ Robert Einhorn's Python 3.14 grammar in
 commit `b8da12293f626bc561e5c05c4011f5b5b5e778a8`. Their MIT copyright and license
 notices remain in the source files. Local adaptations integrate Psithon headers,
 update identifier support to Unicode 17, adjust generated-class imports, and
-handle malformed interpolation recovery. Python 3.15 extensions and static
+handle malformed interpolation recovery, and correct split interpolation-token
+positions. Python 3.15 extensions and static
 constraints are specified in the local Psithon grammars and were checked against
 CPython's grammar and syntax regression tests.
 
