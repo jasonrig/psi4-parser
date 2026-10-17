@@ -1,0 +1,3 @@
+class C:
+    class Base: pass
+    class Child[T](Base): pass

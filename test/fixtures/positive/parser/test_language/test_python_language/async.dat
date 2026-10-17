@@ -1,0 +1,3 @@
+async def run():
+    async with manager() as session:
+        return [x async for x in session]

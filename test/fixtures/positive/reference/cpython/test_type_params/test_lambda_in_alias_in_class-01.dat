@@ -1,0 +1,4 @@
+T = "global"
+class C:
+    T = "class"
+    type Alias = lambda: T

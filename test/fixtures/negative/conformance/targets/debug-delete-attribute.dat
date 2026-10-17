@@ -1,0 +1,2 @@
+if False:
+    del obj.__debug__

@@ -1,0 +1,2 @@
+class ClassA[X]:
+    def func(self, X): return X

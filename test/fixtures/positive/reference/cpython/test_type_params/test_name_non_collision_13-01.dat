@@ -1,0 +1,6 @@
+X = 1
+def outer():
+    def inner[X]():
+        global X
+        X = 2
+    return inner

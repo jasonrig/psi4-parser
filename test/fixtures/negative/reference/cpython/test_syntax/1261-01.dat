@@ -1,0 +1,3 @@
+match x x:
+  case list():
+      pass

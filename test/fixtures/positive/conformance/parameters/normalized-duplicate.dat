@@ -1,0 +1,2 @@
+if False:
+    def f(K, k): pass

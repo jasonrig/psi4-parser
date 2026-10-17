@@ -1,0 +1,6 @@
+molecule h2 {
+H
+H 1 0.74
+}
+set basis sto-3g
+energy('scf')

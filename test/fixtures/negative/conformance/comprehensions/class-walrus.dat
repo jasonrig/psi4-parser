@@ -1,0 +1,3 @@
+if False:
+    class C:
+        values = [(y := 0) for x in data]

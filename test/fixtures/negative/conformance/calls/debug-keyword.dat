@@ -1,0 +1,2 @@
+if False:
+    f(__debug__=1)

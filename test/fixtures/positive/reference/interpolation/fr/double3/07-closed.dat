@@ -1,0 +1,2 @@
+if False:
+ value=fr"""{(x:=1)}"""

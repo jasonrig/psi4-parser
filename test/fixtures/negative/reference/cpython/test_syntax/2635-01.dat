@@ -1,0 +1,1 @@
+type A[T: (x:=3)] = int

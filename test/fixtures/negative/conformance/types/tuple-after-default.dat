@@ -1,0 +1,2 @@
+if False:
+    type A[T=int,*Ts] = tuple[T,*Ts]

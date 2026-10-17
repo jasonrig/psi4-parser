@@ -1,0 +1,2 @@
+def foo[T](x, /, y, *, z=2):
+pass

@@ -1,0 +1,3 @@
+match ...:
+    case Class(a=_, a=_):
+        pass

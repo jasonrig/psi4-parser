@@ -1,0 +1,4 @@
+if False:
+    def outer():
+     x: y
+     global y

@@ -1,0 +1,4 @@
+if False:
+    match value:
+        case _ if condition: pass
+        case 1: pass

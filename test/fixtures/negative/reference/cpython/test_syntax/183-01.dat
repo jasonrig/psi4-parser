@@ -1,0 +1,5 @@
+if True:
+    print("Hello"
+
+if 2:
+   print(123))

@@ -1,0 +1,4 @@
+glb = "global"
+class X:
+    cls = "class"
+    def foo[T: glb, U: cls](self): ...

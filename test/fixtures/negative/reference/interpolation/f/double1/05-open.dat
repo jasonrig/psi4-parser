@@ -1,0 +1,2 @@
+if False:
+ value=f"{(lambda x:x)(1)}

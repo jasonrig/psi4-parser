@@ -1,0 +1,6 @@
+def outer():
+ basis named {
+assign cc-pvdz
+}
+ def inner():
+  nonlocal basisspec_psi4_yo__named

@@ -1,0 +1,2 @@
+def f(None=1):
+    pass

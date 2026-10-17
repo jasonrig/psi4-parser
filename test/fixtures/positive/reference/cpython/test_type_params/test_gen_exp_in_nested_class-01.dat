@@ -1,0 +1,6 @@
+from test.test_type_params import make_base
+
+class C[T]:
+    T = "class"
+    class Inner(make_base(T for _ in (1,)), make_base(T)):
+        pass

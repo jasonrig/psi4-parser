@@ -1,0 +1,2 @@
+if False:
+    type A[T, U] = tuple[T, U]

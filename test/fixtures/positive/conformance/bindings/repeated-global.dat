@@ -1,0 +1,5 @@
+if False:
+    def f():
+     global x
+     global x
+     print(x)

@@ -1,0 +1,3 @@
+match result:
+    case {'energy': e, **rest} if e < 0:
+        pass

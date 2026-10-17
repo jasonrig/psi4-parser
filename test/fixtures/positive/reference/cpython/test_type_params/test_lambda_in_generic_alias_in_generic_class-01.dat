@@ -1,0 +1,4 @@
+class C[T, U]:
+    T = "class"
+    U = "class"
+    type Alias[T] = lambda: (T, U)

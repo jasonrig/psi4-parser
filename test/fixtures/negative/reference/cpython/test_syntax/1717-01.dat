@@ -1,0 +1,5 @@
+match something:
+    case []:
+        ...
+    case {}:
+pass

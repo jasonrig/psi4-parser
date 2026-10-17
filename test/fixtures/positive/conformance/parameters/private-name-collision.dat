@@ -1,0 +1,3 @@
+if False:
+    class C:
+     def f(__x,x): pass

@@ -1,0 +1,4 @@
+def f(value):
+ match value:
+  case mod.Token:pass
+ global mod

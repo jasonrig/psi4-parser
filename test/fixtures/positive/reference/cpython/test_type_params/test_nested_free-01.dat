@@ -1,0 +1,7 @@
+def f():
+    T = str
+    class C:
+        T = int
+        class D[U](T):
+            x = T
+    return C

@@ -1,0 +1,2 @@
+if False:
+ value=tr"{(lambda x:x)(1)}

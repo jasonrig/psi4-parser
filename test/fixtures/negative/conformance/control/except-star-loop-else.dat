@@ -1,0 +1,6 @@
+if False:
+    for x in []:
+     try: pass
+     except* Exception:
+      for y in []: pass
+      else: break

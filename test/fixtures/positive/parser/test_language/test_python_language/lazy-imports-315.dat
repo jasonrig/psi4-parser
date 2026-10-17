@@ -1,0 +1,3 @@
+lazy import math
+lazy from math import sqrt
+lazy = 1

@@ -1,0 +1,2 @@
+if False:
+    del __debug__

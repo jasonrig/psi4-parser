@@ -1,0 +1,2 @@
+if False:
+    set docc [{1:2}, 3]

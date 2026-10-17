@@ -1,0 +1,4 @@
+if False:
+    def outer():
+     print(y)
+     global y

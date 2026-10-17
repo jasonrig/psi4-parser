@@ -1,0 +1,1 @@
+message = t"Energy: {energy:.8f}"

@@ -1,0 +1,15 @@
+memory 500 MiB
+
+molecule helium {
+    He 0.0 0.0 0.0
+}
+
+set {
+    basis sto-3g
+    scf_type pk
+    e_convergence 10
+    d_convergence 10
+}
+
+result = energy('scf')
+assert abs(result - (-2.807783957539974)) < 1.e-8

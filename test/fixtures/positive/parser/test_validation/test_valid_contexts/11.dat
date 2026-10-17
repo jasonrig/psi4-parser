@@ -1,0 +1,2 @@
+async def f():
+    callback = lambda x=await run(): x

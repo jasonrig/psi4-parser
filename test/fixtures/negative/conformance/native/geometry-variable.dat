@@ -1,0 +1,5 @@
+molecule {
+H
+H 1 r
+r=unknown
+}

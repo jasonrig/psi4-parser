@@ -1,0 +1,3 @@
+match ...:
+    case x | [_ as x] if x:
+        pass

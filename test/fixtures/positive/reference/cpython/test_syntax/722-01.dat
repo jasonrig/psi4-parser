@@ -1,0 +1,2 @@
+def g(*args, **kwargs):
+    print(args, sorted(kwargs.items()))

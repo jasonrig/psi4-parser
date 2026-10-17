@@ -1,0 +1,6 @@
+class ClassA[A]:
+    def funcB[B](self):
+        class ClassC[C]:
+            def funcD[D](self):
+                return lambda: (A, B, C, D)
+        return ClassC

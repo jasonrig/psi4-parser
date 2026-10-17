@@ -1,0 +1,6 @@
+def outer():
+ external charge {
+1.0 0.0 0.0 0.0
+}
+ def inner():
+  nonlocal charge

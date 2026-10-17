@@ -1,0 +1,3 @@
+if False:
+    if False:
+     lazy import math

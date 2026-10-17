@@ -1,0 +1,8 @@
+try:
+   pass
+except TypeError:
+   pass
+except TypeError:
+   pass
+except* ValueError:
+   pass

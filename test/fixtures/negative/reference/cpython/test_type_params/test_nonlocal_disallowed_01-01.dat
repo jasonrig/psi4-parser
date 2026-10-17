@@ -1,0 +1,5 @@
+def outer():
+    X = 1
+    def inner[X]():
+        nonlocal X
+    return X

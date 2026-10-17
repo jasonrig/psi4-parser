@@ -1,0 +1,2 @@
+if False:
+    set foo [1,2,]

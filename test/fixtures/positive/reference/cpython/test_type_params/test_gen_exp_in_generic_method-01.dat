@@ -1,0 +1,4 @@
+class C[T]:
+    T = "class"
+    def meth[U](x: (T for _ in (1,)), y: T):
+        pass

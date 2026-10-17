@@ -1,0 +1,4 @@
+if False:
+    class C:
+     def f(__x):
+      global x

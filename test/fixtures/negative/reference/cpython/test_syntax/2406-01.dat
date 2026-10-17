@@ -1,0 +1,3 @@
+match ...:
+  case {"spam": "eggs", "b": {**d, "ham": "bacon"}}:
+    ...

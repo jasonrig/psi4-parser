@@ -1,0 +1,6 @@
+molecule h2 {
+H
+H 1 0.74
+}
+set basis cc-pvdz
+energy('scf')

@@ -1,0 +1,2 @@
+if False:
+    values=[x for x in (lambda: (y:=1))()]

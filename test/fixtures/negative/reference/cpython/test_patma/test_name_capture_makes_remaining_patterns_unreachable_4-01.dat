@@ -1,0 +1,5 @@
+match ...:
+    case x:
+        pass
+    case _:
+        pass

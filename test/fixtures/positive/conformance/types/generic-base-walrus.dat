@@ -1,0 +1,2 @@
+if False:
+    class C((x:=Base)): pass

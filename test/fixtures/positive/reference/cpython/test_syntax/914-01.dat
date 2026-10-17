@@ -1,0 +1,7 @@
+def test():
+    try:
+        pass
+    finally:
+        for abc in range(10):
+            break
+    print(abc)

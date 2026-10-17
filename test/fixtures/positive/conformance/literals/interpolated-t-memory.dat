@@ -1,0 +1,2 @@
+if False:
+ value=t"""memory 500 MiB{1}"""

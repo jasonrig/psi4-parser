@@ -1,0 +1,1 @@
+f(x for x in L, y for y in L)

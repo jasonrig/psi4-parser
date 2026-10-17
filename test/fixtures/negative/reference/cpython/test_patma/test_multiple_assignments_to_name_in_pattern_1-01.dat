@@ -1,0 +1,3 @@
+match ...:
+    case {"k": a, "l": a}:
+        pass

@@ -1,0 +1,6 @@
+try:
+  pass
+except A, B, C as blech:
+  pass
+finally:
+  pass

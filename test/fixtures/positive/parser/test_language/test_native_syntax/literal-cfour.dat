@@ -1,0 +1,4 @@
+cfour {
+*CFOUR(CALC=CCSD)
+# literal solver content
+}

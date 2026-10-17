@@ -1,0 +1,4 @@
+if False:
+    try: pass
+    except: pass
+    except ValueError: pass

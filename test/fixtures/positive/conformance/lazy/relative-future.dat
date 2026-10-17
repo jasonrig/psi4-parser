@@ -1,0 +1,2 @@
+if False:
+ lazy from .__future__ import name

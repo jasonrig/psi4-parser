@@ -1,0 +1,2 @@
+try: pass
+except TypeError as name: raise from None

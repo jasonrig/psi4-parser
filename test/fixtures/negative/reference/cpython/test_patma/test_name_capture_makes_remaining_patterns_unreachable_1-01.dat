@@ -1,0 +1,5 @@
+match 42:
+    case x:
+        pass
+    case y:
+        pass

@@ -1,0 +1,1 @@
+from a import b, c as d; e = 1; None = 1

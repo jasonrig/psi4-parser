@@ -1,0 +1,4 @@
+if False:
+    try:
+     lazy import math
+    finally:pass

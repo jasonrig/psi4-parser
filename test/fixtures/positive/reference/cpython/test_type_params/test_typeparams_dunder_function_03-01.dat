@@ -1,0 +1,3 @@
+def func[A]():
+    pass
+func.__type_params__ = ()

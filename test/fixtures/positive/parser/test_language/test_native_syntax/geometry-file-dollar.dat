@@ -1,0 +1,3 @@
+molecule {
+from_file: $1geometry.xyz
+}

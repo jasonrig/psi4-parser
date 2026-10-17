@@ -1,0 +1,5 @@
+set globals {
+basis cc-pvdz
+docc [1,
+ 0, 0]
+}

@@ -1,0 +1,3 @@
+if False:
+    class C:
+     import math

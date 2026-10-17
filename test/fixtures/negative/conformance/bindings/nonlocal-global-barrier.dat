@@ -1,0 +1,7 @@
+if False:
+    def outer():
+     x=1
+     def middle():
+      global x
+      def inner():
+       nonlocal x

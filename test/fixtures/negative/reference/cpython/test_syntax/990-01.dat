@@ -1,0 +1,6 @@
+if a % 2 == 0:
+    pass
+else:
+    pass
+elif a % 2 == 1:
+    pass

@@ -1,0 +1,2 @@
+def f(it, *varargs, **kwargs):
+    return list(it)

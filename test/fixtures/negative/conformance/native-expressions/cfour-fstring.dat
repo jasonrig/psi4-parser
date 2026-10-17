@@ -1,0 +1,6 @@
+if False:
+ x=f"{
+ cfour {
+*CFOUR(CALC=CCSD)
+}
+ !q}"

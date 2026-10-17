@@ -1,0 +1,6 @@
+try:
+    something()
+except* A:
+    pass
+finally:
+pass

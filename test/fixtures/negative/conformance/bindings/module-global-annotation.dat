@@ -1,0 +1,4 @@
+if False:
+    def f():
+     global x
+     x: int

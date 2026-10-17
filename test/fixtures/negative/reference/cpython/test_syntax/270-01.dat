@@ -1,0 +1,1 @@
+with a as (x, *(y, z.d())): pass

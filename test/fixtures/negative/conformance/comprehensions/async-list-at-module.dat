@@ -1,0 +1,2 @@
+if False:
+    values = [x async for x in data]

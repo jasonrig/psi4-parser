@@ -1,0 +1,4 @@
+if False:
+    def outer():
+     def f()->x: pass
+     global x

@@ -1,0 +1,4 @@
+molecule {
+He 0 0 psi_hartree2ev
+psi_hartree2ev=1
+}

@@ -1,0 +1,1 @@
+async def f[T: ((x:= 3), int)](): pass

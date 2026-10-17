@@ -1,0 +1,7 @@
+def test():
+    try:
+        pass
+    finally:
+        def f():
+            return 42
+    print(f())

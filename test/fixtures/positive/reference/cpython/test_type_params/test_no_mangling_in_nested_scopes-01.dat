@@ -1,0 +1,15 @@
+from test.test_type_params import make_base
+
+class __X:
+    pass
+
+class Y[T: __X](
+    make_base(lambda: __X),
+    # doubly nested scope
+    make_base(lambda: (lambda: __X)),
+    # list comprehension
+    make_base([__X for _ in (1,)]),
+    # genexp
+    make_base(__X for _ in (1,)),
+):
+    pass

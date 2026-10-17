@@ -1,0 +1,9 @@
+x = "global"
+def outer():
+    x = "nonlocal"
+    class Cls:
+        type Alias = x
+        val = Alias.__value__
+        def meth[T: x](self, arg: x): ...
+        bound = meth.__type_params__[0].__bound__
+    return Cls

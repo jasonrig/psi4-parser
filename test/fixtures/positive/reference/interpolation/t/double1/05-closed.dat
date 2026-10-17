@@ -1,0 +1,2 @@
+if False:
+ value=t"{(lambda x:x)(1)}"

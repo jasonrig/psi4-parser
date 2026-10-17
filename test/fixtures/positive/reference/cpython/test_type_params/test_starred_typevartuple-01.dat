@@ -1,0 +1,2 @@
+default = tuple[int, str]
+type Alias[*Ts = *default] = Ts

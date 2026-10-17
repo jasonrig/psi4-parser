@@ -1,0 +1,4 @@
+molecule {
+He 0 0 r
+r=1
+}

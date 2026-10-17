@@ -1,0 +1,2 @@
+class C(metaclass=Meta, __debug__=42):
+    pass

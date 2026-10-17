@@ -1,0 +1,8 @@
+x = "global"
+def outer():
+    x = "nonlocal"
+    class Cls:
+        global x
+        type Alias = x
+    Cls.x = "class"
+    return Cls

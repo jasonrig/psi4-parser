@@ -1,0 +1,6 @@
+def outer():
+    class Cls:
+        global x
+        type Alias = x
+    Cls.x = "class"
+    return Cls

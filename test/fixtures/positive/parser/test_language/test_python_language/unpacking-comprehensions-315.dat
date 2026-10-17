@@ -1,0 +1,2 @@
+items = [*x for x in sequences]
+lookup = {**d for d in dictionaries}

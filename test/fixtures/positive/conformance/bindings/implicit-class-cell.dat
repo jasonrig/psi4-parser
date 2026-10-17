@@ -1,0 +1,4 @@
+if False:
+    class C:
+     def f():
+      nonlocal __class__

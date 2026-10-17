@@ -1,0 +1,6 @@
+class __Base:
+    def __init_subclass__(self, **kwargs):
+        self.kwargs = kwargs
+
+class Derived[T](__Base, __kwarg=1):
+    pass

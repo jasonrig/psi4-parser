@@ -1,0 +1,2 @@
+if False:
+    f = lambda x, y: x

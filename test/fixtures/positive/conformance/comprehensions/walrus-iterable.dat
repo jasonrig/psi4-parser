@@ -1,0 +1,3 @@
+if False:
+    data = []
+    values = [x for x in data]

@@ -1,0 +1,4 @@
+if False:
+    class C:
+     def f[__T]():
+      nonlocal _C__T

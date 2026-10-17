@@ -1,0 +1,4 @@
+def f(value):
+ match value:
+  case Token():pass
+ global Token

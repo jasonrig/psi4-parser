@@ -1,0 +1,3 @@
+cfour 123abc {
+*CFOUR(CALC=CCSD)
+}

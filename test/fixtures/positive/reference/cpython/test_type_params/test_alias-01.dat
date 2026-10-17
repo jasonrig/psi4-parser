@@ -1,0 +1,4 @@
+glb = "global"
+class X:
+    cls = "class"
+    type U = (glb, cls)

@@ -1,0 +1,6 @@
+if False:
+ molecule {
+1
+\x41
+He 0 0 0
+}

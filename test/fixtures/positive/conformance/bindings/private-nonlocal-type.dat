@@ -1,0 +1,6 @@
+if False:
+    def outer():
+     x=1
+     class C:
+      def f[__T]():
+       nonlocal x

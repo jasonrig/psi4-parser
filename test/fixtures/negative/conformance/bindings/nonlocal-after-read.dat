@@ -1,0 +1,6 @@
+if False:
+    def outer():
+        x = 1
+        def f():
+            print(x)
+            nonlocal x

@@ -1,0 +1,3 @@
+setscf{
+e_convergence 8
+}

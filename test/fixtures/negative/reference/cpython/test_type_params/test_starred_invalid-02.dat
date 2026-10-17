@@ -1,0 +1,1 @@
+type Alias[**P = *int] = int

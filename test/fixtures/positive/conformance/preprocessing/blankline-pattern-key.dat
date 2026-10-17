@@ -1,0 +1,6 @@
+if False:
+ match value:
+  case {"""a
+
+b""":1,"""c
+b""":2}:pass

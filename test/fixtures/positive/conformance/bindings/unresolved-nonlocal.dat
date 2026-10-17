@@ -1,0 +1,5 @@
+if False:
+    def outer():
+        missing = 1
+        def f():
+            nonlocal missing

@@ -1,0 +1,4 @@
+type X1[T = A] = T
+type X2[T = B] = T
+A = "A"
+B = "B"

@@ -1,0 +1,5 @@
+T = U = "global"
+class C:
+    T = "class"
+    U = "class"
+    type Alias[T] = lambda: (T, U)

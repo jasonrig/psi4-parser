@@ -1,0 +1,2 @@
+if False:
+    set docc [$a[1:2]]

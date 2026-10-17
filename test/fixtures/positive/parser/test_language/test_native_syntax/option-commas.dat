@@ -1,0 +1,4 @@
+set {
+basis 6-31G(d,p)
+e_convergence 1e-12,
+}

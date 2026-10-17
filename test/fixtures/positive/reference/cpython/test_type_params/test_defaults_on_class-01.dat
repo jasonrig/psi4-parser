@@ -1,0 +1,2 @@
+class C[T=int, **U=float, *V=None]:
+    pass

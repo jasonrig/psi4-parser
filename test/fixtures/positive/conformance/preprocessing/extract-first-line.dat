@@ -1,0 +1,2 @@
+if False:
+ subset=mol.extract_subsets(1)

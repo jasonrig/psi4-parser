@@ -1,0 +1,3 @@
+async def f():
+    async for item in values:
+        await run(item)

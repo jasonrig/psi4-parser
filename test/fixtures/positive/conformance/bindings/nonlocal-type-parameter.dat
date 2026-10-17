@@ -1,0 +1,5 @@
+if False:
+    def outer():
+     X=1
+     def inner[Y]():
+      nonlocal X

@@ -1,0 +1,3 @@
+__before = "before"
+class X[T]: pass
+__after = "after"

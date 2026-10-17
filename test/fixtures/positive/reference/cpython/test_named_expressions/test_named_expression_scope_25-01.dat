@@ -1,0 +1,5 @@
+a = 10
+def spam():
+    global a
+    (a := 20)
+spam()

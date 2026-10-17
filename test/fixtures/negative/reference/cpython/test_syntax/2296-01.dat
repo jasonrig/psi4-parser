@@ -1,0 +1,1 @@
+def f(*, x=lambda __debug__:0): pass

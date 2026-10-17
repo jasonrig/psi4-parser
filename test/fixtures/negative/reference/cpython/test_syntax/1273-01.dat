@@ -1,0 +1,3 @@
+match x:
+  case [y] if y > 0
+      pass

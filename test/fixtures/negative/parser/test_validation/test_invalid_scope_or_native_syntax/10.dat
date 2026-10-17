@@ -1,0 +1,3 @@
+async def outer():
+    def inner():
+        await run()

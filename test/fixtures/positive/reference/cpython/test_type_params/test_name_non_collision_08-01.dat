@@ -1,0 +1,3 @@
+class ClassA[X]:
+    def func(self):
+        return [X for X in [1, 2]]

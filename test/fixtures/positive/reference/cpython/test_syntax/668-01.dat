@@ -1,0 +1,7 @@
+import ast; ast.parse('''
+def f(
+    *, # type: int
+    a, # type: int
+):
+    pass
+''', type_comments=True)

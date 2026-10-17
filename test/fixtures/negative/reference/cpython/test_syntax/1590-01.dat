@@ -1,0 +1,6 @@
+if something:
+    pass
+elif something_else:
+    pass
+else:
+pass

@@ -1,0 +1,6 @@
+pcm {
+Units = Angstrom
+Medium {
+SolverType = IEFPCM
+  }
+}

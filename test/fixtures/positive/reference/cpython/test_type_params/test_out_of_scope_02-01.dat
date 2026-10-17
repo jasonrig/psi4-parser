@@ -1,0 +1,4 @@
+class ClassA[A]:
+    def funcB[B](self): ...
+
+    x = B

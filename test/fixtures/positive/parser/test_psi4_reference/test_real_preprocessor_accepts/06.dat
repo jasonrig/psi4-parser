@@ -1,0 +1,4 @@
+basis custom {
+assign cc-pvdz
+assign H aug-cc-pvdz
+}

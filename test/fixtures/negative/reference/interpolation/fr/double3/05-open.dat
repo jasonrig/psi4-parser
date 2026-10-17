@@ -1,0 +1,2 @@
+if False:
+ value=fr"""{(lambda x:x)(1)}

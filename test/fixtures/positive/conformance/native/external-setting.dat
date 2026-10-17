@@ -1,0 +1,4 @@
+if False:
+    external {
+basis cc-pvdz
+}

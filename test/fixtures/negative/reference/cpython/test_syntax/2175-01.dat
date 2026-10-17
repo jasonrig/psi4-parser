@@ -1,0 +1,4 @@
+from a import (
+  b,
+  c as ()
+)

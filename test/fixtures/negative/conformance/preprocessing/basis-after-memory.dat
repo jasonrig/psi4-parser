@@ -1,0 +1,4 @@
+memory 500 MiB
+basis custom {
+spherical
+}

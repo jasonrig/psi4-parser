@@ -1,0 +1,5 @@
+if False:
+ match value:
+  case {"""a#removed
+b""":1,"""c
+b""":2}:pass

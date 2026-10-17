@@ -1,0 +1,2 @@
+if False:
+    obj.__debug__ = 1

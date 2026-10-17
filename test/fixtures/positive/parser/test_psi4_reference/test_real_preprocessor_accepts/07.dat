@@ -1,0 +1,4 @@
+cfour {
+# literal content
+*CFOUR(CALC=CCSD)
+}

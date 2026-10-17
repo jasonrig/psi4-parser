@@ -1,0 +1,1 @@
+lambda x=(yield 1): x

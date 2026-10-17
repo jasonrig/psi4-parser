@@ -1,0 +1,3 @@
+match ...:
+    case MyClass(x, y=x):
+        pass

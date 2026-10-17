@@ -1,0 +1,5 @@
+class Outer:
+    __before = "before"
+    class Inner[T]:
+        __x = "inner"
+    __after = "after"

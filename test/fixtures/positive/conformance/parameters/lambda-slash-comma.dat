@@ -1,0 +1,2 @@
+if False:
+    f=lambda a=1,/,*,b: a

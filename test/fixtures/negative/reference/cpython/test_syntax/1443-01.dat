@@ -1,0 +1,4 @@
+try:
+   pass
+except TypeError as obj.attr:
+   pass

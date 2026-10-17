@@ -1,0 +1,3 @@
+match ...:
+    case {"a": _, "a": _}:
+        pass

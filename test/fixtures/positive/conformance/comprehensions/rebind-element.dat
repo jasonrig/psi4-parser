@@ -1,0 +1,2 @@
+if False:
+    values = [(y := 0) for x in data]

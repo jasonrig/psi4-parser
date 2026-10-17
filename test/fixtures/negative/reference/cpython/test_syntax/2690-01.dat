@@ -1,0 +1,1 @@
+type A[T: (await 3)] = int

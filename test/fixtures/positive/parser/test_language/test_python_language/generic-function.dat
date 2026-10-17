@@ -1,0 +1,2 @@
+def choose[T](x: T, /, *, fallback: T | None = None) -> T:
+    return x

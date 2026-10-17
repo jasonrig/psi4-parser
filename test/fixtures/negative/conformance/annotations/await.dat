@@ -1,0 +1,3 @@
+if False:
+    async def outer():
+     def f(x:await g()): pass

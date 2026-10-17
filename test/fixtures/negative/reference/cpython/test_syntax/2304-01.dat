@@ -1,0 +1,1 @@
+def f(**kwargs:(lambda __debug__:0)): pass

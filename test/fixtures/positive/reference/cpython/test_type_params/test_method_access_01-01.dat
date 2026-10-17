@@ -1,0 +1,4 @@
+class ClassA:
+    x = int
+    def func[T](self, a: x, b: T):
+        ...

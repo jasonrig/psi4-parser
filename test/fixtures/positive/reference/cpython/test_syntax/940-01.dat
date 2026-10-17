@@ -1,0 +1,8 @@
+def test():
+    try:
+        pass
+    finally:
+        for i in range(10):
+            def f():
+                return 42
+    print(f())

@@ -1,0 +1,2 @@
+class ClassA:
+    def func[_ClassA__A](self, __A): return __A

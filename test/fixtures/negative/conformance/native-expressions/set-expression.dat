@@ -1,0 +1,4 @@
+if False:
+ x=(
+ set scf,mp2 basis sto-3g
+ )

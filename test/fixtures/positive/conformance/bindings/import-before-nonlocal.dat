@@ -1,0 +1,5 @@
+def outer():
+ math=1
+ def inner():
+  import math
+  nonlocal math

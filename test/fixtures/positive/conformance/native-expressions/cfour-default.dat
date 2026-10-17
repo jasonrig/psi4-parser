@@ -1,0 +1,6 @@
+if False:
+ def f(x=(
+ cfour {
+*CFOUR(CALC=CCSD)
+}
+ )):pass

@@ -1,0 +1,4 @@
+class ClassA[A]():
+    pass
+ClassA.__type_params__ = ()
+params = ClassA.__type_params__

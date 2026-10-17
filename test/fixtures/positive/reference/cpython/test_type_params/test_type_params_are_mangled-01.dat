@@ -1,0 +1,4 @@
+from test.test_type_params import make_base
+
+class Foo[__T, __U: __T](make_base(__T), make_base(lambda: __T)):
+    param = __T

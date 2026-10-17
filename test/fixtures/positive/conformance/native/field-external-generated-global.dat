@@ -1,0 +1,5 @@
+def f():
+ global qmmm
+ external {
+1.0 0.0 0.0 0.0
+}

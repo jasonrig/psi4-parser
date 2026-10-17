@@ -1,0 +1,2 @@
+class C(x for x in L):
+    pass

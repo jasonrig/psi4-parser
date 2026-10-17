@@ -1,0 +1,4 @@
+if x:
+  pass
+elseif y:
+  pass

@@ -1,0 +1,1 @@
+for a, b, (c + 1, d()): pass

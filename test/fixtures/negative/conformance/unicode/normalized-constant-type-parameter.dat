@@ -1,0 +1,2 @@
+if False:
+    type Alias[Ｎｏｎｅ]=int

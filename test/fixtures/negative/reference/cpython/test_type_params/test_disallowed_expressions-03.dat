@@ -1,0 +1,1 @@
+type X = (await 42)

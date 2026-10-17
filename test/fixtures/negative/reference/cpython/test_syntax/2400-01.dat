@@ -1,0 +1,3 @@
+match ...:
+  case {"foo": 1, **double_star, "spam": "eggs"}:
+    ...

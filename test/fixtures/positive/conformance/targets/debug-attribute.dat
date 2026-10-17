@@ -1,0 +1,2 @@
+if False:
+    obj.debug = 1

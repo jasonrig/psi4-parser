@@ -1,0 +1,7 @@
+def func[T]():
+    T = "func"
+    def inner():
+        nonlocal T
+        T = "inner"
+    inner()
+    assert T == "inner"

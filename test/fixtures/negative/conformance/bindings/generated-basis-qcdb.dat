@@ -1,0 +1,5 @@
+def f():
+ basis named {
+assign cc-pvdz
+}
+ global qcdb

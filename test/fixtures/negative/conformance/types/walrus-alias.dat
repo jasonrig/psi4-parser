@@ -1,0 +1,2 @@
+if False:
+    type A = (x:=1)

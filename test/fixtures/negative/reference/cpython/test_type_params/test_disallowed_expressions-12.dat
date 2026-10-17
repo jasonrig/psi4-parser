@@ -1,0 +1,1 @@
+class X[T]([(x := 3) for _ in range(2)] and B): pass

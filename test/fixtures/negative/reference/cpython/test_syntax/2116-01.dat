@@ -1,0 +1,1 @@
+import a.y.z, b.y.z, c.y.z from b.y.z as bar

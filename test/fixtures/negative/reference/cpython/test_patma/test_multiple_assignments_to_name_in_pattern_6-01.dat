@@ -1,0 +1,3 @@
+match ...:
+    case a as a + 1:  # NAME and expression with no ()
+        pass

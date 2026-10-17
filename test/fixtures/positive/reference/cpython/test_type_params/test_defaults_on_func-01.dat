@@ -1,0 +1,2 @@
+def func[T=int, **U=float, *V=None]():
+    pass

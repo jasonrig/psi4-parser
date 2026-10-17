@@ -1,0 +1,6 @@
+for r in [0.7, 0.8]:
+    molecule h2 {
+H
+H 1 r
+}
+    energy('scf')

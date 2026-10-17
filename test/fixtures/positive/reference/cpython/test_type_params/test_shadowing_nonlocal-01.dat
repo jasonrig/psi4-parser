@@ -1,0 +1,7 @@
+def outer[T]():
+    T = "outer"
+    def inner():
+        nonlocal T
+        T = "inner"
+        return T
+    return lambda: T, inner

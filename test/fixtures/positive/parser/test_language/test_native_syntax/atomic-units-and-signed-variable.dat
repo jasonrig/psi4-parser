@@ -1,0 +1,6 @@
+molecule {
+H
+H 1 -r
+-r = 0.74
+units a.u.
+}
