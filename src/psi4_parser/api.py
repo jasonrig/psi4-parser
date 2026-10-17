@@ -1,6 +1,6 @@
 """Provide a thin entry point for the generated ANTLR parser."""
 
-from typing import override
+from typing import Literal, override
 
 from antlr4 import CommonTokenStream, InputStream, ParserRuleContext, Token
 from antlr4.error.ErrorListener import ErrorListener
@@ -26,6 +26,19 @@ class Diagnostic(BaseModel):
     message: str
 
 
+class NativePayload(BaseModel):
+    """Retain native data required in addition to the canonical Python lowering.
+
+    Attributes:
+        kind: Reader payload type or a compiler-generated anonymous basis marker.
+        text: Data after native preprocessing, or an empty basis marker.
+    """
+
+    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
+    kind: Literal["pcm", "from_file", "anonymous_basis", "external"]
+    text: str
+
+
 class ParseResult(BaseModel):
     """Expose ANTLR parsing results alongside the exact original source.
 
@@ -34,6 +47,13 @@ class ParseResult(BaseModel):
         tree: ANTLR concrete syntax tree; recovered input can contain error nodes.
         tokens: Complete validation token stream, including hidden-channel tokens.
         diagnostics: Lexer, parser and grammar-constraint errors.
+        python_source: Grammar-owned Python lowering, or None when unavailable.
+            Anonymous basis identifiers and generated external-geometry padding
+            are canonicalized for AST comparison. This is syntax-only lowering;
+            user statements and referenced data files are never executed or read.
+        native_data: Data retained by the grammar's native lowering callbacks.
+        input_span: Original-source interval of the job, excluding an output-log
+            wrapper. None is permitted for manually constructed legacy results.
         source_offsets: Original character offsets for validation-text boundaries.
             Tokens refer to prepared text; use source_span or source_text to access
             their original spelling. Offsets count Python string characters.
@@ -46,6 +66,9 @@ class ParseResult(BaseModel):
     tokens: CommonTokenStream
     diagnostics: tuple[Diagnostic, ...]
     source_offsets: tuple[int, ...]
+    python_source: str | None = None
+    native_data: tuple[NativePayload, ...] = ()
+    input_span: tuple[int, int] | None = None
 
     def source_span(self, node: ParserRuleContext | Token) -> tuple[int, int]:
         """Return an original-source interval with an exclusive end offset.
@@ -122,6 +145,11 @@ def parse(source: str) -> ParseResult:
         tokens=tokens,
         diagnostics=tuple(errors.items),
         source_offsets=lexer.source_offsets,
+        python_source=parser.python_source,
+        input_span=lexer.input_span,
+        native_data=tuple(
+            NativePayload(kind=kind, text=text) for kind, text in parser.native_payloads
+        ),
     )
 
 

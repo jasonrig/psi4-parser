@@ -1684,6 +1684,7 @@ class PsithonLexer(PsithonLexerBase):
         """Prepare validation text and map its character boundaries to raw source."""
         source = stream.getText(0, stream.size - 1)
         self.original_source = source
+        self.input_span = (0, len(source))
         if not self.native_input:
             self.source_offsets = tuple(range(len(source) + 1))
             return stream
@@ -1724,6 +1725,7 @@ class PsithonLexer(PsithonLexerBase):
                 index + 1 for index, char in enumerate(source) if char == "\n"
             ]
             first, last = starts[start], starts[stop]
+            self.input_span = (offsets[first], offsets[last])
             offsets = [offsets[starts[index]] for index in range(start)] + offsets[
                 first : last + 1
             ]

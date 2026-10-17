@@ -52,11 +52,41 @@ The result includes the same diagnostics as `validate()`. `source_span(node)`
 returns an exclusive-end character interval for an ANTLR token or rule context;
 `source_text(node)` returns its original text, including interior comments and
 physical newline spelling. Leading and trailing trivia remain in `result.source`.
+`input_span` locates the job section when the source is a Psi4 output log.
 The CST and token text describe the prepared validation input; use these source
 helpers to locate original text. Recovered missing tokens without a source
 position raise `ValueError` when queried for a span.
 
 Pass text read with `Path.read_bytes().decode("utf-8")` to retain file line endings.
+
+## Formatting and AST access
+
+```python
+from psi4_parser import build_ast, format_source, verify_format
+
+formatted = format_source(source)
+verify_format(source, formatted)
+program = build_ast(source)  # Python AST plus retained native data
+```
+
+The formatter follows PEP 8 Python spacing and indentation within existing line
+breaks, aligns molecule and numeric-array columns and native option values, and
+puts one blank line around standalone native braced blocks between statements. It retains data rows, comments, literal spelling, and foreign
+solver payloads. Every result must pass validation, significant CST equality,
+AST comparison with verified molecule layout equivalence, and idempotence checks.
+Invalid input raises `InvalidInputError`; failed preservation checks raise
+`FormattingError`. Neither operation executes the input or requires Psi4.
+
+```sh
+uv run psi4-format input.dat             # formatted source on stdout
+uv run psi4-format --diff input.dat      # review changes
+uv run psi4-format --check input.dat     # exit 1 when formatting is needed
+uv run psi4-format --write input.dat     # verify, then replace the file
+```
+
+With no path, `psi4-format` reads UTF-8 standard input. Check, diff, and write
+modes accept multiple files. See the [style and equivalence contract](docs/formatting.md)
+for protected data, AST contents, and the limits of the preservation guarantee.
 
 ## Supported input
 

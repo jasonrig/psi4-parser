@@ -59,7 +59,10 @@ The complete projected job is recognized through another invocation of the same
 Python predicates and static checks. Its tree is private to validation; the
 returned mixed-source tree contains no generated wrappers. Normal parser validation
 uses no `eval`, `ast.parse`, `compile`, or Psi4 installation. The separate
-maintenance checks use reference compilation and AST comparisons.
+maintenance checks use reference compilation and AST comparisons. The separate
+public `build_ast()` API consumes the validated Python lowering through the
+standard `ast` module; formatting compares that AST together with retained native
+payloads and the original CST, allowing verified native molecule layout changes. See the [formatting contract](../docs/formatting.md).
 
 `native_expression` serves both standalone native statements and Python atoms.
 A single option or CFOUR call can therefore occur in a parenthesized expression,
@@ -111,3 +114,16 @@ changing the grammar. Update `.g4` sources, regenerate with
 `uv run psi4-regenerate`, and run the entire fixture suite with `PSI4_BINARY` and
 `PSI4_PYTHON` set. Keep upstream notices and provenance. Generated Python should
 never receive a manual semantic fix.
+
+Generation runs in a temporary directory and checks every expected artifact and
+both generated Python modules for syntax before replacing the working files.
+Compiler and generated-Python syntax failures leave the existing parser untouched;
+handwritten stubs and package files are retained. File publication is per artifact,
+not a transaction across the directory.
+
+ANTLR 4.13.2 treats embedded actions as target-language text using C/Java comment
+rules. It does not recognize Python `#` comments there: an unmatched apostrophe,
+quote, or brace in such a comment can confuse action-block scanning. Keep these
+characters balanced in action comments. This affects compiling `.g4` files only;
+it does not restrict comments in parsed Psithon inputs. See ANTLR's
+[`NESTED_ACTION` rule](https://github.com/antlr/antlr4/blob/4.13.2/tool/src/org/antlr/v4/parse/ANTLRLexer.g#L337-L402).

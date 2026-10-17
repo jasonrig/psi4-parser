@@ -44,6 +44,7 @@ def test_native_context_preserves_comments_and_crlf() -> None:
 
     assert not result.diagnostics
     assert result.source == source
+    assert result.input_span == (0, len(source))
     assert result.source_text(node) == block
     assert result.source_span(node) == (source.index("molecule"), source.index("}") + 1)
     assert result.tokens.fetchedEOF
@@ -147,6 +148,7 @@ def test_extracted_input_maps_to_original_log() -> None:
     assert result.source_text(node) == block
     assert result.source_span(node) == (source.index("molecule"), source.index("}") + 1)
     boundary = source.rindex(delimiter)
+    assert result.input_span == (source.index(block), boundary)
     assert result.source_span(eof) == (boundary, boundary)
 
 

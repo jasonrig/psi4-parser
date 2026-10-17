@@ -3282,9 +3282,13 @@ class PsithonParser ( Parser ):
 
     def psithon_molecule_python(self, spaces, name, body):
         """Render geometry wrappers without opening referenced molecule files."""
+        def from_file(match):
+            self.native_payloads += (("from_file", match.group(2)),)
+            return "\n"
+
         body = re.sub(
             r"^(\s*from_file\s*:\s*(.*)\n)$",
-            "\n",
+            from_file,
             body,
             flags=re.MULTILINE | re.IGNORECASE,
         )
@@ -3293,9 +3297,9 @@ class PsithonParser ( Parser ):
             result += ',"' + name + '"'
         return result + ")\n" + spaces + 'core.IO.set_default_namespace("' + name + '")'
 
-    def psithon_basis_python(self, node, spaces, role, name, body):
+    def psithon_basis_python(self, node, spaces, role, name, body, *, anonymous_name=None):
         """Render basis definitions with the reference assignment and label layout."""
-        name = name or "anonymous" + str(uuid.uuid4())[:8]
+        name = name or anonymous_name or "anonymous" + str(uuid.uuid4())[:8]
 
         def basname(value):
             return (
@@ -3376,7 +3380,7 @@ class PsithonParser ( Parser ):
         )
         return spaces + ("\n" + spaces).join(code)
 
-    def psithon_external_python(self, node, spaces, name, body):
+    def psithon_external_python(self, node, spaces, name, body, *, geometry_indent=None):
         """Render external potentials, preserving Python numeric and string syntax."""
         number = r"[+-]?(?:\d*\.\d+|\d+\.\d*)(?:[dDeE][+-]?\d+)?"
         lines = [line for line in body.split("\n") if line.strip()]
@@ -3403,6 +3407,10 @@ class PsithonParser ( Parser ):
                     fitting = match.group(2)
             else:
                 remaining.append(line)
+        # Native geometry semantics do not include indentation inserted by this
+        # wrapper. AST mode retains the original body separately and canonicalizes
+        # only that generated padding; the ordinary reference projection is exact.
+        geometry_spaces = spaces if geometry_indent is None else geometry_indent
         result = spaces + "qmmm = QMMM()\n"
         lines, remaining = remaining, []
         charge = re.compile(
@@ -3439,12 +3447,12 @@ class PsithonParser ( Parser ):
         for fragment in fragments:
             if not fragment:
                 continue
-            result += spaces + 'external_diffuse = geometry("""\n' + spaces + "0 1\n"
+            result += spaces + 'external_diffuse = geometry("""\n' + geometry_spaces + "0 1\n"
             for line in fragment:
                 if molecule_line.fullmatch(line) is None:
                     self.psithon_error(node, "unrecognized external-potential line")
                 else:
-                    result += spaces + line + "\n"
+                    result += geometry_spaces + line + "\n"
             for line in [
                 "units " + units,
                 "symmetry c1",
@@ -3452,7 +3460,7 @@ class PsithonParser ( Parser ):
                 "no_com",
                 '""")',
             ]:
-                result += spaces + line + "\n"
+                result += geometry_spaces + line + "\n"
             result += (
                 spaces
                 + "diffuse = Diffuse(external_diffuse,'"
@@ -3511,8 +3519,9 @@ class PsithonParser ( Parser ):
                     return False
         return not stack
 
-    def psithon_project(self, root, source):
+    def psithon_project(self, root, source, *, for_ast=False):
         """Apply ordered syntactic rewrites from the pinned Psi4 preprocessor."""
+        self.native_payloads = ()
         projection = source, list(range(len(source)))
         flags = re.MULTILINE | re.DOTALL | re.IGNORECASE
         literals = {}
@@ -3611,17 +3620,27 @@ class PsithonParser ( Parser ):
             re.compile(r"^(\s*?)molecule[=\s]*(\S*?)\s*\{(.*?)\}", flags),
             lambda match: self.psithon_molecule_python(*match.groups()),
         )
+        def external(match):
+            self.native_payloads += (("external", match.group(3)),)
+            return self.psithon_external_python(
+                root, *match.groups(), geometry_indent="" if for_ast else None
+            )
+
         projection = self.psithon_project_replace(
             projection,
             re.compile(r"^(\s*?)external[=\s]*(\w*?)\s*\{(.*?)\}", flags),
-            lambda match: self.psithon_external_python(root, *match.groups()),
+            external,
         )
         # Solver values are repr(list[str]); their contents cannot change the wrapper.
         pcm_python = "parsedFile = os.path.join(os.getcwd(), '@pcmsolver.syntax')\nwith open(parsedFile, 'w') as tmp:\n    tmp.write('\\n'.join([]))\n\ncore.set_local_option('PCM', 'PCMSOLVER_PARSED_FNAME', '@pcmsolver.syntax')\n\n"
+        def pcm(match):
+            self.native_payloads += (("pcm", match.group(3)),)
+            return pcm_python
+
         projection = self.psithon_project_replace(
             projection,
             re.compile(r"^(\s*?)pcm[=\s]*(\w*?)\s*\{(.*?)^\}", flags),
-            lambda match: pcm_python,
+            pcm,
         )
         projection = self.psithon_project_replace(
             projection, re.compile(r"\n+"), lambda match: "\n"
@@ -3670,13 +3689,33 @@ class PsithonParser ( Parser ):
             re.compile(r"(\s*?)memory\s+(\d*\.?\d+)\s*([KMGTPBE]i?B)", re.IGNORECASE),
             memory,
         )
+        basis_index = 0
+        reserved_names = unicodedata.normalize("NFKC", source).casefold() if for_ast else ""
+
+        def basis(match):
+            nonlocal basis_index
+            anonymous = None
+            if not match.group(3):
+                self.native_payloads += (("anonymous_basis", ""),)
+            if for_ast and not match.group(3):
+                # Use fresh deterministic symbols so normalization cannot capture
+                # an explicit user binding or the function generated for a named basis.
+                while True:
+                    anonymous = "anonymous" + format(basis_index, "08x")
+                    basis_index += 1
+                    if anonymous not in reserved_names:
+                        break
+            return self.psithon_basis_python(
+                root, *match.groups(), anonymous_name=anonymous
+            )
+
         projection = self.psithon_project_replace(
             projection,
             re.compile(
                 r"^(\s*?)(basis_relativistic|df_basis_scf|df_basis_mp2|df_basis_cc|df_basis_sapt|df_basis_sad|df_basis_dct|basis)[=\s]*(\w*?)\s*\{(.*?)\}",
                 flags,
             ),
-            lambda match: self.psithon_basis_python(root, *match.groups()),
+            basis,
         )
 
         def restore(match):
@@ -3728,6 +3767,9 @@ class PsithonParser ( Parser ):
         """Defer Python context rules until the complete native rewrite is recognized."""
         return self._input.tokenSource.native_input
 
+    python_source = None
+    native_payloads = ()
+
     def psithon_validate_input(self, root):
         """Validate native fields, then recognize the complete projected Python job."""
         from psi4_parser._generated.PsithonLexer import PsithonLexer
@@ -3757,7 +3799,8 @@ class PsithonParser ( Parser ):
             return
         source = self._input.tokenSource._psithon_source
         self._psithon_original_source = source
-        projection, positions = self.psithon_project(root, source)
+        projection, positions = self.psithon_project(root, source, for_ast=True)
+        self.python_source = projection
         if self.getNumberOfSyntaxErrors():
             return
 

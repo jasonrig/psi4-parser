@@ -7,4 +7,5 @@ from psi4_parser.lexer_base import PsithonLexerBase
 class PsithonLexer(PsithonLexerBase):
     symbolicNames: ClassVar[list[str]]
     original_source: str
+    input_span: tuple[int, int]
     source_offsets: tuple[int, ...]
