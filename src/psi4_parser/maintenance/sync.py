@@ -28,7 +28,7 @@ from psi4_parser.maintenance.state import (
     refresh_inventories,
 )
 
-_DIRECTORIES = ("src", "grammar", "tests", "test")
+_DIRECTORIES = ("src", "grammar", "tests", "test", "typings")
 _FILES = ("pyproject.toml", "uv.lock")
 _BASELINE = Path("compatibility/psi4.json")
 _GRAMMAR = Path("grammar/PsithonParser.g4")

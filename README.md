@@ -88,6 +88,51 @@ With no path, `psi4-format` reads UTF-8 standard input. Check, diff, and write
 modes accept multiple files. See the [style and equivalence contract](docs/formatting.md)
 for protected data, AST contents, and the limits of the preservation guarantee.
 
+## Native job models
+
+Use the separate `psi4_parser.job` API to inspect, construct, and serialize native
+blocks. It contains Pydantic models, independently of `build_ast()`'s lowered
+Python representation:
+
+```python
+from psi4_parser.job import Job, emit_job, read_job
+
+job = read_job(source)
+document = job.model_dump_json()
+schema = Job.model_json_schema()
+restored = Job.model_validate_json(document)
+generated = emit_job(restored)
+```
+
+Discriminated unions describe native variants throughout the JSON Schema. Fields
+include descriptions and applicable structural constraints. JSON loading checks
+the document structure; `emit_job()` also validates the complete emitted Psithon
+and Python context. Neither operation executes Python or opens referenced files.
+Python-only portions remain source text; mixed Python templates expose their
+embedded native nodes as structured children.
+
+`Molecule` retains ordered Cartesian and Z-matrix records, symbolic variables,
+fragment boundaries, electronic states, ghost and isotope specifications, and
+geometry directives. `from_fragments()` composes fragments with an independent
+overall electronic state. `with_coordinates()` and `with_variable()` return new
+molecules while retaining atom identities and other records.
+
+`Molecule.from_file(path)` explicitly imports XYZ. Install the optional Open Babel
+extra to import other supported molecular file formats:
+
+```sh
+uv sync --locked --extra openbabel
+```
+
+Open Babel imports atom order, Cartesian positions, isotopic identity, and its
+resolved total charge and multiplicity, which may include backend defaults.
+It does not infer Psithon fragments from connectivity. Multi-molecule files are
+rejected. PCM/CFOUR configuration and Gaussian basis/ECP data remain explicit
+embedded-language payloads rather than Python syntax.
+
+See [constructing native jobs](docs/native-jobs.md) for a complete construction
+example, geometry edits, atom references, and serialization details.
+
 ## Supported input
 
 The parser supports Python 3.15 statements and expressions alongside Psi4's

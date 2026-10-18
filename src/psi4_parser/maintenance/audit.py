@@ -11,6 +11,7 @@ from antlr4.error.ErrorListener import ErrorListener
 
 from psi4_parser._generated.PsithonLexer import PsithonLexer
 from psi4_parser._generated.PsithonParser import PsithonParser
+from psi4_parser.job import Job, emit_job, read_job
 from psi4_parser.maintenance.reference import digest_python
 
 
@@ -123,6 +124,20 @@ def _projected_digest(source: str) -> tuple[str, list[str]]:
     return digest_python(projected), errors.messages
 
 
+def _native_roundtrip_error(source: str) -> str:
+    try:
+        original = read_job(source)
+        restored = Job.model_validate_json(original.model_dump_json())
+        if restored != original:
+            return "native AST JSON round trip differs"
+        emitted = emit_job(restored, validate=False)
+        if read_job(emitted) != original:
+            return "native AST Psithon round trip differs"
+    except ValueError as error:
+        return "native AST: " + str(error)
+    return ""
+
+
 def compare_cases(
     cases: list[_Case], references: dict[str, _Result]
 ) -> list[dict[str, str]]:
@@ -166,6 +181,10 @@ def compare_cases(
                         "error": "; ".join(errors) or "translated Python AST differs",
                     }
                 )
+        if case["expected"] and reference["digest"] and not reference["error"]:
+            native_error = _native_roundtrip_error(case["source"])
+            if native_error:
+                failures.append({"name": case["name"], "error": native_error})
     return failures
 
 

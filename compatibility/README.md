@@ -44,7 +44,10 @@ and documented defaults to that model.
 5. Check the *current supplied upstream checkout's* `tests/**/input.dat` files,
    including newly added inputs. Compare their translated Python ASTs with
    Psi4. Recheck reference acceptance for every curated CPython/interpolation
-   fixture. Missing dependencies and newly accepted negatives fail the run.
+   fixture. Require native job AST round trips through JSON and emitted Psithon
+   for accepted reference cases. Grammar-to-model coverage tests run with the
+   suite; the candidate also retains the optional backend's typing stubs.
+   Missing dependencies and newly accepted negatives fail the run.
 6. Detect edits to this working tree made while verification was running. On
    success, replace the grammar and generated artifacts, publishing the new
    compatibility manifest last. Failed writes restore the previous artifacts.

@@ -2292,10 +2292,11 @@ molecule_block
 molecule_name
     : {self._input.LT(1).text.isidentifier()}? native_word
     ;
+// XYZ count/title records take priority over the permissive atom-line form.
 molecule_body
-    : D_NEWLINE* (molecule_line D_NEWLINE+)* molecule_line?
-    | D_NEWLINE* xyz_header D_NEWLINE literal_line? D_NEWLINE
+    : D_NEWLINE* xyz_header D_NEWLINE literal_line? D_NEWLINE
       (D_NEWLINE | atom_line D_NEWLINE)* atom_line?
+    | D_NEWLINE* (molecule_line D_NEWLINE+)* molecule_line?
     ;
 molecule_line
     : D_UNITS D_EQUALS* unit_name
@@ -2311,7 +2312,8 @@ molecule_line
     | atom_line
     ;
 xyz_header
-    : D_NUMBER native_word?
+    : {self._input.LT(1).text.isdecimal()}? D_NUMBER
+      ({self._input.LT(1).text.lower() in {"ang", "bohr", "au"}}? native_word)?
     ;
 charge_multiplicity
     : D_NUMBER D_COMMA? D_NUMBER

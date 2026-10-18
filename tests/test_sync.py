@@ -56,7 +56,7 @@ def _project(tmp_path: Path) -> Path:
     Returns:
         Minimal parser project with an accepted compatibility baseline.
     """
-    for directory in ("src", "grammar", "tests", "test", "compatibility"):
+    for directory in ("src", "grammar", "tests", "test", "compatibility", "typings"):
         (tmp_path / directory).mkdir()
     (tmp_path / "grammar/PsithonParser.g4").write_text(_GRAMMAR)
     generated = tmp_path / "src/psi4_parser/_generated"
