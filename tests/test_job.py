@@ -29,6 +29,7 @@ from psi4_parser.job import (
     Python,
     PythonTemplate,
     SetOptions,
+    Symmetry,
     Units,
     Variable,
     ZMatrix,
@@ -362,3 +363,28 @@ def test_coordinate_constraints_are_in_schema() -> None:
     anchors = fields["anchors"]
     assert isinstance(anchors, dict)
     assert anchors["maxItems"] == 3
+
+
+def test_molecule_reader_retains_symmetry_and_shared_parameter_references() -> None:
+    """Keep subgroup requests and shared bond definitions through read and edit."""
+    job = read_job(
+        "molecule water {\nO\nH 1 R\nH 1 R 2 A\n"
+        "R=0.96\nA=104.5\nsymmetry c2v\nno_com\nno_reorient\n}\n"
+    )
+    molecule = job.body[0]
+    assert isinstance(molecule, Molecule)
+    assert Symmetry(group="c2v") in molecule.records
+    changed = molecule.with_variable("R", Number(value="1.1"))
+    assert changed.atoms == molecule.atoms
+    assert tuple(
+        record for record in changed.records if not isinstance(record, GeometryVariable)
+    ) == tuple(
+        record
+        for record in molecule.records
+        if not isinstance(record, GeometryVariable)
+    )
+    for atom in changed.atoms[1:]:
+        assert isinstance(atom.coordinates, ZMatrix)
+        assert atom.coordinates.anchors[0].value == Variable(name="R")
+    restored = Job.model_validate_json(Job(body=(changed,)).model_dump_json())
+    assert read_job(emit_job(restored)) == restored

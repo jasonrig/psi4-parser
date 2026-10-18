@@ -74,6 +74,7 @@ To format input from Python:
 ```python
 from psi4_parser import format_source
 
+source = "set basis sto-3g\n"
 formatted = format_source(source)
 ```
 
@@ -90,6 +91,31 @@ Results are validated and checked for preservation before being returned or
 written. Invalid input raises `InvalidInputError`; a failed preservation check
 raises `FormattingError`. See the [formatting guide](docs/formatting.md) for the
 full style and the limits of these checks.
+
+## Compose jobs with Python
+
+Build inputs from reusable components and apply molecular transformations with
+pipelines. Nothing runs until you submit the generated input to Psi4.
+
+```python
+from psi4_parser.builder import JobSpec, Molecule, energy, molecule, options, render_job
+
+geometry = Molecule.from_xyz("2\nHydrogen\nH 0 0 0\nH 0 0 0.74\n")
+h2 = molecule("h2", geometry).with_comment("Hydrogen in a minimal basis.")
+job = JobSpec() | h2 | options(basis="sto-3g") | energy("scf", molecule=h2.ref)
+source = render_job(job)
+```
+
+`compose(h2, options(...), calculation)` and `h2 + options(...) + calculation`
+also build ordered jobs. Components and transformations return new values, so
+the originals can be reused. Use `with_comment(text)` to attach leading block
+comments; multiline comments stay with their component.
+
+The builder supports geometry edits, named Z-matrix parameters, fragments,
+optimization constraints, and all native block families. Method names and extra
+calculation arguments remain open. See [building jobs](docs/building-jobs.md)
+for functional examples, file imports, constraints, and saving specifications
+as JSON.
 
 ## Read and build jobs
 
@@ -141,6 +167,9 @@ Store jobs as JSON, restore them later, or export a JSON Schema for checking
 documents produced by other tools:
 
 ```python
+from psi4_parser.job import Job, emit_job, read_job
+
+job = read_job("set basis sto-3g\n")
 document = job.model_dump_json()
 schema = Job.model_json_schema()
 restored = Job.model_validate_json(document)
@@ -176,17 +205,16 @@ encode them.
 
 ### Import molecular files
 
-Use `Molecule.from_xyz(text)` for XYZ text or `Molecule.from_file(path)` for an XYZ
-file. To import other molecular formats, install the optional Open Babel support:
+Use `Molecule.from_xyz(text)` for XYZ text and `Molecule.from_file(path)` for
+molecular files. Molecular symmetry detection uses MolSym, and edits warn before
+lowering an incompatible computational symmetry request. Open Babel is included
+in the normal installation and provides
+support for additional file formats. Imports retain atom order, Cartesian
+positions, isotopes, and available electronic-state information. Files must
+contain one molecule; Psi4 fragments are declared explicitly.
 
-```sh
-uv sync --locked --no-dev --extra openbabel
-```
-
-Then pass the file to `Molecule.from_file(path)`. Imports retain atom order,
-Cartesian positions, isotopes, and Open Babel's resolved charge and multiplicity,
-which may include defaults inferred from the file. Files must contain one
-molecule; Psithon fragments must be specified separately.
+The builder exposes bond perception as an explicit import choice. See the
+[building guide](docs/building-jobs.md) for connectivity and state handling.
 
 ## Inspect source
 

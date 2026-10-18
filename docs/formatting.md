@@ -187,6 +187,7 @@ contract:
 ```python
 from psi4_parser import format_source, verify_format
 
+source = "set basis sto-3g\n"
 formatted = format_source(source)
 verify_format(source, formatted)
 ```

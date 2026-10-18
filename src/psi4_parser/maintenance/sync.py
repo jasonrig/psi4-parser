@@ -21,6 +21,7 @@ from psi4_parser._cli_types import DIRECTORY, EXECUTABLE, TIMEOUT
 from psi4_parser.maintenance.reference import PSI4_SOURCES
 from psi4_parser.maintenance.state import (
     Baseline,
+    InventoryReport,
     Snapshot,
     content_hash,
     guarded_changes,
@@ -374,7 +375,7 @@ def _synchronize(settings: Settings) -> Path:
             (candidate / _GRAMMAR).read_text(), snapshot
         )
         (candidate / _GRAMMAR).write_text(grammar)
-        inventory_report: dict[str, dict[str, list[str]]] = {
+        inventory_report: InventoryReport = {
             name: {"added": list(value.added), "removed": list(value.removed)}
             for name, value in inventories.items()
         }

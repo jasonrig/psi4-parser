@@ -16,6 +16,9 @@ import unicodedata
 from pathlib import Path
 from typing import Protocol, runtime_checkable
 
+# Source fingerprint label paired with its local path.
+type NamedSource = tuple[str, Path]
+
 PSI4_SOURCES = (
     "psi4/driver/inputparser.py",
     "psi4/driver/molutil.py",
@@ -127,9 +130,9 @@ def _profile(reference: _Psi4) -> dict[str, str]:
         "pcm.validation": "preprocessor boundary with controlled empty solver output",
     }
     root = Path(reference.__file__).parent.parent
-    paths: list[tuple[str, Path]] = [(name, root / name) for name in PSI4_SOURCES]
+    paths: list[NamedSource] = [(name, root / name) for name in PSI4_SOURCES]
     qcel_root = Path(qcel.__file__).parent
-    qcel_paths: list[tuple[str, Path]] = [
+    qcel_paths: list[NamedSource] = [
         ("qcelemental/" + str(path.relative_to(qcel_root)), path)
         for path in sorted((qcel_root / "molparse").rglob("*.py"))
     ]

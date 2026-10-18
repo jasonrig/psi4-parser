@@ -39,6 +39,19 @@ class InventoryChange(BaseModel):
     removed: tuple[str, ...]
 
 
+class InventoryDelta(TypedDict):
+    """Serialize one namespace table's added and removed names."""
+
+    added: list[str]
+    removed: list[str]
+
+
+type InventoryChanges = dict[str, InventoryChange]
+type InventoryReport = dict[str, InventoryDelta]
+# Updated grammar source together with the corresponding namespace changes.
+type RefreshedGrammar = tuple[str, InventoryChanges]
+
+
 def read_snapshot(text: str) -> Snapshot:
     """Decode and validate the reference's JSON snapshot.
 
@@ -102,9 +115,7 @@ def guarded_changes(previous: dict[str, str], current: dict[str, str]) -> list[s
     )
 
 
-def refresh_inventories(
-    grammar: str, snapshot: Snapshot
-) -> tuple[str, dict[str, InventoryChange]]:
+def refresh_inventories(grammar: str, snapshot: Snapshot) -> RefreshedGrammar:
     """Replace only the two grammar-owned namespace inventories.
 
     Args:
@@ -117,7 +128,7 @@ def refresh_inventories(
     Raises:
         ValueError: An inventory definition is missing or duplicated.
     """
-    changes: dict[str, InventoryChange] = {}
+    changes: InventoryChanges = {}
     for name, names in (
         ("CORE", snapshot["core_names"]),
         ("CONSTANT", snapshot["constant_names"]),

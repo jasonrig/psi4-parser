@@ -5,6 +5,9 @@ requires-python = ">=3.15"
 dependencies = [
     "antlr4-python3-runtime==4.13.2",
     "click>=8.5.0",
+    "molsym>=1.2.0",
+    "numpy>=2.5.4",
+    "openbabel>=3.2.1",
     "pydantic>=2.14.1",
     "pydantic-settings>=2.16.0",
 ]
@@ -14,11 +17,6 @@ psi4-parser = "psi4_parser.cli:main"
 psi4-sync = "psi4_parser.maintenance.sync:main"
 psi4-check-corpus = "psi4_parser.maintenance.corpus:main"
 psi4-regenerate = "psi4_parser.maintenance.generate:main"
-
-[project.optional-dependencies]
-openbabel = [
-    "openbabel>=3.2.1",
-]
 
 [dependency-groups]
 dev = [

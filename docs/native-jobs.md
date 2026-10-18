@@ -65,7 +65,7 @@ new molecules. For example, a dihedral represented by `Variable(name="D")`
 can be changed through its corresponding `GeometryVariable` declaration:
 
 ```python
-from psi4_parser.job import Number, read_job
+from psi4_parser.job import Molecule, Number, read_job
 
 molecule = read_job("""molecule {
 H
@@ -96,7 +96,7 @@ new IDs because Psithon does not encode them.
 records with explicit units. Its title is treated as a file comment. Explicit
 XYZ headers in existing Psithon remain available through `read_job()`.
 `Molecule.from_file(path)` imports XYZ directly and other formats through the
-optional `openbabel` extra. Open Babel imports resolved charge and multiplicity,
+included Open Babel support. Open Babel imports resolved charge and multiplicity,
 which may include backend defaults. It does not infer Psithon fragments from
 connectivity. Multi-molecule files are rejected.
 
@@ -108,6 +108,9 @@ retain their complete embedded language payloads.
 ## JSON and Python context
 
 ```python
+from psi4_parser.job import Job, read_job
+
+job = read_job("set basis sto-3g\n")
 document = job.model_dump_json()
 schema = Job.model_json_schema()
 restored = Job.model_validate_json(document)

@@ -9,7 +9,7 @@ from antlr4 import ParserRuleContext, Token
 from pydantic import BaseModel, ConfigDict
 
 from psi4_parser._tree import rule_name
-from psi4_parser.api import ParseResult
+from psi4_parser.api import ParseResult, SourceSpan
 
 _NUMBER = re.compile(r"[+-]?(?:\d[\d_]*(?:\.[\d_]*)?|\.[\d_]+)(?:[eEdD][+-]?[\d_]+)?\Z")
 _INTEGER = re.compile(r"[+-]?0[xXbBoO][\da-fA-F_]+\Z")
@@ -44,6 +44,15 @@ class Cell(BaseModel):
     start: int
     stop: int
     text: str
+
+
+# Table cells, before/after padding pairs, and consecutive syntax sections.
+type CellRow = list[Cell]
+type CellTable = list[CellRow]
+type CellPadding = tuple[int, int]
+type PaddingRow = list[CellPadding]
+type TablePadding = list[PaddingRow]
+type SyntaxSection = list[ParserRuleContext]
 
 
 def cell(
@@ -87,9 +96,7 @@ def numeric_anchor(text: str) -> int | None:
     return mantissa.index(".") if "." in mantissa else len(mantissa)
 
 
-def padding(
-    rows: Sequence[Sequence[Cell]], modes: Sequence[Alignment]
-) -> list[list[tuple[int, int]]]:
+def padding(rows: Sequence[Sequence[Cell]], modes: Sequence[Alignment]) -> TablePadding:
     """Compute before/after padding for ragged rows with shared columns.
 
     Number columns align decimal points when every populated field is numeric;
@@ -102,7 +109,7 @@ def padding(
     Returns:
         Left and right padding for each populated field.
     """
-    widths: list[tuple[int, int]] = []
+    widths: list[CellPadding] = []
     numeric: list[bool] = []
     for column, mode in enumerate(modes):
         texts = [row[column].text for row in rows if column < len(row)]
@@ -127,7 +134,7 @@ def padding(
             )
         else:
             widths.append((max(map(len, texts), default=0), 0))
-    result: list[list[tuple[int, int]]] = []
+    result: TablePadding = []
     for row in rows:
         pads = []
         for index, field in enumerate(row):
@@ -159,7 +166,7 @@ class Layout:
             initial: Base style edits, before table alignment overrides.
         """
         self.result: ParseResult = result
-        self.edits: dict[tuple[int, int], Edit] = {
+        self.edits: dict[SourceSpan, Edit] = {
             (edit.start, edit.stop): edit for edit in initial
         }
 
@@ -294,7 +301,7 @@ def tokens(result: ParseResult, node: ParserRuleContext) -> list[Token]:
 
 def sections(
     result: ParseResult, nodes: Iterable[ParserRuleContext]
-) -> list[list[ParserRuleContext]]:
+) -> list[SyntaxSection]:
     """Group consecutive records, retaining blank lines and comment-only boundaries.
 
     Args:
@@ -304,7 +311,7 @@ def sections(
     Returns:
         Independent sections of adjacent records.
     """
-    groups: list[list[ParserRuleContext]] = []
+    groups: list[SyntaxSection] = []
     for node in nodes:
         gap = ""
         if groups:

@@ -12,6 +12,9 @@ from psi4_parser._generated.PsithonLexer import PsithonLexer
 # noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
 
+# Half-open character offsets into the original input source.
+type SourceSpan = tuple[int, int]
+
 
 class Diagnostic(BaseModel):
     """Describe an ANTLR syntax error.
@@ -71,9 +74,9 @@ class ParseResult(BaseModel):
     source_offsets: tuple[int, ...]
     python_source: str | None = None
     native_data: tuple[NativePayload, ...] = ()
-    input_span: tuple[int, int] | None = None
+    input_span: SourceSpan | None = None
 
-    def source_span(self, node: ParserRuleContext | Token) -> tuple[int, int]:
+    def source_span(self, node: ParserRuleContext | Token) -> SourceSpan:
         """Return an original-source interval with an exclusive end offset.
 
         Args:

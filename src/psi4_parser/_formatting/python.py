@@ -42,6 +42,10 @@ _SIMPLE = frozenset(
 )
 
 
+# Closing-line indentation and the continuation column for one open delimiter.
+type ContinuationFrame = tuple[int, int]
+
+
 def format_python(layout: Layout) -> Layout:
     """Apply Python-specific whitespace before scientific table alignment.
 
@@ -170,7 +174,7 @@ def _continuations(layout: Layout, nodes: list[ParserRuleContext]) -> None:
         for token in context_tokens(layout.result, node)
     }
     # Each frame retains the closing-line indent and the continuation column.
-    frames: list[tuple[int, int]] = []
+    frames: list[ContinuationFrame] = []
     tokens = _python_tokens(layout, nodes)
     for index, token in enumerate(tokens):
         start = layout.result.source_span(token)[0]

@@ -30,6 +30,7 @@ from psi4_parser.job.molecule import (
     LabelReference,
     Molecule,
     MoleculeRecord,
+    NumericTriple,
     Symmetry,
     XYZHeader,
     ZMatrix,
@@ -171,7 +172,7 @@ def _atom(node: ParserRuleContext, atoms: list[Atom]) -> Atom:
 
 
 def _efp(node: ParserRuleContext) -> EFPFragment:
-    points: list[tuple[Number, Number, Number]] = []
+    points: list[NumericTriple] = []
     for triple in _children(node, "numeric_xyz"):
         x, y, z = _numbers(triple)
         points.append((x, y, z))

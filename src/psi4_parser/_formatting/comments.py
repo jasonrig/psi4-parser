@@ -3,6 +3,7 @@
 import re
 
 from antlr4 import ParserRuleContext, Token
+from pydantic import BaseModel, ConfigDict, Field
 
 # noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Layout, line_start, tokens
@@ -13,12 +14,28 @@ from psi4_parser._formatting.verification import xyz_title_span
 # noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
 from psi4_parser._tree import contexts, rule_name, terminals
+from psi4_parser.api import SourceSpan
 
 _NATIVE = frozenset({"molecule_block", "set_block", "basis_block"})
 _FOREIGN = frozenset({"external_block", "pcm_block", "cfour_block"})
 _OPENING = frozenset({"LPAR", "LSQB", "LBRACE", "D_LBRACKET", "D_LPAREN"})
 _CLOSING = frozenset({"RPAR", "RSQB", "RBRACE", "D_RBRACKET", "D_RPAREN"})
 _LAYOUT = frozenset({"NEWLINE", "D_NEWLINE", "INDENT", "DEDENT", "ENCODING"})
+
+
+# Scope start offset and indentation width used to choose the innermost scope.
+type ScopeIndent = tuple[int, int]
+
+
+class ContinuationRange(BaseModel):
+    """Locate a bracketed continuation and its standalone-comment indentation."""
+
+    model_config = ConfigDict(frozen=True, strict=True)
+    start: int = Field(description="Source offset after the opening delimiter.")
+    stop: int = Field(description="Source offset before the closing delimiter.")
+    indentation: int = Field(
+        description="Comment indentation within this continuation."
+    )
 
 
 def format_comments(layout: Layout) -> Layout:
@@ -76,9 +93,7 @@ def _line_end(source: str, position: int) -> int:
     )
 
 
-def _literal_ranges(
-    layout: Layout, nodes: list[ParserRuleContext]
-) -> list[tuple[int, int]]:
+def _literal_ranges(layout: Layout, nodes: list[ParserRuleContext]) -> list[SourceSpan]:
     result = layout.result
     ranges = [
         result.source_span(token)
@@ -107,7 +122,7 @@ def _indentation(
     layout: Layout,
     position: int,
     scopes: list[ParserRuleContext],
-    continuations: list[tuple[int, int, int]],
+    continuations: list[ContinuationRange],
 ) -> int:
     candidates = [(0, 0)]
     for scope in scopes:
@@ -125,16 +140,16 @@ def _indentation(
                 base = layout.indentation(layout.result.source_span(scope)[0])
                 candidates.append((start, base + 4))
     candidates.extend(
-        (start, width)
-        for start, stop, width in continuations
-        if start <= position < stop
+        (continuation.start, continuation.indentation)
+        for continuation in continuations
+        if continuation.start <= position < continuation.stop
     )
     return max(candidates)[1]
 
 
 def _python_scope(
     layout: Layout, scope: ParserRuleContext, position: int
-) -> tuple[int, int] | None:
+) -> ScopeIndent | None:
     result = layout.result
     body: ParserRuleContext | None = None
     for child in scope.getChildren():
@@ -176,7 +191,7 @@ def _python_scope(
     return start, layout.indentation(first)
 
 
-def _continuations(layout: Layout) -> list[tuple[int, int, int]]:
+def _continuations(layout: Layout) -> list[ContinuationRange]:
     result = layout.result
     significant = [
         token
@@ -185,14 +200,16 @@ def _continuations(layout: Layout) -> list[tuple[int, int, int]]:
         and token.type != Token.EOF
         and PsithonLexer.symbolicNames[token.type] not in _LAYOUT
     ]
-    frames: list[tuple[int, int]] = []
-    ranges: list[tuple[int, int, int]] = []
+    frames: list[ScopeIndent] = []
+    ranges: list[ContinuationRange] = []
     for index, token in enumerate(significant):
         symbol = PsithonLexer.symbolicNames[token.type]
         start, stop = result.source_span(token)
         if symbol in _CLOSING and frames:
             opening, width = frames.pop()
-            ranges.append((opening, start, width))
+            ranges.append(
+                ContinuationRange(start=opening, stop=start, indentation=width)
+            )
         elif symbol in _OPENING:
             following = significant[index + 1]
             position = result.source_span(following)[0]

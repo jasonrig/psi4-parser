@@ -37,7 +37,7 @@ from psi4_parser._formatting.verification import restore_molecule_layout
 # noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
 from psi4_parser._tree import contexts, rule_name
-from psi4_parser.api import ParseResult, parse
+from psi4_parser.api import ParseResult, SourceSpan, parse
 from psi4_parser.ast import InvalidInputError, build_ast
 
 _LAYOUT = frozenset({"INDENT", "DEDENT", "NEWLINE", "D_NEWLINE"})
@@ -125,7 +125,7 @@ class _ProtectedRanges:
     """Locate literal and foreign-data spans using the grammar's contexts."""
 
     def __init__(self, result: ParseResult) -> None:
-        ranges: list[tuple[int, int]] = []
+        ranges: list[SourceSpan] = []
         for node in contexts(result.tree):
             name = rule_name(node)
             if name in _LITERAL_RULES:
@@ -139,7 +139,7 @@ class _ProtectedRanges:
             for token in result.tokens.tokens
             if _symbol(token) in {"STRING", "D_STRING", "CFOUR_TEXT"}
         )
-        merged: list[tuple[int, int]] = []
+        merged: list[SourceSpan] = []
         for start, stop in sorted(ranges):
             if merged and start <= merged[-1][1]:
                 merged[-1] = (merged[-1][0], max(stop, merged[-1][1]))

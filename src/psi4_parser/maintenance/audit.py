@@ -33,6 +33,26 @@ class _Result(TypedDict):
     error: str
 
 
+class ReferenceInput(TypedDict):
+    """Send a case name and its source to the isolated reference worker."""
+
+    name: str
+    source: str
+
+
+class CaseFailure(TypedDict):
+    """Report the input name and concrete reason for a failed comparison."""
+
+    name: str
+    error: str
+
+
+type ReferenceResults = dict[str, _Result]
+type AuditFailures = list[CaseFailure]
+# Canonical Python digest and any projection diagnostics.
+type ProjectionOutcome = tuple[str, list[str]]
+
+
 class _Errors(ErrorListener):
     def __init__(self) -> None:
         self.messages: list[str] = []
@@ -83,9 +103,9 @@ def _cases(source: Path) -> list[_Case]:
 
 def _reference_results(
     python: Path, cases: list[_Case], report: Path
-) -> dict[str, _Result]:
+) -> ReferenceResults:
     worker = Path(__file__).with_name("reference.py")
-    payload: list[dict[str, str]] = [
+    payload: list[ReferenceInput] = [
         {"name": case["name"], "source": case["source"]} for case in cases
     ]
     requests = json.dumps("compile") + "\n"
@@ -114,7 +134,7 @@ def _reference_results(
     return results
 
 
-def _projected_digest(source: str) -> tuple[str, list[str]]:
+def _projected_digest(source: str) -> ProjectionOutcome:
     source = source.replace("\r\n", "\n").replace("\r", "\n")
     lexer = PsithonLexer(InputStream(source))
     errors = _Errors()
@@ -144,9 +164,7 @@ def _native_roundtrip_error(source: str) -> str:
     return ""
 
 
-def compare_cases(
-    cases: list[_Case], references: dict[str, _Result]
-) -> list[dict[str, str]]:
+def compare_cases(cases: list[_Case], references: ReferenceResults) -> AuditFailures:
     """Collect changed reference outcomes and upstream projection mismatches.
 
     Args:
@@ -156,7 +174,7 @@ def compare_cases(
     Returns:
         Concrete case names and failure details; an empty list indicates agreement.
     """
-    failures: list[dict[str, str]] = []
+    failures: AuditFailures = []
     for case in cases:
         reference = references[case["name"]]
         error_kind = reference["error"].split(":", 1)[0]

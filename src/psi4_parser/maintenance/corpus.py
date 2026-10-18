@@ -10,12 +10,15 @@ import click
 from psi4_parser import validate
 from psi4_parser._cli_types import DIRECTORY
 
+# Input path mapped to its parser diagnostics.
+type InputDiagnostics = dict[str, list[str]]
+
 
 class _Report(TypedDict):
     inputs: int
     accepted: int
     seconds: float
-    failures: dict[str, list[str]]
+    failures: InputDiagnostics
 
 
 @click.command()
@@ -38,7 +41,7 @@ def main(source: Path) -> None:
             "Psi4 source tree contains no tests/**/input.dat files"
         )
     started = time.monotonic()
-    failures: dict[str, list[str]] = {}
+    failures: InputDiagnostics = {}
     for path in files:
         errors = validate(path.read_text())
         if errors:

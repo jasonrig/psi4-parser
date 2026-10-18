@@ -4,11 +4,13 @@ from itertools import pairwise
 
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
+from pydantic import BaseModel, ConfigDict, Field
 
 # noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
     Alignment,
-    Cell,
+    CellRow,
+    CellTable,
     Layout,
     cell,
     inside_interpolation,
@@ -20,6 +22,29 @@ from psi4_parser._formatting.layout import (
 # noinspection PyProtectedMember
 from psi4_parser._formatting.verification import xyz_title_span
 from psi4_parser._tree import contexts, rule_name
+
+type AtomTables = dict[str, CellTable]
+
+
+class MoleculeRecords(BaseModel):
+    """Group coordinate tables separately from geometry-variable statements."""
+
+    model_config = ConfigDict(frozen=True, strict=True, arbitrary_types_allowed=True)
+    tables: AtomTables = Field(
+        description="Coordinate rows grouped by Cartesian, Z-matrix, or "
+        "numeric representation."
+    )
+    variables: list[ParserRuleContext] = Field(
+        description="Geometry-variable statements to align."
+    )
+
+
+class AtomFields(BaseModel):
+    """Associate an atom's table cells with its coordinate representation."""
+
+    model_config = ConfigDict(frozen=True, strict=True)
+    cells: CellRow = Field(description="Nucleus and coordinate cells in source order.")
+    kind: str = Field(description="Cartesian or Z-matrix table group.")
 
 
 def format_molecules(layout: Layout) -> Layout:
@@ -37,9 +62,9 @@ def format_molecules(layout: Layout) -> Layout:
         if rule_name(block) != "molecule_block" or inside_interpolation(block):
             continue
         base = layout.indentation(result.source_span(block)[0])
-        rows, variables = _records(layout, block, base)
-        _align_atoms(layout, rows)
-        _variables(layout, variables)
+        records = _records(layout, block, base)
+        _align_atoms(layout, records.tables)
+        _variables(layout, records.variables)
         for child in block.getChildren():
             if isinstance(child, TerminalNodeImpl) and child.getText() == "}":
                 layout.indent(result.source_span(child.getSymbol())[0], base)
@@ -47,11 +72,9 @@ def format_molecules(layout: Layout) -> Layout:
     return layout
 
 
-def _records(
-    layout: Layout, block: ParserRuleContext, base: int
-) -> tuple[dict[str, list[list[Cell]]], list[ParserRuleContext]]:
+def _records(layout: Layout, block: ParserRuleContext, base: int) -> MoleculeRecords:
     result = layout.result
-    rows: dict[str, list[list[Cell]]] = {"cartesian": [], "zmatrix": [], "numeric": []}
+    rows: AtomTables = {"cartesian": [], "zmatrix": [], "numeric": []}
     variables = []
     title = xyz_title_span(result, block)
     for node in contexts(block):
@@ -63,9 +86,9 @@ def _records(
             layout.indent(result.source_span(node)[0], base + 4)
             _metadata(layout, node)
         if name == "atom_line" and not (title is not None and stop < title[0]):
-            fields, kind = _atom_fields(layout, node)
-            rows[kind].append(fields)
-            layout.indent(fields[0].start, base + 4)
+            fields = _atom_fields(layout, node)
+            rows[fields.kind].append(fields.cells)
+            layout.indent(fields.cells[0].start, base + 4)
         elif name == "numeric_xyz":
             rows["numeric"].append(
                 [
@@ -76,10 +99,10 @@ def _records(
             )
         elif name == "geometry_variable":
             variables.append(node)
-    return rows, variables
+    return MoleculeRecords(tables=rows, variables=variables)
 
 
-def _align_atoms(layout: Layout, rows: dict[str, list[list[Cell]]]) -> None:
+def _align_atoms(layout: Layout, rows: AtomTables) -> None:
     for kind, records in rows.items():
         width = max(map(len, records), default=0)
         modes: list[Alignment] = ["left"]
@@ -105,7 +128,7 @@ def _align_atoms(layout: Layout, rows: dict[str, list[list[Cell]]]) -> None:
                 )
 
 
-def _atom_fields(layout: Layout, atom: ParserRuleContext) -> tuple[list[Cell], str]:
+def _atom_fields(layout: Layout, atom: ParserRuleContext) -> AtomFields:
     children = [
         child for child in atom.getChildren() if isinstance(child, ParserRuleContext)
     ]
@@ -124,7 +147,7 @@ def _atom_fields(layout: Layout, atom: ParserRuleContext) -> tuple[list[Cell], s
                     fields.append(cell(layout.result, part.getSymbol()))
         else:
             fields.append(cell(layout.result, child))
-    return fields, kind
+    return AtomFields(cells=fields, kind=kind)
 
 
 def _variables(layout: Layout, variables: list[ParserRuleContext]) -> None:

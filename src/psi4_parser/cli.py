@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Literal, Protocol, runtime_checkable
 
 import click
-from pydantic import JsonValue
+from pydantic import BaseModel, ConfigDict, Field, JsonValue
 
 from psi4_parser._cli_types import INPUT_FILE, OUTPUT_STREAM, SOURCE_FORMAT
 from psi4_parser.api import validate
@@ -18,6 +18,15 @@ from psi4_parser.formatting import FormattingError, format_source
 from psi4_parser.job import Job, emit_job, read_job
 
 type SourceFormat = Literal["psithon", "json"]
+
+
+class PreparedInput(BaseModel):
+    """Retain a formatting input and its verified replacement text."""
+
+    model_config = ConfigDict(frozen=True, strict=True)
+    path: Path = Field(description="Input path, or a dash for standard input.")
+    original: str = Field(description="Original input text.")
+    formatted: str = Field(description="Validated, formatted replacement text.")
 
 
 class _Failure(click.ClickException):
@@ -142,8 +151,7 @@ def show(path: Path) -> None:
     Args:
         path: Input file, or a dash for standard input.
     """  # noqa: D301 - Click uses a form feed to end CLI help.
-    _, _, after = _prepare(path)
-    _write(Path("-"), after)
+    _write(Path("-"), _prepare(path).formatted)
 
 
 @click.command(name="diff")
@@ -156,7 +164,8 @@ def diff(paths: tuple[Path, ...]) -> None:
     Args:
         paths: Input files, or a single dash for standard input.
     """  # noqa: D301 - Click uses a form feed to end CLI help.
-    for path, before, after in _prepare_all(paths):
+    for prepared in _prepare_all(paths):
+        path, before, after = prepared.path, prepared.original, prepared.formatted
         if before != after:
             _show_diff(_label(path), before, after)
 
@@ -177,7 +186,8 @@ def check(paths: tuple[Path, ...]) -> None:
         click.exceptions.Exit: At least one valid input needs formatting.
     """  # noqa: D301 - Click uses a form feed to end CLI help.
     changed = False
-    for path, before, after in _prepare_all(paths):
+    for prepared in _prepare_all(paths):
+        path, before, after = prepared.path, prepared.original, prepared.formatted
         if before != after:
             changed = True
             click.echo("Would reformat " + _label(path), err=True)
@@ -203,7 +213,8 @@ def write(paths: tuple[Path, ...]) -> None:
     """  # noqa: D301 - Click uses a form feed to end CLI help.
     if Path("-") in paths:
         raise click.UsageError("write requires file paths")
-    for path, before, after in _prepare_all(paths):
+    for prepared in _prepare_all(paths):
+        path, before, after = prepared.path, prepared.original, prepared.formatted
         if before != after:
             _write(path, after)
 
@@ -248,17 +259,19 @@ def _write(path: Path, source: str) -> None:
         raise _Failure(f"{path}: {error}") from error
 
 
-def _prepare_all(paths: tuple[Path, ...]) -> list[tuple[Path, str, str]]:
+def _prepare_all(paths: tuple[Path, ...]) -> list[PreparedInput]:
     inputs = paths or (Path("-"),)
     if len(inputs) > 1 and Path("-") in inputs:
         raise click.UsageError("Standard input must be the only input")
     return [_prepare(path) for path in inputs]
 
 
-def _prepare(path: Path) -> tuple[Path, str, str]:
+def _prepare(path: Path) -> PreparedInput:
     before = _read(path)
     try:
-        return path, before, format_source(before)
+        return PreparedInput(
+            path=path, original=before, formatted=format_source(before)
+        )
     except (InvalidInputError, FormattingError) as error:
         raise _Failure(f"{_label(path)}: {error}") from error
 

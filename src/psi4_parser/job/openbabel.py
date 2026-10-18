@@ -1,4 +1,4 @@
-"""Adapt explicit molecular-file imports through optional Open Babel bindings."""
+"""Adapt explicit molecular-file imports through Open Babel bindings."""
 
 from pathlib import Path
 
@@ -51,7 +51,7 @@ def _records(molecule: ob.OBMol) -> tuple[MoleculeRecord, ...]:
 def read_molecule(
     path: Path, *, file_format: str | None = None, name: str | None = None
 ) -> Molecule:
-    """Import one molecular file using an explicitly invoked optional backend.
+    """Import one molecular file using Open Babel.
 
     Open Babel interprets the file's chemical format. Atom order, isotopic
     identity, and Cartesian positions are imported without generating coordinates

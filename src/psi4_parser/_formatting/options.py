@@ -5,6 +5,7 @@ from itertools import pairwise
 
 from antlr4 import ParserRuleContext
 from antlr4.tree.Tree import TerminalNodeImpl
+from pydantic import BaseModel, ConfigDict, Field
 
 # noinspection PyProtectedMember
 from psi4_parser._formatting.arrays import NumericRow, align_segments, numeric_segments
@@ -12,6 +13,18 @@ from psi4_parser._formatting.arrays import NumericRow, align_segments, numeric_s
 # noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Layout, cell, inside_interpolation, sections
 from psi4_parser._tree import contexts, rule_name
+
+
+class OccupationVector(BaseModel):
+    """Retain wrapped numeric rows with their starting continuation column."""
+
+    model_config = ConfigDict(frozen=True, strict=True)
+    rows: list[NumericRow] = Field(
+        description="Physical segments of one occupation vector."
+    )
+    baseline: int = Field(
+        description="Column used to align corresponding vector entries."
+    )
 
 
 def format_options(layout: Layout) -> Layout:
@@ -86,13 +99,13 @@ def format_occupations(layout: Layout) -> Layout:
     """
     layout = layout.copy()
     for section in _option_sections(layout):
-        group: list[tuple[list[NumericRow], int]] = []
+        group: list[OccupationVector] = []
         for node in section:
             vector = _vector(layout, node)
             if vector is None or (
                 group
-                and tuple(map(_cell_count, group[-1][0]))
-                != tuple(map(_cell_count, vector[0]))
+                and tuple(map(_cell_count, group[-1].rows))
+                != tuple(map(_cell_count, vector.rows))
             ):
                 _align_occupations(layout, group)
                 group = []
@@ -107,16 +120,14 @@ def _cell_count(row: NumericRow) -> int:
     return len(row.cells)
 
 
-def _align_occupations(
-    layout: Layout, group: list[tuple[list[NumericRow], int]]
-) -> None:
+def _align_occupations(layout: Layout, group: list[OccupationVector]) -> None:
     if len(group) > 1:
-        align_segments(layout, [rows for rows, _ in group], baseline=group[0][1])
+        align_segments(
+            layout, [vector.rows for vector in group], baseline=group[0].baseline
+        )
 
 
-def _vector(
-    layout: Layout, node: ParserRuleContext
-) -> tuple[list[NumericRow], int] | None:
+def _vector(layout: Layout, node: ParserRuleContext) -> OccupationVector | None:
     children = [
         child for child in node.getChildren() if isinstance(child, ParserRuleContext)
     ]
@@ -130,7 +141,10 @@ def _vector(
         return None
     rows = numeric_segments(layout, arrays[0])
     return (
-        (rows, layout.column(layout.result.source_span(arrays[0])[0] + 1))
+        OccupationVector(
+            rows=rows,
+            baseline=layout.column(layout.result.source_span(arrays[0])[0] + 1),
+        )
         if rows
         else None
     )

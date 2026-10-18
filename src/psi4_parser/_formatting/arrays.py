@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 from psi4_parser._formatting.layout import (
     Alignment,
     Cell,
+    CellTable,
     Layout,
     cell,
     inside_interpolation,
@@ -191,7 +192,7 @@ def numeric_segments(layout: Layout, node: ParserRuleContext) -> list[NumericRow
     if not items or any(numeric_anchor(item.text) is None for item in items):
         return []
     source = layout.result.source
-    rows: list[list[Cell]] = []
+    rows: CellTable = []
     for item in items:
         if line_start(source, item.start) != line_start(source, item.stop):
             return []

@@ -258,6 +258,9 @@ class XYZHeader(Model):
     )
 
 
+type NumericTriple = tuple[Number, Number, Number]
+
+
 class EFPFragment(Model):
     """Specify an effective fragment using six coordinates or three points.
 
@@ -271,7 +274,7 @@ class EFPFragment(Model):
         description="Discriminator identifying the EFPFragment variant.",
     )
     name: str = Field(description="EFP fragment identifier.", min_length=1)
-    points: tuple[tuple[Number, Number, Number], ...] = Field(
+    points: tuple[NumericTriple, ...] = Field(
         min_length=2,
         max_length=3,
         description="Two numeric triples for placement, or three reference points.",
@@ -478,8 +481,8 @@ class Molecule(Model):
     ) -> Self:
         """Import a molecular file explicitly; source references remain unread.
 
-        XYZ uses the native grammar. Other formats use the optional Open Babel
-        extra and preserve the information that backend exposes to this adapter.
+        XYZ uses the native grammar. Other formats use Open Babel
+        and preserve the information that backend exposes to this adapter.
 
         Args:
             path: Molecular file explicitly selected for import.
@@ -490,23 +493,25 @@ class Molecule(Model):
             Molecule constructed from the file contents.
 
         Raises:
-            ImportError: A non-XYZ import requires the optional Open Babel extra.
+            ImportError: The required Open Babel dependency is unavailable.
             ModuleNotFoundError: The installed backend has a missing dependency.
             OSError: The selected XYZ file cannot be read.
             ValueError: Input is invalid or the backend does not support its format.
-        """  # noqa: DOC502 - File readers and the optional adapter raise these errors.
+        """  # noqa: DOC502 - File readers and the adapter raise these errors.
         input_format = (
             file_format if file_format is not None else path.suffix.removeprefix(".")
         )
         if input_format.casefold() == "xyz":
             return cls.from_xyz(path.read_text(encoding="utf-8"), name=name)
         try:
-            # The optional adapter is deliberately absent from normal AST imports.
+            # Load the file-format adapter only for non-XYZ imports.
             from psi4_parser.job.openbabel import read_molecule  # noqa: PLC0415
         except ModuleNotFoundError as error:
             if error.name not in {"openbabel", "openbabel.openbabel"}:
                 raise
-            raise ImportError("Install the openbabel extra for this format") from error
+            raise ImportError(
+                "Open Babel is required; reinstall psi4-parser dependencies"
+            ) from error
         molecule = read_molecule(path, file_format=input_format, name=name)
         return cls(name=molecule.name, records=molecule.records)
 

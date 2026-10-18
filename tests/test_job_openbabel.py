@@ -1,15 +1,10 @@
-"""Check optional molecular-file imports through the installed Open Babel API."""
+"""Check molecular-file imports through the installed Open Babel API."""
 
-from importlib.util import find_spec
 from pathlib import Path
 
 import pytest
 
 from psi4_parser.job import ElectronicState, Molecule
-
-pytestmark = pytest.mark.skipif(
-    find_spec("openbabel") is None, reason="Install the optional openbabel extra"
-)
 
 
 def test_import_isotopic_mol_file(tmp_path: Path) -> None:
