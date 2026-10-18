@@ -237,6 +237,8 @@ def test_partial_promotion_is_rolled_back(
         if target.name == "manifest" and not failed:
             failed = True
             raise OSError("disk full")
+        # PyCharm applies Path.replace's Self return to this plain function.
+        # noinspection PyTypeChecker
         return replace(path, target)
 
     monkeypatch.setattr(Path, "replace", fail_once)
@@ -421,6 +423,8 @@ def test_click_sync_preserves_launcher_names(
         return report
 
     monkeypatch.setattr(sync, "synchronize", synchronize)
+    # PyCharm treats Click-decorated commands as plain callback functions.
+    # noinspection PyTypeChecker
     result = CliRunner().invoke(
         sync.main,
         [
@@ -462,6 +466,7 @@ def test_click_rejects_nonpositive_timeout(timeout: str) -> None:
     Args:
         timeout: A nonpositive stage limit supplied on the command line.
     """
+    # noinspection PyTypeChecker
     result = CliRunner().invoke(sync.main, ["--timeout", timeout])
 
     assert result.exit_code == 2
@@ -483,7 +488,10 @@ def test_settings_load_prefixed_environment(
     monkeypatch.setenv("PSI4_SYNC_CHECK", "true")
     monkeypatch.setenv("TIMEOUT", "invalid unrelated value")
 
+    # Required paths come from the environment through pydantic-settings.
+    # noinspection PyArgumentList
     settings = sync.Settings()
+    # noinspection PyArgumentList
     overridden = sync.Settings(timeout=90)
 
     assert settings.project == tmp_path / "project"
@@ -519,6 +527,7 @@ def test_click_reports_model_validation_error(tmp_path: Path) -> None:
     Args:
         tmp_path: Existing directory satisfying the CLI's path checks.
     """
+    # noinspection PyTypeChecker
     result = CliRunner().invoke(
         sync.main,
         [

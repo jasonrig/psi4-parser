@@ -83,6 +83,6 @@ def build_ast(source: str | ParseResult) -> ProgramAST:
         raise ValueError("Parse result has no complete Python lowering")
     # Lexical warnings do not make already-validated input invalid. Do not emit
     # duplicate compiler warnings while a formatter constructs comparison trees.
-    with warnings.catch_warnings(action="ignore", category=SyntaxWarning):
+    with warnings.catch_warnings(record=False, action="ignore", category=SyntaxWarning):
         python = ast.parse(result.python_source, filename="<psithon>")
     return ProgramAST(python=python, native_data=result.native_data)

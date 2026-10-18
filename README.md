@@ -1,11 +1,11 @@
 # Psi4 parser
 
-A Python library and ANTLR 4 grammar for validating native Psi4 (**Psithon**)
-inputs, including embedded Python. Use it to check generated or handwritten jobs
-before submitting them to Psi4.
+Validate, format, and build native Psi4 (**Psithon**) input files from Python.
+Check handwritten or generated jobs before submitting them to Psi4, edit their
+molecules and settings, or save them as JSON for later use.
 
-Validation returns source diagnostics without executing the input. Psi4 and Java
-are not required to use the supplied parser.
+These operations do not execute the input or run calculations. Psi4 and Java are
+not required.
 
 ## Installation
 
@@ -15,7 +15,7 @@ Requires Python **3.15 or later**. From a checkout of this repository:
 uv sync --locked --no-dev
 ```
 
-## Usage
+## Validate input
 
 ```python
 from psi4_parser import validate
@@ -33,105 +33,171 @@ for diagnostic in diagnostics:
     print(f"{diagnostic.line}:{diagnostic.column}: {diagnostic.message}")
 ```
 
-`validate()` accepts input text and returns a tuple of immutable `Diagnostic`
-models. An empty tuple means the input passed validation. Each diagnostic has a
-one-based `line`, a zero-based `column`, and a `message`.
+`validate()` returns an empty tuple when the input passes validation. Otherwise,
+each diagnostic gives a one-based `line`, a zero-based `column`, and a `message`.
 
-For source-preserving CST access, use `parse()`:
+Validation checks native input syntax and embedded Python, including scope rules
+such as where `return` is allowed. Psi4 still checks whether the requested
+calculation is valid: available methods and options, molecular consistency,
+referenced files, basis/ECP data, and external solver settings.
 
-```python
-from psi4_parser import parse
-
-result = parse(source)
-tree = result.tree
-tokens = result.tokens
-original = result.source
-```
-
-The result includes the same diagnostics as `validate()`. `source_span(node)`
-returns an exclusive-end character interval for an ANTLR token or rule context;
-`source_text(node)` returns its original text, including interior comments and
-physical newline spelling. Leading and trailing trivia remain in `result.source`.
-`input_span` locates the job section when the source is a Psi4 output log.
-The CST and token text describe the prepared validation input; use these source
-helpers to locate original text. Recovered missing tokens without a source
-position raise `ValueError` when queried for a span.
-
-Pass text read with `Path.read_bytes().decode("utf-8")` to retain file line endings.
-
-## Formatting and AST access
-
-```python
-from psi4_parser import build_ast, format_source, verify_format
-
-formatted = format_source(source)
-verify_format(source, formatted)
-program = build_ast(source)  # Python AST plus retained native data
-```
-
-The formatter follows PEP 8 Python spacing and indentation within existing line
-breaks, aligns molecule and numeric-array columns and native option values, and
-puts one blank line around standalone native braced blocks between statements. It retains data rows, comments, literal spelling, and foreign
-solver payloads. Every result must pass validation, significant CST equality,
-AST comparison with verified molecule layout equivalence, and idempotence checks.
-Invalid input raises `InvalidInputError`; failed preservation checks raise
-`FormattingError`. Neither operation executes the input or requires Psi4.
+To validate a file from the command line:
 
 ```sh
-uv run psi4-format input.dat             # formatted source on stdout
-uv run psi4-format --diff input.dat      # review changes
-uv run psi4-format --check input.dat     # exit 1 when formatting is needed
-uv run psi4-format --write input.dat     # verify, then replace the file
+uv run psi4-parser validate input.dat
+uv run psi4-parser validate job.json --from json
 ```
 
-With no path, `psi4-format` reads UTF-8 standard input. Check, diff, and write
-modes accept multiple files. See the [style and equivalence contract](docs/formatting.md)
-for protected data, AST contents, and the limits of the preservation guarantee.
+Validation exits with 0 for valid input, 1 for invalid input, and 2 for usage or
+file errors. Diagnostics go to stderr; successful validation produces no output.
 
-## Native job models
+## Format input
 
-Use the separate `psi4_parser.job` API to inspect, construct, and serialize native
-blocks. It contains Pydantic models, independently of `build_ast()`'s lowered
-Python representation:
+```sh
+uv run psi4-parser format show input.dat    # print formatted source
+uv run psi4-parser format diff input.dat    # review changes
+uv run psi4-parser format check input.dat   # check formatting
+uv run psi4-parser format write input.dat   # verify, then replace the file
+```
+
+`show`, `diff`, and `check` read UTF-8 standard input when no path is given or the
+path is `-`. `diff`, `check`, and `write` accept multiple files; standard input
+must be used on its own. `write` requires file paths and verifies all inputs
+before replacing any files.
+
+`check` exits with 0 when formatting is unchanged, 1 when changes are needed, and
+2 when checking fails. `show`, `diff`, and `write` exit with 0 on success and 2 on
+failure.
+
+To format input from Python:
 
 ```python
-from psi4_parser.job import Job, emit_job, read_job
+from psi4_parser import format_source
 
-job = read_job(source)
+formatted = format_source(source)
+```
+
+The formatter applies PEP 8 spacing and indentation while retaining existing
+Python line breaks. It aligns molecule coordinates, numeric arrays, and option
+values, and separates standalone native blocks from neighboring statements with
+one blank line.
+
+Inline comments use two spaces before the hash and one space before their text.
+Standalone comments align with their enclosing scope. Comment wording, literal
+spelling, data rows, and embedded solver text are preserved. Exceptional comment
+gaps that affect Psi4's interpretation remain unchanged.
+Results are validated and checked for preservation before being returned or
+written. Invalid input raises `InvalidInputError`; a failed preservation check
+raises `FormattingError`. See the [formatting guide](docs/formatting.md) for the
+full style and the limits of these checks.
+
+## Read and build jobs
+
+Use `psi4_parser.job` to work with molecules, options, basis definitions, and
+other job components. Read an existing input with `read_job(source)`, or combine
+components into a new `Job`:
+
+```python
+from psi4_parser.job import (
+    Job,
+    Molecule,
+    OptionAssignment,
+    OptionExpression,
+    Python,
+    SetOptions,
+    emit_job,
+)
+
+molecule = Molecule.from_xyz(
+    "2\nHydrogen\nH 0 0 0\nH 0 0 0.74\n",
+    name="h2",
+)
+options = SetOptions(
+    assignments=(
+        OptionAssignment(key="basis", value=OptionExpression(source="sto-3g")),
+    ),
+)
+job = Job(body=(molecule, options, Python(source="energy('scf', molecule=h2)")))
+generated = emit_job(job)
+```
+
+`emit_job()` returns input text after validating the complete job, including its
+Python statements. It raises `JobSyntaxError` if the input is invalid. Writing a
+structured job regenerates native block layout. Comments attached to native
+syntax are not retained.
+
+Molecules support Cartesian and Z-matrix coordinates, symbolic variables,
+fragments, overall and fragment charge and multiplicity, ghosts, and isotopes.
+Use `Molecule.from_fragments()` to combine fragments, `with_coordinates()` to
+replace an atom's coordinates, or `with_variable()` to change a declared geometry
+parameter. Edits return a new molecule.
+
+See [constructing native jobs](docs/native-jobs.md) for geometry edits, atom
+references, constraints, and mixed Python/native jobs.
+
+### Save and load jobs
+
+Store jobs as JSON, restore them later, or export a JSON Schema for checking
+documents produced by other tools:
+
+```python
 document = job.model_dump_json()
 schema = Job.model_json_schema()
 restored = Job.model_validate_json(document)
 generated = emit_job(restored)
 ```
 
-Discriminated unions describe native variants throughout the JSON Schema. Fields
-include descriptions and applicable structural constraints. JSON loading checks
-the document structure; `emit_job()` also validates the complete emitted Psithon
-and Python context. Neither operation executes Python or opens referenced files.
-Python-only portions remain source text; mixed Python templates expose their
-embedded native nodes as structured children.
+Loading JSON checks the document structure. Call `emit_job()` to also check the
+complete input syntax and Python context. Reading and loading jobs do not open
+referenced geometry files or execute Python statements.
 
-`Molecule` retains ordered Cartesian and Z-matrix records, symbolic variables,
-fragment boundaries, electronic states, ghost and isotope specifications, and
-geometry directives. `from_fragments()` composes fragments with an independent
-overall electronic state. `with_coordinates()` and `with_variable()` return new
-molecules while retaining atom identities and other records.
-
-`Molecule.from_file(path)` explicitly imports XYZ. Install the optional Open Babel
-extra to import other supported molecular file formats:
+The CLI can convert between Psithon and the same job JSON, or export its schema:
 
 ```sh
-uv sync --locked --extra openbabel
+uv run psi4-parser convert input.dat --from psithon --to json -o job.json
+uv run psi4-parser convert job.json --from json --to psithon -o input.dat
+uv run psi4-parser schema -o job.schema.json
 ```
 
-Open Babel imports atom order, Cartesian positions, isotopic identity, and its
-resolved total charge and multiplicity, which may include backend defaults.
-It does not infer Psithon fragments from connectivity. Multi-molecule files are
-rejected. PCM/CFOUR configuration and Gaussian basis/ECP data remain explicit
-embedded-language payloads rather than Python syntax.
+Omit the input path or use `-` to read stdin. Output goes to stdout unless `-o`
+names a file; `-o -` also selects stdout. Conversion validates the complete job
+before writing any output and exits with 2 if conversion fails. For example,
+this pipeline validates the converted JSON without creating a file:
 
-See [constructing native jobs](docs/native-jobs.md) for a complete construction
-example, geometry edits, atom references, and serialization details.
+```sh
+uv run psi4-parser convert input.dat --from psithon --to json \
+    | uv run psi4-parser validate --from json
+```
+
+Conversion requires different input and output formats. A Psithon round trip
+regenerates native layout and omits syntax comments. Custom atom IDs are
+retained in JSON; reading Psithon assigns new IDs because the language does not
+encode them.
+
+### Import molecular files
+
+Use `Molecule.from_xyz(text)` for XYZ text or `Molecule.from_file(path)` for an XYZ
+file. To import other molecular formats, install the optional Open Babel support:
+
+```sh
+uv sync --locked --no-dev --extra openbabel
+```
+
+Then pass the file to `Molecule.from_file(path)`. Imports retain atom order,
+Cartesian positions, isotopes, and Open Babel's resolved charge and multiplicity,
+which may include defaults inferred from the file. Files must contain one
+molecule; Psithon fragments must be specified separately.
+
+## Inspect source
+
+`parse(source)` gives access to the input's syntax tree, tokens, original text,
+and diagnostics. Its `source_text(node)` and `source_span(node)` helpers locate
+the original text for a tree node or token, including comments and line endings.
+Read files with `Path.read_bytes().decode("utf-8")` to retain their line endings.
+
+For Python AST analysis, use `build_ast(source)`. See the
+[parser API details](grammar/README.md) for source access and
+the [formatting guide](docs/formatting.md) for AST contents and comparison.
 
 ## Supported input
 
@@ -144,11 +210,6 @@ native directives:
 - Basis and ECP blocks, memory directives, and external potentials.
 - Embedded PCM sections and literal CFOUR input.
 
-Validation checks syntax and static language constraints, including Python scope
-rules. Psi4 and its reader libraries remain responsible for option availability,
-molecular consistency, referenced files, basis/ECP contents, and external solver
-keyword schemas. Parser acceptance alone does not certify a valid calculation.
-
 The current compatibility target is Psi4 **1.12a1.dev43**, Python **3.15** syntax,
 and QCEElemental **0.51.3**. Exact versions and source fingerprints are recorded
 in the [compatibility manifest](compatibility/psi4.json).
@@ -160,12 +221,8 @@ The Python lexer/parser grammars and vendored
 Robert Einhorn's Python 3.14 grammar in
 [antlr/grammars-v4](https://github.com/antlr/grammars-v4/tree/b8da12293f626bc561e5c05c4011f5b5b5e778a8/python/python3_14),
 commit `b8da12293f626bc561e5c05c4011f5b5b5e778a8`. Their MIT copyright and license
-notices remain in the source files. Local adaptations integrate Psithon headers,
-update identifier support to Unicode 17, adjust generated-class imports, and
-handle malformed interpolation recovery, and correct split interpolation-token
-positions. Python 3.15 extensions and static
-constraints are specified in the local Psithon grammars and were checked against
-CPython's grammar and syntax regression tests.
+notices remain in the source files. Local adaptations add Psithon and Python 3.15
+support, checked against CPython's grammar and syntax regression tests.
 
 Native syntax was audited against Psi4 commit
 `60c9b2a773c05abc26991c5ed48cf9862cdb4978`, particularly its input preprocessor,

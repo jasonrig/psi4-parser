@@ -1,68 +1,211 @@
-"""Provide the verified Psithon formatter as a Click command."""
+"""Validate, convert, and format Psi4 inputs from the command line."""
 
 import difflib
+import json
 import stat
 import sys
 import tempfile
 from pathlib import Path
-from typing import Protocol, runtime_checkable
+from typing import Literal, Protocol, runtime_checkable
 
 import click
+from pydantic import JsonValue
 
+from psi4_parser._cli_types import INPUT_FILE, OUTPUT_STREAM, SOURCE_FORMAT
+from psi4_parser.api import validate
 from psi4_parser.ast import InvalidInputError
 from psi4_parser.formatting import FormattingError, format_source
+from psi4_parser.job import Job, emit_job, read_job
+
+type SourceFormat = Literal["psithon", "json"]
 
 
-@click.command()
-@click.argument(
-    "paths",
-    nargs=-1,
-    type=click.Path(exists=True, dir_okay=False, allow_dash=True, path_type=Path),
+class _Failure(click.ClickException):
+    """Distinguish an operation failure from a formatting difference."""
+
+    exit_code = 2
+
+
+@click.group()
+def main() -> None:
+    """Validate, convert, and format Psi4 jobs without running calculations."""
+
+
+@click.command(name="validate")
+@click.argument("path", type=INPUT_FILE, default="-")
+@click.option(
+    "--from", "input_format", type=SOURCE_FORMAT, default="psithon", show_default=True
 )
-@click.option("--check", is_flag=True, help="Exit 1 if an input needs formatting.")
-@click.option("--diff", "show_diff", is_flag=True, help="Show a unified diff.")
-@click.option("--write", is_flag=True, help="Replace files after all inputs verify.")
-def main(paths: tuple[Path, ...], *, check: bool, show_diff: bool, write: bool) -> None:
-    """Format Psithon files, or read UTF-8 input from stdin when no path is given.
+def validate_input(path: Path, input_format: SourceFormat) -> None:
+    """Check Psithon or AST JSON, including the complete job's Python syntax.
 
-    By default, write one formatted input to stdout. Use --check, --diff or
-    --write for multiple files. Verification always precedes any file changes.
+    Read standard input when PATH is omitted or is a dash. Exit 0 for valid
+    input, 1 for invalid input, and 2 for usage or file errors.
 
     \f
 
     Args:
-        paths: Files to format, with a single dash denoting standard input.
-        check: Check formatting without writing source.
-        show_diff: Show the proposed source changes.
-        write: Replace each changed file atomically, preserving its permissions.
+        path: Input file, or a dash for standard input.
+        input_format: Psithon source or the high-level job's JSON representation.
 
     Raises:
-        click.ClickException: Reading, verification or writing an input fails.
-        click.exceptions.Exit: Check mode finds an input that needs formatting.
+        click.ClickException: A JSON job has invalid structure or syntax.
+        click.exceptions.Exit: Psithon validation reports diagnostics.
     """  # noqa: D301 - Click separates CLI help from API documentation with a form feed.
-    inputs = _inputs(paths, check=check, show_diff=show_diff, write=write)
-    prepared = [_prepare(path) for path in inputs]
+    source = _read(path)
+    if input_format == "json":
+        try:
+            emit_job(Job.model_validate_json(source))
+        except ValueError as error:
+            raise click.ClickException(f"{_label(path)}: {error}") from error
+        return
+    diagnostics = validate(source)
+    for diagnostic in diagnostics:
+        click.echo(
+            f"{_label(path)}:{diagnostic.line}:{diagnostic.column}: "
+            f"{diagnostic.message}",
+            err=True,
+        )
+    if diagnostics:
+        raise click.exceptions.Exit(1)
+
+
+@click.command(name="convert")
+@click.argument("path", type=INPUT_FILE, default="-")
+@click.option("--from", "input_format", type=SOURCE_FORMAT, required=True)
+@click.option("--to", "output_format", type=SOURCE_FORMAT, required=True)
+@click.option("--output", "-o", type=OUTPUT_STREAM, default="-", show_default=True)
+def convert(
+    path: Path, input_format: SourceFormat, output_format: SourceFormat, output: Path
+) -> None:
+    """Convert between Psithon and high-level AST JSON after validating the job.
+
+    Read PATH or standard input and write to --output or standard output.
+    Conversion regenerates native layout and does not preserve syntax comments.
+
+    \f
+
+    Args:
+        path: Input file, or a dash for standard input.
+        input_format: Representation to read.
+        output_format: Representation to write.
+        output: Destination file, or a dash for standard output.
+
+    Raises:
+        click.UsageError: Input and output formats are the same.
+        _Failure: The job has invalid structure or syntax.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
+    if input_format == output_format:
+        raise click.UsageError("Choose different input and output formats")
+    source = _read(path)
+    try:
+        job = (
+            read_job(source)
+            if input_format == "psithon"
+            else Job.model_validate_json(source)
+        )
+        psithon = emit_job(job)
+        result = (
+            job.model_dump_json(indent=2) + "\n" if output_format == "json" else psithon
+        )
+    except ValueError as error:
+        raise _Failure(f"{_label(path)}: {error}") from error
+    _write(output, result)
+
+
+@click.command(name="schema")
+@click.option("--output", "-o", type=OUTPUT_STREAM, default="-", show_default=True)
+def schema(output: Path) -> None:
+    """Export the JSON Schema for high-level job documents.
+
+    \f
+
+    Args:
+        output: Destination file, or a dash for standard output.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
+    document: dict[str, JsonValue] = Job.model_json_schema()
+    _write(output, json.dumps(document, indent=2) + "\n")
+
+
+@click.group(name="format")
+def format_command() -> None:
+    """Show, diff, check, or write verified Psithon formatting."""
+
+
+@click.command(name="show")
+@click.argument("path", type=INPUT_FILE, default="-")
+def show(path: Path) -> None:
+    """Print formatted PATH, or read standard input when PATH is omitted.
+
+    \f
+
+    Args:
+        path: Input file, or a dash for standard input.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
+    _, _, after = _prepare(path)
+    _write(Path("-"), after)
+
+
+@click.command(name="diff")
+@click.argument("paths", nargs=-1, type=INPUT_FILE)
+def diff(paths: tuple[Path, ...]) -> None:
+    """Show formatting changes for files, or read standard input without paths.
+
+    \f
+
+    Args:
+        paths: Input files, or a single dash for standard input.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
+    for path, before, after in _prepare_all(paths):
+        if before != after:
+            _show_diff(_label(path), before, after)
+
+
+@click.command(name="check")
+@click.argument("paths", nargs=-1, type=INPUT_FILE)
+def check(paths: tuple[Path, ...]) -> None:
+    """Check formatting without writing files, or read standard input without paths.
+
+    Exit 0 when unchanged, 1 when formatting is needed, and 2 if checking fails.
+
+    \f
+
+    Args:
+        paths: Input files, or a single dash for standard input.
+
+    Raises:
+        click.exceptions.Exit: At least one valid input needs formatting.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
     changed = False
-    for path, before, after in prepared:
-        label = str(path) if path is not None else "stdin"
+    for path, before, after in _prepare_all(paths):
         if before != after:
             changed = True
-            if check:
-                click.echo("Would reformat " + label, err=True)
-            elif show_diff:
-                _show_diff(label, before, after)
-            elif write and path is not None:
-                try:
-                    _replace(path, after)
-                except OSError as error:
-                    raise click.ClickException(f"{label}: {error}") from error
-        if not any((check, show_diff, write)):
-            # TextIO.buffer is dynamically typed in typeshed; narrow its actual
-            # binary capability at this standard-library boundary.
-            buffer: object = sys.stdout.buffer
-            _binary_stream(buffer).write(after.encode("utf-8"))
-    if check and changed:
+            click.echo("Would reformat " + _label(path), err=True)
+    if changed:
         raise click.exceptions.Exit(1)
+
+
+@click.command(name="write")
+@click.argument("paths", nargs=-1, type=INPUT_FILE, required=True)
+def write(paths: tuple[Path, ...]) -> None:
+    """Replace files with formatted input after every input has verified.
+
+    Preserve file permissions and newline conventions. Standard input is not
+    accepted. Each changed file is replaced atomically.
+
+    \f
+
+    Args:
+        paths: Files to format in place.
+
+    Raises:
+        click.UsageError: Standard input is requested.
+    """  # noqa: D301 - Click uses a form feed to end CLI help.
+    if Path("-") in paths:
+        raise click.UsageError("write requires file paths")
+    for path, before, after in _prepare_all(paths):
+        if before != after:
+            _write(path, after)
 
 
 @runtime_checkable
@@ -73,61 +216,93 @@ class _BinaryStream(Protocol):
 
 def _binary_stream(stream: object) -> _BinaryStream:
     if not isinstance(stream, _BinaryStream):
-        raise click.ClickException("A binary standard stream is required")
+        raise _Failure("A binary standard stream is required")
     return stream
 
 
-def _inputs(
-    paths: tuple[Path, ...], *, check: bool, show_diff: bool, write: bool
-) -> tuple[Path | None, ...]:
-    if sum((check, show_diff, write)) > 1:
-        raise click.UsageError("Choose only one of --check, --diff and --write")
-    inputs = tuple(None if path == Path("-") else path for path in paths) or (None,)
-    if write and None in inputs:
-        raise click.UsageError("--write requires file paths")
-    if len(inputs) > 1 and None in inputs:
-        raise click.UsageError("Standard input must be the only input")
-    if len(inputs) > 1 and not any((check, show_diff, write)):
-        raise click.UsageError("Multiple files require --check, --diff or --write")
-    return inputs
+def _label(path: Path) -> str:
+    return "stdin" if path == Path("-") else str(path)
 
 
-def _prepare(path: Path | None) -> tuple[Path | None, str, str]:
-    label = str(path) if path is not None else "stdin"
+def _read(path: Path) -> str:
     try:
-        if path is None:
+        if path == Path("-"):
+            # TextIO.buffer is dynamically typed in typeshed; check its binary API.
             buffer: object = sys.stdin.buffer
             content = _binary_stream(buffer).read()
         else:
             content = path.read_bytes()
-        before = content.decode("utf-8")
+        return content.decode("utf-8")
+    except (OSError, UnicodeDecodeError) as error:
+        raise _Failure(f"{_label(path)}: {error}") from error
+
+
+def _write(path: Path, source: str) -> None:
+    try:
+        if path == Path("-"):
+            buffer: object = sys.stdout.buffer
+            _binary_stream(buffer).write(source.encode("utf-8"))
+        else:
+            _replace(path, source)
+    except OSError as error:
+        raise _Failure(f"{path}: {error}") from error
+
+
+def _prepare_all(paths: tuple[Path, ...]) -> list[tuple[Path, str, str]]:
+    inputs = paths or (Path("-"),)
+    if len(inputs) > 1 and Path("-") in inputs:
+        raise click.UsageError("Standard input must be the only input")
+    return [_prepare(path) for path in inputs]
+
+
+def _prepare(path: Path) -> tuple[Path, str, str]:
+    before = _read(path)
+    try:
         return path, before, format_source(before)
-    except (OSError, UnicodeDecodeError, InvalidInputError, FormattingError) as error:
-        raise click.ClickException(f"{label}: {error}") from error
+    except (InvalidInputError, FormattingError) as error:
+        raise _Failure(f"{_label(path)}: {error}") from error
 
 
 def _show_diff(label: str, before: str, after: str) -> None:
     lines = difflib.unified_diff(
-        before.splitlines(),
-        after.splitlines(),
+        before.splitlines(keepends=True),
+        after.splitlines(keepends=True),
         fromfile=label,
         tofile=label + " (formatted)",
-        lineterm="",
     )
-    click.echo("\n".join(lines))
+    delta = "".join(
+        line
+        if line.endswith(("\r", "\n"))
+        else line + "\n\\ No newline at end of file\n"
+        for line in lines
+    )
+    _write(Path("-"), delta)
 
 
 def _replace(path: Path, source: str) -> None:
     target = path.resolve()
+    mode = stat.S_IMODE(target.stat().st_mode) if target.exists() else None
     temporary: Path | None = None
     try:
         with tempfile.NamedTemporaryFile(
-            dir=target.parent, prefix=".psi4-format-", delete=False
+            dir=target.parent, prefix=".psi4-parser-", delete=False
         ) as stream:
-            temporary = Path(stream.name)
+            replacement = Path(stream.name)
+            temporary = replacement
             stream.write(source.encode("utf-8"))
-        temporary.chmod(stat.S_IMODE(target.stat().st_mode))
-        temporary.replace(target)
+        if mode is not None:
+            replacement.chmod(mode)
+        replacement.replace(target)
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+
+
+main.add_command(validate_input)
+main.add_command(convert)
+main.add_command(schema)
+main.add_command(format_command)
+format_command.add_command(show)
+format_command.add_command(diff)
+format_command.add_command(check)
+format_command.add_command(write)

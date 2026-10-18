@@ -8,6 +8,7 @@ from typing import TypedDict
 import click
 
 from psi4_parser import validate
+from psi4_parser._cli_types import DIRECTORY
 
 
 class _Report(TypedDict):
@@ -18,7 +19,7 @@ class _Report(TypedDict):
 
 
 @click.command()
-@click.argument("source", type=click.Path(exists=True, file_okay=False, path_type=Path))
+@click.argument("source", type=DIRECTORY)
 def main(source: Path) -> None:
     """Print the acceptance count and source diagnostics as a JSON report.
 

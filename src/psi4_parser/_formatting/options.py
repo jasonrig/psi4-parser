@@ -6,7 +6,10 @@ from itertools import pairwise
 from antlr4 import ParserRuleContext
 from antlr4.tree.Tree import TerminalNodeImpl
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.arrays import NumericRow, align_segments, numeric_segments
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Layout, cell, inside_interpolation, sections
 from psi4_parser._tree import contexts, rule_name
 
@@ -32,9 +35,8 @@ def _option_sections(layout: Layout) -> Iterator[list[ParserRuleContext]]:
         if rule_name(block) == "set_block" and not inside_interpolation(block):
             nodes = [
                 node
-                for node in block.getChildren()
-                if isinstance(node, ParserRuleContext)
-                and rule_name(node) == "option_assignment"
+                for node in block.getTypedRuleContexts(ParserRuleContext)
+                if rule_name(node) == "option_assignment"
             ]
             yield from sections(result, nodes)
 

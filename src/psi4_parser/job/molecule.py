@@ -416,7 +416,7 @@ class Molecule(Model):
             else record
             for record in self.records
         )
-        return type(self)(name=self.name, records=records)
+        return self.__class__(name=self.name, records=records)
 
     @classmethod
     def from_xyz(cls, source: str, *, name: str | None = None) -> Self:
@@ -448,14 +448,19 @@ class Molecule(Model):
             job = read_job("molecule {\n" + geometry + "\n}\n")
         except JobSyntaxError as error:
             raise ValueError("Invalid XYZ document: " + str(error)) from error
-        if len(job.body) != 1 or not isinstance(job.body[0], cls):
+        if len(job.body) != 1:
             raise ValueError("XYZ input must describe one molecule")
         molecule = job.body[0]
+        if not isinstance(molecule, Molecule):
+            raise ValueError("XYZ input must describe one molecule")
         records = molecule.records
+        header = records[0] if records else None
+        if not isinstance(header, XYZHeader):
+            raise ValueError(
+                "XYZ input requires a count, title, and Cartesian atom rows"
+            )
         if (
-            not records
-            or not isinstance(records[0], XYZHeader)
-            or int(records[0].count) != len(molecule.atoms)
+            int(header.count) != len(molecule.atoms)
             or len(records) != len(molecule.atoms) + 1
             or any(
                 not isinstance(atom.coordinates, Cartesian) for atom in molecule.atoms
@@ -464,7 +469,7 @@ class Molecule(Model):
             raise ValueError(
                 "XYZ input requires a count, title, and Cartesian atom rows"
             )
-        units = Units(name=records[0].units or "angstrom")
+        units = Units(name=header.units or "angstrom")
         return cls(name=name, records=(*molecule.atoms, units))
 
     @classmethod
@@ -529,4 +534,4 @@ class Molecule(Model):
             else record
             for record in self.records
         )
-        return type(self)(name=self.name, records=records)
+        return self.__class__(name=self.name, records=records)

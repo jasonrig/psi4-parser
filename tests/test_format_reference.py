@@ -25,6 +25,10 @@ _PYTHON = os.environ.get("PSI4_PYTHON")
         "cfour {\n # literal\n *CFOUR(CALC=CCSD)\n}\nx=1\n",
         "basis custom {\n assign H cc-pvdz\n}\n",
         "from __future__ import barry_as_FLUFL\nx=1<>2\n",
+        "set guess core    #  Keep this guess\nx=1 #note\nx=12#unchanged value\n",
+        "def f():\n  #before\n  x=1 #body\n  #after\n#root\nx=2\n",
+        "molecule h2 {\n#atoms\nH #first\nH 1 0.74\n}\n"
+        "set {\n#options\nbasis sto-3g #minimal\n}\n",
     ],
 )
 def test_reference_python_ast_is_preserved(source: str, tmp_path: Path) -> None:
@@ -37,14 +41,17 @@ def test_reference_python_ast_is_preserved(source: str, tmp_path: Path) -> None:
     _assert_reference_preservation(source, tmp_path)
 
 
-def _assert_reference_preservation(source: str, tmp_path: Path) -> None:
+def _assert_reference_preservation(
+    source: str, tmp_path: Path, *, python_ast: bool = True
+) -> None:
     assert _PYTHON is not None
     program = (
         "import ast, json, sys, psi4, qcelemental\n"
         "psi4.core.set_output_file('/dev/null', False)\n"
         "for source in json.loads(sys.stdin.read()):\n"
         "    code = psi4.process_input(source, print_level=0)\n"
-        "    compile(code, '<reference>', 'exec')\n"
+        "    if sys.argv[1] == 'python':\n"
+        "        compile(code, '<reference>', 'exec')\n"
         "    tree = ast.parse(code)\n"
         "    records = []\n"
         "    for node in ast.walk(tree):\n"
@@ -53,14 +60,19 @@ def _assert_reference_preservation(source: str, tmp_path: Path) -> None:
         "            records.append(qcelemental.molparse.from_string(\n"
         "                node.args[0].value, verbose=0))\n"
         "            node.args[0].value = '<verified molecule>'\n"
-        "    print(json.dumps([ast.dump(tree, include_attributes=False), records],\n"
+        "    if sys.argv[1] == 'python':\n"
+        "        output = [ast.dump(tree, include_attributes=False), records]\n"
+        "    else:\n"
+        "        assert records\n"
+        "        output = records\n"
+        "    print(json.dumps(output,\n"
         "          sort_keys=True, default=lambda value: value.tolist()))\n"
     )
 
     inputs = [source, format_source(source)]
     payload = json.dumps(inputs)
     result = subprocess.run(  # noqa: S603 - Supplied launcher and fixed analysis program.
-        [_PYTHON, "-c", program],
+        [_PYTHON, "-c", program, "python" if python_ast else "geometry"],
         input=payload,
         text=True,
         capture_output=True,
@@ -81,38 +93,8 @@ def test_generated_external_geometry_indentation(tmp_path: Path) -> None:
     Args:
         tmp_path: Isolated working directory for the reference process.
     """
-    assert _PYTHON is not None
     source = "if False:\n external {\nHe 0.0 0.0 0.0\n}\n"
-    program = (
-        "import ast, json, sys, psi4, qcelemental\n"
-        "psi4.core.set_output_file('/dev/null', False)\n"
-        "for source in json.loads(sys.stdin.read()):\n"
-        "    code = psi4.process_input(source, print_level=0)\n"
-        "    records = []\n"
-        "    for node in ast.walk(ast.parse(code)):\n"
-        "        if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)\n"
-        "                and node.func.id == 'geometry'):\n"
-        "            records.append(qcelemental.molparse.from_string(\n"
-        "                node.args[0].value, verbose=0))\n"
-        "    assert records\n"
-        "    print(json.dumps(records, sort_keys=True, default=lambda v: v.tolist()))\n"
-    )
-
-    inputs = [source, format_source(source)]
-    payload = json.dumps(inputs)
-    result = subprocess.run(  # noqa: S603 - Supplied launcher, no job execution.
-        [_PYTHON, "-c", program],
-        input=payload,
-        text=True,
-        capture_output=True,
-        check=False,
-        cwd=tmp_path,
-    )
-
-    assert result.returncode == 0, result.stderr
-    lines = result.stdout.splitlines()
-    assert len(lines) == 2, result.stdout
-    assert lines[0] == lines[1]
+    _assert_reference_preservation(source, tmp_path, python_ast=False)
 
 
 @pytest.mark.skipif(_PYTHON is None, reason="Set PSI4_PYTHON for reference checks")

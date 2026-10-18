@@ -3,8 +3,24 @@
 from collections.abc import Iterator
 
 from antlr4 import ParserRuleContext
+from antlr4.tree.Tree import TerminalNodeImpl
 
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
+
+
+def terminals(root: ParserRuleContext) -> Iterator[TerminalNodeImpl]:
+    """Visit a rule's direct terminal children in source order.
+
+    Args:
+        root: Rule whose own tokens are needed, excluding nested rule tokens.
+
+    Yields:
+        Each direct terminal child, including parser recovery error nodes.
+    """
+    for child in root.getChildren():
+        if isinstance(child, TerminalNodeImpl):
+            yield child
 
 
 def contexts(root: ParserRuleContext) -> Iterator[ParserRuleContext]:

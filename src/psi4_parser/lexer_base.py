@@ -5,6 +5,7 @@ from typing import TextIO, override
 
 from antlr4 import InputStream
 
+# noinspection PyProtectedMember
 from psi4_parser._vendor.PythonLexerBase import PythonLexerBase
 from psi4_parser.native import NativeLexerSupport
 

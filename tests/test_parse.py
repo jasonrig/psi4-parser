@@ -5,7 +5,11 @@ from antlr4 import CommonTokenStream, InputStream, ParserRuleContext, Token
 from antlr4.Token import CommonToken
 
 from psi4_parser import parse, validate
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
 
 

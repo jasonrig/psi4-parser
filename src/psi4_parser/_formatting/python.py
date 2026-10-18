@@ -5,16 +5,23 @@ from itertools import pairwise
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.arrays import numeric_segments
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
     Layout,
     cell,
     inside_interpolation,
     line_start,
 )
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import tokens as context_tokens
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
-from psi4_parser._tree import contexts, rule_name
+from psi4_parser._tree import contexts, rule_name, terminals
 
 _OPENING = frozenset({"LPAR", "LSQB", "LBRACE"})
 _CLOSING = frozenset({"RPAR", "RSQB", "RBRACE"})
@@ -152,8 +159,8 @@ def _continuations(layout: Layout, nodes: list[ParserRuleContext]) -> None:
         layout.result.source_span(child.getSymbol())[0]
         for node in nodes
         if rule_name(node) == "function_def_raw" and not inside_interpolation(node)
-        for child in node.getChildren()
-        if isinstance(child, TerminalNodeImpl) and child.getText() == "("
+        for child in terminals(node)
+        if child.getText() == "("
     }
     # Numeric literals retain the table pass's own continuation convention.
     tables = {

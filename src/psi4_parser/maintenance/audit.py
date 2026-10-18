@@ -9,7 +9,12 @@ import click
 from antlr4 import CommonTokenStream, InputStream
 from antlr4.error.ErrorListener import ErrorListener
 
+from psi4_parser._cli_types import DIRECTORY, EXECUTABLE, OUTPUT_FILE
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
 from psi4_parser.job import Job, emit_job, read_job
 from psi4_parser.maintenance.reference import digest_python
@@ -32,6 +37,7 @@ class _Errors(ErrorListener):
     def __init__(self) -> None:
         self.messages: list[str] = []
 
+    # noinspection PyPep8Naming
     @override
     def syntaxError(
         self,
@@ -192,16 +198,14 @@ def compare_cases(
 @click.option(
     "--source",
     required=True,
-    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    type=DIRECTORY,
 )
 @click.option(
     "--reference-python",
     required=True,
-    type=click.Path(exists=True, dir_okay=False, executable=True, path_type=Path),
+    type=EXECUTABLE,
 )
-@click.option(
-    "--report", required=True, type=click.Path(dir_okay=False, path_type=Path)
-)
+@click.option("--report", required=True, type=OUTPUT_FILE)
 def main(source: Path, reference_python: Path, report: Path) -> None:
     """Write a differential report for the synchronization runner.
 

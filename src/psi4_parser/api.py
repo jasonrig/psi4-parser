@@ -6,7 +6,10 @@ from antlr4 import CommonTokenStream, InputStream, ParserRuleContext, Token
 from antlr4.error.ErrorListener import ErrorListener
 from pydantic import BaseModel, ConfigDict
 
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
 
 
@@ -169,6 +172,7 @@ class _Errors(ErrorListener):
     def __init__(self) -> None:
         self.items: list[Diagnostic] = []
 
+    # noinspection PyPep8Naming
     @override
     def syntaxError(
         self,

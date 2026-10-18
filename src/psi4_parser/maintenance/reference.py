@@ -30,17 +30,12 @@ class _Core(Protocol):
     def set_output_file(self, filename: str, append: bool) -> None: ...
 
 
-class _Metadata(Protocol):
-    __version_long: str
-    __version_is_clean: str
-
-
 @runtime_checkable
 class _Psi4(Protocol):
     __file__: str
     __version__: str
     core: _Core
-    metadata: _Metadata
+    metadata: types.ModuleType
 
     def process_input(self, raw_input: str, print_level: int = 1) -> str: ...
 
@@ -110,14 +105,21 @@ def _reference() -> _Psi4:
     return module
 
 
+def _metadata_field(metadata: types.ModuleType, name: str) -> str:
+    value: object = getattr(metadata, name)
+    if not isinstance(value, str):
+        raise TypeError("Psi4 metadata field must be a string: " + name)
+    return value
+
+
 def _profile(reference: _Psi4) -> dict[str, str]:
     qcel: object = importlib.import_module("qcelemental")
     if not isinstance(qcel, _Qcelemental):
         raise TypeError("Reference interpreter does not expose QCEElemental metadata")
     profile = {
         "psi4.version": reference.__version__,
-        "psi4.version_long": reference.metadata.__version_long,
-        "psi4.clean": reference.metadata.__version_is_clean,
+        "psi4.version_long": _metadata_field(reference.metadata, "__version_long"),
+        "psi4.clean": _metadata_field(reference.metadata, "__version_is_clean"),
         "python.version": sys.version.split()[0],
         "python.language": f"{sys.version_info.major}.{sys.version_info.minor}",
         "python.unicode": unicodedata.unidata_version,
@@ -125,12 +127,13 @@ def _profile(reference: _Psi4) -> dict[str, str]:
         "pcm.validation": "preprocessor boundary with controlled empty solver output",
     }
     root = Path(reference.__file__).parent.parent
-    paths = [(name, root / name) for name in PSI4_SOURCES]
+    paths: list[tuple[str, Path]] = [(name, root / name) for name in PSI4_SOURCES]
     qcel_root = Path(qcel.__file__).parent
-    paths.extend(
+    qcel_paths: list[tuple[str, Path]] = [
         ("qcelemental/" + str(path.relative_to(qcel_root)), path)
         for path in sorted((qcel_root / "molparse").rglob("*.py"))
-    )
+    ]
+    paths.extend(qcel_paths)
     for name, path in paths:
         raw, semantic = source_fingerprints(path)
         profile["bytes:" + name] = raw
@@ -197,7 +200,9 @@ def main() -> None:
     # A JSON value is unknown until validated at this process boundary.
     request: str = sys.stdin.readline()
     mode: object = json.loads(request)
-    if not isinstance(mode, str) or mode not in {"snapshot", "compile"}:
+    if not isinstance(mode, str):
+        raise ValueError("Reference operation must be a string")
+    if mode not in {"snapshot", "compile"}:
         raise ValueError("Unknown reference operation: " + repr(mode))
     if mode == "compile":
         with contextlib.redirect_stdout(sys.stderr):

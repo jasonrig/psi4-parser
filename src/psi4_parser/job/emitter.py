@@ -57,7 +57,8 @@ def _scalar(value: Scalar) -> str:
             return value.value
         case Variable():
             return ("-" if value.negative else "") + value.name
-    assert_never(value)
+        case _:
+            assert_never(value)
 
 
 def _nucleus(nucleus: Nucleus) -> str:
@@ -71,7 +72,8 @@ def _nucleus(nucleus: Nucleus) -> str:
             return "Gh(" + label + ")"
         case "none":
             return label
-    assert_never(nucleus.ghost)
+        case _:
+            assert_never(nucleus.ghost)
 
 
 def _atom(record: Atom, indices: dict[str, int]) -> str:
@@ -147,7 +149,8 @@ def _record(record: MoleculeRecord, indices: dict[str, int]) -> str:
                     return "efp " + record.name + " " + position + " " + orientation
                 case _:
                     return "efp " + record.name + "\n" + "\n".join(points)
-    assert_never(record)
+        case _:
+            assert_never(record)
 
 
 def _block(header: str, rows: list[str], indentation: str) -> str:
@@ -163,7 +166,8 @@ def _option(value: OptionValue) -> str:
             return "$" + value.name
         case OptionArray():
             return "[" + "".join(map(_option, value.parts)) + "]"
-    assert_never(value)
+        case _:
+            assert_never(value)
 
 
 def _basis(node: Basis, indentation: str) -> str:

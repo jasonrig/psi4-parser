@@ -5,12 +5,15 @@ from itertools import pairwise
 
 from antlr4 import ParserRuleContext, Token
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
     Layout,
     inside_interpolation,
     line_start,
     tokens,
 )
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
 from psi4_parser._tree import contexts, rule_name
 

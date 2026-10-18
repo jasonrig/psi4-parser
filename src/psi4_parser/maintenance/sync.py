@@ -17,6 +17,7 @@ import click
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from psi4_parser._cli_types import DIRECTORY, EXECUTABLE, TIMEOUT
 from psi4_parser.maintenance.reference import PSI4_SOURCES
 from psi4_parser.maintenance.state import (
     Baseline,
@@ -416,26 +417,26 @@ def _synchronize(settings: Settings) -> Path:
 @click.command()
 @click.option(
     "--project",
-    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    type=DIRECTORY,
     default=Path(__file__).resolve().parents[3],
     show_default=True,
     help="Parser checkout to update.",
 )
 @click.option(
     "--source",
-    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    type=DIRECTORY,
     required=True,
     help="Clean Psi4 source checkout matching the supplied build.",
 )
 @click.option(
     "--reference-python",
-    type=click.Path(exists=True, dir_okay=False, executable=True, path_type=Path),
+    type=EXECUTABLE,
     required=True,
     help="Psi4 Python launcher; preserve its symlink basename.",
 )
 @click.option(
     "--binary",
-    type=click.Path(exists=True, dir_okay=False, executable=True, path_type=Path),
+    type=EXECUTABLE,
     required=True,
     help="Matching Psi4 job launcher.",
 )
@@ -443,7 +444,7 @@ def _synchronize(settings: Settings) -> Path:
 @click.option("--offline", is_flag=True, help="Use uv's local cache only.")
 @click.option(
     "--timeout",
-    type=click.FloatRange(min=0, min_open=True),
+    type=TIMEOUT,
     default=1800.0,
     show_default=True,
     help="Maximum seconds for each subprocess stage.",

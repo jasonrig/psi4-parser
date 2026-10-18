@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Generated and vendored code" pattern="file:src/psi4_parser/_generated//*||file:src/psi4_parser/_vendor//*" />
+</component>

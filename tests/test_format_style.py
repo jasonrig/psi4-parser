@@ -5,11 +5,26 @@ from collections.abc import Callable
 import pytest
 
 from psi4_parser import format_source, parse, verify_format
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.arrays import format_arrays
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.blocks import format_blocks
+
+# noinspection PyProtectedMember
+from psi4_parser._formatting.comments import format_comments
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Layout
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.molecules import format_molecules
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.options import format_occupations, format_options
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.python import format_python
 from psi4_parser.formatting import FormattingError
 
@@ -84,7 +99,7 @@ from psi4_parser.formatting import FormattingError
                 "set {\n"
                 "    basis  cc-pvdz\n"
                 "\n"
-                "# section\n"
+                "    # section\n"
                 "    e_convergence = 10\n"
                 "    x               1\n"
                 "}\n"
@@ -267,7 +282,7 @@ def test_from_file_trailing_spaces_remain_significant() -> None:
 
 
 def test_table_comments_and_literals_remain_exact() -> None:
-    """Preserve comment gaps and literal interiors around numeric formatting."""
+    """Normalize inline comment gaps while preserving text and literal interiors."""
     source = (
         "x=[\n[1,2],  # first row  \n[30,4]] # second row\n"
         'text="""H 0  0 0\n[[1,2],[30,4]]"""\n'
@@ -278,7 +293,7 @@ def test_table_comments_and_literals_remain_exact() -> None:
     actual = format_source(source)
 
     assert "],  # first row  \n" in actual
-    assert "]] # second row\n" in actual
+    assert "]]  # second row\n" in actual
     assert '"""H 0  0 0\n[[1,2],[30,4]]"""' in actual
     assert 'f"{[[1,2],[30,4]]=}"' in actual
     assert 't"{[[1,2],[30,4]]}"' in actual
@@ -290,6 +305,7 @@ def test_table_comments_and_literals_remain_exact() -> None:
         (format_python, "x=call(a,\nb)\n"),
         (format_molecules, "molecule {\nH\n}\n"),
         (format_blocks, "set {\na 1\n}\nset {\nb 2\n}\n"),
+        (format_comments, "x=1 #note\n"),
         (format_options, "set {\na 1\n}\n"),
         (format_arrays, "x=[[1],\n[20]]\n"),
         (format_occupations, "set {\ndocc [10]\nsocc [0]\n}\n"),

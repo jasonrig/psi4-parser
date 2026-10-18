@@ -8,11 +8,13 @@ from tempfile import TemporaryDirectory
 
 import click
 
+from psi4_parser._cli_types import DIRECTORY
+
 
 @click.command()
 @click.option(
     "--project",
-    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    type=DIRECTORY,
     default=Path(__file__).resolve().parents[3],
     show_default=True,
     help="Parser checkout containing grammar/.",

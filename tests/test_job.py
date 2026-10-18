@@ -56,8 +56,9 @@ def test_mixed_fragments_keep_states_variables_and_anchor_identity() -> None:
     molecule = job.body[0]
     assert isinstance(molecule, Molecule)
     assert molecule.name == "pair"
-    assert isinstance(molecule.records[0], ElectronicState)
-    assert molecule.records[0].multiplicity.value == "1"
+    state = molecule.records[0]
+    assert isinstance(state, ElectronicState)
+    assert state.multiplicity.value == "1"
     assert isinstance(molecule.records[1], FragmentSeparator)
     assert len(molecule.fragments) == 2
     assert all(fragment.state is not None for fragment in molecule.fragments)

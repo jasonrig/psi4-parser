@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Maintained code" pattern="!file:src/psi4_parser/_generated//*&amp;&amp;!file:src/psi4_parser/_vendor//*&amp;&amp;!file:grammar/PythonLexer.g4&amp;&amp;!file:grammar/PythonParser.g4&amp;&amp;!file:test/fixtures//*&amp;&amp;!file:.cache//*&amp;&amp;!file:dist//*&amp;&amp;!file:.venv//*" />
+</component>

@@ -24,11 +24,11 @@ present in the same Python suite**. This applies to transitions between native
 blocks and Python calculations, as well as between two native blocks. Missing
 separators are inserted; extra empty lines at those boundaries are collapsed.
 
-| Boundary between neighboring statements | Empty lines |
-| --- | --- |
-| Native braced block and native braced block | Exactly one |
-| Native braced block and Python statement, in either order | Exactly one |
-| Two Python statements, or an inline directive and a calculation | Preserve existing layout |
+| Boundary between neighboring statements                                  | Empty lines              |
+| ------------------------------------------------------------------------ | ------------------------ |
+| Native braced block and native braced block                              | Exactly one              |
+| Native braced block and Python statement, in either order                | Exactly one              |
+| Two Python statements, or an inline directive and a calculation          | Preserve existing layout |
 | Suite header and its first statement, or its last statement and a clause | Preserve existing layout |
 
 For example, both boundaries of this options block have one empty line:
@@ -115,7 +115,7 @@ Python whitespace follows [PEP 8](https://peps.python.org/pep-0008/) within the
 agreed physical rows. Numeric table alignment and source-sensitive text are
 explicit exceptions. Existing line breaks mean that line lengths, blank lines
 around Python definitions, import grouping, and same-line statements remain as
-written. Names, imports, comments and docstrings are not rewritten to enforce
+written. Names, imports, comment wording and docstrings are not rewritten to enforce
 non-formatting recommendations.
 
 - Assignment, binary arithmetic, comparison, and return-annotation operators have
@@ -136,8 +136,16 @@ non-formatting recommendations.
   joining them can trigger a different native rewrite.
 - Significant tokens keep their spelling, case and order: parentheses, commas,
   semicolons, quote choices, numeric spellings and statements remain intact.
-- Comments keep their text, physical attachment, and immediate preceding gap.
-  Psi4's preprocessing can consume the character before an unescaped `#`.
+- Inline comments have exactly two spaces between the statement and comment
+  marker, and one space between the hash and nonempty text. Standalone comments
+  align with their enclosing Python suite, native body, or continuation. There
+  is no extra padding before the marker. Comment wording, physical attachment,
+  and line breaks remain; an empty comment is a bare `#`. An initial shebang and
+  hashes within protected literals and foreign payloads retain their spelling.
+  Escaped comment markers retain their backslash.
+  Psi4's preprocessing consumes the character immediately before an unescaped
+  `#`. If that character is code, its existing gap is preserved: changing
+  `x=12# note` to `x=12  # note` would change the interpreted value from 1 to 12.
 - Ordinary strings, f-strings and t-strings retain their interior text, including
   debug and template expression text. Basis records, external-potential bodies,
   PCM and CFOUR payloads retain their exact original text, including indentation.
@@ -221,7 +229,8 @@ explicit style passes in this order:
 3. `_formatting/options.py`: option key/value starts.
 4. `_formatting/arrays.py`: numeric rows and wrapped segments.
 5. `_formatting/options.py`: corresponding occupation-vector columns.
-6. `_formatting/blocks.py`: blank lines around standalone native block statements.
+6. `_formatting/comments.py`: comment spacing and standalone scope alignment.
+7. `_formatting/blocks.py`: blank lines around standalone native block statements.
 
 Each pass returns an independent edit plan over the same read-only source and
 CST. Later, more specific passes own matching whitespace gaps. Shared field

@@ -5,6 +5,7 @@ from itertools import pairwise
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
     Alignment,
     Cell,
@@ -15,6 +16,8 @@ from psi4_parser._formatting.layout import (
     sections,
     tokens,
 )
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.verification import xyz_title_span
 from psi4_parser._tree import contexts, rule_name
 
@@ -114,19 +117,11 @@ def _atom_fields(layout: Layout, atom: ParserRuleContext) -> tuple[list[Cell], s
     )
     for child in children[1:]:
         if rule_name(child) == "anchor_pair":
-            parts = [
-                part
-                for part in child.getChildren()
-                if isinstance(part, ParserRuleContext)
-                or (isinstance(part, TerminalNodeImpl) and part.getText() != ",")
-            ]
-            fields.extend(
-                cell(
-                    layout.result,
-                    part if isinstance(part, ParserRuleContext) else part.getSymbol(),
-                )
-                for part in parts
-            )
+            for part in child.getChildren():
+                if isinstance(part, ParserRuleContext):
+                    fields.append(cell(layout.result, part))
+                elif isinstance(part, TerminalNodeImpl) and part.getText() != ",":
+                    fields.append(cell(layout.result, part.getSymbol()))
         else:
             fields.append(cell(layout.result, child))
     return fields, kind

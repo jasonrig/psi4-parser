@@ -7,14 +7,34 @@ from collections.abc import Iterator
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.arrays import format_arrays
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.blocks import format_blocks
+
+# noinspection PyProtectedMember
+from psi4_parser._formatting.comments import format_comments
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Edit as _Edit
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import Layout
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.molecules import format_molecules
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.options import format_occupations, format_options
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.python import format_python
+
+# noinspection PyProtectedMember
 from psi4_parser._formatting.verification import restore_molecule_layout
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
 from psi4_parser._tree import contexts, rule_name
 from psi4_parser.api import ParseResult, parse
@@ -289,6 +309,7 @@ def _render(result: ParseResult) -> str:
     layout = format_options(layout)
     layout = format_arrays(layout)
     layout = format_occupations(layout)
+    layout = format_comments(layout)
     layout = format_blocks(layout)
     source = result.source
     for edit in sorted(layout.edits.values(), key=_edit_order, reverse=True):
@@ -296,7 +317,10 @@ def _render(result: ParseResult) -> str:
     eof, _ = result.source_span(result.tokens.tokens[-1])
     if source and not source.endswith(("\r", "\n")) and eof == len(result.source):
         newline = re.search(r"\r\n|\r|\n", result.source)
-        source += newline.group() if newline else "\n"
+        if newline is None:
+            source += "\n"
+        else:
+            source += newline.group()
     return source
 
 

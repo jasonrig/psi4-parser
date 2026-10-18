@@ -15,15 +15,14 @@ from psi4_parser.job.molecule import (
 
 
 def _records(molecule: ob.OBMol) -> tuple[MoleculeRecord, ...]:
-    records: list[MoleculeRecord] = []
     # Preserve Open Babel's resolved state, including a charge without an
     # independently recorded multiplicity in formats such as MDL mol files.
-    records.append(
+    records: list[MoleculeRecord] = [
         ElectronicState(
             charge=Number(value=str(molecule.GetTotalCharge())),
             multiplicity=Number(value=str(molecule.GetTotalSpinMultiplicity())),
         )
-    )
+    ]
     for index in range(1, molecule.NumAtoms() + 1):
         atom = molecule.GetAtom(index)
         if atom is None:

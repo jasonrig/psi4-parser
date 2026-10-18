@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-psi4-format = "psi4_parser.cli:main"
+psi4-parser = "psi4_parser.cli:main"
 psi4-sync = "psi4_parser.maintenance.sync:main"
 psi4-check-corpus = "psi4_parser.maintenance.corpus:main"
 psi4-regenerate = "psi4_parser.maintenance.generate:main"

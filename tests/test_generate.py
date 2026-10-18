@@ -9,6 +9,8 @@ from click.testing import CliRunner
 
 from psi4_parser.maintenance.generate import main
 
+# PyCharm treats Click-decorated commands as plain callback functions.
+
 
 def _project(tmp_path: Path) -> Path:
     """Copy maintained grammars and generated files into an isolated checkout.
@@ -62,6 +64,7 @@ def test_failed_generation_preserves_working_parser(
     )
     before = _files(project)
 
+    # noinspection PyTypeChecker
     result = CliRunner().invoke(main, ["--project", str(project)])
 
     assert isinstance(result.exception, error), result.output
@@ -80,6 +83,7 @@ def test_successful_generation_preserves_handwritten_files(tmp_path: Path) -> No
     (output / "PsithonParser.py").write_text("# Replace this stale parser.\n")
     before = _files(project)
 
+    # noinspection PyTypeChecker
     result = CliRunner().invoke(main, ["--project", str(project)])
 
     assert result.exit_code == 0, result.output

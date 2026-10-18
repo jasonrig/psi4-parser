@@ -3,9 +3,8 @@
 import re
 
 from antlr4 import ParserRuleContext
-from antlr4.tree.Tree import TerminalNodeImpl
 
-from psi4_parser._tree import contexts, rule_name
+from psi4_parser._tree import contexts, rule_name, terminals
 from psi4_parser.api import ParseResult
 
 
@@ -63,9 +62,7 @@ def _literals(result: ParseResult, block: ParserRuleContext) -> tuple[str, ...]:
 
 def _body_span(result: ParseResult, block: ParserRuleContext) -> tuple[int, int]:
     braces = [
-        child.getSymbol()
-        for child in block.getChildren()
-        if isinstance(child, TerminalNodeImpl) and child.getText() in {"{", "}"}
+        child.getSymbol() for child in terminals(block) if child.getText() in {"{", "}"}
     ]
     return result.source_span(braces[0])[1], result.source_span(braces[-1])[0]
 

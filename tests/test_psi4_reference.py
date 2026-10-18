@@ -11,7 +11,11 @@ import pytest
 from antlr4 import CommonTokenStream, InputStream
 
 from psi4_parser import validate
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
+
+# noinspection PyProtectedMember
 from psi4_parser._generated.PsithonParser import PsithonParser
 
 _PYTHON = os.environ.get("PSI4_PYTHON")

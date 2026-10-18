@@ -6,7 +6,9 @@ from itertools import pairwise
 from antlr4 import ParserRuleContext, Token
 from pydantic import BaseModel, ConfigDict
 
+# noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
+    Alignment,
     Cell,
     Layout,
     cell,
@@ -90,7 +92,10 @@ def align_rows(
     columns = len(rows[0].cells)
     if not columns or any(len(row.cells) != columns for row in rows):
         return
-    pads = padding([row.cells for row in rows], ["number"] * columns)
+    # PyCharm widens repeated literals to str despite the declared element type.
+    # noinspection PyTypeChecker
+    modes: list[Alignment] = ["number"] * columns
+    pads = padding([row.cells for row in rows], modes)
     # Keep columns aligned even when the first row follows code on its line.
     first_row = rows[0]
     baseline = (
@@ -164,11 +169,11 @@ def _items(layout: Layout, node: ParserRuleContext) -> list[Cell]:
     return items
 
 
-def _token_cell(layout: Layout, tokens: list[Token]) -> Cell:
+def _token_cell(layout: Layout, source_tokens: list[Token]) -> Cell:
     return Cell(
-        start=cell(layout.result, tokens[0]).start,
-        stop=cell(layout.result, tokens[-1]).stop,
-        text="".join(token.text for token in tokens),
+        start=cell(layout.result, source_tokens[0]).start,
+        stop=cell(layout.result, source_tokens[-1]).stop,
+        text="".join(token.text for token in source_tokens),
     )
 
 
@@ -223,9 +228,8 @@ def _protected(node: ParserRuleContext) -> bool:
         if rule_name(parent) in {"set_command", "option_assignment"}:
             keys = [
                 child
-                for child in parent.getChildren()
-                if isinstance(child, ParserRuleContext)
-                and rule_name(child) == "option_key"
+                for child in parent.getTypedRuleContexts(ParserRuleContext)
+                if rule_name(child) == "option_key"
             ]
             if keys and "BASIS" in keys[0].getText().upper():
                 return True

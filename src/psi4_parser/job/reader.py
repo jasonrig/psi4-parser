@@ -7,7 +7,7 @@ from typing import Literal
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
 
-from psi4_parser._tree import contexts, rule_name
+from psi4_parser._tree import contexts, rule_name, terminals
 from psi4_parser.api import Diagnostic, ParseResult, parse
 from psi4_parser.job.model import (
     FragmentSeparator,
@@ -86,12 +86,8 @@ class JobSyntaxError(ValueError):
 def _children(
     node: ParserRuleContext, name: str | None = None
 ) -> list[ParserRuleContext]:
-    return [
-        child
-        for child in node.getChildren()
-        if isinstance(child, ParserRuleContext)
-        and (name is None or rule_name(child) == name)
-    ]
+    children = node.getTypedRuleContexts(ParserRuleContext)
+    return [child for child in children if name is None or rule_name(child) == name]
 
 
 def _child(node: ParserRuleContext, name: str) -> ParserRuleContext:
@@ -303,10 +299,16 @@ def _option_value(result: ParseResult, node: ParserRuleContext) -> OptionValue:
 def _parents(
     node: ParserRuleContext, stop: ParserRuleContext
 ) -> Iterator[ParserRuleContext]:
-    parent = node.parentCtx
-    while isinstance(parent, ParserRuleContext) and parent is not stop:
-        yield parent
-        parent = parent.parentCtx
+    current = node
+    while True:
+        parent = current.parentCtx
+        if isinstance(parent, ParserRuleContext) and parent is not stop:
+            # PyCharm loses this isinstance guard when checking the yield type.
+            # noinspection PyTypeChecker
+            yield parent
+            current = parent
+        else:
+            return
 
 
 def _set(result: ParseResult, node: ParserRuleContext) -> SetOptions:
@@ -379,9 +381,8 @@ def _external(result: ParseResult, node: ParserRuleContext) -> External:
             nucleus = _child(line, "nucleus")
             coords = [
                 Number(value=child.getText())
-                for child in line.getChildren()
-                if isinstance(child, TerminalNodeImpl)
-                and _NUMBER.fullmatch(child.getText())
+                for child in terminals(line)
+                if _NUMBER.fullmatch(child.getText())
             ]
             x, y, z = coords
             records.append(ExternalAtom(nucleus=_nucleus(nucleus), position=(x, y, z)))

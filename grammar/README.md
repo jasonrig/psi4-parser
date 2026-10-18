@@ -5,21 +5,21 @@ Python grammars and the native overrides generate one lexer and one parser.
 All validation decisions live in these grammars or their required lexer support;
 the public wrapper exposes ANTLR results and collects diagnostics.
 
-| Concern | Implementation | Primary reference |
-| --- | --- | --- |
-| Python productions and interpolation modes | `PythonParser.g4`, `PythonLexer.g4`, upstream `PythonLexerBase` | CPython `Grammar/python.gram`; grammars-v4 Python 3.14 |
-| Python 3.15 syntax and corrected separators | Overrides at the end of `PsithonParser.g4` | Lazy imports, unpacking comprehensions, CPython parameter productions |
-| Unicode character classes | Complete Unicode 17 identifier, decimal, numeric-word and whitespace ranges; NFKC and reserved-constant checks | Bundled Python 3.15 interpreter; CPython `Python/ast.c`; native Python `re` fields |
-| Native headers and physical boundaries | `PsithonLexer.g4`, `NativeLexerSupport` | Psi4 `psi4/driver/inputparser.py` |
-| Molecule fields and external potentials | Native productions and `psithon_native_constraint` | Psi4 input preprocessor; QCEElemental molecule reader |
-| Option expressions | `set_option_*`, `psithon_option_python` | `quotify`, `process_set_command`, `process_set_commands` |
-| Python wrappers for native blocks | `psithon_molecule_python`, `psithon_basis_python`, `psithon_external_python` | Corresponding `process_*_command` functions and `process_basis_block` |
-| Ordered rewrites and source positions | `psithon_project`, `psithon_project_replace`, `psithon_source_error` | Reference `process_input` filter order |
-| Executing scopes | `psithon_scope`, `psithon_loop`, `psithon_owner` | CPython `Python/symtable.c`, `Python/codegen.c` |
-| Declarations and bindings | `psithon_bindings`, `psithon_binding_name` | Symbol-table declaration order, nonlocals, private mangling |
-| Comprehensions and annotations | `psithon_comprehension`, `psithon_restricted_expression` | Comprehension binding conflicts and annotation scopes |
-| Patterns, literals and control flow | `psithon_pattern`, `psithon_literal`, `psithon_interpolated_literal`, `psithon_constraints` | CPython AST validation and code generation |
-| Future and lazy imports | `psithon_future`, `psithon_lazy_import` | Psi4 future-line hoisting; CPython compiler flags and lazy-import restrictions |
+| Concern                                     | Implementation                                                                                                 | Primary reference                                                                  |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Python productions and interpolation modes  | `PythonParser.g4`, `PythonLexer.g4`, upstream `PythonLexerBase`                                                | CPython `Grammar/python.gram`; grammars-v4 Python 3.14                             |
+| Python 3.15 syntax and corrected separators | Overrides at the end of `PsithonParser.g4`                                                                     | Lazy imports, unpacking comprehensions, CPython parameter productions              |
+| Unicode character classes                   | Complete Unicode 17 identifier, decimal, numeric-word and whitespace ranges; NFKC and reserved-constant checks | Bundled Python 3.15 interpreter; CPython `Python/ast.c`; native Python `re` fields |
+| Native headers and physical boundaries      | `PsithonLexer.g4`, `NativeLexerSupport`                                                                        | Psi4 `psi4/driver/inputparser.py`                                                  |
+| Molecule fields and external potentials     | Native productions and `psithon_native_constraint`                                                             | Psi4 input preprocessor; QCEElemental molecule reader                              |
+| Option expressions                          | `set_option_*`, `psithon_option_python`                                                                        | `quotify`, `process_set_command`, `process_set_commands`                           |
+| Python wrappers for native blocks           | `psithon_molecule_python`, `psithon_basis_python`, `psithon_external_python`                                   | Corresponding `process_*_command` functions and `process_basis_block`              |
+| Ordered rewrites and source positions       | `psithon_project`, `psithon_project_replace`, `psithon_source_error`                                           | Reference `process_input` filter order                                             |
+| Executing scopes                            | `psithon_scope`, `psithon_loop`, `psithon_owner`                                                               | CPython `Python/symtable.c`, `Python/codegen.c`                                    |
+| Declarations and bindings                   | `psithon_bindings`, `psithon_binding_name`                                                                     | Symbol-table declaration order, nonlocals, private mangling                        |
+| Comprehensions and annotations              | `psithon_comprehension`, `psithon_restricted_expression`                                                       | Comprehension binding conflicts and annotation scopes                              |
+| Patterns, literals and control flow         | `psithon_pattern`, `psithon_literal`, `psithon_interpolated_literal`, `psithon_constraints`                    | CPython AST validation and code generation                                         |
+| Future and lazy imports                     | `psithon_future`, `psithon_lazy_import`                                                                        | Psi4 future-line hoisting; CPython compiler flags and lazy-import restrictions     |
 
 The public `parse()` API retains the original text, complete ANTLR token stream,
 CST and diagnostics. `PsithonLexer.g4` records character-boundary offsets in its
