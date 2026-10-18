@@ -13,14 +13,23 @@ from psi4_parser.builder import molecular as m
 from psi4_parser.builder._model import BOHR_ANGSTROM, Angle, Length, Model
 from psi4_parser.builder.constraints import Bounded, Constraint, Frozen
 from psi4_parser.builder.values import (
+    Assignment,
     Expression,
     LiteralValue,
     MappingValue,
     Reference,
     SequenceValue,
     Value,
+    assignment_names,
 )
 from psi4_parser.formatting import format_source
+
+
+class _Compilation(Model):
+    """Retain the native tree and its completely validated source."""
+
+    job: native.Job = Field(description="Compiled native job.")
+    source: str = Field(description="Validated Psithon emitted from the job.")
 
 
 class OptionScope(Model):
@@ -331,10 +340,10 @@ def _keywords(keywords: tuple[c.Keyword, ...], bindings: set[str]) -> list[str]:
     return [_name(k.name) + "=" + _value(k.value, bindings) for k in keywords]
 
 
-def _assignment(assign: str | tuple[str, ...] | None) -> str:
+def _assignment(assign: Assignment) -> str:
     if assign is None:
         return ""
-    names = (assign,) if isinstance(assign, str) else assign
+    names = assignment_names(assign)
     if not names or len(set(names)) != len(names):
         raise ValueError("Assignment requires distinct binding names")
     return (
@@ -576,13 +585,7 @@ def _lower(
 
 def _provided(component: c.JobComponent) -> tuple[str, ...]:
     if isinstance(component, (c.Calculation, c.Call)):
-        return (
-            ()
-            if component.assign is None
-            else (component.assign,)
-            if isinstance(component.assign, str)
-            else component.assign
-        )
+        return assignment_names(component.assign)
     if isinstance(component, c.Python):
         return component.provides
     if isinstance(component, c.MoleculeDeclaration):
@@ -610,8 +613,8 @@ def _commented(component: c.JobComponent, node: native.Node) -> native.Node:
     return native.PythonTemplate(parts=(prefix, node))
 
 
-def lower_job(spec: c.JobSpec) -> native.Job:
-    """Return a compiled AST after validating bindings and complete input.
+def _compile_job(spec: c.JobSpec) -> _Compilation:
+    """Return the lowered job with its validated source.
 
     Raises:
         ValueError: Names, references, or backend combinations are invalid.
@@ -631,10 +634,18 @@ def lower_job(spec: c.JobSpec) -> native.Job:
         if isinstance(component, c.MoleculeDeclaration):
             molecules[component.name] = component.geometry
     result = native.Job(body=tuple(nodes))
-    native.emit_job(result)
-    return result
+    return _Compilation(job=result, source=native.emit_job(result))
+
+
+def lower_job(spec: c.JobSpec) -> native.Job:
+    """Return a compiled AST after validating bindings and complete input.
+
+    Raises:
+        ValueError: Names, references, or backend combinations are invalid.
+    """  # noqa: DOC502 - The shared compilation path validates names and references.
+    return _compile_job(spec).job
 
 
 def render_job(spec: c.JobSpec) -> str:
     """Return validated Psithon with the agreed formatting style."""
-    return format_source(native.emit_job(lower_job(spec)))
+    return format_source(_compile_job(spec).source)

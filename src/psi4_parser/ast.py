@@ -5,25 +5,16 @@ import warnings
 
 from pydantic import BaseModel, ConfigDict
 
-from psi4_parser.api import Diagnostic, NativePayload, ParseResult, parse
+from psi4_parser._diagnostics import DiagnosticError
+from psi4_parser.api import NativePayload, ParseResult, parse
 
 
-class InvalidInputError(ValueError):
+class InvalidInputError(DiagnosticError):
     """Reject AST construction or formatting of an invalid input.
 
     Attributes:
         diagnostics: The original parser's syntax and static-constraint errors.
     """
-
-    def __init__(self, diagnostics: tuple[Diagnostic, ...]) -> None:
-        """Retain diagnostics and describe the first error.
-
-        Args:
-            diagnostics: Nonempty diagnostics returned by the parser.
-        """
-        self.diagnostics = diagnostics
-        first = diagnostics[0]
-        super().__init__(f"{first.line}:{first.column}: {first.message}")
 
 
 class ProgramAST(BaseModel):

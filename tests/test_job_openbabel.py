@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from psi4_parser.builder import Molecule as BuilderMolecule
 from psi4_parser.job import ElectronicState, Molecule
 
 
@@ -29,6 +30,13 @@ def test_import_isotopic_mol_file(tmp_path: Path) -> None:
     assert molecule.name == "water"
     assert len(molecule.atoms) == 3
     assert molecule.atoms[0].nucleus.label == "18O"
+    built = BuilderMolecule.from_file(path)
+    assert tuple(atom.nucleus.label for atom in built.atoms) == tuple(
+        atom.nucleus.label for atom in molecule.atoms
+    )
+    assert built.state is not None
+    assert built.state.charge == 0
+    assert built.state.multiplicity == 1
 
 
 def test_import_retains_resolved_electronic_state(tmp_path: Path) -> None:

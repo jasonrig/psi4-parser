@@ -256,13 +256,16 @@ def _node(node: Node) -> str:
             return node.source
         case PythonTemplate():
             chunks: list[str] = []
+            current_line = ""
             for part in node.parts:
-                if isinstance(part, Python):
-                    chunks.append(part.source)
-                else:
-                    prefix = "".join(chunks).rsplit("\n", 1)[-1]
-                    indentation = prefix if not prefix.strip() else ""
-                    chunks.append(_native(part, indentation))
+                indentation = current_line if not current_line.strip() else ""
+                text = (
+                    part.source
+                    if isinstance(part, Python)
+                    else _native(part, indentation)
+                )
+                chunks.append(text)
+                current_line = (current_line + text).rsplit("\n", 1)[-1]
             return "".join(chunks)
         case _:
             return _native(node, "")

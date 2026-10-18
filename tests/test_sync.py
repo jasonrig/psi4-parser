@@ -548,3 +548,25 @@ def test_click_reports_model_validation_error(tmp_path: Path) -> None:
     assert "Error:" in result.output
     assert "finite number" in result.output
     assert not (tmp_path / ".cache").exists()
+
+
+def test_promotion_preserves_modes_and_creates_missing_parent_directories(
+    tmp_path: Path,
+) -> None:
+    """Keep binary bytes and existing permissions while creating new artifacts.
+
+    Args:
+        tmp_path: Isolated destination for the promotion transaction.
+    """
+    existing = tmp_path / "existing.dat"
+    existing.write_bytes(b"original")
+    existing.chmod(0o600)
+    sync.promote(
+        tmp_path, {Path("existing.dat"): b"\x00\xff", Path("nested/new.dat"): b"new"}
+    )
+    assert existing.read_bytes() == b"\x00\xff"
+    assert existing.stat().st_mode & 0o777 == 0o600
+    created = tmp_path / "nested/new.dat"
+    assert created.read_bytes() == b"new"
+    assert created.stat().st_mode & 0o777 == 0o644
+    assert set(created.parent.iterdir()) == {created}

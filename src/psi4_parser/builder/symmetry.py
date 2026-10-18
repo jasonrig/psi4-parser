@@ -128,8 +128,10 @@ def _request(group: str) -> _SymmetryRequest:
     return _SymmetryRequest.model_validate(values)
 
 
-def _sites(geometry: Molecule) -> tuple[SymmetrySite, ...]:
-    backend = to_obmol(geometry)
+def _sites(
+    geometry: Molecule, *, points: dict[str, Vector] | None = None
+) -> tuple[SymmetrySite, ...]:
+    backend = to_obmol(geometry, points=points)
     sites: list[SymmetrySite] = []
     for index, source in enumerate(geometry.atoms, 1):
         if source.nucleus.dummy:
@@ -262,17 +264,23 @@ def _supports(
     )
 
 
-def reconcile_symmetry(geometry: Molecule) -> Molecule:
+def reconcile_symmetry(
+    geometry: Molecule, *, points: dict[str, Vector] | None = None
+) -> Molecule:
     """Return an edited molecule with a verified symmetry request, warning on change.
 
     No coordinates or atom records are adjusted. Unresolved geometry is relaxed
     to C1 because its requested symmetry cannot be verified numerically.
+
+    Args:
+        geometry: Edited molecule whose computational group is checked.
+        points: Optional already-resolved positions for this geometry in angstroms.
     """
     if geometry.symmetry is None or geometry.symmetry.lower() == "c1":
         return geometry
     request = _request(geometry.symmetry)
     try:
-        sites = _sites(geometry)
+        sites = _sites(geometry, points=points)
     except UnresolvedGeometryError:
         replacement: Psi4PointGroup = Psi4PointGroup.C1
         reason = "cannot be verified for unresolved geometry"

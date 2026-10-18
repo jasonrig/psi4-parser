@@ -678,3 +678,35 @@ print('accepted')
         _reference(json.dumps((source, changed.symmetry)), program, tmp_path)
         == "accepted"
     )
+
+
+@pytest.mark.parametrize("assignment", [None, ("result",), ("energy", "wavefunction")])
+def test_result_reference_requires_an_ordinary_single_assignment(
+    assignment: str | tuple[str, ...] | None,
+) -> None:
+    """Keep a singleton unpacking target distinct from an ordinary assignment.
+
+    Args:
+        assignment: Missing assignment or an explicit unpacking target.
+    """
+    components = (energy("scf", assign=assignment), call("str", 1, assign=assignment))
+    for component in components:
+        with pytest.raises(ValueError, match="single named assignment"):
+            _ = component.ref
+
+
+def test_singleton_unpacking_remains_unpacking_after_compilation() -> None:
+    """Retain the trailing comma and make the unpacked binding available later."""
+    for component in (
+        energy("scf", assign=("result",)),
+        call("tuple", assign=("result",)),
+    ):
+        source = render_job(compose(component, call("print", Reference(name="result"))))
+        tree = ast.parse(source)
+        assignment = tree.body[0]
+        assert isinstance(assignment, ast.Assign)
+        target = assignment.targets[0]
+        assert isinstance(target, ast.Tuple)
+        assert len(target.elts) == 1
+    assert energy("scf", assign="e").ref == Reference(name="e")
+    assert call("str", assign="text").ref == Reference(name="text")

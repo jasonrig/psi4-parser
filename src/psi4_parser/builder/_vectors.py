@@ -111,18 +111,30 @@ def torsion(a: Vector, b: Vector, c: Vector, d: Vector) -> float:
     return float(np.rad2deg(angle, dtype=np.float64))
 
 
-def rotated(point: Vector, axis: Vector, angle: float, origin: Vector) -> Vector:
-    """Return a point rotated around an axis by an angle in radians."""
-    k: VectorArray = np.asarray(unit(axis), dtype=np.float64)
-    center = np.asarray(origin, dtype=np.float64)
-    displacement: VectorArray = np.asarray(point, dtype=np.float64) - center
+def rotation_matrix(axis: Vector, angle: float) -> MatrixArray:
+    """Return a right-handed rotation matrix for row-vector coordinates.
+
+    Args:
+        axis: Nonzero rotation axis; its length does not affect the rotation.
+        angle: Rotation angle in radians.
+    """
+    direction: VectorArray = np.asarray(unit(axis), dtype=np.float64)
+    identity: MatrixArray = np.eye(3, dtype=np.float64)
     cosine = float(np.cos(angle, dtype=np.float64))
     sine = float(np.sin(angle, dtype=np.float64))
+    return (
+        cosine * identity
+        + sine * np.linalg.cross(direction, identity)
+        + (1.0 - cosine) * (direction[:, None] @ direction[None, :])
+    )
+
+
+def rotated(point: Vector, axis: Vector, angle: float, origin: Vector) -> Vector:
+    """Return a point rotated around an axis by an angle in radians."""
+    matrix = rotation_matrix(axis, angle)
+    center = np.asarray(origin, dtype=np.float64)
     return vector_tuple(
-        center
-        + displacement * cosine
-        + np.linalg.cross(k, displacement) * sine
-        + k * np.dot(k, displacement) * (1.0 - cosine)
+        (np.asarray(point, dtype=np.float64) - center) @ matrix + center
     )
 
 

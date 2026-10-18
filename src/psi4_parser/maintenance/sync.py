@@ -18,6 +18,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from psi4_parser._cli_types import DIRECTORY, EXECUTABLE, TIMEOUT
+from psi4_parser._files import atomic_replace
 from psi4_parser.maintenance.reference import PSI4_SOURCES
 from psi4_parser.maintenance.state import (
     Baseline,
@@ -265,16 +266,8 @@ def _checks(candidate: Path, work: Path, settings: Settings) -> None:
 
 def _replace(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as temporary:
-        name = Path(temporary.name)
-        temporary.write(content)
-        temporary.flush()
-        os.fsync(temporary.fileno())
-        name.chmod(path.stat().st_mode & 0o777 if path.exists() else 0o644)
-    try:
-        name.replace(path)
-    finally:
-        name.unlink(missing_ok=True)
+    mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
+    atomic_replace(path, content, mode=mode, sync=True)
 
 
 def promote(project: Path, updates: dict[Path, bytes]) -> None:

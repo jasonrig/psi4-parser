@@ -439,3 +439,59 @@ def test_fragment_conversion_retains_states_order_and_isotopes() -> None:
             assert dist(before[first], before[second]) == pytest.approx(
                 dist(after[first], after[second]), abs=1e-8
             )
+
+
+def test_rotate_multiple_atoms_about_a_nonzero_origin() -> None:
+    """Apply the same prepared rotation while retaining identities and the source."""
+    original = Molecule.from_xyz("3\nOffset frame\nHe 3 -1 4\nNe 2 0 4\nAr 2 -1 5\n")
+    saved = original.model_dump_json()
+    stage = rotate(
+        (0.0, 0.0, 7.0), degrees(90), origin=(angstrom(2), angstrom(-1), angstrom(4))
+    )
+    result = positions(original | stage)
+    assert result["a1"] == pytest.approx((2.0, 0.0, 4.0), abs=1e-12)
+    assert result["a2"] == pytest.approx((1.0, -1.0, 4.0), abs=1e-12)
+    assert result["a3"] == pytest.approx((2.0, -1.0, 5.0), abs=1e-12)
+    assert positions(original | stage) == result
+    assert original.model_dump_json() == saved
+
+
+@pytest.mark.parametrize("moving", [("a4", "a5"), ("a5", "a4")])
+def test_torsion_moves_a_rigid_selection_in_either_selection_order(
+    moving: tuple[str, ...],
+) -> None:
+    """Retain the fixed atoms and move selected atoms through one rigid transform.
+
+    Args:
+        moving: Equivalent moving-side selections in different orders.
+    """
+    original = Molecule.from_xyz(
+        "5\nRigid side\nH 1 0 0\nO 0 0 0\nO 0 0 1.4\nH 0 1 1.4\nF 1 1 1.4\n"
+    )
+    changed = original | set_dihedral(
+        ("a1", "a2", "a3", "a4"), degrees(0), moving=moving
+    )
+    before, after = positions(original), positions(changed)
+    for identity in ("a1", "a2", "a3"):
+        assert after[identity] == before[identity]
+    assert after["a4"] == pytest.approx((1.0, 0.0, 1.4), abs=1e-12)
+    assert after["a5"] == pytest.approx((1.0, -1.0, 1.4), abs=1e-12)
+    assert dist(after["a4"], after["a5"]) == pytest.approx(1.0)
+
+
+def test_conversion_stage_can_be_reused_for_different_geometries() -> None:
+    """Keep search state local when one reusable stage also inserts dummy atoms."""
+    linear = Molecule.from_xyz("4\nLinear\nH 0 0 0\nC 0 0 1\nC 0 0 2\nH 0 0 3\n")
+    conversion = to_zmatrix(frame="canonical", allow_dummies=True)
+    first = linear | conversion
+    bent = _peroxide() | conversion
+    assert len(first.atoms) == 5
+    assert len(bent.atoms) == 4
+    assert linear | conversion == first
+
+
+def test_cartesian_transforms_preserve_empty_molecules() -> None:
+    """Keep an empty molecular specification valid through Cartesian transforms."""
+    source = Molecule()
+    assert source | translate((angstrom(1), angstrom(2), angstrom(3))) == source
+    assert source | rotate((0.0, 0.0, 1.0), degrees(90)) == source

@@ -4,6 +4,7 @@ from pathlib import Path
 
 from openbabel import openbabel as ob
 
+from psi4_parser._openbabel import atom_label, molecule_format, read_single_molecule
 from psi4_parser.job.model import Nucleus, Number, Units
 from psi4_parser.job.molecule import (
     Atom,
@@ -23,16 +24,8 @@ def _records(molecule: ob.OBMol) -> tuple[MoleculeRecord, ...]:
             multiplicity=Number(value=str(molecule.GetTotalSpinMultiplicity())),
         )
     ]
-    for index in range(1, molecule.NumAtoms() + 1):
-        atom = molecule.GetAtom(index)
-        if atom is None:
-            raise ValueError("Open Babel returned a missing atom")
-        label = ob.GetSymbol(atom.GetAtomicNum())
-        if atom.GetAtomicNum() == 0:
-            label = "X"
-        isotope = atom.GetIsotope()
-        if isotope:
-            label = str(isotope) + label
+    for index, atom in enumerate(ob.OBMolAtomIter(molecule), 1):
+        label = atom_label(atom)
         records.append(
             Atom(
                 id=f"a{index}",
@@ -69,17 +62,6 @@ def read_molecule(
     Raises:
         ValueError: The format is unsupported, the file cannot be read, or it
             contains zero or multiple molecules.
-    """
-    conversion = ob.OBConversion()
-    input_format = (
-        file_format if file_format is not None else path.suffix.removeprefix(".")
-    )
-    if not conversion.SetInFormat(input_format):
-        raise ValueError("Unsupported Open Babel input format: " + input_format)
-    molecule = ob.OBMol()
-    # OBConversion owns the input stream and closes it with the conversion object.
-    if not conversion.ReadFile(molecule, str(path)) or not molecule.NumAtoms():
-        raise ValueError("Open Babel could not read a molecule from " + str(path))
-    if conversion.Read(ob.OBMol()):
-        raise ValueError("Expected one molecule; file contains multiple records")
+    """  # noqa: DOC502 - The shared reader reports invalid formats and record counts.
+    molecule = read_single_molecule(path, molecule_format(path, file_format))
     return Molecule(name=name, records=_records(molecule))

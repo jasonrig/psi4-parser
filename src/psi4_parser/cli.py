@@ -4,7 +4,6 @@ import difflib
 import json
 import stat
 import sys
-import tempfile
 from pathlib import Path
 from typing import Literal, Protocol, runtime_checkable
 
@@ -12,6 +11,7 @@ import click
 from pydantic import BaseModel, ConfigDict, Field, JsonValue
 
 from psi4_parser._cli_types import INPUT_FILE, OUTPUT_STREAM, SOURCE_FORMAT
+from psi4_parser._files import atomic_replace
 from psi4_parser.api import validate
 from psi4_parser.ast import InvalidInputError
 from psi4_parser.formatting import FormattingError, format_source
@@ -295,20 +295,7 @@ def _show_diff(label: str, before: str, after: str) -> None:
 def _replace(path: Path, source: str) -> None:
     target = path.resolve()
     mode = stat.S_IMODE(target.stat().st_mode) if target.exists() else None
-    temporary: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            dir=target.parent, prefix=".psi4-parser-", delete=False
-        ) as stream:
-            replacement = Path(stream.name)
-            temporary = replacement
-            stream.write(source.encode("utf-8"))
-        if mode is not None:
-            replacement.chmod(mode)
-        replacement.replace(target)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+    atomic_replace(target, source.encode("utf-8"), mode=mode)
 
 
 main.add_command(validate_input)

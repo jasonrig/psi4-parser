@@ -8,7 +8,14 @@ from pydantic import Field
 from psi4_parser.builder._model import Model, evolve
 from psi4_parser.builder.constraints import Constraint
 from psi4_parser.builder.molecular import Molecule, Nucleus
-from psi4_parser.builder.values import InputValue, Reference, Value, value
+from psi4_parser.builder.values import (
+    Assignment,
+    InputValue,
+    Reference,
+    Value,
+    assignment_reference,
+    value,
+)
 
 
 class CommentBlock(Model):
@@ -258,7 +265,7 @@ class Calculation(Component):
     kwargs: tuple[Keyword, ...] = Field(
         default=(), description="Additional unrestricted driver arguments."
     )
-    assign: str | tuple[str, ...] | None = Field(
+    assign: Assignment = Field(
         default=None, description="Result binding or tuple-unpacking names."
     )
     constraints: tuple[Constraint, ...] = Field(
@@ -275,10 +282,8 @@ class Calculation(Component):
 
         Raises:
             ValueError: There is no single named assignment to reference.
-        """
-        if not isinstance(self.assign, str):
-            raise ValueError("A single named assignment is required for .ref")
-        return Reference(name=self.assign)
+        """  # noqa: DOC502 - Shared assignment validation raises ValueError.
+        return assignment_reference(self.assign)
 
 
 class Call(Component):
@@ -288,7 +293,7 @@ class Call(Component):
     target: str = Field(min_length=1, description="Python callable expression.")
     args: tuple[Value, ...] = Field(default=(), description="Positional arguments.")
     kwargs: tuple[Keyword, ...] = Field(default=(), description="Keyword arguments.")
-    assign: str | tuple[str, ...] | None = Field(
+    assign: Assignment = Field(
         default=None, description="Optional assignment or tuple unpacking."
     )
 
@@ -298,10 +303,8 @@ class Call(Component):
 
         Raises:
             ValueError: There is no single named assignment to reference.
-        """
-        if not isinstance(self.assign, str):
-            raise ValueError("A single named assignment is required for .ref")
-        return Reference(name=self.assign)
+        """  # noqa: DOC502 - Shared assignment validation raises ValueError.
+        return assignment_reference(self.assign)
 
 
 class Python(Component):
@@ -392,7 +395,7 @@ def options(
 def call(
     target: str,
     *args: InputValue,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     **kwargs: InputValue,
 ) -> Call:
     """Return a generic Python call with literal-safe argument values."""
@@ -411,7 +414,7 @@ def _calculation(  # noqa: PLR0913 - Mirror the public driver construction field
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -431,7 +434,7 @@ def energy(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -452,7 +455,7 @@ def gradient(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -473,7 +476,7 @@ def hessian(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -494,7 +497,7 @@ def optimize(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -515,7 +518,7 @@ def frequency(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,
@@ -536,7 +539,7 @@ def properties(
     method: InputValue,
     *,
     molecule: Reference | None = None,
-    assign: str | tuple[str, ...] | None = None,
+    assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
     **kwargs: InputValue,

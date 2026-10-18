@@ -7,8 +7,9 @@ from typing import Literal
 from antlr4 import ParserRuleContext, Token
 from antlr4.tree.Tree import TerminalNodeImpl
 
+from psi4_parser._diagnostics import DiagnosticError
 from psi4_parser._tree import contexts, rule_name, terminals
-from psi4_parser.api import Diagnostic, ParseResult, parse
+from psi4_parser.api import ParseResult, parse
 from psi4_parser.job.model import (
     FragmentSeparator,
     Nucleus,
@@ -66,22 +67,12 @@ from psi4_parser.job.nodes import (
 _NUMBER = re.compile(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[dDeE][+-]?\d+)?\Z")
 
 
-class JobSyntaxError(ValueError):
+class JobSyntaxError(DiagnosticError):
     """Retain diagnostics from contextual validation of a serialized job.
 
     Attributes:
         diagnostics: Original grammar diagnostics without executing input.
     """
-
-    def __init__(self, diagnostics: tuple[Diagnostic, ...]) -> None:
-        """Retain the rejected job's diagnostics.
-
-        Args:
-            diagnostics: Nonempty diagnostics returned by the native parser.
-        """
-        self.diagnostics = diagnostics
-        first = diagnostics[0]
-        super().__init__(f"{first.line}:{first.column}: {first.message}")
 
 
 def _children(

@@ -166,3 +166,23 @@ def test_stdin_cannot_be_mixed_with_files(tmp_path: Path) -> None:
 
     assert result.exit_code == 2
     assert "Standard input must be the only input" in result.stderr
+
+
+def test_write_preserves_a_symlink_and_its_target_mode(tmp_path: Path) -> None:
+    """Replace the target bytes while retaining the link, mode, and line endings.
+
+    Args:
+        tmp_path: Isolated directory containing the input and its symbolic link.
+    """
+    target = tmp_path / "target.dat"
+    target.write_bytes(b"x=1\r\n")
+    target.chmod(0o640)
+    link = tmp_path / "input.dat"
+    link.symlink_to(target)
+    # noinspection PyTypeChecker
+    result = CliRunner().invoke(main, ["format", "write", str(link)])
+    assert result.exit_code == 0, result.output
+    assert link.is_symlink()
+    assert target.read_bytes() == b"x = 1\r\n"
+    assert target.stat().st_mode & 0o777 == 0o640
+    assert set(tmp_path.iterdir()) == {target, link}

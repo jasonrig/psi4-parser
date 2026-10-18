@@ -20,7 +20,7 @@ from psi4_parser._formatting.comments import format_comments
 from psi4_parser._formatting.layout import Edit as _Edit
 
 # noinspection PyProtectedMember
-from psi4_parser._formatting.layout import Layout
+from psi4_parser._formatting.layout import Layout, line_start
 
 # noinspection PyProtectedMember
 from psi4_parser._formatting.molecules import format_molecules
@@ -292,10 +292,6 @@ def _sensitive_dots(result: ParseResult) -> Iterator[Token]:
                 yield dot
 
 
-def _line_start(source: str, position: int) -> int:
-    return max(source.rfind("\n", 0, position), source.rfind("\r", 0, position)) + 1
-
-
 def _render(result: ParseResult) -> str:
     protected = _ProtectedRanges(result)
     roles = _roles(result)
@@ -385,7 +381,7 @@ def _token_edits(
         start, stop = result.source_span(token)
         if start == stop:
             continue
-        first = _line_start(result.source, start)
+        first = line_start(result.source, start)
         prefix = result.source[first:start]
         if _horizontal_space(prefix, native=symbol.startswith(("D_", "PSI_"))):
             yield from _edit(result, protected, first, start, " " * (4 * depth))
@@ -424,7 +420,7 @@ def _trailing_edits(
     start, eof = result.input_span or (0, len(result.source))
     for match in re.finditer(r"[^\S\r\n]+(?=\r?\n|\r|$)", result.source[start:eof]):
         first, last = start + match.start(), start + match.end()
-        prefix = result.source[_line_start(result.source, first) : first]
+        prefix = result.source[line_start(result.source, first) : first]
         if "#" not in prefix:
             yield from _edit(result, protected, first, last, "")
 

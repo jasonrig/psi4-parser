@@ -388,3 +388,34 @@ def test_molecule_reader_retains_symmetry_and_shared_parameter_references() -> N
         assert atom.coordinates.anchors[0].value == Variable(name="R")
     restored = Job.model_validate_json(Job(body=(changed,)).model_dump_json())
     assert read_job(emit_job(restored)) == restored
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n"])
+def test_template_indentation_can_span_multiple_python_parts(newline: str) -> None:
+    """Carry suite indentation across separate Python fragments and native nodes.
+
+    Args:
+        newline: Physical line ending in the surrounding Python fragments.
+    """
+    options = SetOptions(
+        assignments=(
+            OptionAssignment(key="basis", value=OptionExpression(source="sto-3g")),
+        )
+    )
+    template = PythonTemplate(
+        parts=(
+            Python(source="if True:" + newline),
+            Python(source="  "),
+            Python(source="  "),
+            options,
+            Python(source=newline),
+            Python(source=" "),
+            Python(source="   "),
+            options,
+            Python(source=newline + "    pass" + newline),
+        )
+    )
+    source = emit_job(Job(body=(template,)))
+    assert source.count("        basis sto-3g") == 2
+    assert source.count("    set {") == 2
+    assert read_job(source).body

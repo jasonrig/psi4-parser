@@ -3,19 +3,23 @@
 from collections.abc import Callable
 from math import radians
 
+import numpy as np
+
 from psi4_parser.builder._model import BOHR_ANGSTROM, Angle, Length, evolve
 from psi4_parser.builder._vectors import (
+    MatrixArray,
     Vector,
-    add,
+    VectorArray,
     bend,
     cross,
     placed,
-    rotated,
+    rotation_matrix,
     scale,
     separation,
     sub,
     torsion,
     unit,
+    vector_tuple,
 )
 from psi4_parser.builder.molecular import (
     Cartesian,
@@ -31,6 +35,7 @@ _DIMENSIONS = 3
 _STRAIGHT_ANGLE = 180
 
 type MolecularStage = Callable[[Molecule], Molecule]
+type CoordinateTransform = Callable[[MatrixArray], MatrixArray]
 
 
 def _parameter(molecule: Molecule, reference: Parameter) -> Length | Angle:
@@ -151,7 +156,7 @@ def with_positions(molecule: Molecule, points: dict[str, Vector]) -> Molecule:
             for a in molecule.atoms
         ),
     )
-    return reconcile_symmetry(result)
+    return reconcile_symmetry(result, points=points)
 
 
 def to_cartesian(molecule: Molecule) -> Molecule:
@@ -159,15 +164,41 @@ def to_cartesian(molecule: Molecule) -> Molecule:
     return with_positions(molecule, positions(molecule))
 
 
+def _transform_positions(
+    molecule: Molecule,
+    points: dict[str, Vector],
+    moving: tuple[str, ...],
+    transform: CoordinateTransform,
+) -> Molecule:
+    updated = points.copy()
+    if moving:
+        coordinates: tuple[Vector, ...] = tuple(points[identity] for identity in moving)
+        selected: MatrixArray = np.asarray(coordinates, dtype=np.float64)
+        transformed = transform(selected)
+        for index, identity in enumerate(moving):
+            row: VectorArray = np.take(transformed, index, axis=0)
+            updated[identity] = vector_tuple(row)
+    return with_positions(molecule, updated)
+
+
+def _translation(displacement: Vector) -> CoordinateTransform:
+    offset = np.asarray(displacement, dtype=np.float64)
+    return lambda coordinates: coordinates + offset
+
+
+def _rotation(axis: Vector, angle: float, origin: Vector) -> CoordinateTransform:
+    matrix = rotation_matrix(axis, angle)
+    center = np.asarray(origin, dtype=np.float64)
+    return lambda coordinates: (coordinates - center) @ matrix + center
+
+
 def translate(offset: tuple[Length, Length, Length]) -> MolecularStage:
     """Return a stage that translates Cartesian geometry by a displacement."""
-    displacement = tuple3(tuple(v.angstroms for v in offset))
+    transform = _translation(tuple3(tuple(v.angstroms for v in offset)))
 
     def apply(molecule: Molecule) -> Molecule:
-        return with_positions(
-            molecule,
-            {a: add(p, displacement) for a, p in _cartesian_only(molecule).items()},
-        )
+        points = _cartesian_only(molecule)
+        return _transform_positions(molecule, points, tuple(points), transform)
 
     return apply
 
@@ -176,21 +207,16 @@ def rotate(
     axis: Vector, angle: Angle, *, origin: tuple[Length, Length, Length] | None = None
 ) -> MolecularStage:
     """Return a stage that rotates Cartesian geometry about an axis."""
-    unit(axis)
     center = (
         (0.0, 0.0, 0.0)
         if origin is None
         else tuple3(tuple(v.angstroms for v in origin))
     )
+    transform = _rotation(axis, radians(angle.degrees), center)
 
     def apply(molecule: Molecule) -> Molecule:
-        return with_positions(
-            molecule,
-            {
-                a: rotated(p, axis, radians(angle.degrees), center)
-                for a, p in _cartesian_only(molecule).items()
-            },
-        )
+        points = _cartesian_only(molecule)
+        return _transform_positions(molecule, points, tuple(points), transform)
 
     return apply
 
@@ -301,10 +327,7 @@ def set_distance(
         _selection(points, atoms, moving)
         a, b = (points[key] for key in atoms)
         shift = scale(unit(sub(b, a)), length.angstroms - separation(a, b))
-        return with_positions(
-            molecule,
-            {key: add(p, shift) if key in moving else p for key, p in points.items()},
-        )
+        return _transform_positions(molecule, points, moving, _translation(shift))
 
     return apply
 
@@ -326,13 +349,7 @@ def set_angle(
         a, b, c = (points[key] for key in atoms)
         axis = unit(cross(sub(a, b), sub(c, b)))
         delta = radians(angle.degrees - bend(a, b, c))
-        return with_positions(
-            molecule,
-            {
-                key: rotated(p, axis, delta, b) if key in moving else p
-                for key, p in points.items()
-            },
-        )
+        return _transform_positions(molecule, points, moving, _rotation(axis, delta, b))
 
     return apply
 
@@ -348,10 +365,6 @@ def set_dihedral(
         a, b, c, d = (points[key] for key in atoms)
         delta = radians(angle.degrees - torsion(a, b, c, d))
         axis = sub(c, b)
-        candidate = {
-            key: rotated(p, axis, delta, c) if key in moving else p
-            for key, p in points.items()
-        }
-        return with_positions(molecule, candidate)
+        return _transform_positions(molecule, points, moving, _rotation(axis, delta, c))
 
     return apply

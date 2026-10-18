@@ -22,7 +22,7 @@ from psi4_parser.builder._vectors import (
     torsion,
 )
 from psi4_parser.builder.constraints import Coordinate
-from psi4_parser.builder.geometry import positions, to_cartesian
+from psi4_parser.builder.geometry import positions, with_positions
 from psi4_parser.builder.molecular import (
     Anchor,
     AnchorReferences,
@@ -138,7 +138,7 @@ class _LayoutContext:
     def __init__(
         self, molecule: Molecule, points: dict[str, Vector], budget: _Budget
     ) -> None:
-        self.suggestions = suggested_anchors(molecule)
+        self.suggestions = suggested_anchors(molecule, points=points)
         self.points = points
         self.budget = budget
 
@@ -275,13 +275,10 @@ def _choose_refs(
 
 
 def _layout(
-    molecule: Molecule,
     order: tuple[str, ...],
     required: AnchorRequirements,
-    points: dict[str, Vector],
-    budget: _Budget,
+    context: _LayoutContext,
 ) -> tuple[AnchorLayout, ...]:
-    context = _LayoutContext(molecule, points, budget)
     return tuple(
         AnchorLayout(
             atom=atom,
@@ -400,12 +397,13 @@ def _automatic(
     reorder: bool,
     budget: _Budget,
 ) -> Molecule:
+    context = _LayoutContext(molecule, points, budget)
     degenerate: DegenerateGeometryError | None = None
     for requirements in _requirements(requested, budget):
         required, names = requirements.anchors, requirements.variables
         for order in _orders(molecule, required, reorder=reorder, budget=budget):
             try:
-                layout = _layout(molecule, order, required, points, budget)
+                layout = _layout(order, required, context)
                 return _build(molecule, layout, names, points)
             except DegenerateGeometryError as error:
                 degenerate = error
@@ -463,18 +461,18 @@ def _explicit(
 
 
 def _verify(
-    original: Molecule,
+    before: dict[str, Vector],
     result: Molecule,
     *,
     settings: ReconstructionPolicy,
     requested: tuple[NamedCoordinate, ...],
-) -> None:
-    if settings.frame == "preserve" and len(original.atoms) > 1:
+) -> dict[str, Vector]:
+    if settings.frame == "preserve" and len(before) > 1:
         raise IncompatibleCoordinatesError(
             "Psi4 normalizes Z-matrix orientation; retain Cartesian geometry "
             "to preserve a laboratory frame"
         )
-    before, after = positions(original), positions(result)
+    after = positions(result)
     ids = tuple(before)
     error = alignment_error(tuple(before[a] for a in ids), tuple(after[a] for a in ids))
     if error > settings.position_tolerance:
@@ -511,6 +509,7 @@ def _verify(
             raise DegenerateGeometryError(
                 "Requested angle failed reconstruction verification"
             )
+    return after
 
 
 @overload
@@ -571,7 +570,7 @@ def to_zmatrix(  # noqa: PLR0913 - Independent conversion choices are explicit k
         if not points:
             raise ValueError("Coordinate conversion requires at least one atom")
         _validate_requests(source, requested, points)
-        cartesian = to_cartesian(source)
+        cartesian = with_positions(source, points)
         if layout is not None:
             result = _explicit(cartesian, requested, layout, points, reorder=reorder)
         else:
@@ -591,12 +590,12 @@ def to_zmatrix(  # noqa: PLR0913 - Independent conversion choices are explicit k
                     reorder=reorder,
                     budget=budget,
                 )
-        _verify(
-            source,
+        result_points = _verify(
+            points,
             result,
             settings=settings,
             requested=requested,
         )
-        return reconcile_symmetry(result)
+        return reconcile_symmetry(result, points=result_points)
 
     return apply if molecule is None else apply(molecule)

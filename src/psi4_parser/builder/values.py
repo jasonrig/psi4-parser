@@ -6,6 +6,8 @@ from pydantic import Field
 
 from psi4_parser.builder._model import Model
 
+type Assignment = str | tuple[str, ...] | None
+
 
 class Reference(Model):
     """Reference a preceding explicit Python binding."""
@@ -104,3 +106,21 @@ def value(item: InputValue) -> Value:
             )
         )
     return LiteralValue(value=item)
+
+
+def assignment_names(assignment: Assignment) -> tuple[str, ...]:
+    """Return the declared binding names while preserving their order."""
+    if assignment is None:
+        return ()
+    return (assignment,) if isinstance(assignment, str) else assignment
+
+
+def assignment_reference(assignment: Assignment) -> Reference:
+    """Return a reference to an ordinary single-name assignment.
+
+    Raises:
+        ValueError: The assignment is absent or uses tuple unpacking.
+    """
+    if not isinstance(assignment, str):
+        raise ValueError("A single named assignment is required for .ref")
+    return Reference(name=assignment)

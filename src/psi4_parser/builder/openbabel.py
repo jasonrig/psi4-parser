@@ -5,7 +5,9 @@ from pathlib import Path
 
 from openbabel import openbabel as ob
 
+from psi4_parser._openbabel import atom_label, molecule_format, read_single_molecule
 from psi4_parser.builder._model import evolve
+from psi4_parser.builder._vectors import Vector
 from psi4_parser.builder.molecular import (
     AnchorRequirements,
     Atom,
@@ -23,13 +25,8 @@ _MAX_ATOMIC_NUMBER = 118
 
 def _records(molecule: ob.OBMol, *, state: bool) -> Molecule:
     atoms: list[Atom] = []
-    for index in range(1, molecule.NumAtoms() + 1):
-        atom = molecule.GetAtom(index)
-        if atom is None:
-            raise ValueError("Open Babel returned a missing atom")
-        label = ob.GetSymbol(atom.GetAtomicNum()) if atom.GetAtomicNum() else "X"
-        if atom.GetIsotope():
-            label = str(atom.GetIsotope()) + label
+    for index, atom in enumerate(ob.OBMolAtomIter(molecule), 1):
+        label = atom_label(atom)
         atoms.append(
             Atom(
                 id=f"a{index}",
@@ -65,27 +62,10 @@ def read_molecule(
     Raises:
         ValueError: The format is unsupported or the file does not contain one molecule.
     """
-    input_format = (
-        file_format if file_format is not None else path.suffix.removeprefix(".")
-    )
+    input_format = molecule_format(path, file_format)
     if input_format.lower() == "xyz":
         return read_xyz(path.read_text(encoding="utf-8"), perceive_bonds=perceive_bonds)
-    conversion = ob.OBConversion()
-    if not conversion.SetInFormat(input_format):
-        raise ValueError("Unsupported Open Babel input format: " + input_format)
-    if not perceive_bonds:
-        input_plugin = conversion.GetInFormat()
-        if input_plugin is not None:
-            description = input_plugin.Description()
-            if re.search(r"(?mi)^\s*b\s+Disable bonding", description):
-                conversion.AddOption("b", ob.OBConversion.INOPTIONS)
-                if re.search(r"(?mi)^\s*B\s+Use bonds listed", description):
-                    conversion.AddOption("B", ob.OBConversion.INOPTIONS)
-    molecular = ob.OBMol()
-    if not conversion.ReadFile(molecular, str(path)) or molecular.NumAtoms() == 0:
-        raise ValueError("Open Babel could not read a molecule from " + str(path))
-    if conversion.Read(ob.OBMol()):
-        raise ValueError("Expected one molecule; file contains multiple records")
+    molecular = read_single_molecule(path, input_format, perceive_bonds=perceive_bonds)
     if molecular.NumAtoms() > 1 and molecular.GetDimension() == 0:
         raise ValueError(
             "Molecular file has no coordinates; generate geometry explicitly "
@@ -149,15 +129,22 @@ def read_xyz(source: str, *, perceive_bonds: bool) -> Molecule:
     return molecule
 
 
-def to_obmol(molecule: Molecule) -> ob.OBMol:
+def to_obmol(
+    molecule: Molecule, *, points: dict[str, Vector] | None = None
+) -> ob.OBMol:
     """Return a numerical backend molecule with domain identities retained.
+
+    Args:
+        molecule: Molecular identities, isotope labels, and connectivity.
+        points: Optional already-resolved positions in angstroms, keyed by atom ID.
 
     Raises:
         ValueError: A nucleus label cannot be resolved to an element.
     """
-    from psi4_parser.builder.geometry import positions  # noqa: PLC0415 - The numerical adapter consumes geometry operations.
+    if points is None:
+        from psi4_parser.builder.geometry import positions  # noqa: PLC0415 - Resolve only when the numerical caller has not supplied positions.
 
-    points = positions(molecule)
+        points = positions(molecule)
     result = ob.OBMol()
     for atom in molecule.atoms:
         target = result.NewAtom()
@@ -185,9 +172,16 @@ def to_obmol(molecule: Molecule) -> ob.OBMol:
     return result
 
 
-def suggested_anchors(molecule: Molecule) -> AnchorRequirements:
-    """Return Open Babel's suggested internal-coordinate references."""
-    backend = to_obmol(molecule)
+def suggested_anchors(
+    molecule: Molecule, *, points: dict[str, Vector] | None = None
+) -> AnchorRequirements:
+    """Return Open Babel's suggested internal-coordinate references.
+
+    Args:
+        molecule: Atom order and identities used by the returned references.
+        points: Optional already-resolved positions for this geometry in angstroms.
+    """
+    backend = to_obmol(molecule, points=points)
     coordinates = backend.GetInternalCoord()
     ids = tuple(a.id for a in molecule.atoms)
     result: AnchorRequirements = {}
