@@ -1,0 +1,3 @@
+2026-10-19:08:53:14,128 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'REFERENCE': 'UHF', 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:08:53:14,130 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=cc-pvdz, molecule=deuterium, nre=0.0
+2026-10-19:08:53:14,375 INFO     [psi4.driver.driver:534] Return energy(): -0.4992805712453296

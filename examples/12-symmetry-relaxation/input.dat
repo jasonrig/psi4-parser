@@ -1,0 +1,26 @@
+set {
+    basis          "sto-3g"
+    scf_type       "pk"
+    e_convergence  1e-10
+    d_convergence  1e-10
+}
+
+molecule lowered {
+    O  0.0   0.0                 0.0
+    H  0.0   0.9489075945124275  0.7345572660294352
+    H  0.0  -0.757               0.586
+    units angstrom
+    symmetry cs
+}
+
+e_cs = energy('scf', molecule=lowered)
+
+molecule relaxed {
+    O  0.0   0.0                 0.0
+    H  0.0   0.9489075945124275  0.7345572660294352
+    H  0.0  -0.757               0.586
+    units angstrom
+    symmetry c1
+}
+
+e_c1 = energy('scf', molecule=relaxed)

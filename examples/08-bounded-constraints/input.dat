@@ -1,0 +1,33 @@
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+}
+
+molecule hydrogen {
+    H  0.0  0.0  0.0
+    H  0.0  0.0  1.0
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_2 = _psi4_builder_psi4.driver.p4util.OptionsState(['OPTKING', 'RANGED_DISTANCE'])
+try:
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'RANGED_DISTANCE', '1 2 0.952518979206 1.05835442134')
+    e_bounded_bond = optimize('scf', molecule=hydrogen)
+finally:
+    _psi4_builder_options_2.restore()
+
+molecule water {
+    O  0.0   0.0                 0.0
+    H  0.0   0.757               0.586
+    H  0.0  -0.5177931958217856  0.805192651705579
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_4 = _psi4_builder_psi4.driver.p4util.OptionsState(['OPTKING', 'RANGED_BEND'])
+try:
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'RANGED_BEND', '2 1 3 80.0 90.0')
+    e_bounded_angle = optimize('scf', molecule=water)
+finally:
+    _psi4_builder_options_4.restore()

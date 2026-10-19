@@ -1,0 +1,15 @@
+molecule hydrogen {
+    H
+    H  1 R
+    R = 0.85
+    units angstrom
+}
+
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+}
+
+e_opt = optimize('scf', molecule=hydrogen)
+
+e_freq = frequency('scf', molecule=hydrogen)

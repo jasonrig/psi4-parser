@@ -1,0 +1,30 @@
+set {
+    basis          "sto-3g"
+    scf_type       "pk"
+    e_convergence  1e-10
+    d_convergence  1e-10
+}
+
+molecule internal {
+    H
+    O  1 1.0
+    O  2   R  1 90.0
+    H  3 1.0  2 90.0  1 D
+    R = 1.4287784688090002
+    D = 59.99999999999999
+    units angstrom
+}
+
+e_internal = energy('scf', molecule=internal)
+
+molecule cartesian {
+    H  0.0                  0.0                 0.0
+    O  0.0                  0.0                 1.0
+    O  0.0                 -1.4287784688090002  0.9999999999999999
+    H  0.8660254037844386  -1.4287784688090002  0.4999999999999998
+    R = 1.4287784688090002
+    D = 59.99999999999999
+    units angstrom
+}
+
+e_cartesian = energy('scf', molecule=cartesian)

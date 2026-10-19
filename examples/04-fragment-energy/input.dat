@@ -1,0 +1,19 @@
+molecule dimer {
+    0 1
+    --
+    0 1
+    H  0.0  0.0  -0.37
+    H  0.0  0.0   0.37
+    --
+    0 1
+    H  3.0  0.0  -0.37
+    H  3.0  0.0   0.37
+    units angstrom
+}
+
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+}
+
+e_dimer = energy('scf', molecule=dimer)

@@ -1,0 +1,23 @@
+molecule hooh {
+    H  1.0  0.0  0.0
+    O  0.0  0.0  0.0
+    O  0.0  0.0  1.4
+    H  0.0  1.0  1.4
+    units angstrom
+}
+
+set {
+    basis  "cc-pvdz"
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_2 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_opt = optimize('scf', molecule=hooh)
+finally:
+    _psi4_builder_options_2.restore()

@@ -117,6 +117,9 @@ calculation arguments remain open. See [building jobs](docs/building-jobs.md)
 for functional examples, file imports, constraints, and saving specifications
 as JSON.
 
+See the [runnable examples](examples/README.md) for builder scripts, rendered
+inputs, and recorded Psi4 calculation outputs.
+
 ## Read and build jobs
 
 Use `psi4_parser.job` to work with molecules, options, basis definitions, and

@@ -1,0 +1,12 @@
+2026-10-19:08:53:08,740 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:08:53:08,742 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=anonymouscb05d172, molecule=water, nre=9.19391315627989
+2026-10-19:08:53:08,994 INFO     [psi4.driver.driver:534] Return energy(): -74.96294665659187
+2026-10-19:08:53:09,6 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:08:53:09,7 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=anonymouscb05d172, molecule=water, nre=9.19391315627989
+2026-10-19:08:53:09,77 INFO     [psi4.driver.driver:647] Return gradient(): -74.96294665660572
+2026-10-19:08:53:09,77 INFO     [psi4.driver.driver:648] [[ 0.          0.          0.06226111]
+ [ 0.         -0.02411052 -0.03113056]
+ [-0.          0.02411052 -0.03113056]]
+2026-10-19:08:53:09,89 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:08:53:09,90 INFO     [psi4.driver.driver:796] Compute properties(): method=scf, basis=anonymouscb05d172, molecule=water, nre=9.19391315627989
+2026-10-19:08:53:09,152 INFO     [psi4.driver.driver:799] Return properties(): -74.96294665659187

@@ -1,0 +1,4 @@
+# Preserve the native whitespace in recorded program output.
+output.dat -whitespace
+*.log -whitespace
+timer.dat -whitespace

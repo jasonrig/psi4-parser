@@ -1,0 +1,21 @@
+molecule water {
+    O  0.0   0.0    0.0
+    H  0.0   0.757  0.586
+    H  0.0  -0.757  0.586
+    units angstrom
+    symmetry c2v
+}
+
+basis {
+    assign sto-3g
+}
+
+set {
+    scf_type  "pk"
+}
+
+e_hf = energy('scf', molecule=water)
+
+g_hf = gradient('scf', molecule=water)
+
+properties('scf', molecule=water, properties=['dipole'])

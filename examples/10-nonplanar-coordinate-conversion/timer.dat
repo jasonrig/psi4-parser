@@ -1,0 +1,46 @@
+
+Host: Jasons-MacBook-Pro-2.local
+
+Timers On : Mon Oct 19 09:44:04 2026
+Timers Off: Mon Oct 19 09:44:04 2026
+
+Wall Time:        0.62 seconds
+
+                                                       Time (seconds)
+Module                                       User      System        Wall        Calls
+Total PK formation time             :      0.000u      0.000s      0.006w      2 calls
+Libint2ERI::Libint2ERI              :      0.000u      0.000s      0.001w      4 calls
+HF: Form core H                     :      0.000u      0.000s      0.001w      2 calls
+HF: Form S/X                        :      0.000u      0.000s      0.000w      2 calls
+HF: Guess                           :      0.033u      0.000s      0.015w      2 calls
+SAD Guess                           :      0.033u      0.000s      0.013w      2 calls
+HF: Form G                          :      0.000u      0.000s      0.000w     26 calls
+JK: D                               :      0.000u      0.000s      0.000w     26 calls
+JK: USO2AO                          :      0.000u      0.000s      0.000w     26 calls
+JK: JK                              :      0.000u      0.000s      0.000w     26 calls
+PK computes JK                      :      0.000u      0.000s      0.000w     26 calls
+JK: AO2USO                          :      0.000u      0.000s      0.000w     26 calls
+HF: Form F                          :      0.000u      0.000s      0.000w     26 calls
+HF: Form D                          :      0.000u      0.000s      0.000w     26 calls
+HF: DIIS                            :      0.283u      0.050s      0.194w     24 calls
+HF: Form C                          :      0.000u      0.000s      0.002w     24 calls
+
+--------------------------------------------------------------------------------------
+Total PK formation time             :      0.000u      0.000s      0.006w      2 calls
+| Libint2ERI::Libint2ERI            :      0.000u      0.000s      0.001w      4 calls
+HF: Form core H                     :      0.000u      0.000s      0.001w      2 calls
+HF: Form S/X                        :      0.000u      0.000s      0.000w      2 calls
+HF: Guess                           :      0.033u      0.000s      0.015w      2 calls
+| SAD Guess                         :      0.033u      0.000s      0.013w      2 calls
+HF: Form G                          :      0.000u      0.000s      0.000w     26 calls
+| JK: D                             :      0.000u      0.000s      0.000w     26 calls
+| JK: USO2AO                        :      0.000u      0.000s      0.000w     26 calls
+| JK: JK                            :      0.000u      0.000s      0.000w     26 calls
+| | PK computes JK                  :      0.000u      0.000s      0.000w     26 calls
+| JK: AO2USO                        :      0.000u      0.000s      0.000w     26 calls
+HF: Form F                          :      0.000u      0.000s      0.000w     26 calls
+HF: Form D                          :      0.000u      0.000s      0.000w     26 calls
+HF: DIIS                            :      0.283u      0.050s      0.194w     24 calls
+HF: Form C                          :      0.000u      0.000s      0.002w     24 calls
+
+**************************************************************************************

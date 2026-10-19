@@ -1,0 +1,3 @@
+2026-10-19:08:53:16,113 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF_TYPE': 'PK', 'function_kwargs': {'external_potentials': [[0.1, [0.0, 0.0, 4.724315313644571]], [-0.1, [0.0, 0.0, -4.724315313644571]]]}}
+2026-10-19:08:53:16,115 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=cc-pvdz, molecule=hydrogen, nre=0.7151043387432432
+2026-10-19:08:53:16,372 INFO     [psi4.driver.driver:534] Return energy(): -1.1289670033214172

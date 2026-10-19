@@ -1,0 +1,6 @@
+2026-10-19:09:44:15,622 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'D_CONVERGENCE': 1e-10, 'E_CONVERGENCE': 1e-10, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:09:44:15,624 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432433
+2026-10-19:09:44:15,678 INFO     [psi4.driver.driver:534] Return energy(): -1.116759307378158
+2026-10-19:09:44:15,691 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'D_CONVERGENCE': 1e-10, 'E_CONVERGENCE': 1e-10, 'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-19:09:44:15,693 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=anonymous200dcf51, molecule=hydrogen, nre=0.7151043387432436
+2026-10-19:09:44:15,741 INFO     [psi4.driver.driver:534] Return energy(): -1.116759307378158

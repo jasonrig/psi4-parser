@@ -1,0 +1,35 @@
+molecule water {
+    O  0.0   0.0    0.0
+    H  0.0   0.757  0.586
+    H  0.0  -0.757  0.586
+    units angstrom
+}
+
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+}
+
+e_gas = energy('scf', molecule=water)
+
+pcm {
+  Units = Angstrom
+  Medium {
+    SolverType = IEFPCM
+    Solvent = Water
+  }
+  Cavity {
+    RadiiSet = UFF
+    Type = GePol
+    Scaling = False
+    Area = 0.3
+    Mode = Implicit
+  }
+}
+
+set {
+    pcm           true
+    pcm_scf_type  "total"
+}
+
+e_pcm = energy('scf', molecule=water)

@@ -1,0 +1,1523 @@
+2026-10-19:09:44:11,251 WARNING  [psi4.optking:38] Some dependencies such as QCElemental have not yet finished migration to pydantic v2. If issues are encountered please downgrade pydantic or upgrade QCElemental as appropriate
+2026-10-19:09:44:11,429 INFO     [psi4.optking.optwrapper:318] Creating a UserComputer
+2026-10-19:09:44:11,430 INFO     [psi4.optking.optwrapper:326] 
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+2026-10-19:09:44:11,430 INFO     [psi4.optking.optwrapper:356] 
+		 -- Optimization Parameters --
+	GEOM_MAXITER                   =              50
+	ALG_GEOM_MAXITER               =              50
+	PRINT                          =               1
+	OPT_TYPE                       =             MIN
+	STEP_TYPE                      =             RFO
+	PROGRAM                        =            PSI4
+	STEEPEST_DESCENT_TYPE          =         OVERLAP
+	CONJUGATE_GRADIENT_TYPE        =        FLETCHER
+	OPT_COORDINATES                =        INTERNAL
+	RFO_FOLLOW_ROOT                =           False
+	RFO_ROOT                       =               0
+	ACCEPT_SYMMETRY_BREAKING       =           False
+	DYNAMIC_LVL                    =               0
+	DYNAMIC_LVL_MAX                =               0
+	IRC_STEP_SIZE                  =             0.2
+	IRC_DIRECTION                  =         FORWARD
+	IRC_POINTS                     =              20
+	IRC_MODE                       =          NORMAL
+	IRC_CONVERGENCE                =            -0.7
+	INTRAFRAG_STEP_LIMIT           =             0.5
+	INTRAFRAG_STEP_LIMIT_MIN       =           0.001
+	INTRAFRAG_STEP_LIMIT_MAX       =             1.0
+	INTERFRAG_STEP_LIMIT           =             0.5
+	INTERFRAG_STEP_LIMIT_MIN       =           0.001
+	INTERFRAG_STEP_LIMIT_MAX       =             1.0
+	ENSURE_BT_CONVERGENCE          =           False
+	SIMPLE_STEP_SCALING            =           False
+	CONSECUTIVE_BACKSTEPS          =               0
+	RFO_NORMALIZATION_MAX          =             100
+	RSRFO_ALPHA_MAX                =     100000000.0
+	PRINT_TRAJECTORY_XYZ_FILE      =           False
+	WRITE_TRAJECTORY               =           False
+	FROZEN_DISTANCE                =                
+	FROZEN_BEND                    =                
+	FROZEN_DIHEDRAL                =         1 2 3 4
+	FROZEN_OOFP                    =                
+	FROZEN_CARTESIAN               =                
+	FREEZE_ALL_DIHEDRALS           =           False
+	UNFREEZE_DIHEDRALS             =                
+	RANGED_DISTANCE                =                
+	RANGED_BEND                    =                
+	RANGED_DIHEDRAL                =                
+	RANGED_OOFP                    =                
+	RANGED_CARTESIAN               =                
+	EXT_FORCE_DISTANCE             =                
+	EXT_FORCE_BEND                 =                
+	EXT_FORCE_DIHEDRAL             =                
+	EXT_FORCE_OOFP                 =                
+	EXT_FORCE_CARTESIAN            =                
+	G_CONVERGENCE                  =           QCHEM
+	MAX_FORCE_G_CONVERGENCE        =          0.0003
+	RMS_FORCE_G_CONVERGENCE        =          0.0003
+	MAX_ENERGY_G_CONVERGENCE       =           1e-06
+	MAX_DISP_G_CONVERGENCE         =          0.0012
+	RMS_DISP_G_CONVERGENCE         =          0.0012
+	FLEXIBLE_G_CONVERGENCE         =           False
+	HESS_UPDATE                    =            BFGS
+	HESS_UPDATE_USE_LAST           =               4
+	HESS_UPDATE_LIMIT              =            True
+	HESS_UPDATE_LIMIT_MAX          =             1.0
+	HESS_UPDATE_LIMIT_SCALE        =             0.5
+	HESS_UPDATE_DEN_TOL            =           1e-07
+	HESS_UPDATE_DQ_TOL             =             0.5
+	CART_HESS_READ                 =           False
+	HESSIAN_FILE                   =               .
+	FULL_HESS_EVERY                =              -1
+	INTRAFRAG_HESS                 =        SCHLEGEL
+	H_GUESS_EVERY                  =           False
+	BT_MAX_ITER                    =              25
+	BT_DX_CONV                     =           1e-07
+	BT_DX_RMS_CHANGE_CONV          =           1e-12
+	BT_PINV_RCOND                  =           1e-06
+	FRAG_MODE                      =          SINGLE
+	FRAG_REF_ATOMS                 =              []
+	FREEZE_INTRAFRAG               =           False
+	INTERFRAG_MODE                 =           FIXED
+	ADD_AUXILIARY_BONDS            =           False
+	AUXILIARY_BOND_FACTOR          =             2.5
+	INTERFRAG_DIST_INV             =           False
+	INTERFRAG_COLLINEAR_TOL        =            0.01
+	INTERFRAG_COORDS               =              []
+	INTERFRAG_HESS                 =         DEFAULT
+	COVALENT_CONNECT               =             1.3
+	INTERFRAGMENT_CONNECT          =             1.8
+	H_BOND_CONNECT                 =             4.3
+	INCLUDE_OOFP                   =           False
+	TEST_B                         =           False
+	TEST_DERIVATIVE_B              =           False
+	LINESEARCH_STEP                =             0.1
+	LINESEARCH                     =           False
+	SD_HESSIAN                     =             1.0
+	FIX_VAL_NEAR_PI                =            1.57
+	V3D_TORS_ANGLE_LIM             =           0.017
+	V3D_TORS_COS_TOL               =           1e-10
+	LINEAR_BEND_THRESHOLD          =            3.05
+	SMALL_BEND_FIX_THRESHOLD       =            0.35
+	REDUNDANT_EVAL_TOL             =           1e-10
+	LINEAR_ALGEBRA_TOL             =           1e-10
+
+
+2026-10-19:09:44:11,551 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.82533527 -1.32280829  0.46010624   
+	       8.000000            15.994915          0.00000000 -1.32280829 -0.02899088   
+	       8.000000            15.994915         -0.00000000  1.32280829 -0.02899088   
+	       1.000000             1.007825          1.82533527  1.32280829  0.46010624   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.889726           1.000000
+	 R(2,3)           =         2.645617           1.400000
+	 R(3,4)           =         1.889726           1.000000
+	 B(1,2,3)         =         1.570796          90.000000
+	 B(2,3,4)         =         1.570796          90.000000
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:11,564 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'OPTKING__FROZEN_DIHEDRAL': '1 2 3 4', 'SCF__MAXITER': 100, 'function_kwargs': {}}
+2026-10-19:09:44:11,565 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.80084432945787
+2026-10-19:09:44:11,974 INFO     [psi4.driver.driver:647] Return gradient(): -150.7687790145223
+2026-10-19:09:44:11,974 INFO     [psi4.driver.driver:648] [[-0.04822542  0.03252552  0.01288173]
+ [ 0.09310721  0.00556779 -0.01288173]
+ [-0.09310721 -0.00556779 -0.01288173]
+ [ 0.04822542 -0.03252552  0.01288173]]
+2026-10-19:09:44:11,977 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.476883   0.000000   0.000000   0.000000   0.000000   0.000000
+	   0.000000   0.456205   0.000000   0.000000   0.000000   0.000000
+	   0.000000   0.000000   0.476883   0.000000   0.000000   0.000000
+	   0.000000   0.000000   0.000000   0.160000   0.000000   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.160000   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.002300
+
+2026-10-19:09:44:11,977 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.8253352692  -1.3228082878   0.4601062356		  -0.0482254174   0.0325255217   0.0128817254
+   0.0000000000  -1.3228082878  -0.0289908757		   0.0931072120   0.0055677949  -0.0128817254
+  -0.0000000000   1.3228082878  -0.0289908757		  -0.0931072120  -0.0055677949  -0.0128817254
+   1.8253352692   1.3228082878   0.4601062356		   0.0482254174  -0.0325255217   0.0128817254
+
+2026-10-19:09:44:11,977 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:11,978 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:11,979 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:11,979 INFO     [psi4.optking.displace:416] 	RMS(dx):  2.970e-09 	Max(dx):  4.717e-09 	RMS(dq):  4.154e-16
+2026-10-19:09:44:11,979 INFO     [psi4.optking.displace:559] 
+Adjustments to Frozen/Ranged Coordinates Needed:
+*D(1,2,3,4) -0.000000
+
+2026-10-19:09:44:11,980 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:11,980 INFO     [psi4.optking.displace:416] 	RMS(dx):  1.084e-16 	Max(dx):  1.787e-16 	RMS(dq):  4.441e-16
+2026-10-19:09:44:11,980 INFO     [psi4.optking.displace:594] 	Additional back-transformation to adjust frozen/ranged coordinates: successful.
+
+2026-10-19:09:44:11,980 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       1.00000       -0.41125       -0.05027       0.94973
+	               R(2,3)       1.40000        0.31384        0.03993       1.43993
+	               R(3,4)       1.00000       -0.41125       -0.05027       0.94973
+	             B(1,2,3)      90.00000        0.00468       16.88372     106.88372
+	             B(2,3,4)      90.00000        0.00468       16.88372     106.88372
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.4443097985
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.1093434945
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.1975150327
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.4443097985
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.1093434945
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.1975150327
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.4443097985
+2026-10-19:09:44:11,980 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.5172111242
+2026-10-19:09:44:11,981 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.94969218 -1.57848391  0.43780197   
+	       8.000000            15.994915         -0.22710451 -1.34145200 -0.00668661   
+	       8.000000            15.994915          0.22710451  1.34145200 -0.00668661   
+	       1.000000             1.007825          1.94969218  1.57848391  0.43780197   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.794732           0.949731
+	 R(2,3)           =         2.721081           1.439934
+	 R(3,4)           =         1.794732           0.949731
+	 B(1,2,3)         =         1.865473         106.883724
+	 B(2,3,4)         =         1.865473         106.883724
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:11,981 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:11,981 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------~
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   ~
+	----------------------------------------------------------------------------------------------~
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o~
+	----------------------------------------------------------------------------------------------~
+	     1    -150.76877901   -1.51e+02      6.15e-02      4.83e-02 o    2.95e-01      1.81e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:11,981 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:11,993 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'OPTKING__FROZEN_DIHEDRAL': '1 2 3 4', 'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 100, 'function_kwargs': {}}
+2026-10-19:09:44:11,995 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=36.99514900193971
+2026-10-19:09:44:12,148 INFO     [psi4.driver.driver:647] Return gradient(): -150.78074461355706
+2026-10-19:09:44:12,148 INFO     [psi4.driver.driver:648] [[-0.00003787 -0.01854452 -0.00258186]
+ [-0.02986957 -0.01749101  0.00258186]
+ [ 0.02986957  0.01749101  0.00258186]
+ [ 0.00003787  0.01854452 -0.00258186]]
+2026-10-19:09:44:12,150 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:12,150 INFO     [psi4.optking.history:281] 	Using 1 previous steps for update.
+2026-10-19:09:44:12,150 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  1
+
+2026-10-19:09:44:12,151 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.456836  -0.013292  -0.020047  -0.009459  -0.009459   0.000000
+	  -0.013292   0.512961  -0.013292   0.063426   0.063426   0.000000
+	  -0.020047  -0.013292   0.456836  -0.009459  -0.009459   0.000000
+	  -0.009459   0.063426  -0.009459   0.229623   0.069623   0.000000
+	  -0.009459   0.063426  -0.009459   0.069623   0.229623   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,151 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.456836  -0.013292  -0.020047  -0.009459  -0.009459   0.000000
+	  -0.013292   0.512961  -0.013292   0.063426   0.063426   0.000000
+	  -0.020047  -0.013292   0.456836  -0.009459  -0.009459   0.000000
+	  -0.009459   0.063426  -0.009459   0.229623   0.069623   0.000000
+	  -0.009459   0.063426  -0.009459   0.069623   0.229623   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,151 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.9496921839  -1.5784839105   0.4181418392		  -0.0000378744  -0.0185445172  -0.0025818559
+  -0.2271045103  -1.3414519972  -0.0263467372		  -0.0298695733  -0.0174910070   0.0025818559
+   0.2271045103   1.3414519972  -0.0263467372		   0.0298695733   0.0174910070   0.0025818559
+   1.9496921839   1.5784839105   0.4181418392		   0.0000378744   0.0185445172  -0.0025818559
+
+2026-10-19:09:44:12,152 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7807446136
+	Energy change for the previous step:
+		Actual       :        -0.0119655990
+		Projected    :        -0.0242911930
+
+2026-10-19:09:44:12,152 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    0.49259
+2026-10-19:09:44:12,152 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:12,152 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:416] 	RMS(dx):  7.735e-13 	Max(dx):  1.125e-12 	RMS(dq):  3.738e-16
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:559] 
+Adjustments to Frozen/Ranged Coordinates Needed:
+*D(1,2,3,4) -0.000000
+
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:416] 	RMS(dx):  2.222e-16 	Max(dx):  3.681e-16 	RMS(dq):  4.441e-16
+2026-10-19:09:44:12,154 INFO     [psi4.optking.displace:594] 	Additional back-transformation to adjust frozen/ranged coordinates: successful.
+
+2026-10-19:09:44:12,155 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94973       -0.01521       -0.00524       0.94449
+	               R(2,3)       1.43993       -0.33385       -0.02882       1.41111
+	               R(3,4)       0.94973       -0.01521       -0.00524       0.94449
+	             B(1,2,3)     106.88372       -0.00253       -5.58713     101.29660
+	             B(2,3,4)     106.88372       -0.00253       -5.58713     101.29660
+	          *D(1,2,3,4)     150.00000        0.00000       -0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.1489328856
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0586716855
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.3852090046
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.1489328856
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0586716855
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.3852090046
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.1489328856
+2026-10-19:09:44:12,155 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.2090096688
+2026-10-19:09:44:12,155 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87654502 -1.47274764  0.42239580   
+	       8.000000            15.994915         -0.15657870 -1.32408041 -0.03060069   
+	       8.000000            15.994915          0.15657870  1.32408041 -0.03060069   
+	       1.000000             1.007825          1.87654502  1.47274764  0.42239580   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.784823           0.944487
+	 R(2,3)           =         2.666613           1.411111
+	 R(3,4)           =         1.784823           0.944487
+	 B(1,2,3)         =         1.767959         101.296597
+	 B(2,3,4)         =         1.767959         101.296597
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:12,156 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:12,156 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     2    -150.78074461   -1.20e-02      4.05e-02      2.54e-02 o    9.75e-02      6.08e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,156 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:12,168 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'OPTKING__FROZEN_DIHEDRAL': '1 2 3 4', 'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 100, 'function_kwargs': {}}
+2026-10-19:09:44:12,169 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.76268282159593
+2026-10-19:09:44:12,315 INFO     [psi4.driver.driver:647] Return gradient(): -150.78570520354037
+2026-10-19:09:44:12,315 INFO     [psi4.driver.driver:648] [[ 0.00330122 -0.00108603 -0.00193840]
+ [-0.00618536 -0.00823910  0.00193840]
+ [ 0.00618536  0.00823910  0.00193840]
+ [-0.00330122  0.00108603 -0.00193840]]
+2026-10-19:09:44:12,316 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:12,316 INFO     [psi4.optking.history:281] 	Using 2 previous steps for update.
+2026-10-19:09:44:12,317 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  2 1
+
+2026-10-19:09:44:12,317 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.476108  -0.037329  -0.000776  -0.007231  -0.007231   0.000000
+	  -0.037329   0.493065  -0.037329   0.074832   0.074832   0.000000
+	  -0.000776  -0.037329   0.476108  -0.007231  -0.007231   0.000000
+	  -0.007231   0.074832  -0.007231   0.234468   0.074468   0.000000
+	  -0.007231   0.074832  -0.007231   0.074468   0.234468   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,318 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.476108  -0.037329  -0.000776  -0.007231  -0.007231   0.000000
+	  -0.037329   0.493065  -0.037329   0.074832   0.074832   0.000000
+	  -0.000776  -0.037329   0.476108  -0.007231  -0.007231   0.000000
+	  -0.007231   0.074832  -0.007231   0.234468   0.074468   0.000000
+	  -0.007231   0.074832  -0.007231   0.074468   0.234468   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,318 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.8765450190  -1.4727476442   0.4261454507		   0.0033012216  -0.0010860254  -0.0019384003
+  -0.1565786952  -1.3240804056  -0.0268510375		  -0.0061853577  -0.0082390976   0.0019384003
+   0.1565786952   1.3240804056  -0.0268510375		   0.0061853577   0.0082390976   0.0019384003
+   1.8765450190   1.4727476442   0.4261454507		  -0.0033012216   0.0010860254  -0.0019384003
+
+2026-10-19:09:44:12,318 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7857052035
+	Energy change for the previous step:
+		Actual       :        -0.0049605900
+		Projected    :        -0.0043690717
+
+2026-10-19:09:44:12,318 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    1.13539
+2026-10-19:09:44:12,318 INFO     [psi4.optking.stepAlgorithms:399] 	Energy ratio indicates good step.
+2026-10-19:09:44:12,318 INFO     [psi4.optking.stepAlgorithms:400] 	Intrafrag trust radius increased to      1.
+2026-10-19:09:44:12,318 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:12,318 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:416] 	RMS(dx):  2.224e-10 	Max(dx):  3.783e-10 	RMS(dq):  4.252e-16
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:559] 
+Adjustments to Frozen/Ranged Coordinates Needed:
+*D(1,2,3,4) -0.000000
+
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:416] 	RMS(dx):  2.231e-16 	Max(dx):  3.697e-16 	RMS(dq):  4.441e-16
+2026-10-19:09:44:12,320 INFO     [psi4.optking.displace:594] 	Additional back-transformation to adjust frozen/ranged coordinates: successful.
+
+2026-10-19:09:44:12,321 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94449        0.02952        0.00320       0.94769
+	               R(2,3)       1.41111       -0.07909       -0.00922       1.40189
+	               R(3,4)       0.94449        0.02952        0.00320       0.94769
+	             B(1,2,3)     101.29660       -0.00019       -0.21192     101.08467
+	             B(2,3,4)     101.29660       -0.00019       -0.21192     101.08467
+	          *D(1,2,3,4)     150.00000        0.00000       -0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0201036197
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0114089215
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.5672764753
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0201036197
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0114089215
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.5672764753
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0201036197
+2026-10-19:09:44:12,321 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0175583189
+2026-10-19:09:44:12,322 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87486264 -1.46694607  0.42708006   
+	       8.000000            15.994915         -0.14929082 -1.31615585 -0.02778565   
+	       8.000000            15.994915          0.14929082  1.31615585 -0.02778565   
+	       1.000000             1.007825          1.87486264  1.46694607  0.42708006   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.790876           0.947691
+	 R(2,3)           =         2.649192           1.401892
+	 R(3,4)           =         1.790876           0.947691
+	 B(1,2,3)         =         1.764260         101.084673
+	 B(2,3,4)         =         1.764260         101.084673
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:12,322 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:12,322 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     3    -150.78570520   -4.96e-03      9.60e-03      4.67e-03 o    1.74e-02      8.21e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,322 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:12,335 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'OPTKING__FROZEN_DIHEDRAL': '1 2 3 4', 'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 100, 'function_kwargs': {}}
+2026-10-19:09:44:12,336 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.911777604572734
+2026-10-19:09:44:12,490 INFO     [psi4.driver.driver:647] Return gradient(): -150.78583470926748
+2026-10-19:09:44:12,491 INFO     [psi4.driver.driver:648] [[-0.00054966 -0.00007212 -0.00088954]
+ [ 0.00031566 -0.00171247  0.00088954]
+ [-0.00031566  0.00171247  0.00088954]
+ [ 0.00054966  0.00007212 -0.00088954]]
+2026-10-19:09:44:12,493 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:12,493 INFO     [psi4.optking.history:281] 	Using 3 previous steps for update.
+2026-10-19:09:44:12,494 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  3 2 1
+
+2026-10-19:09:44:12,494 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.490141  -0.035899   0.013258   0.000730   0.000730   0.000000
+	  -0.035899   0.415326  -0.035899   0.080922   0.080922   0.000000
+	   0.013258  -0.035899   0.490141   0.000730   0.000730   0.000000
+	   0.000730   0.080922   0.000730   0.238827   0.078827   0.000000
+	   0.000730   0.080922   0.000730   0.078827   0.238827   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,495 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.490141  -0.035899   0.013258   0.000730   0.000730   0.000000
+	  -0.035899   0.415326  -0.035899   0.080922   0.080922   0.000000
+	   0.013258  -0.035899   0.490141   0.000730   0.000730   0.000000
+	   0.000730   0.080922   0.000730   0.238827   0.078827   0.000000
+	   0.000730   0.080922   0.000730   0.078827   0.238827   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,495 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.8748626365  -1.4669460748   0.4279038702		  -0.0005496624  -0.0000721166  -0.0008895407
+  -0.1492908232  -1.3161558488  -0.0269618339		   0.0003156645  -0.0017124659   0.0008895407
+   0.1492908232   1.3161558488  -0.0269618339		  -0.0003156645   0.0017124659   0.0008895407
+   1.8748626365   1.4669460748   0.4279038702		   0.0005496624   0.0000721166  -0.0008895407
+
+2026-10-19:09:44:12,495 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7858347093
+	Energy change for the previous step:
+		Actual       :        -0.0001295057
+		Projected    :        -0.0001146803
+
+2026-10-19:09:44:12,495 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    1.12928
+2026-10-19:09:44:12,495 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:12,496 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:416] 	RMS(dx):  4.422e-14 	Max(dx):  8.353e-14 	RMS(dq):  3.846e-16
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:559] 
+Adjustments to Frozen/Ranged Coordinates Needed:
+*D(1,2,3,4) -0.000000
+
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:416] 	RMS(dx):  2.230e-16 	Max(dx):  3.694e-16 	RMS(dq):  0.000e+00
+2026-10-19:09:44:12,497 INFO     [psi4.optking.displace:594] 	Additional back-transformation to adjust frozen/ranged coordinates: successful.
+
+2026-10-19:09:44:12,498 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94769       -0.00255       -0.00051       0.94718
+	               R(2,3)       1.40189       -0.01483       -0.00255       1.39935
+	               R(3,4)       0.94769       -0.00255       -0.00051       0.94718
+	             B(1,2,3)     101.08467       -0.00001        0.04612     101.13079
+	             B(2,3,4)     101.08467       -0.00001        0.04612     101.13079
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0051287143
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0017623132
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.3436079184
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0051287143
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0017623132
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.3436079184
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0051287143
+2026-10-19:09:44:12,498 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0041510837
+2026-10-19:09:44:12,499 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87355244 -1.46591705  0.42774593   
+	       8.000000            15.994915         -0.14901414 -1.31376549 -0.02680389   
+	       8.000000            15.994915          0.14901414  1.31376549 -0.02680389   
+	       1.000000             1.007825          1.87355244  1.46591705  0.42774593   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.789916           0.947183
+	 R(2,3)           =         2.644379           1.399345
+	 R(3,4)           =         1.789916           0.947183
+	 B(1,2,3)         =         1.765065         101.130795
+	 B(2,3,4)         =         1.765065         101.130795
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:12,499 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:12,499 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     4    -150.78583471   -1.30e-04      1.80e-03      7.60e-04 o    4.81e-03      2.09e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,499 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:12,512 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'OPTKING__FROZEN_DIHEDRAL': '1 2 3 4', 'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 100, 'function_kwargs': {}}
+2026-10-19:09:44:12,513 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.965616455459084
+2026-10-19:09:44:12,654 INFO     [psi4.driver.driver:647] Return gradient(): -150.78583875630358
+2026-10-19:09:44:12,655 INFO     [psi4.driver.driver:648] [[-0.00003252  0.00004387 -0.00103850]
+ [ 0.00010473  0.00005183  0.00103850]
+ [-0.00010473 -0.00005183  0.00103850]
+ [ 0.00003252 -0.00004387 -0.00103850]]
+2026-10-19:09:44:12,656 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:12,656 INFO     [psi4.optking.history:281] 	Using 4 previous steps for update.
+2026-10-19:09:44:12,657 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  4 3 2 1
+
+2026-10-19:09:44:12,658 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.502502  -0.028789   0.025619   0.006496   0.006496   0.000000
+	  -0.028789   0.411778  -0.028789   0.084298   0.084298   0.000000
+	   0.025619  -0.028789   0.502502   0.006496   0.006496   0.000000
+	   0.006496   0.084298   0.006496   0.241827   0.081827   0.000000
+	   0.006496   0.084298   0.006496   0.081827   0.241827   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,659 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.502502  -0.028789   0.025619   0.006496   0.006496   0.000000
+	  -0.028789   0.411778  -0.028789   0.084298   0.084298   0.000000
+	   0.025619  -0.028789   0.502502   0.006496   0.006496   0.000000
+	   0.006496   0.084298   0.006496   0.241827   0.081827   0.000000
+	   0.006496   0.084298   0.006496   0.081827   0.241827   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.000000
+
+2026-10-19:09:44:12,659 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.8735524432  -1.4659170494   0.4276067045		  -0.0000325241   0.0000438673  -0.0010385049
+  -0.1490141411  -1.3137654927  -0.0269431098		   0.0001047350   0.0000518275   0.0010385049
+   0.1490141411   1.3137654927  -0.0269431098		  -0.0001047350  -0.0000518275   0.0010385049
+   1.8735524432   1.4659170494   0.4276067045		   0.0000325241  -0.0000438673  -0.0010385049
+
+2026-10-19:09:44:12,659 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7858387563
+	Energy change for the previous step:
+		Actual       :        -0.0000040470
+		Projected    :        -0.0000045192
+
+2026-10-19:09:44:12,659 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    0.89552
+2026-10-19:09:44:12,659 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:12,659 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:416] 	RMS(dx):  1.642e-08 	Max(dx):  2.861e-08 	RMS(dq):  1.813e-16
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:559] 
+Adjustments to Frozen/Ranged Coordinates Needed:
+*D(1,2,3,4)  0.000000
+
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:416] 	RMS(dx):  0.000e+00 	Max(dx):  0.000e+00 	RMS(dq):  0.000e+00
+2026-10-19:09:44:12,661 INFO     [psi4.optking.displace:594] 	Additional back-transformation to adjust frozen/ranged coordinates: successful.
+
+2026-10-19:09:44:12,662 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94718        0.00195        0.00025       0.94743
+	               R(2,3)       1.39935        0.00085        0.00020       1.39954
+	               R(3,4)       0.94718        0.00195        0.00025       0.94743
+	             B(1,2,3)     101.13079       -0.00000       -0.00855     101.12225
+	             B(2,3,4)     101.13079       -0.00000       -0.00855     101.12225
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0007946644
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0003330421
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.4190975061
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0007946644
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0003330421
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.4190975061
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0007946644
+2026-10-19:09:44:12,662 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0006409496
+2026-10-19:09:44:12,662 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87388990 -1.46608057  0.42767322   
+	       8.000000            15.994915         -0.14889390 -1.31396917 -0.02700963   
+	       8.000000            15.994915          0.14889390  1.31396917 -0.02700963   
+	       1.000000             1.007825          1.87388990  1.46608057  0.42767322   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.790387           0.947432
+	 R(2,3)           =         2.644757           1.399545
+	 R(3,4)           =         1.790387           0.947432
+	 B(1,2,3)         =         1.764916         101.122247
+	 B(2,3,4)         =         1.764916         101.122247
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:12,663 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:12,663 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     5    -150.78583876   -4.05e-06      2.36e-04 *    1.43e-04 o    4.71e-04 *    3.24e-04 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,663 INFO     [psi4.optking.convcheck:206] 
+	                      ===> Final Convergence Report <===                     
+
+	----------------------------------------------------------------------------
+	|   Required Criteria    |  One or More Criteria  |   Alternate Criteria   |
+	----------------------------------------------------------------------------
+	| [x]     max_force      | [ ]       max_DE       |                        |
+	|                        | [x]      max_disp      |                        |
+	----------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,663 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned True
+2026-10-19:09:44:12,663 INFO     [psi4.optking.optimize:332] 	Converged in 5 steps!
+2026-10-19:09:44:12,663 INFO     [psi4.optking.optimize:333] 	Final energy is   -150.7858387563036
+2026-10-19:09:44:12,663 INFO     [psi4.optking.optimize:334] 	Final structure (Angstroms): 
+	Fragment 1 (Ang)
+
+	    H  -0.9916198306  -0.7758164277   0.2263149241
+	    O  -0.0787912600  -0.6953225397  -0.0142928807
+	    O   0.0787912600   0.6953225397  -0.0142928807
+	    H   0.9916198306   0.7758164277   0.2263149241
+
+
+2026-10-19:09:44:12,664 INFO     [psi4.optking.optimize:562] 	Optimization Finished
+
+	==> Optimization Summary <==
+
+        
+	Measures of convergence in internal coordinates in au. (Any backward steps not shown.)
+        
+	---------------------------------------------------------------------------------------------------------------  ~
+        
+	 Step         Total Energy             Delta E       MAX Force       RMS Force        MAX Disp        RMS Disp   ~
+        
+	---------------------------------------------------------------------------------------------------------------  ~
+        
+	     1    -150.768779014522   -150.768779014522      0.06146434      0.04828749      0.29467657      0.18138872  ~
+	     2    -150.780744613557     -0.011965599035      0.04052217      0.02538579      0.09751376      0.06080160  ~
+	     3    -150.785705203540     -0.004960589983      0.00959930      0.00466671      0.01742114      0.00820727  ~
+	     4    -150.785834709267     -0.000129505727      0.00179958      0.00076015      0.00481262      0.00209379  ~
+	     5    -150.785838756304     -0.000004047036      0.00023612      0.00014281      0.00047135      0.00032442  ~
+	----------------------------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:12,664 INFO     [psi4.optking.optimize:806] Preparing OptimizationResult
+2026-10-19:09:44:12,840 INFO     [psi4.optking.optwrapper:318] Creating a UserComputer
+2026-10-19:09:44:12,840 INFO     [psi4.optking.optwrapper:326] 
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+2026-10-19:09:44:12,840 INFO     [psi4.optking.optwrapper:356] 
+		 -- Optimization Parameters --
+	GEOM_MAXITER                   =              50
+	ALG_GEOM_MAXITER               =              50
+	PRINT                          =               1
+	OPT_TYPE                       =             MIN
+	STEP_TYPE                      =             RFO
+	PROGRAM                        =            PSI4
+	STEEPEST_DESCENT_TYPE          =         OVERLAP
+	CONJUGATE_GRADIENT_TYPE        =        FLETCHER
+	OPT_COORDINATES                =        INTERNAL
+	RFO_FOLLOW_ROOT                =           False
+	RFO_ROOT                       =               0
+	ACCEPT_SYMMETRY_BREAKING       =           False
+	DYNAMIC_LVL                    =               0
+	DYNAMIC_LVL_MAX                =               0
+	IRC_STEP_SIZE                  =             0.2
+	IRC_DIRECTION                  =         FORWARD
+	IRC_POINTS                     =              20
+	IRC_MODE                       =          NORMAL
+	IRC_CONVERGENCE                =            -0.7
+	INTRAFRAG_STEP_LIMIT           =             0.5
+	INTRAFRAG_STEP_LIMIT_MIN       =           0.001
+	INTRAFRAG_STEP_LIMIT_MAX       =             1.0
+	INTERFRAG_STEP_LIMIT           =             0.5
+	INTERFRAG_STEP_LIMIT_MIN       =           0.001
+	INTERFRAG_STEP_LIMIT_MAX       =             1.0
+	ENSURE_BT_CONVERGENCE          =           False
+	SIMPLE_STEP_SCALING            =           False
+	CONSECUTIVE_BACKSTEPS          =               0
+	RFO_NORMALIZATION_MAX          =             100
+	RSRFO_ALPHA_MAX                =     100000000.0
+	PRINT_TRAJECTORY_XYZ_FILE      =           False
+	WRITE_TRAJECTORY               =           False
+	FROZEN_DISTANCE                =                
+	FROZEN_BEND                    =                
+	FROZEN_DIHEDRAL                =                
+	FROZEN_OOFP                    =                
+	FROZEN_CARTESIAN               =                
+	FREEZE_ALL_DIHEDRALS           =           False
+	UNFREEZE_DIHEDRALS             =                
+	RANGED_DISTANCE                =                
+	RANGED_BEND                    =                
+	RANGED_DIHEDRAL                =                
+	RANGED_OOFP                    =                
+	RANGED_CARTESIAN               =                
+	EXT_FORCE_DISTANCE             =                
+	EXT_FORCE_BEND                 =                
+	EXT_FORCE_DIHEDRAL             =                
+	EXT_FORCE_OOFP                 =                
+	EXT_FORCE_CARTESIAN            =                
+	G_CONVERGENCE                  =           QCHEM
+	MAX_FORCE_G_CONVERGENCE        =          0.0003
+	RMS_FORCE_G_CONVERGENCE        =          0.0003
+	MAX_ENERGY_G_CONVERGENCE       =           1e-06
+	MAX_DISP_G_CONVERGENCE         =          0.0012
+	RMS_DISP_G_CONVERGENCE         =          0.0012
+	FLEXIBLE_G_CONVERGENCE         =           False
+	HESS_UPDATE                    =            BFGS
+	HESS_UPDATE_USE_LAST           =               4
+	HESS_UPDATE_LIMIT              =            True
+	HESS_UPDATE_LIMIT_MAX          =             1.0
+	HESS_UPDATE_LIMIT_SCALE        =             0.5
+	HESS_UPDATE_DEN_TOL            =           1e-07
+	HESS_UPDATE_DQ_TOL             =             0.5
+	CART_HESS_READ                 =           False
+	HESSIAN_FILE                   =               .
+	FULL_HESS_EVERY                =              -1
+	INTRAFRAG_HESS                 =        SCHLEGEL
+	H_GUESS_EVERY                  =           False
+	BT_MAX_ITER                    =              25
+	BT_DX_CONV                     =           1e-07
+	BT_DX_RMS_CHANGE_CONV          =           1e-12
+	BT_PINV_RCOND                  =           1e-06
+	FRAG_MODE                      =          SINGLE
+	FRAG_REF_ATOMS                 =              []
+	FREEZE_INTRAFRAG               =           False
+	INTERFRAG_MODE                 =           FIXED
+	ADD_AUXILIARY_BONDS            =           False
+	AUXILIARY_BOND_FACTOR          =             2.5
+	INTERFRAG_DIST_INV             =           False
+	INTERFRAG_COLLINEAR_TOL        =            0.01
+	INTERFRAG_COORDS               =              []
+	INTERFRAG_HESS                 =         DEFAULT
+	COVALENT_CONNECT               =             1.3
+	INTERFRAGMENT_CONNECT          =             1.8
+	H_BOND_CONNECT                 =             4.3
+	INCLUDE_OOFP                   =           False
+	TEST_B                         =           False
+	TEST_DERIVATIVE_B              =           False
+	LINESEARCH_STEP                =             0.1
+	LINESEARCH                     =           False
+	SD_HESSIAN                     =             1.0
+	FIX_VAL_NEAR_PI                =            1.57
+	V3D_TORS_ANGLE_LIM             =           0.017
+	V3D_TORS_COS_TOL               =           1e-10
+	LINEAR_BEND_THRESHOLD          =            3.05
+	SMALL_BEND_FIX_THRESHOLD       =            0.35
+	REDUNDANT_EVAL_TOL             =           1e-10
+	LINEAR_ALGEBRA_TOL             =           1e-10
+
+
+2026-10-19:09:44:12,842 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87355244 -1.46591705  0.42760670   
+	       8.000000            15.994915         -0.14901414 -1.31376549 -0.02694311   
+	       8.000000            15.994915          0.14901414  1.31376549 -0.02694311   
+	       1.000000             1.007825          1.87355244  1.46591705  0.42760670   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.789916           0.947183
+	 R(2,3)           =         2.644379           1.399345
+	 R(3,4)           =         1.789916           0.947183
+	 B(1,2,3)         =         1.765065         101.130795
+	 B(2,3,4)         =         1.765065         101.130795
+	 D(1,2,3,4)       =         2.617994         150.000000
+
+2026-10-19:09:44:12,854 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:12,856 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.965616455459084
+2026-10-19:09:44:13,33 INFO     [psi4.driver.driver:647] Return gradient(): -150.7858387563019
+2026-10-19:09:44:13,34 INFO     [psi4.driver.driver:648] [[-0.00003253  0.00004387 -0.00103851]
+ [ 0.00010472  0.00005184  0.00103851]
+ [-0.00010472 -0.00005184  0.00103851]
+ [ 0.00003253 -0.00004387 -0.00103851]]
+2026-10-19:09:44:13,36 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.583242   0.000000   0.000000   0.000000   0.000000   0.000000
+	   0.000000   0.457293   0.000000   0.000000   0.000000   0.000000
+	   0.000000   0.000000   0.583242   0.000000   0.000000   0.000000
+	   0.000000   0.000000   0.000000   0.160000   0.000000   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.160000   0.000000
+	   0.000000   0.000000   0.000000   0.000000   0.000000   0.002300
+
+2026-10-19:09:44:13,36 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.8735524432  -1.4659170494   0.4276067045		  -0.0000325251   0.0000438661  -0.0010385140
+  -0.1490141411  -1.3137654927  -0.0269431098		   0.0001047204   0.0000518385   0.0010385140
+   0.1490141411   1.3137654927  -0.0269431098		  -0.0001047204  -0.0000518385   0.0010385140
+   1.8735524432   1.4659170494   0.4276067045		   0.0000325251  -0.0000438661  -0.0010385140
+
+2026-10-19:09:44:13,36 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,37 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,39 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,39 INFO     [psi4.optking.displace:416] 	RMS(dx):  1.287e-08 	Max(dx):  2.580e-08 	RMS(dq):  1.813e-16
+2026-10-19:09:44:13,40 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94718        0.00195        0.00021       0.94740
+	               R(2,3)       1.39935        0.00085        0.00012       1.39946
+	               R(3,4)       0.94718        0.00195        0.00021       0.94740
+	             B(1,2,3)     101.13079       -0.00000       -0.00367     101.12712
+	             B(2,3,4)     101.13079       -0.00000       -0.00367     101.12712
+	           D(1,2,3,4)     150.00000       -0.00014      -28.64787     121.35213
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.5000000348
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0017791037
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0023008559
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.5000000348
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0017791037
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0023008559
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.5000000348
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.4447160595
+2026-10-19:09:44:13,40 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.76571280 -1.41759104  0.63049204   
+	       8.000000            15.994915         -0.19953979 -1.30715972 -0.22982844   
+	       8.000000            15.994915          0.19953979  1.30715972 -0.22982844   
+	       1.000000             1.007825          1.76571280  1.41759104  0.63049204   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.790320           0.947396
+	 R(2,3)           =         2.644604           1.399464
+	 R(3,4)           =         1.790320           0.947396
+	 B(1,2,3)         =         1.765001         101.127123
+	 B(2,3,4)         =         1.765001         101.127123
+	 D(1,2,3,4)       =         2.117994         121.352130
+
+2026-10-19:09:44:13,40 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,40 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------~
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   ~
+	----------------------------------------------------------------------------------------------~
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o~
+	----------------------------------------------------------------------------------------------~
+	     1    -150.78583876   -1.51e+02      1.78e-03      7.40e-04 o    5.00e-01      2.04e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,40 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:13,53 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:13,54 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.97166978923721
+2026-10-19:09:44:13,205 INFO     [psi4.driver.driver:647] Return gradient(): -150.7865517621347
+2026-10-19:09:44:13,205 INFO     [psi4.driver.driver:648] [[ 0.00050141  0.00233922 -0.00033921]
+ [ 0.00193206 -0.00448063  0.00033921]
+ [-0.00193206  0.00448063  0.00033921]
+ [-0.00050141 -0.00233922 -0.00033921]]
+2026-10-19:09:44:13,207 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:13,207 INFO     [psi4.optking.history:281] 	Using 1 previous steps for update.
+2026-10-19:09:44:13,207 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  1
+
+2026-10-19:09:44:13,208 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.583521  -0.001408   0.000279   0.003031   0.003031   0.001490
+	  -0.001408   0.462239  -0.001408  -0.010998  -0.010998  -0.003497
+	   0.000279  -0.001408   0.583521   0.003031   0.003031   0.001490
+	   0.003031  -0.010998   0.003031   0.184370   0.024370   0.008183
+	   0.003031  -0.010998   0.003031   0.024370   0.184370   0.008183
+	   0.001490  -0.003497   0.001490   0.008183   0.008183   0.002763
+
+2026-10-19:09:44:13,208 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.583521  -0.001408   0.000279   0.003031   0.003031   0.001490
+	  -0.001408   0.462239  -0.001408  -0.010998  -0.010998  -0.003497
+	   0.000279  -0.001408   0.583521   0.003031   0.003031   0.001490
+	   0.003031  -0.010998   0.003031   0.184370   0.024370   0.008183
+	   0.003031  -0.010998   0.003031   0.024370   0.184370   0.008183
+	   0.001490  -0.003497   0.001490   0.008183   0.008183   0.002763
+
+2026-10-19:09:44:13,208 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.7657128037  -1.4175910367   0.8093256122		   0.0005014144   0.0023392158  -0.0003392057
+  -0.1995397899  -1.3071597151  -0.0509948712		   0.0019320621  -0.0044806350   0.0003392057
+   0.1995397899   1.3071597151  -0.0509948712		  -0.0019320621   0.0044806350   0.0003392057
+   1.7657128037   1.4175910367   0.8093256122		  -0.0005014144  -0.0023392158  -0.0003392057
+
+2026-10-19:09:44:13,208 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7865517621
+	Energy change for the previous step:
+		Actual       :        -0.0007130058
+		Projected    :        -0.0004815559
+
+2026-10-19:09:44:13,208 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    1.48063
+2026-10-19:09:44:13,208 INFO     [psi4.optking.stepAlgorithms:399] 	Energy ratio indicates good step.
+2026-10-19:09:44:13,208 INFO     [psi4.optking.stepAlgorithms:400] 	Intrafrag trust radius increased to      1.
+2026-10-19:09:44:13,209 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,209 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,211 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,211 INFO     [psi4.optking.displace:416] 	RMS(dx):  9.218e-11 	Max(dx):  1.121e-10 	RMS(dq):  1.570e-16
+2026-10-19:09:44:13,211 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94740        0.00615        0.00090       0.94829
+	               R(2,3)       1.39946       -0.01442       -0.00239       1.39707
+	               R(3,4)       0.94740        0.00615        0.00090       0.94829
+	             B(1,2,3)     101.12712        0.00031        1.76298     102.89010
+	             B(2,3,4)     101.12712        0.00031        1.76298     102.89010
+	           D(1,2,3,4)     121.35213       -0.00003      -16.80278     104.54935
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.2965188467
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0012774589
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0039293971
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.2965188467
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0012774589
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0039293971
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.2965188467
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.2481356242
+2026-10-19:09:44:13,212 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.69639588 -1.41032280  0.91359531   
+	       8.000000            15.994915         -0.26278731 -1.29361750 -0.15526457   
+	       8.000000            15.994915          0.26278731  1.29361750 -0.15526457   
+	       1.000000             1.007825          1.69639588  1.41032280  0.91359531   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792014           0.948293
+	 R(2,3)           =         2.640078           1.397069
+	 R(3,4)           =         1.792014           0.948293
+	 B(1,2,3)         =         1.795771         102.890099
+	 B(2,3,4)         =         1.795771         102.890099
+	 D(1,2,3,4)       =         1.824730         104.549353
+
+2026-10-19:09:44:13,212 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,212 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     2    -150.78655176   -7.13e-04      4.09e-03      2.51e-03 o    2.93e-01      1.21e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,212 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:13,226 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:13,227 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=37.960435584264204
+2026-10-19:09:44:13,374 INFO     [psi4.driver.driver:647] Return gradient(): -150.7864939004947
+2026-10-19:09:44:13,375 INFO     [psi4.driver.driver:648] [[ 0.00083598 -0.00084774  0.00043520]
+ [-0.00284820 -0.00406175 -0.00043520]
+ [ 0.00284820  0.00406175 -0.00043520]
+ [-0.00083598  0.00084774  0.00043520]]
+2026-10-19:09:44:13,376 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:13,376 INFO     [psi4.optking.history:281] 	Using 2 previous steps for update.
+2026-10-19:09:44:13,377 WARNING  [psi4.optking.history:302] 	Change in internal coordinate of 7.93e-01 exceeds limit of 5.00e-01.
+2026-10-19:09:44:13,377 WARNING  [psi4.optking.history:307] 	Skipping Hessian update for step 1.
+2026-10-19:09:44:13,377 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  2
+
+2026-10-19:09:44:13,377 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.582080   0.003831  -0.001162  -0.003461  -0.003461   0.001235
+	   0.003831   0.466366   0.003831   0.030119   0.030119  -0.012638
+	  -0.001162   0.003831   0.582080  -0.003461  -0.003461   0.001235
+	  -0.003461   0.030119  -0.003461   0.168388   0.008388  -0.000579
+	  -0.003461   0.030119  -0.003461   0.008388   0.168388  -0.000579
+	   0.001235  -0.012638   0.001235  -0.000579  -0.000579   0.007092
+
+2026-10-19:09:44:13,377 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.582080   0.003831  -0.001162  -0.003461  -0.003461   0.001235
+	   0.003831   0.466366   0.003831   0.030119   0.030119  -0.012638
+	  -0.001162   0.003831   0.582080  -0.003461  -0.003461   0.001235
+	  -0.003461   0.030119  -0.003461   0.168388   0.008388  -0.000579
+	  -0.003461   0.030119  -0.003461   0.008388   0.168388  -0.000579
+	   0.001235  -0.012638   0.001235  -0.000579  -0.000579   0.007092
+
+2026-10-19:09:44:13,377 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.6963958821  -1.4103228022   1.0055039899		   0.0008359751  -0.0008477399   0.0004352042
+  -0.2627873120  -1.2936174986  -0.0633558925		  -0.0028481971  -0.0040617520  -0.0004352042
+   0.2627873120   1.2936174986  -0.0633558925		   0.0028481971   0.0040617520  -0.0004352042
+   1.6963958821   1.4103228022   1.0055039899		  -0.0008359751   0.0008477399   0.0004352042
+
+2026-10-19:09:44:13,378 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7864939005
+	Energy change for the previous step:
+		Actual       :         0.0000578616
+		Projected    :        -0.0001893953
+
+2026-10-19:09:44:13,378 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =   -0.30551
+2026-10-19:09:44:13,378 WARNING  [psi4.optking.stepAlgorithms:379] 	Energy has increased in a minimization.
+2026-10-19:09:44:13,378 WARNING  [psi4.optking.stepAlgorithms:418] 	Energy ratio indicates iffy step.
+2026-10-19:09:44:13,378 WARNING  [psi4.optking.stepAlgorithms:419] 	Intrafrag trust radius decreased to   0.25.
+2026-10-19:09:44:13,378 INFO     [psi4.optking.stepAlgorithms:336] 	Near start of optimization, so ignoring bad step.
+
+2026-10-19:09:44:13,378 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,378 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,380 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,380 INFO     [psi4.optking.displace:416] 	RMS(dx):  7.446e-12 	Max(dx):  1.047e-11 	RMS(dq):  2.398e-16
+2026-10-19:09:44:13,381 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94829        0.00292        0.00006       0.94835
+	               R(2,3)       1.39707       -0.04294       -0.00244       1.39463
+	               R(3,4)       0.94829        0.00292        0.00006       0.94835
+	             B(1,2,3)     102.89010       -0.00010       -0.35696     102.53314
+	             B(2,3,4)     102.89010       -0.00010       -0.35696     102.53314
+	           D(1,2,3,4)     104.54935        0.00013       12.18257     116.73192
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.2128582908
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0018487066
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0082916395
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.2128582908
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0018487066
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0082916395
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.2128582908
+2026-10-19:09:44:13,381 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.1848844211
+2026-10-19:09:44:13,382 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.75702482 -1.42969724  0.92985293   
+	       8.000000            15.994915         -0.22319034 -1.29869694  0.01229517   
+	       8.000000            15.994915          0.22319034  1.29869694  0.01229517   
+	       1.000000             1.007825          1.75702482  1.42969724  0.92985293   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792128           0.948353
+	 R(2,3)           =         2.635472           1.394632
+	 R(3,4)           =         1.792128           0.948353
+	 B(1,2,3)         =         1.789541         102.533143
+	 B(2,3,4)         =         1.789541         102.533143
+	 D(1,2,3,4)       =         2.037356         116.731921
+
+2026-10-19:09:44:13,382 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,382 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     3    -150.78649390    5.79e-05      5.21e-03      2.38e-03 o    2.13e-01      8.69e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,382 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:13,395 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:13,396 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=38.01216114051186
+2026-10-19:09:44:13,539 INFO     [psi4.driver.driver:647] Return gradient(): -150.78666139942544
+2026-10-19:09:44:13,539 INFO     [psi4.driver.driver:648] [[-0.00024425 -0.00083250 -0.00014338]
+ [-0.00101576 -0.00092146  0.00014338]
+ [ 0.00101576  0.00092146  0.00014338]
+ [ 0.00024425  0.00083250 -0.00014338]]
+2026-10-19:09:44:13,541 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:13,541 INFO     [psi4.optking.history:281] 	Using 3 previous steps for update.
+2026-10-19:09:44:13,541 WARNING  [psi4.optking.history:302] 	Change in internal coordinate of 5.81e-01 exceeds limit of 5.00e-01.
+2026-10-19:09:44:13,541 WARNING  [psi4.optking.history:307] 	Skipping Hessian update for step 1.
+2026-10-19:09:44:13,541 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  3 2
+
+2026-10-19:09:44:13,542 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.583322   0.014019   0.000080   0.005658   0.005658   0.003250
+	   0.014019   0.384608   0.014019   0.056659   0.056659  -0.010829
+	   0.000080   0.014019   0.583322   0.005658   0.005658   0.003250
+	   0.005658   0.056659   0.005658   0.220988   0.060988   0.010218
+	   0.005658   0.056659   0.005658   0.060988   0.220988   0.010218
+	   0.003250  -0.010829   0.003250   0.010218   0.010218   0.008729
+
+2026-10-19:09:44:13,542 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.583322   0.014019   0.000080   0.005658   0.005658   0.003250
+	   0.014019   0.384608   0.014019   0.056659   0.056659  -0.010829
+	   0.000080   0.014019   0.583322   0.005658   0.005658   0.003250
+	   0.005658   0.056659   0.005658   0.220988   0.060988   0.010218
+	   0.005658   0.056659   0.005658   0.060988   0.220988   0.010218
+	   0.003250  -0.010829   0.003250   0.010218   0.010218   0.008729
+
+2026-10-19:09:44:13,542 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.7570248222  -1.4296972442   0.8631701915		  -0.0002442517  -0.0008324980  -0.0001433773
+  -0.2231903365  -1.2986969420  -0.0543875692		  -0.0010157618  -0.0009214611   0.0001433773
+   0.2231903365   1.2986969420  -0.0543875692		   0.0010157618   0.0009214611   0.0001433773
+   1.7570248222   1.4296972442   0.8631701915		   0.0002442517   0.0008324980  -0.0001433773
+
+2026-10-19:09:44:13,542 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7866613994
+	Energy change for the previous step:
+		Actual       :        -0.0001674989
+		Projected    :        -0.0001967563
+
+2026-10-19:09:44:13,543 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    0.85130
+2026-10-19:09:44:13,543 INFO     [psi4.optking.stepAlgorithms:399] 	Energy ratio indicates good step.
+2026-10-19:09:44:13,543 INFO     [psi4.optking.stepAlgorithms:400] 	Intrafrag trust radius increased to   0.75.
+2026-10-19:09:44:13,543 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,543 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,544 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,544 INFO     [psi4.optking.displace:416] 	RMS(dx):  1.634e-09 	Max(dx):  2.688e-09 	RMS(dq):  1.282e-16
+2026-10-19:09:44:13,545 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94835       -0.00162        0.00002       0.94837
+	               R(2,3)       1.39463       -0.01600       -0.00270       1.39193
+	               R(3,4)       0.94835       -0.00162        0.00002       0.94837
+	             B(1,2,3)     102.53314       -0.00011       -0.17637     102.35678
+	             B(2,3,4)     102.53314       -0.00011       -0.17637     102.35678
+	           D(1,2,3,4)     116.73192       -0.00002       -1.94705     114.78487
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0346379411
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0008522124
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0245739191
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0346379411
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0008522124
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0245739191
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0346379411
+2026-10-19:09:44:13,545 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0344981324
+2026-10-19:09:44:13,546 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.74391279 -1.42096408  0.87608694   
+	       8.000000            15.994915         -0.22530191 -1.29574338 -0.06730431   
+	       8.000000            15.994915          0.22530191  1.29574338 -0.06730431   
+	       1.000000             1.007825          1.74391279  1.42096408  0.87608694   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792162           0.948372
+	 R(2,3)           =         2.630370           1.391932
+	 R(3,4)           =         1.792162           0.948372
+	 B(1,2,3)         =         1.786463         102.356776
+	 B(2,3,4)         =         1.786463         102.356776
+	 D(1,2,3,4)       =         2.003374         114.784867
+
+2026-10-19:09:44:13,546 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,546 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     4    -150.78666140   -1.67e-04      1.94e-03      1.19e-03 o    3.40e-02      1.41e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,546 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:13,558 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:13,559 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=38.07173179796447
+2026-10-19:09:44:13,700 INFO     [psi4.driver.driver:647] Return gradient(): -150.78667363835933
+2026-10-19:09:44:13,700 INFO     [psi4.driver.driver:648] [[-0.00014957  0.00005673  0.00012396]
+ [ 0.00033702  0.00055589 -0.00012396]
+ [-0.00033702 -0.00055589 -0.00012396]
+ [ 0.00014957 -0.00005673  0.00012396]]
+2026-10-19:09:44:13,702 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:13,702 INFO     [psi4.optking.history:281] 	Using 4 previous steps for update.
+2026-10-19:09:44:13,703 WARNING  [psi4.optking.history:302] 	Change in internal coordinate of 6.15e-01 exceeds limit of 5.00e-01.
+2026-10-19:09:44:13,703 WARNING  [psi4.optking.history:307] 	Skipping Hessian update for step 1.
+2026-10-19:09:44:13,703 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  4 3 2
+
+2026-10-19:09:44:13,703 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.584348  -0.002841   0.001106   0.001131   0.001131   0.002041
+	  -0.002841   0.409877  -0.002841   0.068663   0.068663  -0.004467
+	   0.001106  -0.002841   0.584348   0.001131   0.001131   0.002041
+	   0.001131   0.068663   0.001131   0.229058   0.069058   0.012733
+	   0.001131   0.068663   0.001131   0.069058   0.229058   0.012733
+	   0.002041  -0.004467   0.002041   0.012733   0.012733   0.009152
+
+2026-10-19:09:44:13,704 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.584348  -0.002841   0.001106   0.001131   0.001131   0.002041
+	  -0.002841   0.409877  -0.002841   0.068663   0.068663  -0.004467
+	   0.001106  -0.002841   0.584348   0.001131   0.001131   0.002041
+	   0.001131   0.068663   0.001131   0.229058   0.069058   0.012733
+	   0.001131   0.068663   0.001131   0.069058   0.229058   0.012733
+	   0.002041  -0.004467   0.002041   0.012733   0.012733   0.009152
+
+2026-10-19:09:44:13,704 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.7439127870  -1.4209640778   0.8874724214		  -0.0001495731   0.0000567294   0.0001239551
+  -0.2253019122  -1.2957433814  -0.0559188306		   0.0003370219   0.0005558927  -0.0001239551
+   0.2253019122   1.2957433814  -0.0559188306		  -0.0003370219  -0.0005558927  -0.0001239551
+   1.7439127870   1.4209640778   0.8874724214		   0.0001495731  -0.0000567294   0.0001239551
+
+2026-10-19:09:44:13,704 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7866736384
+	Energy change for the previous step:
+		Actual       :        -0.0000122389
+		Projected    :        -0.0000147594
+
+2026-10-19:09:44:13,704 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    0.82923
+2026-10-19:09:44:13,704 INFO     [psi4.optking.stepAlgorithms:399] 	Energy ratio indicates good step.
+2026-10-19:09:44:13,704 INFO     [psi4.optking.stepAlgorithms:400] 	Intrafrag trust radius increased to      1.
+2026-10-19:09:44:13,704 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,705 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,706 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,706 INFO     [psi4.optking.displace:416] 	RMS(dx):  7.273e-13 	Max(dx):  1.252e-12 	RMS(dq):  2.220e-16
+2026-10-19:09:44:13,707 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94837       -0.00155       -0.00017       0.94820
+	               R(2,3)       1.39193        0.00524        0.00088       1.39281
+	               R(3,4)       0.94837       -0.00155       -0.00017       0.94820
+	             B(1,2,3)     102.35678        0.00001       -0.00964     102.34714
+	             B(2,3,4)     102.35678        0.00001       -0.00964     102.34714
+	           D(1,2,3,4)     114.78487        0.00000        0.29832     115.08319
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0054897938
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0002396945
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0436605212
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0054897938
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0002396945
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0436605212
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0054897938
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0049785040
+2026-10-19:09:44:13,707 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.74554209 -1.42183773  0.88548189   
+	       8.000000            15.994915         -0.22485102 -1.29666379 -0.05392830   
+	       8.000000            15.994915          0.22485102  1.29666379 -0.05392830   
+	       1.000000             1.007825          1.74554209  1.42183773  0.88548189   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.791832           0.948197
+	 R(2,3)           =         2.632030           1.392810
+	 R(3,4)           =         1.791832           0.948197
+	 B(1,2,3)         =         1.786295         102.347139
+	 B(2,3,4)         =         1.786295         102.347139
+	 D(1,2,3,4)       =         2.008580         115.083185
+
+2026-10-19:09:44:13,707 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,707 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     5    -150.78667364   -1.22e-05      6.36e-04      2.91e-04 o    5.21e-03      2.24e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,707 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned False
+2026-10-19:09:44:13,720 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__GUESS': 'READ', 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 37, 'function_kwargs': {}}
+2026-10-19:09:44:13,722 INFO     [psi4.driver.driver:644] Compute gradient(): method=scf, basis=cc-pvdz, molecule=peroxide, nre=38.05655718627807
+2026-10-19:09:44:13,863 INFO     [psi4.driver.driver:647] Return gradient(): -150.78667424941978
+2026-10-19:09:44:13,863 INFO     [psi4.driver.driver:648] [[ 0.00000906 -0.00000277 -0.00000734]
+ [-0.00002095 -0.00004207  0.00000734]
+ [ 0.00002095  0.00004207  0.00000734]
+ [-0.00000906  0.00000277 -0.00000734]]
+2026-10-19:09:44:13,864 INFO     [psi4.optking.history:270] 	Performing BFGS update.
+2026-10-19:09:44:13,865 INFO     [psi4.optking.history:281] 	Using 4 previous steps for update.
+2026-10-19:09:44:13,865 INFO     [psi4.optking.history:318] 	Steps to be used in Hessian update:  5 4 3 2
+
+2026-10-19:09:44:13,866 INFO     [psi4.optking.history:419] 	Updated Hessian (in au) 
+ 	   0.586107  -0.006391   0.002865   0.001503   0.001503   0.002746
+	  -0.006391   0.414599  -0.006391   0.071398   0.071398  -0.004466
+	   0.002865  -0.006391   0.586107   0.001503   0.001503   0.002746
+	   0.001503   0.071398   0.001503   0.230616   0.070616   0.012975
+	   0.001503   0.071398   0.001503   0.070616   0.230616   0.012975
+	   0.002746  -0.004466   0.002746   0.012975   0.012975   0.009247
+
+2026-10-19:09:44:13,867 INFO     [psi4.optking.molsys:949] Projected (PHP) Hessian matrix
+	   0.586107  -0.006391   0.002865   0.001503   0.001503   0.002746
+	  -0.006391   0.414599  -0.006391   0.071398   0.071398  -0.004466
+	   0.002865  -0.006391   0.586107   0.001503   0.001503   0.002746
+	   0.001503   0.071398   0.001503   0.230616   0.070616   0.012975
+	   0.001503   0.071398   0.001503   0.070616   0.230616   0.012975
+	   0.002746  -0.004466   0.002746   0.012975   0.012975   0.009247
+
+2026-10-19:09:44:13,867 INFO     [psi4.optking.opt_helper:183] 
+	         Geometry (au)                                       Gradient (au)
+  -1.7455420911  -1.4218377322   0.8837273421		   0.0000090623  -0.0000027656  -0.0000073445
+  -0.2248510234  -1.2966637909  -0.0556828566		  -0.0000209524  -0.0000420660   0.0000073445
+   0.2248510234   1.2966637909  -0.0556828566		   0.0000209524   0.0000420660   0.0000073445
+   1.7455420911   1.4218377322   0.8837273421		  -0.0000090623   0.0000027656  -0.0000073445
+
+2026-10-19:09:44:13,867 INFO     [psi4.optking.stepAlgorithms:368] 	Current Step Report 
+ 
+	Current energy:      -150.7866742494
+	Energy change for the previous step:
+		Actual       :        -0.0000006111
+		Projected    :        -0.0000006579
+
+2026-10-19:09:44:13,867 INFO     [psi4.optking.stepAlgorithms:371] 	Energy ratio =    0.92875
+2026-10-19:09:44:13,867 INFO     [psi4.optking.stepAlgorithms:929] 	Using RFO solution 1.
+2026-10-19:09:44:13,868 INFO     [psi4.optking.displace:100] 	Determining Cartesian step for fragment 1.
+2026-10-19:09:44:13,869 INFO     [psi4.optking.displace:415] 	Successfully converged to displaced geometry.
+2026-10-19:09:44:13,869 INFO     [psi4.optking.displace:416] 	RMS(dx):  7.651e-09 	Max(dx):  1.328e-08 	RMS(dq):  1.282e-16
+2026-10-19:09:44:13,869 INFO     [psi4.optking.displace:172] 
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94820        0.00009        0.00001       0.94821
+	               R(2,3)       1.39281       -0.00038       -0.00006       1.39275
+	               R(3,4)       0.94820        0.00009        0.00001       0.94821
+	             B(1,2,3)     102.34714       -0.00000        0.00125     102.34839
+	             B(2,3,4)     102.34714       -0.00000        0.00125     102.34839
+	           D(1,2,3,4)     115.08319       -0.00000       -0.02006     115.06313
+	-------------------------------------------------------------------------------
+
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0003730413
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0000174295
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0467225841
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:113] 	|target step| :    0.0003730413
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:114] 	gradient     :   -0.0000174295
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:115] 	hessian      :    0.0467225841
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:206] 	Norm of achieved step-size    0.0003730413
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:208] 	Norm of achieved step-size (cart):    0.0003313625
+2026-10-19:09:44:13,870 INFO     [psi4.optking.opt_helper:165] Molsys:
+
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.74543523 -1.42178522  0.88385943   
+	       8.000000            15.994915         -0.22488573 -1.29659578 -0.05581494   
+	       8.000000            15.994915          0.22488573  1.29659578 -0.05581494   
+	       1.000000             1.007825          1.74543523  1.42178522  0.88385943   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.791851           0.948207
+	 R(2,3)           =         2.631907           1.392745
+	 R(3,4)           =         1.791851           0.948207
+	 B(1,2,3)         =         1.786316         102.348394
+	 B(2,3,4)         =         1.786316         102.348394
+	 D(1,2,3,4)       =         2.008230         115.063130
+
+2026-10-19:09:44:13,870 INFO     [psi4.optking.convcheck:76] Performing convergence check.
+2026-10-19:09:44:13,870 INFO     [psi4.optking.convcheck:282] 
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     6    -150.78667425   -6.11e-07 *    4.62e-05 *    2.03e-05 o    3.50e-04 *    1.52e-04 o  ~
+	----------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,870 INFO     [psi4.optking.convcheck:206] 
+	                      ===> Final Convergence Report <===                     
+
+	----------------------------------------------------------------------------
+	|   Required Criteria    |  One or More Criteria  |   Alternate Criteria   |
+	----------------------------------------------------------------------------
+	| [x]     max_force      | [x]       max_DE       |                        |
+	|                        | [x]      max_disp      |                        |
+	----------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,870 INFO     [psi4.optking.stepAlgorithms:296] 	Convergence check returned True
+2026-10-19:09:44:13,870 INFO     [psi4.optking.optimize:332] 	Converged in 6 steps!
+2026-10-19:09:44:13,870 INFO     [psi4.optking.optimize:333] 	Final energy is   -150.7866742494198
+2026-10-19:09:44:13,870 INFO     [psi4.optking.optimize:334] 	Final structure (Angstroms): 
+	Fragment 1 (Ang)
+
+	    H  -0.9236445445  -0.7523763392   0.4677182675
+	    O  -0.1190044015  -0.6861289403  -0.0295359964
+	    O   0.1190044015   0.6861289403  -0.0295359964
+	    H   0.9236445445   0.7523763392   0.4677182675
+
+
+2026-10-19:09:44:13,871 INFO     [psi4.optking.optimize:562] 	Optimization Finished
+
+	==> Optimization Summary <==
+
+        
+	Measures of convergence in internal coordinates in au. (Any backward steps not shown.)
+        
+	---------------------------------------------------------------------------------------------------------------  ~
+        
+	 Step         Total Energy             Delta E       MAX Force       RMS Force        MAX Disp        RMS Disp   ~
+        
+	---------------------------------------------------------------------------------------------------------------  ~
+        
+	     1    -150.785838756302   -150.785838756302      0.00177867      0.00074005      0.49999965      0.20412416  ~
+	     2    -150.786551762135     -0.000713005833      0.00409470      0.00251213      0.29326378      0.12105331  ~
+	     3    -150.786493900495      0.000057861640      0.00521181      0.00237679      0.21262591      0.08689903  ~
+	     4    -150.786661399425     -0.000167498931      0.00194203      0.00118782      0.03398249      0.01414088  ~
+	     5    -150.786673638359     -0.000012238934      0.00063567      0.00029139      0.00520663      0.00224120  ~
+	     6    -150.786674249420     -0.000000611060      0.00004620      0.00002035      0.00035003      0.00015229  ~
+	----------------------------------------------------------------------------------------------------------------
+
+
+2026-10-19:09:44:13,871 INFO     [psi4.optking.optimize:806] Preparing OptimizationResult

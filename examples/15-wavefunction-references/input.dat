@@ -1,0 +1,17 @@
+molecule hydrogen {
+    H  0.0  0.0  0.0
+    H  0.0  0.0  0.74
+    units angstrom
+}
+
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+    mp2_type  "conv"
+}
+
+e_hf, wfn = energy('scf', molecule=hydrogen, return_wfn=True)
+
+(psi4.oeprop)(wfn, 'DIPOLE')
+
+e_mp2, mp2_wfn = energy('mp2', molecule=hydrogen, ref_wfn=wfn, return_wfn=True)

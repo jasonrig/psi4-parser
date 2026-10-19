@@ -1,0 +1,29 @@
+molecule peroxide {
+    H   1.0                 0.0                 0.0
+    O   0.0                 0.0                 0.0
+    O   0.0                 0.0                 1.4
+    H  -0.8660254037844386  0.5000000000000001  1.4
+    units angstrom
+}
+
+set {
+    basis  "cc-pvdz"
+}
+
+set scf {
+    maxiter  37
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_3 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_constrained = optimize('scf', molecule=peroxide)
+finally:
+    _psi4_builder_options_3.restore()
+
+e_unconstrained = optimize('scf', molecule=peroxide)

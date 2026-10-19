@@ -1,0 +1,4 @@
+# Temporary Psi4 and PCMSolver working files.
+scratch/
+pcmsolver.*.inp
+@pcmsolver.*

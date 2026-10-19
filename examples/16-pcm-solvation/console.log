@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/bin/psi4-driver", line 357, in <module>
+    content = psi4.process_input(content)
+  File "/Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/lib/psi4/driver/inputparser.py", line 686, in process_input
+    temp = re.sub(pcm, process_pcm_command, temp)
+  File "/Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/python/lib/python3.15/re/__init__.py", line 210, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/lib/psi4/driver/inputparser.py", line 344, in process_pcm_command
+    import pcmsolver
+ModuleNotFoundError: No module named 'pcmsolver'

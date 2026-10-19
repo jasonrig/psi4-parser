@@ -1,0 +1,2 @@
+/Users/jason/PycharmProjects/psi4-parser/tmp/12-symmetry-relaxation/build.py:20: SymmetryChangedWarning: Requested symmetry 'c2v' is not verified for the edited geometry and reference frame; using 'cs'. Atom records and parameter references are retained.
+  changed = water | set_distance(("a1", "a2"), angstrom(1.2), moving=("a2",))

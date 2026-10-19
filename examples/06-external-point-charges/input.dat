@@ -1,0 +1,15 @@
+molecule hydrogen {
+    H  0.0  0.0  -0.37
+    H  0.0  0.0   0.37
+    units angstrom
+    symmetry c1
+    no_com
+    no_reorient
+}
+
+set {
+    basis     "cc-pvdz"
+    scf_type  "pk"
+}
+
+e_field = energy('scf', molecule=hydrogen, external_potentials=[[0.1, [0.0, 0.0, 4.724315313644571]], [-0.1, [0.0, 0.0, -4.724315313644571]]])

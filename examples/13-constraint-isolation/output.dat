@@ -1,0 +1,4311 @@
+
+    -----------------------------------------------------------------------
+          Psi4: An Open-Source Ab Initio Electronic Structure Package
+                               Psi4 1.12a1.dev43 
+
+                         Git: Rev {HEAD} 60c9b2a 
+
+
+    D. G. A. Smith, L. A. Burns, A. C. Simmonett, R. M. Parrish,
+    M. C. Schieber, R. Galvelis, P. Kraus, H. Kruse, R. Di Remigio,
+    A. Alenaizan, A. M. James, S. Lehtola, J. P. Misiewicz, M. Scheurer,
+    R. A. Shaw, J. B. Schriber, Y. Xie, Z. L. Glick, D. A. Sirianni,
+    J. S. O'Brien, J. M. Waldrop, A. Kumar, E. G. Hohenstein,
+    B. P. Pritchard, B. R. Brooks, H. F. Schaefer III, A. Yu. Sokolov,
+    K. Patkowski, A. E. DePrince III, U. Bozkaya, R. A. King,
+    F. A. Evangelista, J. M. Turney, T. D. Crawford, C. D. Sherrill,
+    J. Chem. Phys. 152(18) 184108 (2020). https://doi.org/10.1063/5.0006002
+
+                            Additional Code Authors
+    E. T. Seidl, C. L. Janssen, E. F. Valeev, M. L. Leininger,
+    J. F. Gonthier, R. M. Richard, H. R. McAlexander, M. Saitow, X. Wang,
+    P. Verma, M. H. Lechner, A. Jiang, S. Behnle, A. G. Heide,
+    M. F. Herbst, D. L. Poole, T. Győri, E. C. Mitchell, J. P. Pederson,
+    and A. M. Wallace
+
+             Previous Authors, Complete List of Code Contributors,
+                       and Citations for Specific Modules
+    https://github.com/psi4/psi4/blob/master/codemeta.json
+    https://github.com/psi4/psi4/graphs/contributors
+    https://psicode.org/psi4manual/master/introduction.html#citing-psifour
+
+    -----------------------------------------------------------------------
+
+
+    Psi4 started on: Monday, 19 October 2026 09:44AM
+
+    Process ID: 93533
+    Host:       Jasons-MacBook-Pro-2.local
+    PSIDATADIR: /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4
+    Memory:     512.0 MiB
+    Threads:    1
+    Addons:     a̶d̶c̶c̶, a̶m̶b̶i̶t̶, b̶s̶e̶, c̶c̶t̶3̶, c̶f̶o̶u̶r̶, c̶h̶e̶m̶p̶s̶2̶, c̶p̶p̶e̶, d̶d̶x̶,
+                d̶f̶t̶d̶3̶, d̶f̶t̶d̶4̶, d̶k̶h̶, e̶c̶p̶i̶n̶t̶, e̶i̶n̶s̶u̶m̶s̶, f̶o̶r̶t̶e̶,
+                g̶a̶u̶x̶c̶, g̶c̶p̶, g̶d̶m̶a̶, g̶e̶o̶m̶e̶t̶r̶i̶c̶, g̶p̶u̶_̶d̶f̶c̶c̶,
+                i̶n̶t̶e̶g̶r̶a̶t̶o̶r̶x̶x̶, i̶p̶i̶, l̶i̶b̶e̶f̶p̶, m̶d̶i̶, m̶p̶2̶d̶, m̶r̶c̶c̶,
+                o̶o̶o̶, o̶p̶e̶n̶f̶e̶r̶m̶i̶o̶n̶p̶s̶i̶4̶, p̶c̶m̶s̶o̶l̶v̶e̶r̶,
+                p̶s̶i̶4̶f̶o̶c̶k̶c̶i̶, p̶s̶i̶x̶a̶s̶, p̶y̶e̶i̶n̶s̶u̶m̶s̶, q̶c̶m̶a̶n̶y̶b̶o̶d̶y̶,
+                r̶e̶s̶p̶, s̶i̶m̶i̶n̶t̶, s̶n̶s̶m̶p̶2̶, v̶2̶r̶d̶m̶_̶c̶a̶s̶s̶c̶f̶
+
+  ==> Input File <==
+
+--------------------------------------------------------------------------
+molecule peroxide {
+    H   1.0                 0.0                 0.0
+    O   0.0                 0.0                 0.0
+    O   0.0                 0.0                 1.4
+    H  -0.8660254037844386  0.5000000000000001  1.4
+    units angstrom
+}
+
+set {
+    basis  "cc-pvdz"
+}
+
+set scf {
+    maxiter  37
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_3 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_constrained = optimize('scf', molecule=peroxide)
+finally:
+    _psi4_builder_options_3.restore()
+
+e_unconstrained = optimize('scf', molecule=peroxide)
+--------------------------------------------------------------------------
+
+Parsed Psithon:
+import psi4
+from psi4 import *
+from psi4.core import *
+from psi4.driver.diatomic import anharmonicity
+from psi4.driver.gaussian_n import *
+from psi4.driver.frac import ip_fitting, frac_traverse
+from psi4.driver.aliases import *
+from psi4.driver.driver_cbs import *
+from psi4.driver.wrapper_database import database, db, DB_RGT, DB_RXN
+from psi4.driver.wrapper_autofrag import auto_fragments
+psi4_io = core.IOManager.shared_object()
+peroxide = geometry("""
+    H   1.0                 0.0                 0.0
+    O   0.0                 0.0                 0.0
+    O   0.0                 0.0                 1.4
+    H  -0.8660254037844386  0.5000000000000001  1.4
+    units angstrom
+""","peroxide")
+core.IO.set_default_namespace("peroxide")
+core.set_global_option("BASIS", "cc-pvdz")
+core.set_local_option("SCF", "MAXITER", 37)
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_3 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    core.set_local_option("SCF", "MAXITER", 100)
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_constrained = optimize('scf', molecule=peroxide)
+finally:
+    _psi4_builder_options_3.restore()
+e_unconstrained = optimize('scf', molecule=peroxide)
+---------------------------------------------------------------------------
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:11 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.965925826289    -0.700000000000     0.243477734360     1.007825032230
+         O            0.000000000000    -0.700000000000    -0.015341310743    15.994914619570
+         O           -0.000000000000     0.700000000000    -0.015341310743    15.994914619570
+         H            0.965925826289     0.700000000000     0.243477734360     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =      8.95234  B =      0.99665  C =      0.90909 [cm^-1]
+  Rotational constants: A = 268384.31849  B =  29878.78565  C =  27253.97759 [MHz]
+  Nuclear repulsion =   37.800844329457860
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is SAD.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 2.9852390451E-02.
+  Reciprocal condition number of the overlap matrix is 9.0381219530E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Superposition of Atomic Densities via on-the-fly atomic UHF (no occupation information).
+
+   -------------------------
+    Irrep   Nso     Nmo    
+   -------------------------
+     A         19      19 
+     B         19      19 
+   -------------------------
+    Total      38      38
+   -------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter SAD:  -150.06709310163541   -1.50067e+02   0.00000e+00 
+   @DF-RHF iter   1:  -150.72324536406589   -6.56152e-01   1.12754e-02 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.76468672172308   -4.14414e-02   3.67156e-03 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.76827815698752   -3.59144e-03   9.66034e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.76872441631744   -4.46259e-04   3.08769e-04 ADIIS/DIIS
+   @DF-RHF iter   5:  -150.76877601602180   -5.15997e-05   5.45140e-05 DIIS
+   @DF-RHF iter   6:  -150.76877889601835   -2.88000e-06   1.01945e-05 DIIS
+   @DF-RHF iter   7:  -150.76877900042007   -1.04402e-07   2.96045e-06 DIIS
+   @DF-RHF iter   8:  -150.76877901180302   -1.13830e-08   1.12433e-06 DIIS
+   @DF-RHF iter   9:  -150.76877901419482   -2.39180e-09   3.99424e-07 DIIS
+   @DF-RHF iter  10:  -150.76877901451630   -3.21478e-10   6.45026e-08 DIIS
+   @DF-RHF iter  11:  -150.76877901452229   -5.99698e-12   9.50429e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.619682     1B    -20.619354     2A     -1.498094  
+       2B     -1.176971     3B     -0.739211     3A     -0.657482  
+       4A     -0.614630     5A     -0.536113     4B     -0.444225  
+
+    Virtual:                                                              
+
+       6A      0.180037     5B      0.207965     6B      0.324342  
+       7A      0.767906     7B      0.810624     8A      1.097784  
+       8B      1.111225     9A      1.145361     9B      1.224548  
+      10B      1.284195    10A      1.346639    11B      1.420700  
+      11A      1.566951    12B      1.593656    12A      1.737312  
+      13A      1.973968    13B      2.069744    14A      2.324927  
+      14B      2.367516    15A      2.625293    16A      2.842342  
+      15B      2.996755    16B      3.211806    17A      3.258678  
+      17B      3.460534    18A      3.533433    18B      3.864477  
+      19A      3.899827    19B      4.296867  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.76877901452229
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.8008443294578598
+    One-Electron Energy =                -283.3277203585242887
+    Two-Electron Energy =                  94.7580970145441484
+    Total Energy =                       -150.7687790145222948
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.0814220            0.4563585            0.3749365
+ Magnitude           :                                                    0.3749365
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:11 2026
+Module time:
+	user time   =       0.28 seconds =       0.00 minutes
+	system time =       0.06 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.28 seconds =       0.00 minutes
+	system time =       0.06 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:11 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.965925826289    -0.700000000000     0.243477734360     1.007825032230
+         O            0.000000000000    -0.700000000000    -0.015341310743    15.994914619570
+         O           -0.000000000000     0.700000000000    -0.015341310743    15.994914619570
+         H            0.965925826289     0.700000000000     0.243477734360     1.007825032230
+
+  Nuclear repulsion =   37.800844329457860
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.048225417364     0.032525521732     0.012881725376
+       2        0.093107211980     0.005567794898    -0.012881725376
+       3       -0.093107211980    -0.005567794898    -0.012881725376
+       4        0.048225417364    -0.032525521732     0.012881725376
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:11 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.32 seconds =       0.01 minutes
+	system time =       0.07 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.82533527 -1.32280829  0.46010624   
+	       8.000000            15.994915          0.00000000 -1.32280829 -0.02899088   
+	       8.000000            15.994915         -0.00000000  1.32280829 -0.02899088   
+	       1.000000             1.007825          1.82533527  1.32280829  0.46010624   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.889726           1.000000
+	 R(2,3)           =         2.645617           1.400000
+	 R(3,4)           =         1.889726           1.000000
+	 B(1,2,3)         =         1.570796          90.000000
+	 B(2,3,4)         =         1.570796          90.000000
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       1.00000       -0.41125       -0.05027       0.94973
+	               R(2,3)       1.40000        0.31384        0.03993       1.43993
+	               R(3,4)       1.00000       -0.41125       -0.05027       0.94973
+	             B(1,2,3)      90.00000        0.00468       16.88372     106.88372
+	             B(2,3,4)      90.00000        0.00468       16.88372     106.88372
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------~
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   ~
+	----------------------------------------------------------------------------------------------~
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o~
+	----------------------------------------------------------------------------------------------~
+	     1    -150.76877901   -1.51e+02      6.15e-02      4.83e-02 o    2.95e-01      1.81e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -1.0317326715  -0.8352977129   0.2316748243
+	    O  -0.1201785313  -0.7098658261  -0.0035384007
+	    O   0.1201785313   0.7098658261  -0.0035384007
+	    H   1.0317326715   0.8352977129   0.2316748243
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -1.031732671525    -0.835297712857     0.221271132108
+    O           -0.120178531311    -0.709865826141    -0.013942092918
+    O            0.120178531311     0.709865826141    -0.013942092918
+    H            1.031732671525     0.835297712857     0.221271132108
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -1.031732671525    -0.835297712857     0.221271132108     1.007825032230
+         O           -0.120178531311    -0.709865826141    -0.013942092918    15.994914619570
+         O            0.120178531311     0.709865826141    -0.013942092918    15.994914619570
+         H            1.031732671525     0.835297712857     0.221271132108     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     11.40788  B =      0.89354  C =      0.83727 [cm^-1]
+  Rotational constants: A = 341999.57651  B =  26787.72636  C =  25100.81087 [MHz]
+  Nuclear repulsion =   36.995149001939708
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.3552906256E-02.
+  Reciprocal condition number of the overlap matrix is 9.9720173566E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.88207961077771   -1.50882e+02   1.14307e-02 
+   @DF-RHF iter   1:  -150.77768104919039    1.04399e-01   2.00317e-03 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78006916586801   -2.38812e-03   8.29782e-04 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78052584954480   -4.56684e-04   4.00076e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.78071096522336   -1.85116e-04   1.35911e-04 ADIIS/DIIS
+   @DF-RHF iter   5:  -150.78073779120990   -2.68260e-05   5.41350e-05 DIIS
+   @DF-RHF iter   6:  -150.78074358905045   -5.79784e-06   2.17328e-05 DIIS
+   @DF-RHF iter   7:  -150.78074458985100   -1.00080e-06   3.78874e-06 DIIS
+   @DF-RHF iter   8:  -150.78074461331187   -2.34609e-08   5.00975e-07 DIIS
+   @DF-RHF iter   9:  -150.78074461355035   -2.38487e-10   8.60070e-08 DIIS
+   @DF-RHF iter  10:  -150.78074461355681   -6.45173e-12   1.77151e-08 DIIS
+   @DF-RHF iter  11:  -150.78074461355706   -2.55795e-13   4.45344e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.617751     1B    -20.617458     2A     -1.467209  
+       2B     -1.214218     3B     -0.705505     3A     -0.701297  
+       4A     -0.612886     5A     -0.516773     4B     -0.452401  
+
+    Virtual:                                                              
+
+       5B      0.186759     6A      0.196427     6B      0.318674  
+       7B      0.804390     7A      0.851014     8B      1.118240  
+       8A      1.140250     9A      1.150479     9B      1.245782  
+      10B      1.269960    10A      1.347927    11A      1.533211  
+      11B      1.533832    12B      1.615844    12A      1.735345  
+      13A      1.883332    13B      2.096289    14A      2.448204  
+      14B      2.469500    15A      2.667807    16A      2.757452  
+      15B      2.969999    16B      3.248787    17A      3.304199  
+      17B      3.407678    18A      3.561463    18B      3.975038  
+      19A      3.976366    19B      4.227388  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78074461355706
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             36.9951490019397085
+    One-Electron Energy =                -281.7407913084508664
+    Two-Electron Energy =                  93.9648976929540964
+    Total Energy =                       -150.7807446135570899
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Z            :         -0.0497947            0.4147359            0.3649412
+ Magnitude           :                                                    0.3649412
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.10 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.44 seconds =       0.01 minutes
+	system time =       0.08 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -1.031732671525    -0.835297712857     0.221271132108     1.007825032230
+         O           -0.120178531311    -0.709865826141    -0.013942092918    15.994914619570
+         O            0.120178531311     0.709865826141    -0.013942092918    15.994914619570
+         H            1.031732671525     0.835297712857     0.221271132108     1.007825032230
+
+  Nuclear repulsion =   36.995149001939708
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000037874400    -0.018544517179    -0.002581855920
+       2       -0.029869573334    -0.017491006973     0.002581855920
+       3        0.029869573334     0.017491006973     0.002581855920
+       4        0.000037874400     0.018544517179    -0.002581855920
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.48 seconds =       0.01 minutes
+	system time =       0.08 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.94969218 -1.57848391  0.41814184   
+	       8.000000            15.994915         -0.22710451 -1.34145200 -0.02634674   
+	       8.000000            15.994915          0.22710451  1.34145200 -0.02634674   
+	       1.000000             1.007825          1.94969218  1.57848391  0.41814184   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.794732           0.949731
+	 R(2,3)           =         2.721081           1.439934
+	 R(3,4)           =         1.794732           0.949731
+	 B(1,2,3)         =         1.865473         106.883724
+	 B(2,3,4)         =         1.865473         106.883724
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94973       -0.01521       -0.00524       0.94449
+	               R(2,3)       1.43993       -0.33385       -0.02882       1.41111
+	               R(3,4)       0.94973       -0.01521       -0.00524       0.94449
+	             B(1,2,3)     106.88372       -0.00253       -5.58713     101.29660
+	             B(2,3,4)     106.88372       -0.00253       -5.58713     101.29660
+	          *D(1,2,3,4)     150.00000        0.00000       -0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     2    -150.78074461   -1.20e-02      4.05e-02      2.54e-02 o    9.75e-02      6.08e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9930248589  -0.7793444904   0.2235222286
+	    O  -0.0828578772  -0.7006731757  -0.0161931894
+	    O   0.0828578772   0.7006731757  -0.0161931894
+	    H   0.9930248589   0.7793444904   0.2235222286
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.993024858856    -0.779344490382     0.225506460936
+    O           -0.082857877184    -0.700673175743    -0.014208957138
+    O            0.082857877184     0.700673175743    -0.014208957138
+    H            0.993024858856     0.779344490382     0.225506460936
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.993024858856    -0.779344490382     0.225506460936     1.007825032230
+         O           -0.082857877184    -0.700673175743    -0.014208957138    15.994914619570
+         O            0.082857877184     0.700673175743    -0.014208957138    15.994914619570
+         H            0.993024858856     0.779344490382     0.225506460936     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.79418  B =      0.94744  C =      0.88091 [cm^-1]
+  Rotational constants: A = 323601.31522  B =  28403.43763  C =  26408.89876 [MHz]
+  Nuclear repulsion =   37.762682821595931
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.0390030397E-02.
+  Reciprocal condition number of the overlap matrix is 9.0033048722E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.80671131296589   -1.50807e+02   3.79843e-03 
+   @DF-RHF iter   1:  -150.78549001481079    2.12213e-02   5.40309e-04 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78565652091595   -1.66506e-04   1.97735e-04 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78569063398416   -3.41131e-05   9.52799e-05 DIIS
+   @DF-RHF iter   4:  -150.78570265725514   -1.20233e-05   3.86841e-05 DIIS
+   @DF-RHF iter   5:  -150.78570459169583   -1.93444e-06   1.73275e-05 DIIS
+   @DF-RHF iter   6:  -150.78570514790556   -5.56210e-07   5.50960e-06 DIIS
+   @DF-RHF iter   7:  -150.78570520289929   -5.49937e-08   7.41274e-07 DIIS
+   @DF-RHF iter   8:  -150.78570520353276   -6.33463e-10   8.81314e-08 DIIS
+   @DF-RHF iter   9:  -150.78570520353995   -7.19069e-12   1.93963e-08 DIIS
+   @DF-RHF iter  10:  -150.78570520354037   -4.26326e-13   4.53883e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.616296     1B    -20.615977     2A     -1.489192  
+       2B     -1.208371     3B     -0.723844     3A     -0.693886  
+       4A     -0.621430     5A     -0.527813     4B     -0.448460  
+
+    Virtual:                                                              
+
+       6A      0.195894     5B      0.199949     6B      0.333112  
+       7B      0.827107     7A      0.848774     8A      1.106089  
+       8B      1.115238     9A      1.150430     9B      1.236612  
+      10B      1.271144    10A      1.347192    11B      1.500615  
+      11A      1.547353    12B      1.617036    12A      1.738141  
+      13A      1.928727    13B      2.069844    14A      2.457228  
+      14B      2.503494    15A      2.636029    16A      2.789141  
+      15B      2.965263    16B      3.264050    17A      3.317079  
+      17B      3.441901    18A      3.620376    18B      3.950157  
+      19A      3.952054    19B      4.294056  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78570520354037
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.7626828215959307
+    One-Electron Energy =                -283.2062383831954548
+    Two-Electron Energy =                  94.6578503580591359
+    Total Energy =                       -150.7857052035403740
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.0586064            0.4226743            0.3640679
+ Magnitude           :                                                    0.3640679
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.59 seconds =       0.01 minutes
+	system time =       0.09 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.993024858856    -0.779344490382     0.225506460936     1.007825032230
+         O           -0.082857877184    -0.700673175743    -0.014208957138    15.994914619570
+         O            0.082857877184     0.700673175743    -0.014208957138    15.994914619570
+         H            0.993024858856     0.779344490382     0.225506460936     1.007825032230
+
+  Nuclear repulsion =   37.762682821595931
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1        0.003301221626    -0.001086025376    -0.001938400250
+       2       -0.006185357711    -0.008239097578     0.001938400250
+       3        0.006185357711     0.008239097578     0.001938400250
+       4       -0.003301221626     0.001086025376    -0.001938400250
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.63 seconds =       0.01 minutes
+	system time =       0.09 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87654502 -1.47274764  0.42614545   
+	       8.000000            15.994915         -0.15657870 -1.32408041 -0.02685104   
+	       8.000000            15.994915          0.15657870  1.32408041 -0.02685104   
+	       1.000000             1.007825          1.87654502  1.47274764  0.42614545   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.784823           0.944487
+	 R(2,3)           =         2.666613           1.411111
+	 R(3,4)           =         1.784823           0.944487
+	 B(1,2,3)         =         1.767959         101.296597
+	 B(2,3,4)         =         1.767959         101.296597
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94449        0.02952        0.00320       0.94769
+	               R(2,3)       1.41111       -0.07909       -0.00922       1.40189
+	               R(3,4)       0.94449        0.02952        0.00320       0.94769
+	             B(1,2,3)     101.29660       -0.00019       -0.21192     101.08467
+	             B(2,3,4)     101.29660       -0.00019       -0.21192     101.08467
+	          *D(1,2,3,4)     150.00000        0.00000       -0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     3    -150.78570520   -4.96e-03      9.60e-03      4.67e-03 o    1.74e-02      8.21e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9921345804  -0.7762744321   0.2260010342
+	    O  -0.0790013014  -0.6964796809  -0.0147035304
+	    O   0.0790013014   0.6964796809  -0.0147035304
+	    H   0.9921345804   0.7762744321   0.2260010342
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.992134580379    -0.776274432050     0.226436976469
+    O           -0.079001301414    -0.696479680879    -0.014267588076
+    O            0.079001301414     0.696479680879    -0.014267588076
+    H            0.992134580379     0.776274432050     0.226436976469
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.992134580379    -0.776274432050     0.226436976469     1.007825032230
+         O           -0.079001301414    -0.696479680879    -0.014267588076    15.994914619570
+         O            0.079001301414     0.696479680879    -0.014267588076    15.994914619570
+         H            0.992134580379     0.776274432050     0.226436976469     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.70422  B =      0.95995  C =      0.89118 [cm^-1]
+  Rotational constants: A = 320904.36079  B =  28778.52897  C =  26716.85809 [MHz]
+  Nuclear repulsion =   37.911777604572734
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.0008963633E-02.
+  Reciprocal condition number of the overlap matrix is 8.8837229190E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.78519355070299   -1.50785e+02   1.04470e-03 
+   @DF-RHF iter   1:  -150.78582817860197   -6.34628e-04   1.34933e-04 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78583412276856   -5.94417e-06   3.62136e-05 DIIS
+   @DF-RHF iter   3:  -150.78583459244271   -4.69674e-07   1.16916e-05 DIIS
+   @DF-RHF iter   4:  -150.78583468242718   -8.99845e-08   4.56012e-06 DIIS
+   @DF-RHF iter   5:  -150.78583470155661   -1.91294e-08   1.92790e-06 DIIS
+   @DF-RHF iter   6:  -150.78583470862833   -7.07172e-09   5.54495e-07 DIIS
+   @DF-RHF iter   7:  -150.78583470924704   -6.18712e-10   1.19098e-07 DIIS
+   @DF-RHF iter   8:  -150.78583470926665   -1.96110e-11   2.75628e-08 DIIS
+   @DF-RHF iter   9:  -150.78583470926748   -8.24230e-13   4.73280e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.615486     1B    -20.615158     2A     -1.493223  
+       2B     -1.204824     3B     -0.725244     3A     -0.694043  
+       4A     -0.623385     5A     -0.527261     4B     -0.446242  
+
+    Virtual:                                                              
+
+       6A      0.195467     5B      0.201005     6B      0.339560  
+       7B      0.825443     7A      0.845435     8A      1.103431  
+       8B      1.115517     9A      1.151327     9B      1.236250  
+      10B      1.271991    10A      1.345332    11B      1.497666  
+      11A      1.547760    12B      1.617290    12A      1.738755  
+      13A      1.931083    13B      2.071032    14A      2.450116  
+      14B      2.497083    15A      2.629307    16A      2.802669  
+      15B      2.957987    16B      3.259798    17A      3.315064  
+      17B      3.454821    18A      3.627697    19A      3.947362  
+      18B      3.949784    19B      4.301177  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78583470926748
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.9117776045727339
+    One-Electron Energy =                -283.5054921140679198
+    Two-Electron Energy =                  94.8078798002277097
+    Total Energy =                       -150.7858347092674762
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Z            :         -0.0597620            0.4244184            0.3646563
+ Magnitude           :                                                    0.3646563
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.08 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.74 seconds =       0.01 minutes
+	system time =       0.10 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.992134580379    -0.776274432050     0.226436976469     1.007825032230
+         O           -0.079001301414    -0.696479680879    -0.014267588076    15.994914619570
+         O            0.079001301414     0.696479680879    -0.014267588076    15.994914619570
+         H            0.992134580379     0.776274432050     0.226436976469     1.007825032230
+
+  Nuclear repulsion =   37.911777604572734
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000549662410    -0.000072116581    -0.000889540727
+       2        0.000315664463    -0.001712465940     0.000889540727
+       3       -0.000315664463     0.001712465940     0.000889540727
+       4        0.000549662410     0.000072116581    -0.000889540727
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.79 seconds =       0.01 minutes
+	system time =       0.10 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87486264 -1.46694607  0.42790387   
+	       8.000000            15.994915         -0.14929082 -1.31615585 -0.02696183   
+	       8.000000            15.994915          0.14929082  1.31615585 -0.02696183   
+	       1.000000             1.007825          1.87486264  1.46694607  0.42790387   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.790876           0.947691
+	 R(2,3)           =         2.649192           1.401892
+	 R(3,4)           =         1.790876           0.947691
+	 B(1,2,3)         =         1.764260         101.084673
+	 B(2,3,4)         =         1.764260         101.084673
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94769       -0.00255       -0.00051       0.94718
+	               R(2,3)       1.40189       -0.01483       -0.00255       1.39935
+	               R(3,4)       0.94769       -0.00255       -0.00051       0.94718
+	             B(1,2,3)     101.08467       -0.00001        0.04612     101.13079
+	             B(2,3,4)     101.08467       -0.00001        0.04612     101.13079
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     4    -150.78583471   -1.30e-04      1.80e-03      7.60e-04 o    4.81e-03      2.09e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9914412560  -0.7757298953   0.2263533956
+	    O  -0.0788548876  -0.6952147589  -0.0141840072
+	    O   0.0788548876   0.6952147589  -0.0141840072
+	    H   0.9914412560   0.7757298953   0.2263533956
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.991441255962    -0.775729895281     0.226279723140
+    O           -0.078854887551    -0.695214758911    -0.014257679687
+    O            0.078854887551     0.695214758911    -0.014257679687
+    H            0.991441255962     0.775729895281     0.226279723140
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.991441255962    -0.775729895281     0.226279723140     1.007825032230
+         O           -0.078854887551    -0.695214758911    -0.014257679687    15.994914619570
+         O            0.078854887551     0.695214758911    -0.014257679687    15.994914619570
+         H            0.991441255962     0.775729895281     0.226279723140     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.72151  B =      0.96320  C =      0.89409 [cm^-1]
+  Rotational constants: A = 321422.84404  B =  28876.02782  C =  26804.04483 [MHz]
+  Nuclear repulsion =   37.965616455459084
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 2.9885667118E-02.
+  Reciprocal condition number of the overlap matrix is 8.8417592603E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.78780452772881   -1.50788e+02   2.36064e-04 
+   @DF-RHF iter   1:  -150.78583840778890    1.96612e-03   3.22164e-05 DIIS
+   @DF-RHF iter   2:  -150.78583872828361   -3.20495e-07   6.68946e-06 DIIS
+   @DF-RHF iter   3:  -150.78583875214113   -2.38575e-08   2.23252e-06 DIIS
+   @DF-RHF iter   4:  -150.78583875603496   -3.89383e-09   5.74721e-07 DIIS
+   @DF-RHF iter   5:  -150.78583875625387   -2.18904e-10   2.25750e-07 DIIS
+   @DF-RHF iter   6:  -150.78583875630022   -4.63558e-11   4.51596e-08 DIIS
+   @DF-RHF iter   7:  -150.78583875630295   -2.72848e-12   1.70903e-08 DIIS
+   @DF-RHF iter   8:  -150.78583875630358   -6.25278e-13   6.69195e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.615171     1B    -20.614841     2A     -1.494577  
+       2B     -1.204511     3B     -0.725722     3A     -0.694845  
+       4A     -0.624035     5A     -0.527094     4B     -0.445715  
+
+    Virtual:                                                              
+
+       6A      0.195611     5B      0.201330     6B      0.341515  
+       7B      0.825906     7A      0.845993     8A      1.102951  
+       8B      1.115549     9A      1.151609     9B      1.236279  
+      10B      1.272032    10A      1.344820    11B      1.497669  
+      11A      1.547943    12B      1.617643    12A      1.738989  
+      13A      1.931495    13B      2.071422    14A      2.451434  
+      14B      2.498673    15A      2.627661    16A      2.806388  
+      15B      2.956903    16B      3.259895    17A      3.315822  
+      17B      3.458455    18A      3.630368    19A      3.948454  
+      18B      3.950823    19B      4.303373  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78583875630358
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.9656164554590845
+    One-Electron Energy =                -283.6098872228159280
+    Two-Electron Energy =                  94.8584320110532531
+    Total Energy =                       -150.7858387563035762
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.0596635            0.4241237            0.3644601
+ Magnitude           :                                                    0.3644601
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.90 seconds =       0.02 minutes
+	system time =       0.11 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.991441255962    -0.775729895281     0.226279723140     1.007825032230
+         O           -0.078854887551    -0.695214758911    -0.014257679687    15.994914619570
+         O            0.078854887551     0.695214758911    -0.014257679687    15.994914619570
+         H            0.991441255962     0.775729895281     0.226279723140     1.007825032230
+
+  Nuclear repulsion =   37.965616455459084
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000032524053     0.000043867297    -0.001038504936
+       2        0.000104734952     0.000051827507     0.001038504936
+       3       -0.000104734952    -0.000051827507     0.001038504936
+       4        0.000032524053    -0.000043867297    -0.001038504936
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       0.94 seconds =       0.02 minutes
+	system time =       0.12 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87355244 -1.46591705  0.42760670   
+	       8.000000            15.994915         -0.14901414 -1.31376549 -0.02694311   
+	       8.000000            15.994915          0.14901414  1.31376549 -0.02694311   
+	       1.000000             1.007825          1.87355244  1.46591705  0.42760670   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.789916           0.947183
+	 R(2,3)           =         2.644379           1.399345
+	 R(3,4)           =         1.789916           0.947183
+	 B(1,2,3)         =         1.765065         101.130795
+	 B(2,3,4)         =         1.765065         101.130795
+	*D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94718        0.00195        0.00025       0.94743
+	               R(2,3)       1.39935        0.00085        0.00020       1.39954
+	               R(3,4)       0.94718        0.00195        0.00025       0.94743
+	             B(1,2,3)     101.13079       -0.00000       -0.00855     101.12225
+	             B(2,3,4)     101.13079       -0.00000       -0.00855     101.12225
+	          *D(1,2,3,4)     150.00000        0.00000        0.00000     150.00000
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     5    -150.78583876   -4.05e-06      2.36e-04 *    1.43e-04 o    4.71e-04 *    3.24e-04 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9916198306  -0.7758164277   0.2263149241
+	    O  -0.0787912600  -0.6953225397  -0.0142928807
+	    O   0.0787912600   0.6953225397  -0.0142928807
+	    H   0.9916198306   0.7758164277   0.2263149241
+
+
+    Final optimized geometry and variables:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.991441255962    -0.775729895281     0.226279723140
+    O           -0.078854887551    -0.695214758911    -0.014257679687
+    O            0.078854887551     0.695214758911    -0.014257679687
+    H            0.991441255962     0.775729895281     0.226279723140
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.991441255962    -0.775729895281     0.226279723140     1.007825032230
+         O           -0.078854887551    -0.695214758911    -0.014257679687    15.994914619570
+         O            0.078854887551     0.695214758911    -0.014257679687    15.994914619570
+         H            0.991441255962     0.775729895281     0.226279723140     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.72151  B =      0.96320  C =      0.89409 [cm^-1]
+  Rotational constants: A = 321422.84404  B =  28876.02782  C =  26804.04483 [MHz]
+  Nuclear repulsion =   37.965616455459084
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is SAD.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 2.9885667118E-02.
+  Reciprocal condition number of the overlap matrix is 8.8417592603E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Superposition of Atomic Densities via on-the-fly atomic UHF (no occupation information).
+
+   -------------------------
+    Irrep   Nso     Nmo    
+   -------------------------
+     A         19      19 
+     B         19      19 
+   -------------------------
+    Total      38      38
+   -------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter SAD:  -150.08693496135925   -1.50087e+02   0.00000e+00 
+   @DF-RHF iter   1:  -150.74338850216068   -6.56454e-01   1.12071e-02 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78228160025296   -3.88931e-02   3.43629e-03 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78544411346630   -3.16251e-03   9.38827e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.78580580317160   -3.61690e-04   2.49662e-04 ADIIS/DIIS
+   @DF-RHF iter   5:  -150.78583730887334   -3.15057e-05   4.04115e-05 DIIS
+   @DF-RHF iter   6:  -150.78583864894998   -1.34008e-06   8.34696e-06 DIIS
+   @DF-RHF iter   7:  -150.78583873238739   -8.34374e-08   3.44938e-06 DIIS
+   @DF-RHF iter   8:  -150.78583875244016   -2.00528e-08   1.35554e-06 DIIS
+   @DF-RHF iter   9:  -150.78583875611676   -3.67660e-09   3.32947e-07 DIIS
+   @DF-RHF iter  10:  -150.78583875629943   -1.82666e-10   4.78582e-08 DIIS
+   @DF-RHF iter  11:  -150.78583875630190   -2.47269e-12   9.71791e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.615171     1B    -20.614841     2A     -1.494577  
+       2B     -1.204511     3B     -0.725722     3A     -0.694845  
+       4A     -0.624035     5A     -0.527094     4B     -0.445715  
+
+    Virtual:                                                              
+
+       6A      0.195611     5B      0.201330     6B      0.341515  
+       7B      0.825906     7A      0.845993     8A      1.102951  
+       8B      1.115549     9A      1.151609     9B      1.236279  
+      10B      1.272032    10A      1.344820    11B      1.497669  
+      11A      1.547943    12B      1.617643    12A      1.738989  
+      13A      1.931495    13B      2.071422    14A      2.451434  
+      14B      2.498673    15A      2.627661    16A      2.806388  
+      15B      2.956903    16B      3.259895    17A      3.315822  
+      17B      3.458455    18A      3.630368    19A      3.948454  
+      18B      3.950823    19B      4.303373  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78583875630190
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.9656164554590845
+    One-Electron Energy =                -283.6098873062049961
+    Two-Electron Energy =                  94.8584320944439980
+    Total Energy =                       -150.7858387563018994
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.0596636            0.4241237            0.3644601
+ Magnitude           :                                                    0.3644601
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:12 2026
+Module time:
+	user time   =       0.12 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.25 seconds =       0.02 minutes
+	system time =       0.14 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:12 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.991441255962    -0.775729895281     0.226279723140     1.007825032230
+         O           -0.078854887551    -0.695214758911    -0.014257679687    15.994914619570
+         O            0.078854887551     0.695214758911    -0.014257679687    15.994914619570
+         H            0.991441255962     0.775729895281     0.226279723140     1.007825032230
+
+  Nuclear repulsion =   37.965616455459084
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000032525088     0.000043866145    -0.001038513972
+       2        0.000104720398     0.000051838453     0.001038513972
+       3       -0.000104720398    -0.000051838453     0.001038513972
+       4        0.000032525088    -0.000043866145    -0.001038513972
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          1 seconds =       0.02 minutes
+Total time:
+	user time   =       1.29 seconds =       0.02 minutes
+	system time =       0.14 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.87355244 -1.46591705  0.42760670   
+	       8.000000            15.994915         -0.14901414 -1.31376549 -0.02694311   
+	       8.000000            15.994915          0.14901414  1.31376549 -0.02694311   
+	       1.000000             1.007825          1.87355244  1.46591705  0.42760670   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.789916           0.947183
+	 R(2,3)           =         2.644379           1.399345
+	 R(3,4)           =         1.789916           0.947183
+	 B(1,2,3)         =         1.765065         101.130795
+	 B(2,3,4)         =         1.765065         101.130795
+	 D(1,2,3,4)       =         2.617994         150.000000
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94718        0.00195        0.00021       0.94740
+	               R(2,3)       1.39935        0.00085        0.00012       1.39946
+	               R(3,4)       0.94718        0.00195        0.00021       0.94740
+	             B(1,2,3)     101.13079       -0.00000       -0.00367     101.12712
+	             B(2,3,4)     101.13079       -0.00000       -0.00367     101.12712
+	           D(1,2,3,4)     150.00000       -0.00014      -28.64787     121.35213
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------~
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   ~
+	----------------------------------------------------------------------------------------------~
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o~
+	----------------------------------------------------------------------------------------------~
+	     1    -150.78583876   -1.51e+02      1.78e-03      7.40e-04 o    5.00e-01      2.04e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9343749763  -0.7501568707   0.3336420186
+	    O  -0.1055919094  -0.6917191319  -0.1216199751
+	    O   0.1055919094   0.6917191319  -0.1216199751
+	    H   0.9343749763   0.7501568707   0.3336420186
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.934374976327    -0.750156870682     0.428276669967
+    O           -0.105591909440    -0.691719131913    -0.026985323709
+    O            0.105591909440     0.691719131913    -0.026985323709
+    H            0.934374976327     0.750156870682     0.428276669967
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.934374976327    -0.750156870682     0.428276669967     1.007825032230
+         O           -0.105591909440    -0.691719131913    -0.026985323709    15.994914619570
+         O            0.105591909440     0.691719131913    -0.026985323709    15.994914619570
+         H            0.934374976327     0.750156870682     0.428276669967     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.61955  B =      0.94942  C =      0.90842 [cm^-1]
+  Rotational constants: A = 318366.19652  B =  28462.95582  C =  27233.76513 [MHz]
+  Nuclear repulsion =   37.971669789237211
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.1071557744E-02.
+  Reciprocal condition number of the overlap matrix is 9.2300579720E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.74927797030330   -1.50749e+02   7.29058e-03 
+   @DF-RHF iter   1:  -150.78383290536462   -3.45549e-02   2.14503e-03 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78600114245160   -2.16824e-03   8.26054e-04 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78641276084241   -4.11618e-04   3.74655e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.78654046282387   -1.27702e-04   9.54428e-05 DIIS
+   @DF-RHF iter   5:  -150.78655131452103   -1.08517e-05   1.91302e-05 DIIS
+   @DF-RHF iter   6:  -150.78655172006370   -4.05543e-07   4.92426e-06 DIIS
+   @DF-RHF iter   7:  -150.78655175532808   -3.52644e-08   1.84747e-06 DIIS
+   @DF-RHF iter   8:  -150.78655176161865   -6.29058e-09   5.19730e-07 DIIS
+   @DF-RHF iter   9:  -150.78655176211345   -4.94794e-10   1.27553e-07 DIIS
+   @DF-RHF iter  10:  -150.78655176213437   -2.09184e-11   1.90308e-08 DIIS
+   @DF-RHF iter  11:  -150.78655176213471   -3.41061e-13   2.03943e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.617113     1B    -20.616781     2A     -1.496294  
+       2B     -1.204795     3B     -0.716308     3A     -0.716124  
+       4A     -0.615572     5A     -0.510985     4B     -0.463207  
+
+    Virtual:                                                              
+
+       6A      0.192710     5B      0.201379     6B      0.341252  
+       7B      0.834745     7A      0.841842     8B      1.117482  
+       8A      1.133693     9A      1.151643     9B      1.218833  
+      10B      1.280204    10A      1.336710    11B      1.468021  
+      11A      1.518482    12B      1.647991    12A      1.690606  
+      13A      1.958271    13B      2.017368    14A      2.475614  
+      14B      2.484165    15A      2.707325    16A      2.817994  
+      15B      2.894069    17A      3.265810    16B      3.304998  
+      17B      3.501359    18A      3.611868    18B      3.924491  
+      19A      3.959614    19B      4.289626  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78655176213471
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.9716697892372110
+    One-Electron Energy =                -283.6020810766187878
+    Two-Electron Energy =                  94.8438595252468559
+    Total Energy =                       -150.7865517621347067
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.1205055            0.8027333            0.6822278
+ Magnitude           :                                                    0.6822278
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.41 seconds =       0.02 minutes
+	system time =       0.15 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.934374976327    -0.750156870682     0.428276669967     1.007825032230
+         O           -0.105591909440    -0.691719131913    -0.026985323709    15.994914619570
+         O            0.105591909440     0.691719131913    -0.026985323709    15.994914619570
+         H            0.934374976327     0.750156870682     0.428276669967     1.007825032230
+
+  Nuclear repulsion =   37.971669789237211
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1        0.000501414447     0.002339215830    -0.000339205711
+       2        0.001932062079    -0.004480634955     0.000339205711
+       3       -0.001932062079     0.004480634955     0.000339205711
+       4       -0.000501414447    -0.002339215830    -0.000339205711
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.45 seconds =       0.02 minutes
+	system time =       0.15 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.76571280 -1.41759104  0.80932561   
+	       8.000000            15.994915         -0.19953979 -1.30715972 -0.05099487   
+	       8.000000            15.994915          0.19953979  1.30715972 -0.05099487   
+	       1.000000             1.007825          1.76571280  1.41759104  0.80932561   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.790320           0.947396
+	 R(2,3)           =         2.644604           1.399464
+	 R(3,4)           =         1.790320           0.947396
+	 B(1,2,3)         =         1.765001         101.127123
+	 B(2,3,4)         =         1.765001         101.127123
+	 D(1,2,3,4)       =         2.117994         121.352130
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94740        0.00615        0.00090       0.94829
+	               R(2,3)       1.39946       -0.01442       -0.00239       1.39707
+	               R(3,4)       0.94740        0.00615        0.00090       0.94829
+	             B(1,2,3)     101.12712        0.00031        1.76298     102.89010
+	             B(2,3,4)     101.12712        0.00031        1.76298     102.89010
+	           D(1,2,3,4)     121.35213       -0.00003      -16.80278     104.54935
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     2    -150.78655176   -7.13e-04      4.09e-03      2.51e-03 o    2.93e-01      1.21e-01 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.8976940411  -0.7463106866   0.4834538187
+	    O  -0.1390610568  -0.6845528996  -0.0821624724
+	    O   0.1390610568   0.6845528996  -0.0821624724
+	    H   0.8976940411   0.7463106866   0.4834538187
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.897694041078    -0.746310686614     0.532089796667
+    O           -0.139061056753    -0.684552899561    -0.033526494466
+    O            0.139061056753     0.684552899561    -0.033526494466
+    H            0.897694041078     0.746310686614     0.532089796667
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.897694041078    -0.746310686614     0.532089796667     1.007825032230
+         O           -0.139061056753    -0.684552899561    -0.033526494466    15.994914619570
+         O            0.139061056753     0.684552899561    -0.033526494466    15.994914619570
+         H            0.897694041078     0.746310686614     0.532089796667     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.71086  B =      0.93675  C =      0.91835 [cm^-1]
+  Rotational constants: A = 321103.45476  B =  28083.12165  C =  27531.40584 [MHz]
+  Nuclear repulsion =   37.960435584264204
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.1709230343E-02.
+  Reciprocal condition number of the overlap matrix is 9.4295647977E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.77479015302259   -1.50775e+02   4.84130e-03 
+   @DF-RHF iter   1:  -150.78553431902043   -1.07442e-02   1.20216e-03 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78629815217070   -7.63833e-04   4.51453e-04 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78645488738329   -1.56735e-04   2.04544e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.78649049148768   -3.56041e-05   5.30472e-05 DIIS
+   @DF-RHF iter   5:  -150.78649366783415   -3.17635e-06   1.20498e-05 DIIS
+   @DF-RHF iter   6:  -150.78649386868733   -2.00853e-07   4.27074e-06 DIIS
+   @DF-RHF iter   7:  -150.78649389775265   -2.90653e-08   1.25486e-06 DIIS
+   @DF-RHF iter   8:  -150.78649390035469   -2.60204e-09   2.95853e-07 DIIS
+   @DF-RHF iter   9:  -150.78649390048571   -1.31024e-10   8.12691e-08 DIIS
+   @DF-RHF iter  10:  -150.78649390049443   -8.72546e-12   1.05735e-08 DIIS
+   @DF-RHF iter  11:  -150.78649390049469   -2.55795e-13   1.61350e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.617896     1B    -20.617562     2A     -1.496285  
+       2B     -1.205162     3A     -0.732340     3B     -0.704823  
+       4A     -0.612543     5A     -0.496492     4B     -0.476630  
+
+    Virtual:                                                              
+
+       6A      0.189629     5B      0.199906     6B      0.345318  
+       7B      0.836402     7A      0.838005     8B      1.122059  
+       8A      1.147482     9A      1.161665     9B      1.210182  
+      10B      1.280397    10A      1.325040    11B      1.482137  
+      11A      1.502954    12A      1.661465    12B      1.661612  
+      13A      1.962173    13B      2.002901    14B      2.476697  
+      14A      2.483145    15A      2.757721    16A      2.826997  
+      15B      2.838435    17A      3.233607    16B      3.326386  
+      17B      3.533573    18A      3.595244    18B      3.913018  
+      19A      3.979348    19B      4.273451  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78649390049469
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             37.9604355842642036
+    One-Electron Energy =                -283.5743938133946358
+    Two-Electron Energy =                  94.8274643286357701
+    Total Energy =                       -150.7864939004946905
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.1529549            0.9973137            0.8443588
+ Magnitude           :                                                    0.8443588
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.10 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.57 seconds =       0.03 minutes
+	system time =       0.16 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.897694041078    -0.746310686614     0.532089796667     1.007825032230
+         O           -0.139061056753    -0.684552899561    -0.033526494466    15.994914619570
+         O            0.139061056753     0.684552899561    -0.033526494466    15.994914619570
+         H            0.897694041078     0.746310686614     0.532089796667     1.007825032230
+
+  Nuclear repulsion =   37.960435584264204
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1        0.000835975052    -0.000847739890     0.000435204174
+       2       -0.002848197148    -0.004061752018    -0.000435204174
+       3        0.002848197148     0.004061752018    -0.000435204174
+       4       -0.000835975052     0.000847739890     0.000435204174
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.03 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.60 seconds =       0.03 minutes
+	system time =       0.17 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.69639588 -1.41032280  1.00550399   
+	       8.000000            15.994915         -0.26278731 -1.29361750 -0.06335589   
+	       8.000000            15.994915          0.26278731  1.29361750 -0.06335589   
+	       1.000000             1.007825          1.69639588  1.41032280  1.00550399   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792014           0.948293
+	 R(2,3)           =         2.640078           1.397069
+	 R(3,4)           =         1.792014           0.948293
+	 B(1,2,3)         =         1.795771         102.890099
+	 B(2,3,4)         =         1.795771         102.890099
+	 D(1,2,3,4)       =         1.824730         104.549353
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94829        0.00292        0.00006       0.94835
+	               R(2,3)       1.39707       -0.04294       -0.00244       1.39463
+	               R(3,4)       0.94829        0.00292        0.00006       0.94835
+	             B(1,2,3)     102.89010       -0.00010       -0.35696     102.53314
+	             B(2,3,4)     102.89010       -0.00010       -0.35696     102.53314
+	           D(1,2,3,4)     104.54935        0.00013       12.18257     116.73192
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     3    -150.78649390    5.79e-05      5.21e-03      2.38e-03 o    2.13e-01      8.69e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9297774945  -0.7565631998   0.4920569793
+	    O  -0.1181072397  -0.6872408253   0.0065063229
+	    O   0.1181072397   0.6872408253   0.0065063229
+	    H   0.9297774945   0.7565631998   0.4920569793
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.929777494482    -0.756563199813     0.456769994289
+    O           -0.118107239729    -0.687240825296    -0.028780662177
+    O            0.118107239729     0.687240825296    -0.028780662177
+    H            0.929777494482     0.756563199813     0.456769994289
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.929777494482    -0.756563199813     0.456769994289     1.007825032230
+         O           -0.118107239729    -0.687240825296    -0.028780662177    15.994914619570
+         O            0.118107239729     0.687240825296    -0.028780662177    15.994914619570
+         H            0.929777494482     0.756563199813     0.456769994289     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.72901  B =      0.94844  C =      0.91363 [cm^-1]
+  Rotational constants: A = 321647.70272  B =  28433.40474  C =  27389.93604 [MHz]
+  Nuclear repulsion =   38.012161140511857
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.1181811543E-02.
+  Reciprocal condition number of the overlap matrix is 9.2529195608E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.78207352321581   -1.50782e+02   3.38706e-03 
+   @DF-RHF iter   1:  -150.78620142228058   -4.12790e-03   8.33683e-04 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78656906202687   -3.67640e-04   2.87035e-04 ADIIS/DIIS
+   @DF-RHF iter   3:  -150.78664878328183   -7.97213e-05   1.08759e-04 ADIIS/DIIS
+   @DF-RHF iter   4:  -150.78666047626950   -1.16930e-05   3.08246e-05 DIIS
+   @DF-RHF iter   5:  -150.78666131590194   -8.39632e-07   7.87492e-06 DIIS
+   @DF-RHF iter   6:  -150.78666139129726   -7.53953e-08   2.19464e-06 DIIS
+   @DF-RHF iter   7:  -150.78666139834800   -7.05074e-09   7.69825e-07 DIIS
+   @DF-RHF iter   8:  -150.78666139935089   -1.00289e-09   2.05222e-07 DIIS
+   @DF-RHF iter   9:  -150.78666139942194   -7.10543e-11   5.02026e-08 DIIS
+   @DF-RHF iter  10:  -150.78666139942544   -3.49587e-12   7.32934e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.616728     1B    -20.616392     2A     -1.496944  
+       2B     -1.204137     3A     -0.723085     3B     -0.712019  
+       4A     -0.615532     5A     -0.505324     4B     -0.465520  
+
+    Virtual:                                                              
+
+       6A      0.192263     5B      0.200251     6B      0.346470  
+       7B      0.832922     7A      0.841206     8B      1.119668  
+       8A      1.141828     9A      1.152766     9B      1.219094  
+      10B      1.280621    10A      1.332010    11B      1.473971  
+      11A      1.513545    12B      1.652871    12A      1.684031  
+      13A      1.954818    13B      2.016142    14A      2.478787  
+      14B      2.479147    15A      2.717088    16A      2.826023  
+      15B      2.873742    17A      3.252315    16B      3.311594  
+      17B      3.517038    18A      3.610356    18B      3.926352  
+      19A      3.968227    19B      4.282515  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78666139942544
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             38.0121611405118571
+    One-Electron Energy =                -283.6862806510840755
+    Two-Electron Energy =                  94.8874581111467705
+    Total Energy =                       -150.7866613994254408
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Z            :         -0.1274437            0.8561393            0.7286956
+ Magnitude           :                                                    0.7286956
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.72 seconds =       0.03 minutes
+	system time =       0.17 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.929777494482    -0.756563199813     0.456769994289     1.007825032230
+         O           -0.118107239729    -0.687240825296    -0.028780662177    15.994914619570
+         O            0.118107239729     0.687240825296    -0.028780662177    15.994914619570
+         H            0.929777494482     0.756563199813     0.456769994289     1.007825032230
+
+  Nuclear repulsion =   38.012161140511857
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000244251697    -0.000832497985    -0.000143377260
+       2       -0.001015761829    -0.000921461097     0.000143377260
+       3        0.001015761829     0.000921461097     0.000143377260
+       4        0.000244251697     0.000832497985    -0.000143377260
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.76 seconds =       0.03 minutes
+	system time =       0.18 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.75702482 -1.42969724  0.86317019   
+	       8.000000            15.994915         -0.22319034 -1.29869694 -0.05438757   
+	       8.000000            15.994915          0.22319034  1.29869694 -0.05438757   
+	       1.000000             1.007825          1.75702482  1.42969724  0.86317019   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792128           0.948353
+	 R(2,3)           =         2.635472           1.394632
+	 R(3,4)           =         1.792128           0.948353
+	 B(1,2,3)         =         1.789541         102.533143
+	 B(2,3,4)         =         1.789541         102.533143
+	 D(1,2,3,4)       =         2.037356         116.731921
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94835       -0.00162        0.00002       0.94837
+	               R(2,3)       1.39463       -0.01600       -0.00270       1.39193
+	               R(3,4)       0.94835       -0.00162        0.00002       0.94837
+	             B(1,2,3)     102.53314       -0.00011       -0.17637     102.35678
+	             B(2,3,4)     102.53314       -0.00011       -0.17637     102.35678
+	           D(1,2,3,4)     116.73192       -0.00002       -1.94705     114.78487
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     4    -150.78666140   -1.67e-04      1.94e-03      1.19e-03 o    3.40e-02      1.41e-02 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9228389043  -0.7519418072   0.4636052417
+	    O  -0.1192246374  -0.6856778683  -0.0356159096
+	    O   0.1192246374   0.6856778683  -0.0356159096
+	    H   0.9228389043   0.7519418072   0.4636052417
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.922838904284    -0.751941807170     0.469630180525
+    O           -0.119224637448    -0.685677868320    -0.029590970823
+    O            0.119224637448     0.685677868320    -0.029590970823
+    H            0.922838904284     0.751941807170     0.469630180525
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.922838904284    -0.751941807170     0.469630180525     1.007825032230
+         O           -0.119224637448    -0.685677868320    -0.029590970823    15.994914619570
+         O            0.119224637448     0.685677868320    -0.029590970823    15.994914619570
+         H            0.922838904284     0.751941807170     0.469630180525     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.70122  B =      0.95128  C =      0.91861 [cm^-1]
+  Rotational constants: A = 320814.54084  B =  28518.68344  C =  27539.37403 [MHz]
+  Nuclear repulsion =   38.071731797964468
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.1095535102E-02.
+  Reciprocal condition number of the overlap matrix is 9.2272020068E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.78746428839045   -1.50787e+02   5.49805e-04 
+   @DF-RHF iter   1:  -150.78666189994181    8.02388e-04   1.35434e-04 ADIIS/DIIS
+   @DF-RHF iter   2:  -150.78667126015452   -9.36021e-06   4.61625e-05 DIIS
+   @DF-RHF iter   3:  -150.78667325702500   -1.99687e-06   1.80801e-05 DIIS
+   @DF-RHF iter   4:  -150.78667360725953   -3.50235e-07   5.56915e-06 DIIS
+   @DF-RHF iter   5:  -150.78667363552921   -2.82697e-08   1.56998e-06 DIIS
+   @DF-RHF iter   6:  -150.78667363795753   -2.42832e-09   4.72875e-07 DIIS
+   @DF-RHF iter   7:  -150.78667363831070   -3.53168e-10   1.57336e-07 DIIS
+   @DF-RHF iter   8:  -150.78667363835700   -4.62990e-11   3.77368e-08 DIIS
+   @DF-RHF iter   9:  -150.78667363835933   -2.33058e-12   7.92733e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.616641     1B    -20.616302     2A     -1.498745  
+       2B     -1.203470     3A     -0.724864     3B     -0.711963  
+       4A     -0.615900     5A     -0.503858     4B     -0.466658  
+
+    Virtual:                                                              
+
+       6A      0.191850     5B      0.200862     6B      0.348371  
+       7B      0.834072     7A      0.840701     8B      1.119716  
+       8A      1.142721     9A      1.153162     9B      1.216800  
+      10B      1.280849    10A      1.330872    11B      1.473369  
+      11A      1.511374    12B      1.654617    12A      1.679877  
+      13A      1.958555    13B      2.012646    14B      2.479333  
+      14A      2.480471    15A      2.722261    16A      2.830917  
+      15B      2.867534    17A      3.248822    16B      3.314591  
+      17B      3.523475    18A      3.612073    18B      3.922919  
+      19A      3.969073    19B      4.284942  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78667363835933
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             38.0717317979644676
+    One-Electron Energy =                -283.8000046242962640
+    Two-Electron Energy =                  94.9415991879724572
+    Total Energy =                       -150.7866736383593320
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000            0.0000000            0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.1324417            0.8802436            0.7478018
+ Magnitude           :                                                    0.7478018
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.87 seconds =       0.03 minutes
+	system time =       0.18 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.922838904284    -0.751941807170     0.469630180525     1.007825032230
+         O           -0.119224637448    -0.685677868320    -0.029590970823    15.994914619570
+         O            0.119224637448     0.685677868320    -0.029590970823    15.994914619570
+         H            0.922838904284     0.751941807170     0.469630180525     1.007825032230
+
+  Nuclear repulsion =   38.071731797964468
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000149573125     0.000056729370     0.000123955062
+       2        0.000337021879     0.000555892722    -0.000123955062
+       3       -0.000337021879    -0.000555892722    -0.000123955062
+       4        0.000149573125    -0.000056729370     0.000123955062
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.04 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       1.91 seconds =       0.03 minutes
+	system time =       0.19 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.74391279 -1.42096408  0.88747242   
+	       8.000000            15.994915         -0.22530191 -1.29574338 -0.05591883   
+	       8.000000            15.994915          0.22530191  1.29574338 -0.05591883   
+	       1.000000             1.007825          1.74391279  1.42096408  0.88747242   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.792162           0.948372
+	 R(2,3)           =         2.630370           1.391932
+	 R(3,4)           =         1.792162           0.948372
+	 B(1,2,3)         =         1.786463         102.356776
+	 B(2,3,4)         =         1.786463         102.356776
+	 D(1,2,3,4)       =         2.003374         114.784867
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94837       -0.00155       -0.00017       0.94820
+	               R(2,3)       1.39193        0.00524        0.00088       1.39281
+	               R(3,4)       0.94837       -0.00155       -0.00017       0.94820
+	             B(1,2,3)     102.35678        0.00001       -0.00964     102.34714
+	             B(2,3,4)     102.35678        0.00001       -0.00964     102.34714
+	           D(1,2,3,4)     114.78487        0.00000        0.29832     115.08319
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     5    -150.78667364   -1.22e-05      6.36e-04      2.91e-04 o    5.21e-03      2.24e-03 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9237010949  -0.7524041252   0.4685768392
+	    O  -0.1189860374  -0.6861649280  -0.0285376295
+	    O   0.1189860374   0.6861649280  -0.0285376295
+	    H   0.9237010949   0.7524041252   0.4685768392
+
+
+    Structure for next step:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.923701094889    -0.752404125166     0.467648369900
+    O           -0.118986037400    -0.686164928031    -0.029466098737
+    O            0.118986037400     0.686164928031    -0.029466098737
+    H            0.923701094889     0.752404125166     0.467648369900
+
+
+Scratch directory: /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/
+gradient() will perform analytic gradient computation.
+   => Libint2 <=
+
+    Primary   basis highest AM E, G, H:  5, 4, 3
+    Auxiliary basis highest AM E, G, H:  6, 5, 4
+    Onebody   basis highest AM E, G, H:  6, 5, 4
+    Solid Harmonics ordering:            Gaussian
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+
+         ---------------------------------------------------------
+                                   SCF
+               by Justin Turney, Rob Parrish, Andy Simmonett
+                          and Daniel G. A. Smith
+                              RHF Reference
+                        1 Threads,    512 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.923701094889    -0.752404125166     0.467648369900     1.007825032230
+         O           -0.118986037400    -0.686164928031    -0.029466098737    15.994914619570
+         O            0.118986037400     0.686164928031    -0.029466098737    15.994914619570
+         H            0.923701094889     0.752404125166     0.467648369900     1.007825032230
+
+  Running in c2 symmetry.
+
+  Rotational constants: A =     10.70512  B =      0.95038  C =      0.91741 [cm^-1]
+  Rotational constants: A = 320931.39705  B =  28491.70316  C =  27503.15407 [MHz]
+  Nuclear repulsion =   38.056557186278070
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 18
+  Nalpha       = 9
+  Nbeta        = 9
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 1.00e-12
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+   => Loading Basis Set <=
+
+    Name: (CC-PVDZ AUX)
+    Role: JKFIT
+    Keyword: DF_BASIS_SCF
+    atoms 1, 4 entry H          line    51 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+    atoms 2-3  entry O          line   221 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz-jkfit.gbs 
+
+   => Loading Basis Set <=
+
+    Name: CC-PVDZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1, 4 entry H          line    22 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+    atoms 2-3  entry O          line   198 file /Users/jason/Library/Psi4/1.12a1.dev43-py3.15.0-apple-m1-am5/share/psi4/basis/cc-pvdz.gbs 
+
+  Reading orbitals from file /Users/jason/PycharmProjects/psi4-parser/tmp/13-constraint-isolation/scratch/output.peroxide.93533.180.npy, no projection.
+
+  ==> Integral Setup <==
+
+  DFHelper Memory: AOs need 0.002 GiB; user supplied 0.375 GiB. 
+  SCF_SUBTYPE=INCORE selected. In-core MEM_DF algorithm will be used.
+  Using in-core AOs.
+
+  ==> MemDFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                   Yes
+    K tasked:                   Yes
+    wK tasked:                   No
+    OpenMP threads:               1
+    Memory [MiB]:               384
+    Algorithm:                 Core
+    Schwarz Cutoff:           1E-12
+    Mask sparsity (%):       0.0000
+    Fitting Condition:        1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  Minimum eigenvalue in the overlap matrix is 3.1124748079E-02.
+  Reciprocal condition number of the overlap matrix is 9.2365353922E-03.
+    Using symmetric orthogonalization.
+
+  ==> Pre-Iterations <==
+
+  SCF Guess: Orbitals guess was supplied from a previous computation.
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A         19      19       5       5       5       0
+     B         19      19       4       4       4       0
+   -------------------------------------------------------
+    Total      38      38       9       9       9       0
+   -------------------------------------------------------
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -150.78653414751813   -1.50787e+02   1.20467e-04 
+   @DF-RHF iter   1:  -150.78667392657658   -1.39779e-04   2.35143e-05 DIIS
+   @DF-RHF iter   2:  -150.78667418868343   -2.62107e-07   7.66424e-06 DIIS
+   @DF-RHF iter   3:  -150.78667423848628   -4.98028e-08   3.17795e-06 DIIS
+   @DF-RHF iter   4:  -150.78667424853177   -1.00455e-08   9.80385e-07 DIIS
+   @DF-RHF iter   5:  -150.78667424936472   -8.32955e-10   2.36487e-07 DIIS
+   @DF-RHF iter   6:  -150.78667424941716   -5.24381e-11   4.36648e-08 DIIS
+   @DF-RHF iter   7:  -150.78667424941952   -2.35900e-12   1.41653e-08 DIIS
+   @DF-RHF iter   8:  -150.78667424941978   -2.55795e-13   4.63990e-09 DIIS
+  Energy and wave function converged.
+
+
+  ==> Post-Iterations <==
+
+    Orbital Energies [Eh]
+    ---------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -20.616702     1B    -20.616364     2A     -1.498322  
+       2B     -1.203732     3A     -0.724476     3B     -0.712000  
+       4A     -0.615738     5A     -0.504208     4B     -0.466599  
+
+    Virtual:                                                              
+
+       6A      0.191924     5B      0.200778     6B      0.347686  
+       7B      0.834089     7A      0.840902     8B      1.119654  
+       8A      1.142534     9A      1.153094     9B      1.217072  
+      10B      1.280757    10A      1.331185    11B      1.473374  
+      11A      1.511731    12B      1.654309    12A      1.680453  
+      13A      1.958161    13B      2.012962    14B      2.479723  
+      14A      2.480471    15A      2.721812    16A      2.829503  
+      15B      2.868927    17A      3.249718    16B      3.314233  
+      17B      3.521873    18A      3.611478    18B      3.923317  
+      19A      3.968938    19B      4.284500  
+
+    Final Occupation by Irrep:
+              A     B 
+    DOCC [     5,    4 ]
+    NA   [     5,    4 ]
+    NB   [     5,    4 ]
+
+  @DF-RHF Final Energy:  -150.78667424941978
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =             38.0565571862780700
+    One-Electron Energy =                -283.7701769696220708
+    Two-Electron Energy =                  94.9269455339242398
+    Total Energy =                       -150.7866742494197752
+
+Computation Completed
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 [a0]
+
+Properties computed using the SCF density matrix
+
+
+ Multipole Moments:
+
+ ------------------------------------------------------------------------------------
+     Multipole            Electronic (a.u.)      Nuclear  (a.u.)        Total (a.u.)
+ ------------------------------------------------------------------------------------
+
+ L = 1.  Multiply by 2.5417464519 to convert [e a0] to [Debye]
+ Dipole X            :          0.0000000           -0.0000000           -0.0000000
+ Dipole Y            :          0.0000000            0.0000000            0.0000000
+ Dipole Z            :         -0.1316747            0.8765290            0.7448543
+ Magnitude           :                                                    0.7448543
+
+ ------------------------------------------------------------------------------------
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.09 seconds =       0.00 minutes
+	system time =       0.01 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       2.02 seconds =       0.03 minutes
+	system time =       0.20 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+*** tstart() called on Jasons-MacBook-Pro-2.local
+*** at Mon Oct 19 09:44:13 2026
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+         H           -0.923701094889    -0.752404125166     0.467648369900     1.007825032230
+         O           -0.118986037400    -0.686164928031    -0.029466098737    15.994914619570
+         O            0.118986037400     0.686164928031    -0.029466098737    15.994914619570
+         H            0.923701094889     0.752404125166     0.467648369900     1.007825032230
+
+  Nuclear repulsion =   38.056557186278070
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVDZ
+    Blend: CC-PVDZ
+    Number of shells: 18
+    Number of basis functions: 38
+    Number of Cartesian functions: 40
+    Spherical Harmonics?: true
+    Max angular momentum: 2
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              1
+    Integrals threads:           1
+    Memory [MiB]:              384
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-10
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: (CC-PVDZ AUX)
+    Blend: CC-PVDZ-JKFIT
+    Number of shells: 66
+    Number of basis functions: 186
+    Number of Cartesian functions: 212
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1        0.000009062251    -0.000002765585    -0.000007344467
+       2       -0.000020952375    -0.000042066035     0.000007344467
+       3        0.000020952375     0.000042066035     0.000007344467
+       4       -0.000009062251     0.000002765585    -0.000007344467
+
+
+*** tstop() called on Jasons-MacBook-Pro-2.local at Mon Oct 19 09:44:13 2026
+Module time:
+	user time   =       0.03 seconds =       0.00 minutes
+	system time =       0.00 seconds =       0.00 minutes
+	total time  =          0 seconds =       0.00 minutes
+Total time:
+	user time   =       2.05 seconds =       0.03 minutes
+	system time =       0.20 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+
+    			-----------------------------------------
+
+    			 OPTKING 3.0: for geometry optimizations 
+
+    			     By R.A. King, Bethel University     
+
+    			        with contributions from          
+
+    			    A.V. Copan, J. Cayton, A. Heide      
+
+    			-----------------------------------------
+
+    
+	                            ===> Fragment 1 <== 
+
+	 Z (Atomic Numbers)          Masses                          Geom                  
+	       1.000000             1.007825         -1.74554209 -1.42183773  0.88372734   
+	       8.000000            15.994915         -0.22485102 -1.29666379 -0.05568286   
+	       8.000000            15.994915          0.22485102  1.29666379 -0.05568286   
+	       1.000000             1.007825          1.74554209  1.42183773  0.88372734   
+
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.791832           0.948197
+	 R(2,3)           =         2.632030           1.392810
+	 R(3,4)           =         1.791832           0.948197
+	 B(1,2,3)         =         1.786295         102.347139
+	 B(2,3,4)         =         1.786295         102.347139
+	 D(1,2,3,4)       =         2.008580         115.083185
+
+
+	        --- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	-------------------------------------------------------------------------------
+	           Coordinate      Previous         Force          Change          New 
+	           ----------      --------        ------          ------        ------
+	               R(1,2)       0.94820        0.00009        0.00001       0.94821
+	               R(2,3)       1.39281       -0.00038       -0.00006       1.39275
+	               R(3,4)       0.94820        0.00009        0.00001       0.94821
+	             B(1,2,3)     102.34714       -0.00000        0.00125     102.34839
+	             B(2,3,4)     102.34714       -0.00000        0.00125     102.34839
+	           D(1,2,3,4)     115.08319       -0.00000       -0.02006     115.06313
+	-------------------------------------------------------------------------------
+
+	                                 ==> Convergence Check <==                                  
+    
+	Measures of convergence in internal coordinates in au.
+    
+	Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+
+	----------------------------------------------------------------------------------------------
+	   Step    Total Energy     Delta E     Max Force     RMS Force      Max Disp      RMS Disp   
+	----------------------------------------------------------------------------------------------
+	  Convergence Criteria     1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+	----------------------------------------------------------------------------------------------
+	     6    -150.78667425   -6.11e-07 *    4.62e-05 *    2.03e-05 o    3.50e-04 *    1.52e-04 o  ~
+	----------------------------------------------------------------------------------------------
+
+Next Geometry in Ang 
+	Fragment 1 (Ang)
+
+	    H  -0.9236445445  -0.7523763392   0.4677182675
+	    O  -0.1190044015  -0.6861289403  -0.0295359964
+	    O   0.1190044015   0.6861289403  -0.0295359964
+	    H   0.9236445445   0.7523763392   0.4677182675
+
+
+    Final optimized geometry and variables:
+    Molecular point group: c2
+    Full point group: C2
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -0.923701094889    -0.752404125166     0.467648369900
+    O           -0.118986037400    -0.686164928031    -0.029466098737
+    O            0.118986037400     0.686164928031    -0.029466098737
+    H            0.923701094889     0.752404125166     0.467648369900
+
+
+    Psi4 stopped on: Monday, 19 October 2026 09:44AM
+    Psi4 wall time for execution: 0:00:02.64
+
+*** Psi4 exiting successfully. Buy a developer a beer!

@@ -1,0 +1,108 @@
+set {
+    basis  "cc-pvdz"
+}
+
+# PES point: H-O-O-H dihedral = 30 degrees.
+molecule hooh_30 {
+    H  1.0                 0.0                 0.0
+    O  0.0                 0.0                 0.0
+    O  0.0                 0.0                 1.4
+    H  0.8660254037844386  0.5000000000000001  1.4
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_2 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_30 = optimize('scf', molecule=hooh_30)
+finally:
+    _psi4_builder_options_2.restore()
+
+# PES point: H-O-O-H dihedral = 60 degrees.
+molecule hooh_60 {
+    H  1.0                  0.0                 0.0
+    O  0.0                  0.0                 0.0
+    O  0.0                  0.0                 1.4
+    H  0.49999999999999994  0.8660254037844387  1.4
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_4 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_60 = optimize('scf', molecule=hooh_60)
+finally:
+    _psi4_builder_options_4.restore()
+
+# PES point: H-O-O-H dihedral = 90 degrees.
+molecule hooh_90 {
+    H  1.0  0.0  0.0
+    O  0.0  0.0  0.0
+    O  0.0  0.0  1.4
+    H  0.0  1.0  1.4
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_6 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_90 = optimize('scf', molecule=hooh_90)
+finally:
+    _psi4_builder_options_6.restore()
+
+# PES point: H-O-O-H dihedral = 120 degrees.
+molecule hooh_120 {
+    H   1.0                  0.0                 0.0
+    O   0.0                  0.0                 0.0
+    O   0.0                  0.0                 1.4
+    H  -0.49999999999999994  0.8660254037844387  1.4
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_8 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_120 = optimize('scf', molecule=hooh_120)
+finally:
+    _psi4_builder_options_8.restore()
+
+# PES point: H-O-O-H dihedral = 150 degrees.
+molecule hooh_150 {
+    H   1.0                 0.0                 0.0
+    O   0.0                 0.0                 0.0
+    O   0.0                 0.0                 1.4
+    H  -0.8660254037844386  0.5000000000000001  1.4
+    units angstrom
+}
+
+import psi4 as _psi4_builder_psi4
+_psi4_builder_options_10 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'], ['OPTKING', 'FROZEN_DIHEDRAL'])
+try:
+    set scf {
+        maxiter  100
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DIHEDRAL', '1 2 3 4')
+    e_150 = optimize('scf', molecule=hooh_150)
+finally:
+    _psi4_builder_options_10.restore()

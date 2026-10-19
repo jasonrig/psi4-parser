@@ -1,0 +1,15 @@
+molecule deuterium {
+    0 2
+    H@2.01410177812  0.0  0.0  0.0
+    @H               0.0  0.0  1.5
+    units angstrom
+    symmetry c1
+}
+
+set {
+    basis      "cc-pvdz"
+    reference  "uhf"
+    scf_type   "pk"
+}
+
+e_atom = energy('scf', molecule=deuterium)
