@@ -1,0 +1,5 @@
+2026-10-20:01:38:40,409 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__MAXITER': 1, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:38:40,410 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=water, nre=9.166026553190907
+2026-10-20:01:38:41,128 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__D_CONVERGENCE': 1e-06, 'SCF__E_CONVERGENCE': 1e-06, 'SCF__GUESS': 'SAD', 'INTS_TOLERANCE': 1e-12, 'SCF__INTS_TOLERANCE': 1e-12, 'SCF__MAXITER': 50, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:38:41,130 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=water, nre=9.166026553190907
+2026-10-20:01:38:41,197 INFO     [psi4.driver.driver:534] Return energy(): -74.96335863562093

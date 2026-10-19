@@ -1,0 +1,12 @@
+2026-10-20:01:38:41,48 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:38:41,50 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432432
+2026-10-20:01:38:41,98 INFO     [psi4.driver.driver:534] Return energy(): -1.1167593073781568
+2026-10-20:01:38:41,110 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {'external_potentials': {'points': [[0.05, 0.0, 0.0, 4.724315313644571]]}}}
+2026-10-20:01:38:41,112 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432432
+2026-10-20:01:38:41,161 INFO     [psi4.driver.driver:534] Return energy(): -1.1166138110751422
+2026-10-20:01:38:41,173 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {'external_potentials': {'diffuse': [[-0.05, 0.0, 0.0, -5.0, 0.7]]}}}
+2026-10-20:01:38:41,175 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432432
+2026-10-20:01:38:41,237 INFO     [psi4.driver.driver:534] Return energy(): -1.1169009192922807
+2026-10-20:01:38:41,250 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {'external_potentials': {'points': [[0.05, 0.0, 0.0, 4.724315313644571]], 'diffuse': [[-0.05, 0.0, 0.0, -5.0, 0.7]], 'matrix': [[0.01, 0.0], [0.0, -0.01]]}}}
+2026-10-20:01:38:41,252 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432432
+2026-10-20:01:38:41,497 INFO     [psi4.driver.driver:534] Return energy(): -1.1172727827579885

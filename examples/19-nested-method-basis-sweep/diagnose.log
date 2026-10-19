@@ -1,0 +1,13 @@
+[
+  {
+    "path": [
+      "components",
+      1,
+      "args",
+      0
+    ],
+    "message": "Reference must follow its declaration: e_result",
+    "line": null,
+    "column": null
+  }
+]

@@ -1,0 +1,30 @@
+molecule hydrogen {
+    H  0.0  0.0  0.0
+    H  0.0  0.0  0.74
+    units angstrom
+}
+
+set {
+    scf_type  "pk"
+}
+
+bases = (iter)(['sto-3g', '6-31g'])
+
+basis_name = (next)(bases, None)
+
+# The context manager closes the results file on every exit.
+with (open('energies.csv', 'w', encoding='utf-8')) as summary:
+    (print)('basis,energy_hartree', file=summary)
+
+    while (basis_name is not None):
+        set {
+            basis  $basis_name
+        }
+
+        e_result = energy('scf', molecule=hydrogen)
+
+        (print)(basis_name, e_result, file=summary, sep=',')
+
+        basis_name = (next)(bases, None)
+    else:
+        (print)('Basis sweep complete.')

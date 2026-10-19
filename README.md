@@ -106,14 +106,17 @@ job = JobSpec() | h2 | options(basis="sto-3g") | energy("scf", molecule=h2.ref)
 source = render_job(job)
 ```
 
+Loops, conditionals, context managers, and exception handlers can contain
+composed job bodies. Their bindings are checked before rendering.
+
 `compose(h2, options(...), calculation)` and `h2 + options(...) + calculation`
 also build ordered jobs. Components and transformations return new values, so
 the originals can be reused. Use `with_comment(text)` to attach leading block
 comments; multiline comments stay with their component.
 
 The builder supports geometry edits, named Z-matrix parameters, fragments,
-optimization constraints, and all native block families. Method names and extra
-calculation arguments remain open. See [building jobs](docs/building-jobs.md)
+optimization constraints, modern external potentials, and all native block
+families. Method names and extra calculation arguments remain open. See [building jobs](docs/building-jobs.md)
 for functional examples, file imports, constraints, and saving specifications
 as JSON.
 

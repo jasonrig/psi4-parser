@@ -5,8 +5,10 @@ from typing import Annotated, Literal
 from pydantic import Field
 
 from psi4_parser.builder._model import Model
+from psi4_parser.builder.potentials import ExternalPotential, FragmentPotentials
 
-type Assignment = str | tuple[str, ...] | None
+type AssignmentTarget = str | tuple[str, ...]
+type Assignment = AssignmentTarget | None
 
 
 class Reference(Model):
@@ -67,7 +69,13 @@ class MappingValue(Model):
 
 
 type Value = Annotated[
-    LiteralValue | Reference | Expression | SequenceValue | MappingValue,
+    LiteralValue
+    | Reference
+    | Expression
+    | SequenceValue
+    | MappingValue
+    | ExternalPotential
+    | FragmentPotentials,
     Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
 ]
 type InputValue = (
@@ -80,6 +88,8 @@ type InputValue = (
     | SequenceValue
     | MappingValue
     | LiteralValue
+    | ExternalPotential
+    | FragmentPotentials
     | tuple[InputValue, ...]
     | list[InputValue]
     | dict[str, InputValue]
@@ -90,7 +100,16 @@ type InputValue = (
 def value(item: InputValue) -> Value:
     """Return immutable expression models for convenient Python values."""
     if isinstance(
-        item, (LiteralValue, Reference, Expression, SequenceValue, MappingValue)
+        item,
+        (
+            LiteralValue,
+            Reference,
+            Expression,
+            SequenceValue,
+            MappingValue,
+            ExternalPotential,
+            FragmentPotentials,
+        ),
     ):
         return item
     if isinstance(item, (tuple, list)):

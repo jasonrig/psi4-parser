@@ -31,6 +31,97 @@ Duplicate declarations and unresolved structured references fail at compilation.
 append stages. Molecules use `|` for transformations; fragment assembly has its
 own named operation.
 
+## Nest composed jobs
+
+Use ordinary job components as the bodies of loops and conditionals:
+
+```python
+from psi4_parser.builder import (
+    Molecule,
+    Reference,
+    compose,
+    energy,
+    for_each,
+    molecule,
+    options,
+)
+
+h2 = molecule("h2", Molecule.from_xyz("2\nH2\nH 0 0 0\nH 0 0 .74\n"))
+methods = for_each(
+    "method",
+    ["scf", "mp2"],
+    compose(energy(Reference(name="method"), molecule=h2.ref)),
+)
+job = compose(h2, options(basis="cc-pvdz"), methods)
+```
+
+A body is a `JobSpec`, so it accepts the same composition and pipeline operations
+as a complete job. `for_each`, `if_else`, `while_loop`, and `with_context` build
+`ForLoop`, `Conditional`, `WhileLoop`, and `WithBlock` components. Conditions,
+iterables, and context managers accept literal values, references, or explicit
+`Expression` values. Empty and comment-only bodies receive `pass`.
+
+`if_else(condition, body, otherwise=...)` selects between two specifications.
+`for_each` and `while_loop` also accept `otherwise`, with Python's loop-else
+meaning: it runs after normal exhaustion, and is skipped after `break`.
+Use nested conditionals in an alternative body for additional branches.
+`with_context(context, body, target="handle")` enters one context manager;
+`WithBlock(items=(WithItem(...), ...), body=...)` enters several.
+
+Use `TryBlock` for exception handling and cleanup:
+
+```python
+from psi4_parser.builder import (
+    ExceptionHandler,
+    Expression,
+    Molecule,
+    Python,
+    TryBlock,
+    compose,
+    energy,
+    molecule,
+)
+
+h2 = molecule("h2", Molecule.from_xyz("2\nH2\nH 0 0 0\nH 0 0 .74\n"))
+guarded = TryBlock(
+    body=compose(energy("scf", molecule=h2.ref)),
+    handlers=(
+        ExceptionHandler(
+            exception=Expression(source="RuntimeError"),
+            name="error",
+            body=compose(Python(source="print(error)")),
+        ),
+    ),
+    finally_body=compose(Python(source="print('Finished calculation attempt')")),
+)
+```
+
+`otherwise` on a try block runs only after its body succeeds. Omit a handler's
+`exception` for a bare catch-all handler; it must be last. An exception binding
+is available in its handler and is deleted afterward, as in Python.
+
+Structured references require a definitely bound name. A name assigned in both
+conditional branches is available afterward. A new loop result or loop target
+is not guaranteed, because a loop may run zero times. To update a result in a
+loop and use it afterward, initialize it before the loop. Nested calculation
+and call assignments may update existing bindings; top-level duplicate checks
+remain in place. Molecule declarations remain unique on each possible path.
+Branches may choose different coordinates for the same named molecule; later
+typed constraints require a common atom layout and compatible frame settings.
+
+Context managers can suppress exceptions, so assignments in their bodies are
+not guaranteed afterward. For multiple managers, an earlier manager can also
+suppress an error while entering a later one. Tuple-target unpacking can fail
+and be suppressed. Cleanup code cannot assume that an earlier statement in the
+try body succeeded. The compiler accounts for these paths conservatively.
+
+Binding checks cover structured components and trust the explicit names in
+`Python.provides`; arbitrary Python side effects are not inferred. Functions,
+classes, and pattern matching remain available through Python-source components.
+All blocks support attached comments and JSON serialization. Native children
+remain accessible in the lowered tree, and complete-input validation checks
+Python context rules such as the placement of `break` and `continue`.
+
 ## Attach block comments
 
 ```python
@@ -277,6 +368,59 @@ The native components are `MoleculeDeclaration`, `Options`, `Basis`, `External`,
 and data records; external potentials expose their ordered records. PCM and
 CFour take explicit embedded-language bodies. Other optimizers remain accessible
 through generic calls and their ordinary argument interfaces.
+
+## Apply external potentials
+
+Pass an `ExternalPotential` to a calculation's `external_potentials` argument.
+Charge positions require explicit lengths; rendering converts them to bohr.
+
+```python
+from psi4_parser.builder import ExternalPointCharge, ExternalPotential, angstrom, energy
+
+field = ExternalPotential(
+    points=(
+        ExternalPointCharge(
+            charge=0.1,
+            position=(angstrom(0), angstrom(0), angstrom(2.5)),
+        ),
+    ),
+)
+calculation = energy("scf", external_potentials=field)
+```
+
+A potential can combine `points`, `diffuse`, and `matrix` contributions.
+`GaussianCharge` takes a charge, an explicitly dimensioned position, and a
+positive `exponent` in inverse square bohr. `PotentialMatrix` contains an
+immutable square matrix in atomic units:
+`PotentialMatrix(((1.0, 0.2), (0.2, -1.0)))`. Its AO ordering and dimension must
+match the calculation's basis, which Psi4 checks at runtime.
+
+For FI-SAPT, use `FragmentPotentials(fragments=(FragmentPotential(fragment="A",
+potential=field), ...))`. Subsystem labels are `A`, `B`, and `C`, each used at
+most once. Point-only fragment potentials are emitted as charge lists, which
+also work with FI-SAPT's field-file export. In the supplied Psi4 version, that
+exporter does not support Gaussian or matrix contributions; set
+`fisapt_do_fsapt=False` to run those contributions without the F-SAPT analysis
+and export. Potential values can be reused in generic calls and are retained in
+job JSON. Raw driver arguments remain available for other forms.
+
+The `External` component represents Psi4's legacy `external { ... }` syntax;
+current Psi4 versions reject that old interface. Use the argument models above
+for executable modern inputs.
+
+## Locate construction errors
+
+`lower_job()` and `render_job()` raise `CompilationError` when a component,
+reference, or complete input is invalid. It remains a `ValueError` for existing
+exception handlers. Each entry in `error.diagnostics` contains a `path` made of
+field names and zero-based indices, a readable `location`, and a `message`.
+Complete-input parser failures also retain the emitted Psithon `line` and `column`.
+
+For example, an unresolved method reference in the second component reports
+`components[1].method: Reference must follow its declaration: missing`.
+Errors in nested argument containers and atom selections identify the
+corresponding fields. The diagnostics can be serialized with
+`diagnostic.model_dump_json()`.
 
 ## Save specifications and emit input
 

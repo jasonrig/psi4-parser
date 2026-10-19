@@ -155,7 +155,11 @@ def test_high_level_schema_rejects_unknown_variants_and_fields() -> None:
     assert not validator.is_valid(negative)
     with pytest.raises(ValidationError):
         JobSpec.model_validate_json('{"components":[{"kind":"unknown"}]}')
-    properties_schema = schema["properties"]
+    definitions = schema["$defs"]
+    assert isinstance(definitions, dict)
+    job_definition = definitions["JobSpec"]
+    assert isinstance(job_definition, dict)
+    properties_schema = job_definition["properties"]
     assert isinstance(properties_schema, dict)
     assert "schema_version" not in properties_schema
 

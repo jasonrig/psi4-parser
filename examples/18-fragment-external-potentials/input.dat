@@ -1,0 +1,24 @@
+molecule dimer {
+    0 1
+    --
+    0 1
+    H  0.0  0.0  -0.37
+    H  0.0  0.0   0.37
+    --
+    0 1
+    H  3.0  0.0  -0.37
+    H  3.0  0.0   0.37
+    units angstrom
+    symmetry c1
+    no_com
+    no_reorient
+}
+
+set {
+    basis        "cc-pvdz"
+    scf_type     "df"
+    freeze_core  true
+}
+
+# A and B refer to the first and second Psi4 fragments.
+e_interaction = energy('fisapt0', molecule=dimer, external_potentials={'A': [[0.05, -5.669178376373485, 0.0, 0.0]], 'B': [[-0.05, 11.33835675274697, 0.0, 0.0]]})

@@ -1,0 +1,6 @@
+2026-10-20:01:38:40,403 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:38:40,406 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432433
+2026-10-20:01:38:40,489 INFO     [psi4.driver.driver:534] Return energy(): -1.116759307378158
+2026-10-20:01:38:40,501 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:38:40,502 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=6-31g, molecule=hydrogen, nre=0.7151043387432436
+2026-10-20:01:38:41,129 INFO     [psi4.driver.driver:534] Return energy(): -1.1267553171920073

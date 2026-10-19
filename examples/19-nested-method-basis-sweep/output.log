@@ -1,0 +1,12 @@
+2026-10-20:01:40:32,291 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'MP2_TYPE': 'CONV', 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:40:32,293 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432433
+2026-10-20:01:40:32,370 INFO     [psi4.driver.driver:534] Return energy(): -1.116759307378158
+2026-10-20:01:40:32,383 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'MP2_TYPE': 'CONV', 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:40:32,384 INFO     [psi4.driver.driver:531] Compute energy(): method=mp2, basis=sto-3g, molecule=hydrogen, nre=0.7151043387432436
+2026-10-20:01:40:32,447 INFO     [psi4.driver.driver:534] Return energy(): -1.1298973809758475
+2026-10-20:01:40:32,460 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'MP2_TYPE': 'CONV', 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:40:32,461 INFO     [psi4.driver.driver:531] Compute energy(): method=scf, basis=6-31g, molecule=hydrogen, nre=0.7151043387432436
+2026-10-20:01:40:32,719 INFO     [psi4.driver.driver:534] Return energy(): -1.1267553171920073
+2026-10-20:01:40:32,731 INFO     [psi4.driver.task_planner:259] PLANNING Atomic:  keywords={'SCF__INTS_TOLERANCE': 1e-12, 'MP2_TYPE': 'CONV', 'SCF_TYPE': 'PK', 'function_kwargs': {}}
+2026-10-20:01:40:32,733 INFO     [psi4.driver.driver:531] Compute energy(): method=mp2, basis=6-31g, molecule=hydrogen, nre=0.7151043387432436
+2026-10-20:01:40:32,800 INFO     [psi4.driver.driver:534] Return energy(): -1.144136574843137

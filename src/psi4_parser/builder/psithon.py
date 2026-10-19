@@ -1,35 +1,34 @@
 """Compile independent job specifications into validated, formatted Psithon."""
 
-import ast
-import keyword
 import re
 from typing import assert_never
 
 from pydantic import Field
 
 from psi4_parser import job as native
+from psi4_parser.builder import _encoding
 from psi4_parser.builder import components as c
 from psi4_parser.builder import molecular as m
 from psi4_parser.builder._model import BOHR_ANGSTROM, Angle, Length, Model
+from psi4_parser.builder._psithon_control import (
+    CompiledJob,
+    MoleculeLayout,
+    compile_spec,
+)
 from psi4_parser.builder.constraints import Bounded, Constraint, Frozen
+from psi4_parser.builder.diagnostics import (
+    compilation_context,
+)
+from psi4_parser.builder.potentials import ExternalPotential, FragmentPotentials
 from psi4_parser.builder.values import (
-    Assignment,
     Expression,
     LiteralValue,
     MappingValue,
     Reference,
     SequenceValue,
     Value,
-    assignment_names,
 )
 from psi4_parser.formatting import format_source
-
-
-class _Compilation(Model):
-    """Retain the native tree and its completely validated source."""
-
-    job: native.Job = Field(description="Compiled native job.")
-    source: str = Field(description="Validated Psithon emitted from the job.")
 
 
 class OptionScope(Model):
@@ -45,7 +44,7 @@ class OptionScope(Model):
         return [self.option] if self.module is None else [self.module, self.option]
 
 
-_PREFIX = "_psi4_builder_"
+_PREFIX = _encoding.GENERATED_PREFIX
 _CONSTRAINT_NAMES = {
     "distance": "DISTANCE",
     "angle": "BEND",
@@ -53,50 +52,6 @@ _CONSTRAINT_NAMES = {
     "out_of_plane": "OOFP",
     "cartesian": "CARTESIAN",
 }
-
-
-def _name(name: str) -> str:
-    if not name.isidentifier() or keyword.iskeyword(name) or name.startswith(_PREFIX):
-        raise ValueError("Invalid or reserved Python binding: " + name)
-    return name
-
-
-def _expression(source: str) -> str:
-    ast.parse(source, mode="eval")
-    return source
-
-
-def _literal(item: str | bool | int | float | None) -> str:
-    return repr(item).replace("#", r"\x23").replace("psi", r"\x70si")
-
-
-def _value(item: Value, bindings: set[str]) -> str:
-    match item:
-        case LiteralValue():
-            return _literal(item.value)
-        case Reference():
-            _name(item.name)
-            if item.name not in bindings:
-                raise ValueError("Reference must follow its declaration: " + item.name)
-            return item.name
-        case Expression():
-            return "(" + _expression(item.source) + ")"
-        case SequenceValue():
-            content = ", ".join(_value(v, bindings) for v in item.items)
-            if item.style == "list":
-                return "[" + content + "]"
-            return "(" + content + ("," if len(item.items) == 1 else "") + ")"
-        case MappingValue():
-            return (
-                "{"
-                + ", ".join(
-                    _value(e.key, bindings) + ": " + _value(e.value, bindings)
-                    for e in item.entries
-                )
-                + "}"
-            )
-        case _:
-            assert_never(item)
 
 
 def _option_string(text: str) -> str:
@@ -118,18 +73,19 @@ def _option(item: Value | c.OptionExpression, bindings: set[str]) -> native.Opti
         case c.OptionExpression():
             return native.OptionExpression(source=item.source)
         case Reference():
-            _value(item, bindings)
+            _encoding.encode_value(item, bindings)
             return native.OptionReference(name=item.name)
         case SequenceValue():
             parts: list[native.OptionValue] = []
             for index, element in enumerate(item.items):
                 if index:
                     parts.append(native.OptionExpression(source=","))
-                parts.append(_option(element, bindings))
+                with compilation_context("items", index):
+                    parts.append(_option(element, bindings))
             return native.OptionArray(parts=tuple(parts))
         case LiteralValue():
             return _option_literal(item)
-        case Expression() | MappingValue():
+        case Expression() | MappingValue() | ExternalPotential() | FragmentPotentials():
             raise ValueError(
                 "Native options require literals, arrays, references, "
                 "or OptionExpression"
@@ -153,13 +109,14 @@ def _option_literal(item: LiteralValue) -> native.OptionExpression:
 
 
 def _options(component: c.Options, bindings: set[str]) -> native.SetOptions:
-    return native.SetOptions(
-        modules=component.modules,
-        assignments=tuple(
-            native.OptionAssignment(key=a.key, value=_option(a.value, bindings))
-            for a in component.assignments
-        ),
-    )
+    assignments: list[native.OptionAssignment] = []
+    for index, assignment in enumerate(component.assignments):
+        with compilation_context("assignments", index, "value"):
+            option_value = _option(assignment.value, bindings)
+        assignments.append(
+            native.OptionAssignment(key=assignment.key, value=option_value)
+        )
+    return native.SetOptions(modules=component.modules, assignments=tuple(assignments))
 
 
 def _number(value: float | int) -> native.Number:
@@ -334,84 +291,80 @@ def _external(component: c.External) -> native.External:
     return native.External(name=component.name, records=tuple(records))
 
 
-def _keywords(keywords: tuple[c.Keyword, ...], bindings: set[str]) -> list[str]:
-    if len({k.name for k in keywords}) != len(keywords):
-        raise ValueError("Duplicate call keyword arguments")
-    return [_name(k.name) + "=" + _value(k.value, bindings) for k in keywords]
-
-
-def _assignment(assign: Assignment) -> str:
-    if assign is None:
-        return ""
-    names = assignment_names(assign)
-    if not names or len(set(names)) != len(names):
-        raise ValueError("Assignment requires distinct binding names")
-    return (
-        ", ".join(_name(n) for n in names)
-        + ("," if len(names) == 1 and isinstance(assign, tuple) else "")
-        + " = "
-    )
-
-
 def _constraint_values(
-    constraints: tuple[Constraint, ...], geometry: m.Molecule
+    constraints: tuple[Constraint, ...], layout: MoleculeLayout
 ) -> dict[str, str]:
-    indices = {
-        a.id: i
-        for i, a in enumerate((a for a in geometry.atoms if not a.nucleus.dummy), 1)
-    }
+    indices = layout.optimizer_indices()
     grouped: dict[str, list[str]] = {}
-    for constraint in constraints:
-        coord = constraint.coordinate
-        if not set(coord.atoms) <= indices.keys():
-            raise ValueError("Constraints require known non-dummy atom IDs")
+    for index, constraint in enumerate(constraints):
+        with compilation_context("constraints", index):
+            row = _constraint_row(constraint, layout, indices)
+        name = (
+            "FROZEN_" if isinstance(constraint, Frozen) else "RANGED_"
+        ) + _CONSTRAINT_NAMES[constraint.coordinate.kind]
+        grouped.setdefault(name, []).append(row)
+    return {key: " ".join(rows) for key, rows in grouped.items()}
+
+
+def _constraint_row(
+    constraint: Constraint, layout: MoleculeLayout, indices: dict[str, int]
+) -> str:
+    coord = constraint.coordinate
+    with compilation_context("coordinate", "atoms"):
+        unknown = set(coord.atoms) - indices.keys()
+        if unknown:
+            raise ValueError(
+                "Constraints require known non-dummy atom IDs: "
+                + ", ".join(sorted(unknown))
+            )
+    with compilation_context("coordinate"):
         if (
             isinstance(constraint, Bounded)
             and coord.kind == "cartesian"
-            and not (geometry.fixed_com and geometry.fixed_orientation)
+            and not (layout.fixed_com and layout.fixed_orientation)
         ):
             raise ValueError(
                 "Ranged Cartesian constraints require fixed_com=True "
                 "and fixed_orientation=True"
             )
-        if coord.kind == "cartesian" and any(
-            isinstance(a.coordinates, m.ZMatrix) for a in geometry.atoms
-        ):
+        if coord.kind == "cartesian" and not layout.cartesian:
             raise ValueError("Cartesian constraints require Cartesian geometry")
-        fields = [str(indices[a]) for a in coord.atoms]
-        if coord.kind == "cartesian":
-            fields.append(coord.axes.upper())
-        if isinstance(constraint, Bounded):
-            fields.extend(
-                repr(limit.angstroms if isinstance(limit, Length) else limit.degrees)
-                for limit in (constraint.lower, constraint.upper)
-            )
-        name = (
-            "FROZEN_" if isinstance(constraint, Frozen) else "RANGED_"
-        ) + _CONSTRAINT_NAMES[coord.kind]
-        grouped.setdefault(name, []).append(" ".join(fields))
-    return {key: " ".join(rows) for key, rows in grouped.items()}
+    fields = [str(indices[atom]) for atom in coord.atoms]
+    if coord.kind == "cartesian":
+        fields.append(coord.axes.upper())
+    if isinstance(constraint, Bounded):
+        fields.extend(
+            repr(limit.angstroms if isinstance(limit, Length) else limit.degrees)
+            for limit in (constraint.lower, constraint.upper)
+        )
+    return " ".join(fields)
 
 
 def _check_constraint_conflicts(component: c.Calculation, names: set[str]) -> None:
-    for block in component.local_options:
-        if any(a.key.upper() in names for a in block.assignments) and (
-            not block.modules
-            or any(
-                module.upper() in {"OPTKING", "GLOBAL", "GLOBALS"}
-                for module in block.modules
-            )
-        ):
-            raise ValueError(
-                "Typed and raw definitions conflict for a constraint setting"
-            )
-    for argument in component.kwargs:
-        if argument.name == "optimizer_keywords":
-            if not isinstance(argument.value, MappingValue):
-                raise ValueError(
-                    "Typed constraints require inspectable optimizer_keywords"
-                )
-            for entry in argument.value.entries:
+    for block_index, block in enumerate(component.local_options):
+        applies = not block.modules or any(
+            module.upper() in {"OPTKING", "GLOBAL", "GLOBALS"}
+            for module in block.modules
+        )
+        for index, assignment in enumerate(block.assignments):
+            if applies and assignment.key.upper() in names:
+                with compilation_context(
+                    "local_options", block_index, "assignments", index, "key"
+                ):
+                    raise ValueError(
+                        "Typed and raw definitions conflict for a constraint setting"
+                    )
+    for index, argument in enumerate(component.kwargs):
+        with compilation_context("kwargs", index, "value"):
+            _check_optimizer_argument(argument, names)
+
+
+def _check_optimizer_argument(argument: c.Keyword, names: set[str]) -> None:
+    if argument.name == "optimizer_keywords":
+        if not isinstance(argument.value, MappingValue):
+            raise ValueError("Typed constraints require inspectable optimizer_keywords")
+        for index, entry in enumerate(argument.value.entries):
+            with compilation_context("entries", index, "key"):
                 if not isinstance(entry.key, LiteralValue) or not isinstance(
                     entry.key.value, str
                 ):
@@ -422,46 +375,48 @@ def _check_constraint_conflicts(component: c.Calculation, names: set[str]) -> No
                     raise ValueError(
                         "Typed and raw definitions conflict for a constraint setting"
                     )
-        if argument.name == "engine" and argument.value != LiteralValue(
-            value="optking"
-        ):
-            raise ValueError("Typed constraints support only the OptKing engine")
+    if argument.name == "engine" and argument.value != LiteralValue(value="optking"):
+        raise ValueError("Typed constraints support only the OptKing engine")
 
 
 def _calculation_statement(component: c.Calculation, bindings: set[str]) -> str:
-    arguments = [_value(component.method, bindings)]
-    keywords = _keywords(component.kwargs, bindings)
+    with compilation_context("method"):
+        arguments = [_encoding.encode_value(component.method, bindings)]
+    keywords = _encoding.keywords(component.kwargs, bindings)
     if component.molecule is not None:
-        if any(k.name == "molecule" for k in component.kwargs):
-            raise ValueError("Molecule is specified more than once")
-        arguments.append("molecule=" + _value(component.molecule, bindings))
+        with compilation_context("molecule"):
+            if any(k.name == "molecule" for k in component.kwargs):
+                raise ValueError("Molecule is specified more than once")
+            arguments.append(
+                "molecule=" + _encoding.encode_value(component.molecule, bindings)
+            )
     arguments.extend(keywords)
-    return (
-        _assignment(component.assign)
-        + component.driver
-        + "("
-        + ", ".join(arguments)
-        + ")"
-    )
+    with compilation_context("assign"):
+        assignment = _encoding.assignment(component.assign)
+    return assignment + component.driver + "(" + ", ".join(arguments) + ")"
 
 
 def _typed_constraints(
-    component: c.Calculation, molecules: dict[str, m.Molecule]
+    component: c.Calculation, molecules: dict[str, MoleculeLayout]
 ) -> dict[str, str]:
     if not component.constraints:
         return {}
-    if (
-        component.driver != "optimize"
-        or component.molecule is None
-        or component.molecule.name not in molecules
-    ):
-        raise ValueError(
-            "Typed constraints require optimize and a structured molecule reference"
-        )
-    geometry = molecules[component.molecule.name]
-    if geometry.sources or geometry.efp:
-        raise ValueError("Typed constraints require a resolved atom list")
-    constraints = _constraint_values(component.constraints, geometry)
+    if component.driver != "optimize" or component.molecule is None:
+        with compilation_context("constraints"):
+            raise ValueError(
+                "Typed constraints require optimize and a structured molecule reference"
+            )
+    if component.molecule.name not in molecules:
+        with compilation_context("molecule"):
+            raise ValueError(
+                "Typed constraints require a known, consistent atom layout for "
+                + component.molecule.name
+            )
+    layout = molecules[component.molecule.name]
+    if not layout.resolved_atoms:
+        with compilation_context("constraints"):
+            raise ValueError("Typed constraints require a resolved atom list")
+    constraints = _constraint_values(component.constraints, layout)
     _check_constraint_conflicts(component, set(constraints))
     return constraints
 
@@ -469,7 +424,7 @@ def _typed_constraints(
 def _calculation(
     component: c.Calculation,
     bindings: set[str],
-    molecules: dict[str, m.Molecule],
+    molecules: dict[str, MoleculeLayout],
     serial: int,
 ) -> native.Node:
     statement = _calculation_statement(component, bindings)
@@ -504,7 +459,9 @@ def _calculation(
         + ")\ntry:\n"
     )
     parts: list[native.TemplatePart] = [native.Python(source=setup)]
-    for block in component.local_options:
+    for index, block in enumerate(component.local_options):
+        with compilation_context("local_options", index):
+            block_node = _options(block, bindings)
         if block.comments:
             parts.append(
                 native.Python(source=_comment_source(block, indentation="    "))
@@ -512,7 +469,7 @@ def _calculation(
         parts.extend(
             (
                 native.Python(source="    "),
-                _options(block, bindings),
+                block_node,
                 native.Python(source="\n"),
             )
         )
@@ -557,40 +514,32 @@ def _native_component(
 
 
 def _lower(
-    component: c.JobComponent,
+    component: c.LeafComponent,
     bindings: set[str],
-    molecules: dict[str, m.Molecule],
+    molecules: dict[str, MoleculeLayout],
     serial: int,
 ) -> native.Node:
     if isinstance(component, c.Calculation):
         return _calculation(component, bindings, molecules, serial)
     if isinstance(component, c.Call):
-        arguments = [_value(a, bindings) for a in component.args] + _keywords(
-            component.kwargs, bindings
-        )
+        arguments: list[str] = []
+        for index, argument in enumerate(component.args):
+            with compilation_context("args", index):
+                arguments.append(_encoding.encode_value(argument, bindings))
+        arguments.extend(_encoding.keywords(component.kwargs, bindings))
+        with compilation_context("assign"):
+            assignment = _encoding.assignment(component.assign)
+        with compilation_context("target"):
+            target = _encoding.expression(component.target)
         return native.Python(
-            source=_assignment(component.assign)
-            + "("
-            + _expression(component.target)
-            + ")("
-            + ", ".join(arguments)
-            + ")"
+            source=assignment + "(" + target + ")(" + ", ".join(arguments) + ")"
         )
     if isinstance(component, c.Python):
-        if _PREFIX in component.source:
-            raise ValueError("Python source uses the reserved builder name prefix")
+        with compilation_context("source"):
+            if _PREFIX in component.source:
+                raise ValueError("Python source uses the reserved builder name prefix")
         return native.Python(source=component.source)
     return _native_component(component, bindings)
-
-
-def _provided(component: c.JobComponent) -> tuple[str, ...]:
-    if isinstance(component, (c.Calculation, c.Call)):
-        return assignment_names(component.assign)
-    if isinstance(component, c.Python):
-        return component.provides
-    if isinstance(component, c.MoleculeDeclaration):
-        return (component.name,)
-    return ()
 
 
 def _comment_source(component: c.Component, *, indentation: str = "") -> str:
@@ -613,36 +562,16 @@ def _commented(component: c.JobComponent, node: native.Node) -> native.Node:
     return native.PythonTemplate(parts=(prefix, node))
 
 
-def _compile_job(spec: c.JobSpec) -> _Compilation:
-    """Return the lowered job with its validated source.
-
-    Raises:
-        ValueError: Names, references, or backend combinations are invalid.
-    """
-    bindings: set[str] = set()
-    molecules: dict[str, m.Molecule] = {}
-    nodes: list[native.Node] = []
-    for serial, component in enumerate(spec.components):
-        names = _provided(component)
-        for name in names:
-            _name(name)
-            if name in bindings or names.count(name) > 1:
-                raise ValueError("Duplicate declaration: " + name)
-        node = _lower(component, bindings, molecules, serial)
-        nodes.append(_commented(component, node))
-        bindings.update(names)
-        if isinstance(component, c.MoleculeDeclaration):
-            molecules[component.name] = component.geometry
-    result = native.Job(body=tuple(nodes))
-    return _Compilation(job=result, source=native.emit_job(result))
+def _compile_job(spec: c.JobSpec) -> CompiledJob:
+    return compile_spec(spec, _lower, _commented)
 
 
 def lower_job(spec: c.JobSpec) -> native.Job:
     """Return a compiled AST after validating bindings and complete input.
 
     Raises:
-        ValueError: Names, references, or backend combinations are invalid.
-    """  # noqa: DOC502 - The shared compilation path validates names and references.
+        CompilationError: A component, reference, or emitted input is invalid.
+    """  # noqa: DOC502 - The shared compilation path retains field diagnostics.
     return _compile_job(spec).job
 
 

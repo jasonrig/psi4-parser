@@ -3,13 +3,14 @@
 from collections.abc import Callable
 from typing import Annotated, Literal, Self
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from psi4_parser.builder._model import Model, evolve
 from psi4_parser.builder.constraints import Constraint
 from psi4_parser.builder.molecular import Molecule, Nucleus
 from psi4_parser.builder.values import (
     Assignment,
+    AssignmentTarget,
     InputValue,
     Reference,
     Value,
@@ -201,7 +202,11 @@ type ExternalRecord = Annotated[
 
 
 class External(Component):
-    """Declare an ordered external point- or diffuse-charge potential."""
+    """Represent the legacy native external-potential block.
+
+    Current Psi4 calculations use ExternalPotential argument values instead.
+    This model retains the historical input syntax for reading and generation.
+    """
 
     kind: Literal["external"] = Field(
         default="external", description="External potential."
@@ -321,21 +326,123 @@ class Python(Component):
     )
 
 
+class ForLoop(Component):
+    """Repeat a job body for each value in an iterable."""
+
+    kind: Literal["for"] = Field(default="for", description="Python for loop.")
+    target: AssignmentTarget = Field(
+        min_length=1, description="Loop binding or tuple-unpacking names."
+    )
+    iterable: Value = Field(description="Iterable value, reference, or expression.")
+    body: JobSpec = Field(description="Components executed for each item.")
+    otherwise: JobSpec | None = Field(
+        default=None, description="Optional Python loop-else body."
+    )
+
+
+class Conditional(Component):
+    """Select one of two job bodies using an ordinary Python condition."""
+
+    kind: Literal["if"] = Field(default="if", description="Python conditional.")
+    condition: Value = Field(description="Condition value, reference, or expression.")
+    body: JobSpec = Field(description="Components executed when the condition is true.")
+    otherwise: JobSpec | None = Field(
+        default=None, description="Optional body for a false condition."
+    )
+
+
+class WhileLoop(Component):
+    """Repeat a job body while a Python condition remains true."""
+
+    kind: Literal["while"] = Field(default="while", description="Python while loop.")
+    condition: Value = Field(description="Condition value, reference, or expression.")
+    body: JobSpec = Field(description="Repeated job components.")
+    otherwise: JobSpec | None = Field(
+        default=None, description="Optional Python loop-else body."
+    )
+
+
+class WithItem(Model):
+    """Enter a context manager and optionally bind its returned value."""
+
+    context: Value = Field(description="Context-manager reference or expression.")
+    target: Assignment = Field(
+        default=None, description="Optional name or tuple-unpacking target."
+    )
+
+
+class WithBlock(Component):
+    """Execute a job body within one or more Python context managers."""
+
+    kind: Literal["with"] = Field(
+        default="with", description="Python context-manager block."
+    )
+    items: tuple[WithItem, ...] = Field(
+        min_length=1, description="Context managers entered from left to right."
+    )
+    body: JobSpec = Field(
+        description="Components executed inside the entered contexts."
+    )
+
+
+class ExceptionHandler(Model):
+    """Handle matching Python exceptions with a composed job body."""
+
+    exception: Value | None = Field(
+        default=None,
+        description="Exception type expression; None catches all exceptions.",
+    )
+    name: str | None = Field(
+        default=None,
+        min_length=1,
+        description="Optional exception binding, deleted after this handler.",
+    )
+    body: JobSpec = Field(description="Components executed by this handler.")
+
+    @model_validator(mode="after")
+    def _named_exception(self) -> Self:
+        if self.exception is None and self.name is not None:
+            raise ValueError("A named exception handler requires an exception type")
+        return self
+
+
+class TryBlock(Component):
+    """Compose exception handling, success-only work, and guaranteed cleanup."""
+
+    kind: Literal["try"] = Field(
+        default="try", description="Python exception-handling block."
+    )
+    body: JobSpec = Field(description="Components whose exceptions are handled.")
+    handlers: tuple[ExceptionHandler, ...] = Field(
+        default=(),
+        description="Ordered exception handlers; a bare handler must be last.",
+    )
+    otherwise: JobSpec | None = Field(
+        default=None, description="Optional body executed after a successful try body."
+    )
+    finally_body: JobSpec | None = Field(
+        default=None, description="Optional cleanup body executed on every exit."
+    )
+
+    @model_validator(mode="after")
+    def _valid_clauses(self) -> Self:
+        if not self.handlers and self.finally_body is None:
+            raise ValueError("A try block requires handlers or a finally body")
+        if self.otherwise is not None and not self.handlers:
+            raise ValueError("A try-else body requires exception handlers")
+        if any(handler.exception is None for handler in self.handlers[:-1]):
+            raise ValueError("A bare exception handler must be last")
+        return self
+
+
 type NativeComponent = (
     MoleculeDeclaration | Options | Basis | External | PCM | CFour | Memory
 )
 
+type LeafComponent = NativeComponent | Calculation | Call | Python
+type ControlComponent = ForLoop | Conditional | WhileLoop | WithBlock | TryBlock
 type JobComponent = Annotated[
-    MoleculeDeclaration
-    | Options
-    | Basis
-    | External
-    | PCM
-    | CFour
-    | Memory
-    | Calculation
-    | Call
-    | Python,
+    LeafComponent | ControlComponent,
     Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
 ]
 
@@ -554,3 +661,52 @@ def properties(
         local_options=local_options,
         **kwargs,
     )
+
+
+def for_each(
+    target: AssignmentTarget,
+    iterable: InputValue,
+    body: JobSpec,
+    *,
+    otherwise: JobSpec | None = None,
+) -> ForLoop:
+    """Return a loop that binds each iterable item before executing its body."""
+    return ForLoop(
+        target=target, iterable=value(iterable), body=body, otherwise=otherwise
+    )
+
+
+def if_else(
+    condition: InputValue,
+    body: JobSpec,
+    *,
+    otherwise: JobSpec | None = None,
+) -> Conditional:
+    """Return a conditional with an optional alternative body."""
+    return Conditional(condition=value(condition), body=body, otherwise=otherwise)
+
+
+def while_loop(
+    condition: InputValue,
+    body: JobSpec,
+    *,
+    otherwise: JobSpec | None = None,
+) -> WhileLoop:
+    """Return a condition-controlled loop with an optional loop-else body."""
+    return WhileLoop(condition=value(condition), body=body, otherwise=otherwise)
+
+
+def with_context(
+    context: InputValue,
+    body: JobSpec,
+    *,
+    target: Assignment = None,
+) -> WithBlock:
+    """Return a body executed within a context manager."""
+    return WithBlock(
+        items=(WithItem(context=value(context), target=target),), body=body
+    )
+
+
+# Resolve the recursive relationship between block bodies and job components.
+JobSpec.model_rebuild()

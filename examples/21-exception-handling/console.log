@@ -1,0 +1,4 @@
+SCF attempt failed: Could not converge SCF iterations in 1 iterations.
+Restored SCF maxiter: 37
+Converged energy (hartree): -74.96335863562093
+Restored SCF maxiter: 37

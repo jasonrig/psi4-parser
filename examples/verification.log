@@ -15,3 +15,21 @@ PASS: Ruff lint and formatting for maintained code and all 16 example scripts.
 PASS: strict mypy for 79 maintained source files and all 16 example scripts.
 PASS: PyCharm batch inspections: zero non-proofreading findings under the agreed exclusions.
 LIMITATION: PCM example renders, but runtime execution requires the missing pcmsolver module.
+
+2026-10-20: structured construction and modern external-potential examples
+17-21 PASS: all five current inputs complete successfully, are idempotently formatted, and require no builder runtime.
+17 PASS: reference, point, Gaussian, combined/matrix SCF energies (Eh): -1.11675930737816, -1.11661381107514, -1.11690091929228, -1.11727278275799.
+18 PASS: FI-SAPT finished with both fragment field exports; charge-charge interaction -0.0001469936696305556 Eh matches qA*qB/rAB; F-SAPT data retained.
+19 PASS: nested sweep sto-3g/scf: -1.11675930737816 Eh.
+19 PASS: nested sweep sto-3g/mp2: -1.12989738097585 Eh.
+19 PASS: nested sweep 6-31g/scf: -1.12675531719201 Eh.
+19 PASS: nested sweep 6-31g/mp2: -1.14413657484314 Eh.
+19 PASS: diagnostic example rejects a loop-only result at components[1].args[0] before executing Psi4.
+20 PASS: while-loop CSV contains both SCF energies, agrees with example 19 within 1e-12 Eh, and executes its loop-else clause.
+21 PASS: one-iteration failure handled, 50-iteration attempt converged, and finally clauses report restored SCF MAXITER=37 after both attempts.
+
+Quality audit for the new functionality and examples:
+PASS: 124 builder tests, including supplied psi4-python reference checks.
+PASS: repository-wide Ruff lint and formatting.
+PASS: strict mypy for 86 maintained source/test files and each of the six new example scripts.
+PASS: fresh-cache PyCharm inspections: zero non-proofreading findings under the agreed exclusions.

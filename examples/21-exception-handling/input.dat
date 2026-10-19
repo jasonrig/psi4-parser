@@ -1,0 +1,39 @@
+molecule water {
+    O  0.0   0.0   0.0
+    H  0.0   0.0   0.96
+    H  0.93  0.0  -0.24
+    units angstrom
+}
+
+set {
+    basis     "sto-3g"
+    scf_type  "pk"
+}
+
+set scf {
+    maxiter  37
+}
+
+for limit in [1, 50]:
+    # One iteration intentionally fails; the second attempt allows 50.
+    #
+    # Step-local options are restored after either outcome.
+    try:
+        import psi4 as _psi4_builder_psi4
+        _psi4_builder_options_3 = _psi4_builder_psi4.driver.p4util.OptionsState(['SCF', 'MAXITER'])
+        try:
+            set scf {
+                maxiter  $limit
+            }
+
+            e_scf = energy('scf', molecule=water)
+        finally:
+            _psi4_builder_options_3.restore()
+    except (psi4.driver.p4util.exceptions.SCFConvergenceError) as error:
+        (print)('SCF attempt failed:', error)
+    else:
+        (print)('Converged energy (hartree):', e_scf)
+    finally:
+        (psi4.core.clean)()
+
+        (print)('Restored SCF maxiter:', (psi4.core.get_option('SCF', 'MAXITER')))
