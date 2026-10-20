@@ -54,10 +54,10 @@ def read_molecule(
     Args:
         path: File explicitly selected for import.
         file_format: Open Babel input format, or the file's final extension.
-        name: Optional Python binding for the resulting molecule declaration.
+        name: Optional Python name for later references to the molecule.
 
     Returns:
-        First-class molecular specification in angstroms.
+        Molecule block with stable atom IDs and coordinates in angstroms.
 
     Raises:
         ValueError: The format is unsupported, the file cannot be read, or it

@@ -21,237 +21,336 @@ class UnresolvedGeometryError(ValueError):
 
 
 class Parameter(Model):
-    """Reference a named geometry parameter, optionally negated."""
+    """Use a named distance or angle from the molecule's parameters."""
 
     kind: Literal["parameter"] = Field(
-        default="parameter", description="Parameter reference."
+        default="parameter",
+        description="Selects a reference to a named geometry value.",
     )
-    name: str = Field(min_length=1, description="Name of a geometry parameter.")
-    negative: bool = Field(default=False, description="Negate the resolved value.")
+    name: str = Field(
+        min_length=1, description="Name defined in the molecule's parameters list."
+    )
+    negative: bool = Field(
+        default=False, description="Use the negative of the named value."
+    )
 
 
 class GeometryExpression(Model):
-    """Retain an unresolved expression accepted by Psi4's geometry reader."""
+    """A geometry expression that Psi4 will interpret."""
 
     kind: Literal["geometry_expression"] = Field(
-        default="geometry_expression", description="Unresolved geometry value."
+        default="geometry_expression",
+        description="Selects a geometry value written as a Psi4 expression.",
     )
     source: str = Field(
-        min_length=1, description="Native geometry expression, such as TDA."
+        min_length=1,
+        description="Psi4 geometry expression, such as TDA for the tetrahedral angle.",
     )
 
 
 type Quantity = Annotated[
     Length | Angle,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A distance or angle with its units.",
+    ),
 ]
 type InternalValue = Annotated[
     Length | Angle | Parameter | GeometryExpression,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A distance, angle, named parameter, or Psi4 geometry expression.",
+    ),
 ]
 type CartesianValue = float | Parameter | GeometryExpression
 
 
 class GeometryParameter(Model):
-    """Define a dimensioned geometry parameter or a symbolic reader value."""
+    """A named distance or angle used in molecular coordinates."""
 
-    name: str = Field(min_length=1, description="Native geometry variable name.")
+    name: str = Field(
+        min_length=1,
+        description="Name used to reference this distance or angle in the geometry.",
+    )
     value: Annotated[
         Length | Angle | GeometryExpression,
-        Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
-    ] = Field(description="Parameter value and dimension, or unresolved source.")
+        Field(
+            discriminator="kind",
+            json_schema_extra={"required": ["kind"]},
+            description="Distance or angle with units, or a Psi4 geometry expression.",
+        ),
+    ] = Field(
+        description="Distance or angle with units, or a Psi4 geometry expression."
+    )
 
 
 class Cartesian(Model):
-    """Specify Cartesian values in a declared length unit."""
+    """An atom position expressed as x, y, and z values."""
 
     kind: Literal["cartesian"] = Field(
-        default="cartesian", description="Cartesian position."
+        default="cartesian", description="Selects x, y, and z coordinates."
     )
-    x: CartesianValue = Field(description="First coordinate.")
-    y: CartesianValue = Field(description="Second coordinate.")
-    z: CartesianValue = Field(description="Third coordinate.")
+    x: CartesianValue = Field(
+        description="X coordinate in the chosen unit, or a named geometry value."
+    )
+    y: CartesianValue = Field(
+        description="Y coordinate in the chosen unit, or a named geometry value."
+    )
+    z: CartesianValue = Field(
+        description="Z coordinate in the chosen unit, or a named geometry value."
+    )
     unit: Literal["angstrom", "bohr"] = Field(
-        default="angstrom", description="Unit for numerical coordinates."
+        default="angstrom", description="Length unit for numerical x, y, and z values."
     )
 
 
 class Anchor(Model):
-    """Associate an internal coordinate with a stable reference atom."""
+    """An earlier atom used to define a distance or angle."""
 
-    atom: str = Field(min_length=1, description="Stable ID of an earlier atom.")
-    value: InternalValue = Field(description="Distance, angle, or parameter reference.")
+    atom: str = Field(
+        min_length=1,
+        description="ID of an atom that appears earlier in the molecule's atoms list.",
+    )
+    value: InternalValue = Field(
+        description=(
+            "Distance or angle to this reference atom, or a named geometry value."
+        )
+    )
 
 
 class ZMatrix(Model):
-    """Specify ordered distance, angle, and dihedral anchors."""
+    """An atom position defined by a distance, bond angle, and torsion."""
 
     kind: Literal["z_matrix"] = Field(
-        default="z_matrix", description="Internal coordinates."
+        default="z_matrix",
+        description="Selects distances and angles relative to earlier atoms.",
     )
     anchors: tuple[Anchor, ...] = Field(
         default=(),
         max_length=3,
-        description="Distance, angle, and dihedral anchors in order.",
+        description=(
+            "Reference atoms and values in distance, angle, then torsion order."
+        ),
     )
 
 
 class Nucleus(Model):
-    """Retain an element label, ghost notation, and explicit isotope mass."""
+    """An element label with optional isotope or ghost-center settings."""
 
     label: str = Field(
         min_length=1,
-        description="Psi4 nucleus label, including isotope or atom labels.",
+        description=(
+            "Element or atom label, such as H, O1, 13C, or X for a dummy atom."
+        ),
     )
     ghost: Literal["none", "at", "gh"] = Field(
-        default="none", description="Ordinary nucleus, @ ghost, or Gh(...) ghost."
+        default="none",
+        description=(
+            "none selects a real atom; at and gh select basis-only ghost centers."
+        ),
     )
     mass: float | None = Field(
-        default=None, gt=0, description="Explicit isotope mass in atomic mass units."
+        default=None,
+        gt=0,
+        description=(
+            "Isotope mass in atomic mass units; null uses the default for the label."
+        ),
     )
 
     @property
     def dummy(self) -> bool:
-        """Identify a reference-frame dummy atom."""
+        """Return whether the label denotes a dummy atom, such as X or X1."""
         return re.fullmatch(r"X(?:_\w+|\d+)?", self.label, re.IGNORECASE) is not None
 
 
 class Atom(Model):
-    """Retain molecular identity independently of coordinate representation."""
+    """An atom with a unique name, element, and position."""
 
     id: str = Field(
-        min_length=1, description="Stable identity used by selections and constraints."
+        min_length=1,
+        description=(
+            "Unique atom name used by bonds, fragments, and constraints, such as a1."
+        ),
     )
-    nucleus: Nucleus = Field(description="Element, isotope, ghost, and mass metadata.")
+    nucleus: Nucleus = Field(
+        description="Element label and any isotope or ghost-center settings."
+    )
     coordinates: Annotated[
         Cartesian | ZMatrix,
-        Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
-    ] = Field(description="Cartesian or internal position.")
+        Field(
+            discriminator="kind",
+            json_schema_extra={"required": ["kind"]},
+            description=(
+                "Atom position as x/y/z values or distances and angles to earlier "
+                "atoms."
+            ),
+        ),
+    ] = Field(
+        description=(
+            "Atom position as x/y/z values or distances and angles to earlier atoms."
+        )
+    )
 
 
 class Bond(Model):
-    """Retain supplied or explicitly perceived connectivity."""
+    """A bond between two named atoms."""
 
-    atoms: tuple[str, str] = Field(description="Stable IDs of the bonded atoms.")
-    order: int = Field(default=1, ge=1, le=3, description="Integral bond order.")
+    atoms: tuple[str, str] = Field(
+        description="IDs of the two atoms joined by this bond."
+    )
+    order: int = Field(
+        default=1,
+        ge=1,
+        le=3,
+        description="Bond order: 1 for single, 2 for double, or 3 for triple.",
+    )
     aromatic: bool = Field(
-        default=False, description="Whether the source marks the bond as aromatic."
+        default=False, description="Whether this bond is marked as aromatic."
     )
 
 
 class ElectronicState(Model):
-    """Specify an explicit charge and spin multiplicity."""
+    """Net charge and spin multiplicity for a molecule or fragment."""
 
-    charge: int = Field(description="Net charge in elementary-charge units.")
-    multiplicity: int = Field(ge=1, description="Spin multiplicity, 2S + 1.")
+    charge: int = Field(
+        description="Net charge: positive for a cation, negative for an anion."
+    )
+    multiplicity: int = Field(
+        ge=1,
+        description=(
+            "Spin multiplicity, 2S + 1: 1 for singlet, 2 for doublet, and so on."
+        ),
+    )
 
 
 class EFPFragment(Model):
-    """Place an effective fragment with six coordinates or three points."""
+    """Placement of an effective fragment potential from a Psi4 library."""
 
     id: str = Field(
-        min_length=1, description="Stable identity of the effective fragment."
+        min_length=1,
+        description="Unique name used to refer to this effective fragment potential.",
     )
-    name: str = Field(min_length=1, description="EFP library fragment name.")
+    name: str = Field(
+        min_length=1,
+        description="Fragment name in the effective fragment potential library.",
+    )
     points: tuple[Vector, ...] = Field(
         min_length=2,
         max_length=3,
-        description="Two placement triples or three reference points.",
+        description=(
+            "Six placement values in two triples, or three x/y/z reference points."
+        ),
     )
 
 
 class Fragment(Model):
-    """Group atom and effective-fragment identities with an explicit state."""
+    """A named group of atoms with optional charge and spin settings."""
 
-    name: str = Field(min_length=1, description="Unique fragment name.")
+    name: str = Field(min_length=1, description="Unique name for this fragment.")
     atom_ids: tuple[str, ...] = Field(
-        default=(), description="Ordered member atom IDs."
+        default=(),
+        description="Member atom IDs in the same order as the molecule's atoms list.",
     )
     efp_ids: tuple[str, ...] = Field(
-        default=(), description="Ordered effective-fragment IDs."
+        default=(),
+        description="Member effective-fragment IDs in the molecule's fragment order.",
     )
     state: ElectronicState | None = Field(
         default=None,
-        description="Explicit fragment charge and multiplicity, if supplied.",
+        description="Charge and spin multiplicity for this fragment, if specified.",
     )
 
 
 class GeometrySource(Model):
-    """Retain a native external geometry request without resolving it."""
+    """Geometry to obtain from a file or PubChem."""
 
     provider: Literal["from_file", "pubchem"] = Field(
-        description="Psi4 geometry provider."
+        description="Load geometry from a file or look it up in PubChem."
     )
-    value: str = Field(min_length=1, description="File path or PubChem query.")
+    value: str = Field(
+        min_length=1, description="File path for from_file, or search text for pubchem."
+    )
 
 
 class XYZHeader(Model):
-    """Retain a native XYZ header when explicitly requested."""
+    """Title and optional unit label for XYZ-style geometry input."""
 
-    title: str = Field(default="", description="Literal XYZ title.")
+    title: str = Field(
+        default="", description="Title on the second line of XYZ geometry input."
+    )
     units: str | None = Field(
-        default=None, description="Optional XYZ count-line unit marker."
+        default=None,
+        description="Optional length-unit label on the XYZ atom-count line.",
     )
 
 
 class SymmetrySite(Model):
-    """Describe a resolved nucleus or ghost center for symmetry analysis."""
+    """An atom or ghost center used to determine molecular symmetry."""
 
-    position: Vector = Field(description="Resolved position in angstroms.")
+    position: Vector = Field(description="X, y, and z position in angstroms.")
     element: int = Field(
-        ge=1, le=118, description="Atomic number independent of source labels."
+        ge=1,
+        le=118,
+        description="Atomic number, from 1 for hydrogen to 118 for oganesson.",
     )
-    mass: float = Field(gt=0, description="Explicit or default isotopic mass in amu.")
-    ghost: bool = Field(description="Whether this is a ghost basis center.")
+    mass: float = Field(gt=0, description="Isotope mass in atomic mass units.")
+    ghost: bool = Field(
+        description="Whether this site supplies basis functions as a ghost center."
+    )
 
 
 class Molecule(Model):
-    """Represent an immutable molecule with stable atom identities.
-
-    Numerical operations require resolved geometry. File import reads exactly
-    one structure and does not infer Psi4 fragments from chemical connectivity.
-    """
+    """Atoms, coordinates, fragments, charge, spin, and symmetry for one molecule."""
 
     atoms: tuple[Atom, ...] = Field(
-        default=(), description="Ordered atoms, including ghosts and dummies."
+        default=(),
+        description="Atoms in input order, including ghost centers and dummy atoms.",
     )
     bonds: tuple[Bond, ...] = Field(
-        default=(), description="Explicit molecular connectivity."
+        default=(), description="Pairs of bonded atoms and their bond orders."
     )
     fragments: tuple[Fragment, ...] = Field(
         default=(),
-        description="Ordered explicit fragments; empty means one implicit fragment.",
+        description=(
+            "Fragments in atom order; an empty list treats the molecule as "
+            "one fragment."
+        ),
     )
     state: ElectronicState | None = Field(
-        default=None, description="Explicit overall charge and multiplicity."
+        default=None,
+        description="Overall net charge and spin multiplicity, if specified.",
     )
     parameters: tuple[GeometryParameter, ...] = Field(
-        default=(), description="Named, dimensioned geometry variables."
+        default=(), description="Named distances and angles used by the coordinates."
     )
     sources: tuple[GeometrySource, ...] = Field(
-        default=(), description="Unresolved native geometry sources."
+        default=(),
+        description=(
+            "Geometry to load from a file or PubChem when Psi4 reads the input."
+        ),
     )
     efp: tuple[EFPFragment, ...] = Field(
-        default=(), description="Effective-fragment placements."
+        default=(), description="Effective fragment potentials and their positions."
     )
     units: Literal["angstrom", "bohr"] = Field(
-        default="angstrom", description="Length unit used in emitted native geometry."
+        default="angstrom", description="Length unit for the generated molecule block."
     )
     symmetry: str | None = Field(
         default=None,
-        description=(
-            "Requested computational point group; edits warn and relax "
-            "incompatible requests."
-        ),
+        description="Requested point group, such as c2v; c1 imposes no symmetry.",
     )
     fixed_com: bool = Field(
-        default=False, description="Emit no_com to retain the center of mass."
+        default=False,
+        description="Keep the input center of mass in its original position.",
     )
     fixed_orientation: bool = Field(
-        default=False, description="Emit no_reorient to retain the orientation."
+        default=False, description="Keep the input orientation of the molecule."
     )
     xyz_header: XYZHeader | None = Field(
-        default=None, description="Optional literal XYZ title and header."
+        default=None,
+        description="Write the geometry in XYZ style using this title and unit label.",
     )
 
     @model_validator(mode="after")
@@ -330,7 +429,7 @@ class Molecule(Model):
                     raise ValueError("Distance anchors require lengths")
 
     def __or__(self, stage: Callable[[Self], Self]) -> Self:
-        """Return the result of applying a pure pipeline stage."""
+        """Return the edited molecule, as in geometry | translate(offset)."""
         return stage(self)
 
     @classmethod
@@ -341,7 +440,25 @@ class Molecule(Model):
         file_format: str | None = None,
         perceive_bonds: bool = False,
     ) -> Self:
-        """Return exactly one imported molecular structure."""
+        """Read one molecular geometry from a file.
+
+        Atom IDs are a1, a2, and so on in file order. Positions are stored in
+        angstroms, with isotope labels and supplied connectivity retained.
+        Use ``assemble_fragments`` to define Psi4 fragments.
+
+        Args:
+            path: Molecular file containing exactly one structure with coordinates.
+            file_format: Open Babel format name; defaults to the file extension.
+            perceive_bonds: Infer bonds and bond orders from positions. False uses
+                only connectivity supplied by the file.
+
+        Returns:
+            A reusable molecule. XYZ leaves charge and multiplicity unspecified;
+            other formats use Open Babel's resolved state, including its defaults.
+
+        Example:
+            ``geometry = Molecule.from_file("water.sdf")``
+        """
         # Defer the adapter import: it consumes these domain model classes.
         from psi4_parser.builder.openbabel import read_molecule  # noqa: PLC0415
 
@@ -359,7 +476,22 @@ class Molecule(Model):
         state: ElectronicState | None = None,
         perceive_bonds: bool = False,
     ) -> Self:
-        """Return one XYZ structure without assuming an electronic state."""
+        r"""Read one XYZ geometry from text, assigning atom IDs in row order.
+
+        Args:
+            source: Atom count, title line, and atom rows containing a label and
+                three coordinates in angstroms. IDs are a1, a2, and so on. Labels may
+                include isotopes, ghosts such as @H or gh(H), and dummy atoms X.
+            state: Overall charge and spin multiplicity; None leaves them unspecified.
+            perceive_bonds: Infer bonds and bond orders from the positions; defaults
+                to False. Connectivity can later supply moving-atom selections.
+
+        Returns:
+            A reusable molecule with Cartesian coordinates and optional connectivity.
+
+        Example:
+            ``h2 = Molecule.from_xyz("2\nHydrogen\nH 0 0 0\nH 0 0 0.74\n")``
+        """
         # Defer the adapter import: it consumes these domain model classes.
         from psi4_parser.builder.openbabel import read_xyz  # noqa: PLC0415
 

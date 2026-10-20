@@ -28,13 +28,13 @@ type ScopeIndent = tuple[int, int]
 
 
 class ContinuationRange(BaseModel):
-    """Locate a bracketed continuation and its standalone-comment indentation."""
+    """A bracketed section and the indentation for its comment lines."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    start: int = Field(description="Source offset after the opening delimiter.")
-    stop: int = Field(description="Source offset before the closing delimiter.")
+    start: int = Field(description="Character position after the opening bracket.")
+    stop: int = Field(description="Character position before the closing bracket.")
     indentation: int = Field(
-        description="Comment indentation within this continuation."
+        description="Spaces before comments inside these brackets."
     )
 
 

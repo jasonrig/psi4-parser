@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import TypedDict
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Snapshot(TypedDict):
@@ -26,17 +26,18 @@ class Baseline(TypedDict):
 
 
 class InventoryChange(BaseModel):
-    """Describe additions and removals in one namespace table.
-
-    Attributes:
-        added: New names, in the reference inventory's order.
-        removed: Names that disappeared from the previous inventory.
-    """
+    """Names added or removed by a Psi4 compatibility upgrade."""
 
     model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
 
-    added: tuple[str, ...]
-    removed: tuple[str, ...]
+    added: tuple[str, ...] = Field(
+        description="New names in the order reported by Psi4."
+    )
+    removed: tuple[str, ...] = Field(
+        description=(
+            "Names present in the previous Psi4 inventory but absent in the new one."
+        )
+    )
 
 
 class InventoryDelta(TypedDict):

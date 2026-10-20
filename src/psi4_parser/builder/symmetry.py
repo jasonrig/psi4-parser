@@ -107,9 +107,12 @@ class SymmetryChangedWarning(UserWarning):
 
 
 class _SymmetryRequest(Model):
-    group: Psi4PointGroup = Field(description="Supported computational point group.")
+    group: Psi4PointGroup = Field(
+        description="Point group used by Psi4 for the calculation."
+    )
     axis: Literal["x", "y", "z"] | None = Field(
-        default=None, description="Explicit principal axis or mirror-plane normal."
+        default=None,
+        description="Principal axis, or direction perpendicular to the mirror plane.",
     )
 
 
@@ -269,8 +272,8 @@ def reconcile_symmetry(
 ) -> Molecule:
     """Return an edited molecule with a verified symmetry request, warning on change.
 
-    No coordinates or atom records are adjusted. Unresolved geometry is relaxed
-    to C1 because its requested symmetry cannot be verified numerically.
+    Coordinates and atom records are retained. Unresolved geometry uses C1
+    because its requested symmetry cannot be verified numerically.
 
     Args:
         geometry: Edited molecule whose computational group is checked.
@@ -304,13 +307,21 @@ def reconcile_symmetry(
 
 
 def with_symmetry(group: str | None) -> Callable[[Molecule], Molecule]:
-    """Return a stage selecting a verified subgroup or automatic detection.
+    """Create a transformation that selects Psi4's computational point group.
 
-    Use ``with_symmetry('c1')`` to relax symmetry intentionally before editing.
-    None restores automatic Psi4 detection. Coordinates and parameters are retained.
+    Args:
+        group: c1, ci, cs, c2, d2, c2v, c2h, or d2h. Use c1 for fully relaxed
+            symmetry, a compatible lower group for partial relaxation, or None
+            to let Psi4 detect symmetry. Supported axis qualifiers include c2x
+            and csz.
+
+    Returns:
+        A function used as ``geometry | with_symmetry("c1")``. Atom coordinates,
+        parameter relationships, and metadata are retained. Groups other than c1
+        are checked against the resolved geometry and requested frame.
 
     Raises:
-        ValueError: The group is unsupported or cannot be verified for the geometry.
+        ValueError: The group is unsupported or cannot be verified when applied.
     """  # noqa: DOC502 - The returned stage and request parser raise ValueError.
     request = None if group is None else _request(group)
 
@@ -329,20 +340,19 @@ def with_symmetry(group: str | None) -> Callable[[Molecule], Molecule]:
 
 
 def detect_point_group(geometry: Molecule) -> str:
-    """Return the full molecular point group without changing geometry.
-
-    MolSym uses a 1e-6-angstrom tolerance and excludes dummy reference atoms.
-    Equal-mass sites with different nuclear roles cannot be distinguished by
-    this backend and are rejected; automatic edit checks support those roles.
+    """Identify a molecule's full point group, such as C2v or Td.
 
     Args:
-        geometry: Resolved molecule; coordinates and metadata are retained.
+        geometry: Resolved geometry with element, isotope, and ghost information.
 
     Returns:
-        Schoenflies symbol, using Cinfv and Dinfh for linear point groups.
+        A Schoenflies symbol. Linear groups use Cinfv and Dinfh; a single atom
+        uses Kh. MolSym uses a 1e-6 angstrom tolerance and excludes dummy atoms.
+        Use with_symmetry() separately to choose a Psi4 computational subgroup.
 
     Raises:
-        ValueError: Geometry is unresolved or nuclear roles cannot be distinguished.
-        RuntimeError: MolSym cannot determine the point group.
+        ValueError: Geometry is unresolved, or equal-mass sites have different
+            elements or ghost roles that MolSym cannot distinguish.
+        RuntimeError: MolSym cannot classify the geometry.
     """  # noqa: DOC502 - Numerical adapters raise these documented errors.
     return molsym_point_group(_sites(geometry), tolerance=POINT_GROUP_TOLERANCE)

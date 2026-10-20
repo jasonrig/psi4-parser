@@ -8,7 +8,16 @@ from psi4_parser.builder.molecular import SymmetrySite
 
 
 def point_group(sites: tuple[SymmetrySite, ...], *, tolerance: float) -> str:
-    """Return a full point group while keeping backend arrays disposable.
+    """Identify the full point group of resolved atomic sites.
+
+    Args:
+        sites: Element, mass, ghost role, and position for every real or ghost
+            center, with positions in angstroms.
+        tolerance: Positive position-matching tolerance in angstroms.
+
+    Returns:
+        Schoenflies symbol, with Cinfv and Dinfh for linear groups and Kh for
+        a single center.
 
     MolSym distinguishes sites by mass. Equal-mass sites with different elements
     or ghost roles cannot be represented faithfully and are rejected.

@@ -57,7 +57,17 @@ def _records(molecule: ob.OBMol, *, state: bool) -> Molecule:
 def read_molecule(
     path: Path, *, file_format: str | None, perceive_bonds: bool
 ) -> Molecule:
-    """Return one imported geometry, retaining bonds and resolved states.
+    """Read one molecular file with coordinates and optional bond perception.
+
+    Args:
+        path: File containing exactly one structure.
+        file_format: Open Babel format name, or None to use the file extension.
+        perceive_bonds: Infer connectivity from positions in addition to any
+            bonds supplied by the file.
+
+    Returns:
+        A molecule with IDs a1, a2, and so on in file order. XYZ leaves the
+        electronic state unspecified; other formats retain Open Babel's state.
 
     Raises:
         ValueError: The format is unsupported or the file does not contain one molecule.
@@ -75,7 +85,15 @@ def read_molecule(
 
 
 def read_xyz(source: str, *, perceive_bonds: bool) -> Molecule:
-    """Return one XYZ record without inferring electronic state.
+    """Read XYZ text into atoms with Cartesian coordinates in angstroms.
+
+    Args:
+        source: One XYZ document, including its atom count and title line.
+        perceive_bonds: Infer bonds and bond orders from the coordinates.
+
+    Returns:
+        A molecule with atom IDs a1, a2, and so on in row order. Charge and
+        multiplicity remain unspecified.
 
     Raises:
         ValueError: The XYZ input does not contain one complete structure.
@@ -132,11 +150,14 @@ def read_xyz(source: str, *, perceive_bonds: bool) -> Molecule:
 def to_obmol(
     molecule: Molecule, *, points: dict[str, Vector] | None = None
 ) -> ob.OBMol:
-    """Return a numerical backend molecule with domain identities retained.
+    """Create an Open Babel molecule with atom order, coordinates, and known bonds.
 
     Args:
-        molecule: Molecular identities, isotope labels, and connectivity.
+        molecule: Atoms, isotope labels, and explicit connectivity.
         points: Optional already-resolved positions in angstroms, keyed by atom ID.
+
+    Returns:
+        A separate Open Babel object containing the selected geometry and bonds.
 
     Raises:
         ValueError: A nucleus label cannot be resolved to an element.
@@ -175,11 +196,14 @@ def to_obmol(
 def suggested_anchors(
     molecule: Molecule, *, points: dict[str, Vector] | None = None
 ) -> AnchorRequirements:
-    """Return Open Babel's suggested internal-coordinate references.
+    """Suggest Z-matrix reference atom IDs using Open Babel.
 
     Args:
         molecule: Atom order and identities used by the returned references.
         points: Optional already-resolved positions for this geometry in angstroms.
+
+    Returns:
+        Atom IDs mapped to reference IDs in distance, angle, then torsion order.
     """
     backend = to_obmol(molecule, points=points)
     coordinates = backend.GetInternalCoord()

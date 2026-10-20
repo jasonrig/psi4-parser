@@ -4,7 +4,7 @@ from collections.abc import Sequence
 from itertools import pairwise
 
 from antlr4 import ParserRuleContext, Token
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 # noinspection PyProtectedMember
 from psi4_parser._formatting.layout import (
@@ -23,18 +23,20 @@ from psi4_parser._tree import contexts, rule_name
 
 
 class NumericRow(BaseModel):
-    """Locate a physical segment of numeric cells and its surrounding delimiters.
-
-    Attributes:
-        cells: Intact numeric fields, in source order.
-        opening: End of an opening delimiter on this line, or None for indentation.
-        closing: Start of the following comma or closing delimiter, when present.
-    """
+    """One line of numbers in an array, with its surrounding bracket positions."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    cells: tuple[Cell, ...]
-    opening: int | None
-    closing: int | None
+    cells: tuple[Cell, ...] = Field(description="Numbers on this line, in input order.")
+    opening: int | None = Field(
+        description=(
+            "Character after the opening bracket, or null for an indented continuation."
+        )
+    )
+    closing: int | None = Field(
+        description=(
+            "Character position of the next comma or closing bracket, when present."
+        )
+    )
 
 
 def format_arrays(layout: Layout) -> Layout:

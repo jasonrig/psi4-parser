@@ -5,6 +5,7 @@ requires-python = ">=3.15"
 dependencies = [
     "antlr4-python3-runtime==4.13.2",
     "click>=8.5.0",
+    "fastmcp>=4.1.1",
     "molsym>=1.2.0",
     "numpy>=2.5.4",
     "openbabel>=3.2.1",

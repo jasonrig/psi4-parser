@@ -38,27 +38,33 @@ _GRAMMAR = Path("grammar/PsithonParser.g4")
 
 
 class Settings(BaseSettings):
-    """Validate synchronization inputs, with PSI4_SYNC_ environment defaults.
-
-    Attributes:
-        project: Parser project to update after successful checks.
-        source: Clean Git checkout matching the reference build.
-        python: Reference Python launcher; preserve its symlink basename.
-        binary: Psi4 job launcher for guarded integration cases.
-        check: Keep the current project unchanged after verification.
-        timeout: Maximum seconds allowed for each subprocess stage.
-        offline: Require uv to use already cached locked dependencies.
-    """
+    """Source paths and verification settings for a Psi4 compatibility upgrade."""
 
     model_config = SettingsConfigDict(env_prefix="PSI4_SYNC_", frozen=True)
 
-    project: Path
-    source: Path
-    python: Path
-    binary: Path
-    check: bool = False
-    timeout: float = Field(default=1800, gt=0, allow_inf_nan=False)
-    offline: bool = False
+    project: Path = Field(
+        description="Parser project to update after verification succeeds."
+    )
+    source: Path = Field(
+        description="Psi4 source checkout matching the supplied executable."
+    )
+    python: Path = Field(
+        description="Python launcher for the supplied Psi4 installation."
+    )
+    binary: Path = Field(description="Psi4 executable used for compatibility checks.")
+    check: bool = Field(
+        default=False,
+        description="Verify the upgrade and keep the existing project files.",
+    )
+    timeout: float = Field(
+        default=1800,
+        gt=0,
+        allow_inf_nan=False,
+        description="Maximum seconds allowed for each subprocess.",
+    )
+    offline: bool = Field(
+        default=False, description="Use locally cached dependencies for uv commands."
+    )
 
 
 def _capture(

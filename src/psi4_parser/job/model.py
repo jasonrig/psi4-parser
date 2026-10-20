@@ -21,103 +21,93 @@ class Model(BaseModel):
 
 
 class Number(Model):
-    """Preserve a native number, including Fortran exponents and Unicode digits.
-
-    Attributes:
-        value: Numeric spelling interpreted by the relevant Psi4 reader.
-    """
+    """A number in Psi4 input notation."""
 
     kind: Literal["number"] = Field(
-        default="number", description="Discriminator identifying the Number variant."
+        default="number", description="Selects a number written as text."
     )
     value: str = Field(
-        description="Numeric spelling interpreted by the relevant Psi4 reader.",
+        description="Number as input text, such as 0.74 or 1.2D-3.",
         pattern=r"^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[dDeE][+-]?\d+)?$",
         examples=_NUMBER_VALUE_EXAMPLES,
     )
 
     def as_float(self) -> float:
-        """Convert the native numeric spelling to a Python float.
+        """Return this number as a Python float, accepting Psi4's D exponents.
 
-        Returns:
-            Numeric value with Fortran exponent markers normalized.
+        For example, ``Number(value="1.2D-3").as_float()`` returns 0.0012.
         """
         return float(self.value.lower().replace("d", "e"))
 
 
 class Variable(Model):
-    """Reference a geometry variable without evaluating it.
-
-    Attributes:
-        name: Variable name as specified in the molecule.
-        negative: Whether the reference negates that variable.
-    """
+    """Use a named distance or angle from the molecule."""
 
     kind: Literal["variable"] = Field(
         default="variable",
-        description="Discriminator identifying the Variable variant.",
+        description="Selects a named geometry value.",
     )
     name: str = Field(
-        description="Variable name as specified in the molecule.",
+        description="Name of the distance or angle variable used in the molecule.",
         min_length=1,
         examples=_VARIABLE_NAME_EXAMPLES,
     )
     negative: bool = Field(
-        default=False, description="Whether the reference negates that variable."
+        default=False, description="Use the negative of this variable's value."
     )
 
 
 type Scalar = Annotated[
     Number | Variable,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A number written as text or a named geometry value.",
+    ),
 ]
 
 
 class Units(Model):
-    """Specify native geometry units without silently choosing defaults.
-
-    Attributes:
-        name: Native unit spelling, such as angstrom, bohr, or a.u.
-    """
+    """The length unit for molecular coordinates."""
 
     kind: Literal["units"] = Field(
-        default="units", description="Discriminator identifying the Units variant."
+        default="units", description="Selects the molecule's length unit."
     )
     name: str = Field(
-        description="Native unit spelling, such as angstrom, bohr, or a.u.",
+        description="Length-unit name, such as angstrom, bohr, or a.u.",
         min_length=1,
         examples=_UNITS_NAME_EXAMPLES,
     )
 
 
 class FragmentSeparator(Model):
-    """Retain a fragment boundary, including a leading overall-state boundary."""
+    """A boundary between molecular fragments."""
 
     kind: Literal["fragment_separator"] = Field(
         default="fragment_separator",
-        description="Discriminator identifying the FragmentSeparator variant.",
+        description=(
+            "Starts a new fragment after any overall charge and spin settings."
+        ),
     )
 
 
 class Nucleus(Model):
-    """Describe a native nucleus independently of its position.
-
-    Attributes:
-        label: Element, atomic number, isotope prefix, and optional atom label.
-        ghost: Original ghost notation, or none for an ordinary nucleus.
-        mass: Explicit isotope mass following the nucleus label, if supplied.
-    """
+    """An element label with optional isotope or ghost-center settings."""
 
     label: str = Field(
-        description="Element, atomic number, isotope prefix, and optional atom label.",
+        description=(
+            "Element or atom label, such as H, O1, 13C, or X for a dummy atom."
+        ),
         min_length=1,
         examples=_NUCLEUS_LABEL_EXAMPLES,
     )
     ghost: Literal["none", "at", "gh"] = Field(
         default="none",
-        description="Original ghost notation, or none for an ordinary nucleus.",
+        description=(
+            "none selects a real atom; at and gh select basis-only ghost centers."
+        ),
     )
     mass: Number | None = Field(
         default=None,
-        description="Explicit isotope mass following the nucleus label, if supplied.",
+        description="Optional isotope mass in atomic mass units.",
     )

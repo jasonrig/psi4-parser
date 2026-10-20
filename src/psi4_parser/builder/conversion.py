@@ -47,11 +47,15 @@ GEOMETRY_EPSILON = 1e-12
 
 # The slot identifies an atom and its zero-based distance/angle/dihedral column.
 class CoordinateSlot(Model):
-    """Identify a distance, angle, or dihedral column on one Z-matrix atom."""
+    """One distance, bond-angle, or torsion position in a Z-matrix row."""
 
-    atom: str = Field(description="Stable identity of the atom being placed.")
+    atom: str = Field(description="ID of the atom whose position is being defined.")
     column: int = Field(
-        ge=0, le=2, description="Zero-based distance, angle, or dihedral column."
+        ge=0,
+        le=2,
+        description=(
+            "Coordinate position: 0 for distance, 1 for bond angle, 2 for torsion."
+        ),
     )
 
 
@@ -59,37 +63,42 @@ type VariableNames = dict[CoordinateSlot, str]
 
 
 class OrientedCoordinate(Model):
-    """Choose the atom to place and its ordered reference atoms."""
+    """An atom and the earlier atoms used to place it."""
 
-    atom: str = Field(description="Stable identity of the atom being placed.")
+    atom: str = Field(description="ID of the atom whose position is being defined.")
     references: AnchorReferences = Field(
-        description="Distance, angle, and dihedral reference identities."
+        description="Reference atom IDs in distance, angle, then torsion order."
     )
 
 
 class LayoutRequirements(Model):
-    """Group anchor dependencies with requested geometry-variable names."""
+    """Required reference atoms and parameter names for geometry conversion."""
 
     anchors: AnchorRequirements = Field(
-        description="Required reference prefix for each constrained atom."
+        description="Required reference atoms for each atom being placed."
     )
     variables: VariableNames = Field(
-        description="Requested variable name for each constrained coordinate slot."
+        description="Parameter name requested for each atom and coordinate position."
     )
 
 
 class ReconstructionPolicy(Model):
-    """Set finite reconstruction tolerances and the explicit frame choice."""
+    """Allowed position changes and error limits for geometry conversion."""
 
     frame: Literal["canonical", "preserve"] = Field(
-        description="Accept canonical placement or require the laboratory frame."
+        description=(
+            "canonical allows rotation and translation; preserve keeps the "
+            "input position and orientation."
+        )
     )
     position_tolerance: float = Field(
         gt=0,
-        description="Maximum position residual in angstroms after proper alignment.",
+        description=(
+            "Maximum position difference in angstroms after rotation and translation."
+        ),
     )
     angle_tolerance: float = Field(
-        gt=0, description="Maximum angular residual in degrees."
+        gt=0, description="Maximum difference in angular coordinates, in degrees."
     )
 
 
@@ -102,20 +111,28 @@ class LayoutSearchExhaustedError(ValueError):
 
 
 class NamedCoordinate(Model):
-    """Require an internal coordinate to become a named Z-matrix parameter."""
+    """A distance or angle to retain as an adjustable Z-matrix parameter."""
 
     name: str = Field(
-        min_length=1, description="Name of the emitted geometry variable."
+        min_length=1,
+        description=(
+            "Name to assign to this distance or angle in the resulting geometry."
+        ),
     )
-    coordinate: Coordinate = Field(description="Distance, bend, or dihedral to expose.")
+    coordinate: Coordinate = Field(
+        description="Distance, bond angle, or torsion to expose as a named parameter."
+    )
 
 
 class AnchorLayout(Model):
-    """Prescribe one atom's complete ordered Z-matrix reference list."""
+    """Earlier atoms used to define one atom's distance, angle, and torsion."""
 
-    atom: str = Field(min_length=1, description="Stable atom ID being placed.")
+    atom: str = Field(
+        min_length=1, description="ID of the atom whose position is being defined."
+    )
     references: tuple[str, ...] = Field(
-        max_length=3, description="Distance, angle, and dihedral reference IDs."
+        max_length=3,
+        description="Reference atom IDs in distance, angle, then torsion order.",
     )
 
 
@@ -554,10 +571,54 @@ def to_zmatrix(  # noqa: PLR0913 - Independent conversion choices are explicit k
     position_tolerance: float = 1e-8,
     angle_tolerance: float = 1e-6,
 ) -> Molecule | Callable[[Molecule], Molecule]:
-    """Return verified internal coordinates, or a pure conversion pipeline stage.
+    """Convert geometry to a verified Z-matrix with optional named coordinates.
 
-    Requested coordinates become named variables. Atom reordering and dummy
-    insertion require separate opt-ins. An explicit layout bypasses search.
+    Atom IDs, fragment states, isotope and ghost metadata are retained. The
+    result's atoms tuple exposes its ordering. Reconstruction is checked using
+    proper rotation and translation so reflections fail verification.
+
+    Args:
+        molecule: Geometry to convert; omit to create a pipeline transformation.
+        frame: "canonical" permits Psi4's standard placement. "preserve" keeps
+            the laboratory frame and fails for multi-atom geometries; use
+            Cartesian coordinates when that frame is required.
+        requested: Named distances, bond angles, and torsions that must become
+            adjustable parameters. Names must be new and unique, and atom IDs
+            must belong to the molecule.
+        reorder: Allow atom reordering within each fragment to satisfy anchors;
+            defaults to preserving atom order. Fragment order is retained.
+        allow_dummies: Allow geometry-only dummy atoms to provide a reference
+            plane for linear geometry. A requested torsion must already be defined.
+        max_states: Positive limit on automatic layout candidates, default 10,000.
+        layout: Explicit reference atoms for every row; bypasses automatic search.
+        position_tolerance: Positive reconstruction tolerance in angstroms after
+            proper rotation and translation, default 1e-8.
+        angle_tolerance: Positive tolerance for requested angles and torsions in
+            degrees, default 1e-6.
+
+    Returns:
+        A new molecule, or a function used as ``geometry | to_zmatrix(...)`` when
+        molecule is omitted. Resolve sources and expressions before conversion.
+        An incompatible symmetry request emits a warning and is lowered.
+
+    IncompatibleCoordinatesError identifies conflicting requests or frames.
+    DegenerateGeometryError reports undefined geometry or failed verification.
+    LayoutSearchExhaustedError means max_states was reached; increase it or
+    supply an explicit layout.
+
+    Example:
+        Expose a torsion as a named variable::
+
+            internal = to_zmatrix(
+                geometry,
+                frame="canonical",
+                requested=(
+                    NamedCoordinate(
+                        name="D", coordinate=dihedral("a1", "a2", "a3", "a4")
+                    ),
+                ),
+            )
+            twisted = internal | with_parameter("D", degrees(90))
     """
     settings = ReconstructionPolicy(
         frame=frame,

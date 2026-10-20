@@ -11,19 +11,23 @@ type ComponentPath = tuple[str | int, ...]
 
 
 class CompilationDiagnostic(Model):
-    """Locate one compilation failure in a builder specification."""
+    """An input error and the field or source position that caused it."""
 
-    path: ComponentPath = Field(description="Field names and zero-based tuple indices.")
-    message: str = Field(description="Reason compilation failed.")
+    path: ComponentPath = Field(
+        description=(
+            "Field names and list indices locating the error; indices start at zero."
+        )
+    )
+    message: str = Field(description="What is wrong with the input.")
     line: int | None = Field(
         default=None,
         ge=1,
-        description="One-based emitted Psithon line, when available.",
+        description="Line of generated input containing the error, counting from 1.",
     )
     column: int | None = Field(
         default=None,
         ge=0,
-        description="Zero-based emitted Psithon column, when available.",
+        description="Column of generated input containing the error, counting from 0.",
     )
 
     @property

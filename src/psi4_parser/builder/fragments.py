@@ -50,13 +50,24 @@ def _namespace(atom: Atom, prefix: str, parameters: set[str]) -> Atom:
 def assemble_fragments(
     *parts: tuple[str, Molecule], state: ElectronicState | None = None
 ) -> Molecule:
-    """Return a molecular assembly with namespaced identities and explicit states.
+    """Combine named molecular parts into an ordered fragment assembly.
 
-    Nested fragment states cannot represent an additional subsystem-wide state
-    in Psithon; such inputs must be flattened explicitly by the caller.
+    Args:
+        *parts: (name, molecule) pairs with distinct nonempty names. Atom IDs
+            become name:atom_id and parameter names become name_parameter.
+            Each part supplies its fragment charge and multiplicity. Parts must
+            agree on frame and symmetry directives and have resolved atom records.
+        state: Optional overall charge and multiplicity, specified separately
+            from the fragment states.
+
+    Returns:
+        A new molecule retaining coordinates, bonds, isotope and ghost metadata,
+        and fragment states in part order. Nested fragments keep their boundaries.
 
     Raises:
-        ValueError: Fragment names, states, sources, or frame directives conflict.
+        ValueError: Names or directives conflict, geometry sources remain unresolved,
+            or a nested fragment assembly also supplies a subsystem-wide state.
+            Flatten such subsystems and specify the final overall state explicitly.
     """
     if (
         not parts

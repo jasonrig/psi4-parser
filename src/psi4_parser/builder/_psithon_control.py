@@ -44,30 +44,38 @@ class CommentLowerer(Protocol):
 
 
 class CompiledJob(Model):
-    """Retain a native tree and its completely validated source."""
+    """A complete Psi4 input and its structured statements."""
 
-    job: native.Job = Field(description="Compiled native job.")
-    source: str = Field(description="Validated Psithon emitted from the job.")
+    job: native.Job = Field(
+        description=(
+            "Molecule blocks, settings, and Python statements after compilation."
+        )
+    )
+    source: str = Field(description="Complete Psi4 input text.")
 
 
 class MoleculeLayout(Model):
-    """Retain the atom indexing and frame information needed by constraints."""
+    """Atom order and position settings used to number optimization constraints."""
 
     atom_ids: tuple[str, ...] = Field(
-        description="Atom IDs in input order, including dummies."
+        description="Atom IDs in input order, including dummy atoms."
     )
     dummy_ids: frozenset[str] = Field(
-        description="IDs excluded from optimizer atom indexing."
+        description="Dummy atom IDs excluded from the optimizer's atom numbering."
     )
-    cartesian: bool = Field(description="Whether every atom uses Cartesian records.")
+    cartesian: bool = Field(
+        description="Whether all atoms are given as x, y, and z coordinates."
+    )
     resolved_atoms: bool = Field(
-        description="Whether atom counts are known without file or EFP expansion."
+        description=(
+            "Whether every atom is known before loading external geometry or fragments."
+        )
     )
     fixed_com: bool = Field(
-        description="Whether center-of-mass translation is disabled."
+        description="Whether the input center of mass stays in its original position."
     )
     fixed_orientation: bool = Field(
-        description="Whether orientation changes are disabled."
+        description="Whether the input orientation is kept."
     )
 
     @classmethod
@@ -98,21 +106,26 @@ class MoleculeLayout(Model):
 
 
 class _MoleculeBinding(Model):
-    name: str = Field(description="Explicit molecule binding.")
+    name: str = Field(description="Python name assigned to the molecule.")
     layout: MoleculeLayout = Field(
-        description="Known atom identities and frame metadata."
+        description="Atom order and position/orientation settings for this molecule."
     )
 
 
 class _Scope(Model):
     definite: frozenset[str] = Field(
-        default=frozenset(), description="Names bound on every incoming path."
+        default=frozenset(),
+        description="Names assigned on every possible execution path so far.",
     )
     possible: frozenset[str] = Field(
-        default=frozenset(), description="Names bound on any incoming path."
+        default=frozenset(),
+        description="Names assigned on at least one possible execution path so far.",
     )
     molecules: tuple[_MoleculeBinding, ...] = Field(
-        default=(), description="Molecule metadata shared by every incoming path."
+        default=(),
+        description=(
+            "Molecule details that agree across all possible execution paths so far."
+        ),
     )
 
     def layout_map(self) -> dict[str, MoleculeLayout]:
@@ -159,9 +172,9 @@ def _merge(scopes: tuple[_Scope, ...]) -> _Scope:
 
 
 class _SourceLocation(Model):
-    first: int = Field(ge=1, description="First emitted line, one-based.")
-    last: int = Field(ge=0, description="Last emitted line, or zero for empty text.")
-    path: ComponentPath = Field(description="Owning builder field.")
+    first: int = Field(ge=1, description="First generated line, counting from 1.")
+    last: int = Field(ge=0, description="Last generated line, or 0 for empty text.")
+    path: ComponentPath = Field(description="Field that produced these lines.")
 
     def shifted(self, offset: int) -> _SourceLocation:
         return _SourceLocation(
@@ -170,10 +183,12 @@ class _SourceLocation(Model):
 
 
 class _Emission(Model):
-    node: native.Node = Field(description="Native node or mixed Python template.")
-    text: str = Field(description="Emitted text without trailing line endings.")
+    node: native.Node = Field(
+        description="Python statements or Psi4 blocks produced for this step."
+    )
+    text: str = Field(description="Generated text with trailing line endings removed.")
     locations: tuple[_SourceLocation, ...] = Field(
-        default=(), description="Relative source owners for diagnostics."
+        default=(), description="Fields that produced each section of this text."
     )
 
     @property
@@ -183,32 +198,39 @@ class _Emission(Model):
 
 class _ComponentResult(Model):
     emission: _Emission = Field(
-        description="Translated component and its source owners."
+        description="Generated input and the fields that produced it."
     )
-    scope: _Scope = Field(description="Bindings after normal completion.")
+    scope: _Scope = Field(
+        description="Names available after this step completes normally."
+    )
     writes: frozenset[str] = Field(
         default=frozenset(),
-        description="Names written on any path through the component.",
+        description="Names assigned on any execution path through this step.",
     )
 
     deletions: frozenset[str] = Field(
         default=frozenset(),
-        description="Names that may be deleted before they are rebound.",
+        description="Names that may be deleted before their next assignment.",
     )
 
 
 class _SuiteResult(Model):
     emissions: tuple[_Emission, ...] = Field(
-        description="Translated components in execution order."
+        description="Generated steps in execution order."
     )
-    scope: _Scope = Field(description="Bindings after normal completion of the suite.")
+    scope: _Scope = Field(
+        description="Names available after this group of steps completes normally."
+    )
     writes: frozenset[str] = Field(
-        default=frozenset(), description="Names written on any path through the suite."
+        default=frozenset(),
+        description=(
+            "Names assigned on any execution path through this group of steps."
+        ),
     )
 
     deletions: frozenset[str] = Field(
         default=frozenset(),
-        description="Names that may be deleted before they are rebound.",
+        description="Names that may be deleted before their next assignment.",
     )
 
 

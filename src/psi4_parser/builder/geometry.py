@@ -68,11 +68,20 @@ def _cartesian_value(
 
 
 def positions(molecule: Molecule) -> dict[str, Vector]:
-    """Return resolved Cartesian or mixed Z-matrix positions in angstroms.
+    """Resolve every atom's position in angstroms, keyed by atom ID.
+
+    Args:
+        molecule: Cartesian, Z-matrix, or mixed geometry with numerical values
+            or parameters whose values are lengths and angles.
+
+    Returns:
+        A new dictionary mapping each atom ID to its (x, y, z) position. A
+        Z-matrix uses Psi4's conventional placement relative to its anchors.
 
     Raises:
-        UnresolvedGeometryError: Geometry contains unresolved sources or expressions.
-        ValueError: A coordinate has an incompatible dimension.
+        UnresolvedGeometryError: A source, expression, parameter, or effective
+            fragment potential needs to be resolved before numerical work.
+        ValueError: A coordinate has the wrong dimension or undefined geometry.
     """
     if molecule.sources or molecule.efp:
         raise UnresolvedGeometryError(
@@ -116,10 +125,10 @@ def positions(molecule: Molecule) -> dict[str, Vector]:
 
 
 def tuple3(values: tuple[float, ...]) -> Vector:
-    """Return three values after checking the numerical adapter boundary.
+    """Return three numerical values as an (x, y, z) tuple.
 
     Raises:
-        ValueError: The vector does not have three components.
+        ValueError: The input does not contain exactly three values.
     """
     if len(values) != _DIMENSIONS:
         raise ValueError("Expected a three-dimensional vector")
@@ -143,7 +152,16 @@ def _cartesian_only(molecule: Molecule) -> dict[str, Vector]:
 
 
 def with_positions(molecule: Molecule, points: dict[str, Vector]) -> Molecule:
-    """Return new Cartesian positions while preserving molecular metadata."""
+    """Replace all atom coordinates with Cartesian positions in angstroms.
+
+    Args:
+        molecule: Molecule whose atom IDs and other metadata are retained.
+        points: New (x, y, z) values for every atom ID in the molecule.
+
+    Returns:
+        A new molecule. Incompatible requested symmetry is lowered to a verified
+        subgroup and reported with SymmetryChangedWarning.
+    """
     result = evolve(
         molecule,
         atoms=tuple(
@@ -160,7 +178,22 @@ def with_positions(molecule: Molecule, points: dict[str, Vector]) -> Molecule:
 
 
 def to_cartesian(molecule: Molecule) -> Molecule:
-    """Return the resolved geometry in Cartesian angstrom coordinates."""
+    """Convert resolved geometry to Cartesian coordinates in angstroms.
+
+    Args:
+        molecule: Geometry whose numerical coordinates or named parameters can
+            be resolved. Z-matrix anchors determine the resulting frame.
+
+    Returns:
+        A new molecule retaining atom IDs, fragments, electronic states, and
+        isotope and ghost metadata. A changed symmetry request emits a warning.
+
+    Example:
+        Resolve coordinates before applying numerical edits::
+
+            cartesian = to_cartesian(geometry)
+            shifted = cartesian | translate((angstrom(1), angstrom(0), angstrom(0)))
+    """
     return with_positions(molecule, positions(molecule))
 
 
@@ -193,7 +226,17 @@ def _rotation(axis: Vector, angle: float, origin: Vector) -> CoordinateTransform
 
 
 def translate(offset: tuple[Length, Length, Length]) -> MolecularStage:
-    """Return a stage that translates Cartesian geometry by a displacement."""
+    """Create a transformation that moves all Cartesian atoms by an offset.
+
+    Args:
+        offset: Signed x, y, and z displacements, each created with angstrom()
+            or bohr(). Resolve symbolic or Z-matrix geometry with to_cartesian()
+            before applying this transformation.
+
+    Returns:
+        A function used as ``geometry | translate(offset)`` or applied directly
+        to a molecule. It returns a new molecule with stable atom IDs.
+    """
     transform = _translation(tuple3(tuple(v.angstroms for v in offset)))
 
     def apply(molecule: Molecule) -> Molecule:
@@ -206,7 +249,19 @@ def translate(offset: tuple[Length, Length, Length]) -> MolecularStage:
 def rotate(
     axis: Vector, angle: Angle, *, origin: tuple[Length, Length, Length] | None = None
 ) -> MolecularStage:
-    """Return a stage that rotates Cartesian geometry about an axis."""
+    """Create a transformation that rotates all Cartesian atoms about an axis.
+
+    Args:
+        axis: Finite nonzero (x, y, z) direction; it is normalized automatically.
+        angle: Rotation angle from degrees() or radians(), using the right-hand rule.
+        origin: Point through which the axis passes, with explicit length units.
+            Defaults to the coordinate origin.
+
+    Returns:
+        A function used as ``geometry | rotate(axis, angle)``. Apply it to
+        resolved Cartesian geometry; convert first with to_cartesian() if needed.
+        Atom IDs and molecular metadata are retained.
+    """
     center = (
         (0.0, 0.0, 0.0)
         if origin is None
@@ -224,7 +279,19 @@ def rotate(
 def with_parameter(
     name: str, value: Length | Angle | GeometryExpression
 ) -> MolecularStage:
-    """Return a stage that replaces a named geometry parameter."""
+    """Create a transformation that replaces a named geometry parameter.
+
+    Args:
+        name: Exact name of an existing parameter.
+        value: Replacement Length, Angle, or GeometryExpression. A numerical
+            replacement must have the same dimension as the existing value.
+
+    Returns:
+        A function used as ``geometry | with_parameter("R", angstrom(1.2))``.
+        Parameter references remain connected to the updated value. Unknown
+        names or incompatible dimensions fail when the function is applied;
+        incompatible symmetry requests emit a warning and are lowered.
+    """
 
     def apply(molecule: Molecule) -> Molecule:
         previous = next((p for p in molecule.parameters if p.name == name), None)
@@ -249,7 +316,16 @@ def with_parameter(
 
 
 def reorder_atoms(order: tuple[str, ...]) -> MolecularStage:
-    """Return a stage that reorders atoms within their fragments."""
+    """Create a transformation that changes atom order while retaining IDs.
+
+    Args:
+        order: Every atom ID exactly once, in the desired order. Keep fragments
+            in their original order and Z-matrix anchors before their dependents.
+
+    Returns:
+        A function used as ``geometry | reorder_atoms(order)``. Invalid orders
+        fail when applied; references and connectivity continue to use stable IDs.
+    """
 
     def apply(molecule: Molecule) -> Molecule:
         if len(set(order)) != len(order) or set(order) != {
@@ -271,10 +347,21 @@ def reorder_atoms(order: tuple[str, ...]) -> MolecularStage:
 
 
 def connected_side(molecule: Molecule, fixed: str, moving: str) -> tuple[str, ...]:
-    """Return the moving side of a bond, rejecting ambiguous ring cuts.
+    """Find the atoms on one side of a known bond.
+
+    Args:
+        molecule: Geometry with explicit connectivity, supplied by the file or
+            obtained by importing with perceive_bonds=True.
+        fixed: Atom ID at the fixed end of the bond to cut.
+        moving: Atom ID at the moving end of that bond.
+
+    Returns:
+        Atom IDs connected to moving after cutting this bond, in molecule order,
+        including moving itself. This tuple can be an edit's moving selection.
 
     Raises:
-        ValueError: The bond is unknown or belongs to a ring.
+        ValueError: The bond is unknown or lies in a ring. For a ring, supply an
+            explicit moving selection to the edit instead.
     """
     graph = {a.id: set[str]() for a in molecule.atoms}
     for bond in molecule.bonds:
@@ -314,10 +401,22 @@ def _selection(
 def set_distance(
     atoms: tuple[str, str], length: Length, *, moving: tuple[str, ...]
 ) -> MolecularStage:
-    """Return a stage that sets a distance using a moving selection.
+    """Create a transformation that sets the separation of two Cartesian atoms.
+
+    Args:
+        atoms: Pair of atom IDs; the first stays fixed and the second moves.
+        length: Positive target separation from angstrom() or bohr().
+        moving: Distinct atom IDs to translate together along the pair's axis.
+            Include the second endpoint and exclude the first.
+
+    Returns:
+        A function used as ``geometry | set_distance(atoms, length, moving=ids)``.
+        Apply it to resolved Cartesian geometry. Other atoms retain their positions;
+        incompatible symmetry requests emit a warning and are lowered.
 
     Raises:
-        ValueError: The requested distance is not positive.
+        ValueError: The target length is not positive. Invalid selections,
+            unresolved coordinates, or coincident endpoints fail when applied.
     """
     if length.angstroms <= 0:
         raise ValueError("Distance must be positive")
@@ -335,10 +434,22 @@ def set_distance(
 def set_angle(
     atoms: tuple[str, str, str], angle: Angle, *, moving: tuple[str, ...]
 ) -> MolecularStage:
-    """Return a stage that sets a bend using a moving selection.
+    """Create a transformation that sets a Cartesian bond angle.
+
+    Args:
+        atoms: Three atom IDs (a, b, c), with the angle's vertex at b.
+        angle: Target from degrees() or radians(), strictly between 0 and 180 degrees.
+        moving: Distinct atom IDs rotated together about b. Include c and exclude
+            a and b. Use connected_side() to select a known bond's attached atoms.
+
+    Returns:
+        A function used as ``geometry | set_angle(atoms, angle, moving=ids)``.
+        Apply it to resolved Cartesian geometry with a defined starting angle.
+        Incompatible symmetry requests emit a warning and are lowered.
 
     Raises:
-        ValueError: The bend lies outside the open interval (0, 180).
+        ValueError: The target angle lies outside the allowed range. Invalid
+            selections or degenerate starting geometry fail when applied.
     """
     if not 0 < angle.degrees < _STRAIGHT_ANGLE:
         raise ValueError("Bend angles must be strictly between zero and 180 degrees")
@@ -357,7 +468,21 @@ def set_angle(
 def set_dihedral(
     atoms: tuple[str, str, str, str], angle: Angle, *, moving: tuple[str, ...]
 ) -> MolecularStage:
-    """Return a stage that sets a torsion using a moving selection."""
+    """Create a transformation that sets a signed Cartesian torsion.
+
+    Args:
+        atoms: Four atom IDs (a, b, c, d); the torsion is between planes abc and
+            bcd, around the b-c axis.
+        angle: Target torsion from degrees() or radians(), measured modulo 360 degrees.
+        moving: Distinct atom IDs rotated together about b-c. Include d and exclude
+            a, b, and c. Select attached atoms explicitly or with connected_side().
+
+    Returns:
+        A function used as ``geometry | set_dihedral(atoms, angle, moving=ids)``.
+        Apply it to resolved Cartesian geometry with a defined torsion. Invalid
+        selections or collinear reference atoms fail when applied. Incompatible
+        symmetry requests emit a warning and are lowered.
+    """
 
     def apply(molecule: Molecule) -> Molecule:
         points = _cartesian_only(molecule)

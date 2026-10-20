@@ -27,24 +27,28 @@ type AtomTables = dict[str, CellTable]
 
 
 class MoleculeRecords(BaseModel):
-    """Group coordinate tables separately from geometry-variable statements."""
+    """Coordinate rows and geometry variable assignments in a molecule."""
 
     model_config = ConfigDict(frozen=True, strict=True, arbitrary_types_allowed=True)
     tables: AtomTables = Field(
-        description="Coordinate rows grouped by Cartesian, Z-matrix, or "
-        "numeric representation."
+        description=(
+            "Coordinate rows grouped as x/y/z values, distances/angles, or "
+            "plain numbers."
+        )
     )
     variables: list[ParserRuleContext] = Field(
-        description="Geometry-variable statements to align."
+        description="Geometry variable assignments to align."
     )
 
 
 class AtomFields(BaseModel):
-    """Associate an atom's table cells with its coordinate representation."""
+    """The element label and coordinates in one atom row."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    cells: CellRow = Field(description="Nucleus and coordinate cells in source order.")
-    kind: str = Field(description="Cartesian or Z-matrix table group.")
+    cells: CellRow = Field(
+        description="Element label and coordinate values in input order."
+    )
+    kind: str = Field(description="Coordinate type used to group rows for alignment.")
 
 
 def format_molecules(layout: Layout) -> Layout:

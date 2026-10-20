@@ -3,7 +3,7 @@
 import ast
 import warnings
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from psi4_parser._diagnostics import DiagnosticError
 from psi4_parser.api import NativePayload, ParseResult, parse
@@ -18,22 +18,17 @@ class InvalidInputError(DiagnosticError):
 
 
 class ProgramAST(BaseModel):
-    """Represent a complete, validated input without executing user code.
-
-    Attributes:
-        python: CPython's complete AST of the grammar-owned Psithon lowering.
-            Includes literal values, template expression text and evaluation order.
-            Treat the standard AST nodes as read-only.
-        native_data: Payloads retained by the native preprocessing callbacks,
-            including original external bodies. These remain literal data,
-            without opening files or invoking solvers.
-    """
+    """The Python structure and Psi4-specific data of a complete input."""
 
     model_config = ConfigDict(
         frozen=True, strict=True, extra="forbid", arbitrary_types_allowed=True
     )
-    python: ast.Module
-    native_data: tuple[NativePayload, ...]
+    python: ast.Module = Field(
+        description="Python syntax tree representing the complete input."
+    )
+    native_data: tuple[NativePayload, ...] = Field(
+        description="Psi4-specific data retained alongside the Python syntax tree."
+    )
 
     def equivalent(self, other: ProgramAST) -> bool:
         """Compare represented programs without source-location attributes.

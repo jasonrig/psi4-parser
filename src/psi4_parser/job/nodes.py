@@ -4,6 +4,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
+from psi4_parser._solver_blocks import CFourFields, PCMFields
 from psi4_parser.job.model import FragmentSeparator, Model, Nucleus, Number, Units
 from psi4_parser.job.molecule import Molecule
 
@@ -15,375 +16,327 @@ _MEMORY_UNITS_EXAMPLES: list[str] = ["GB", "GiB", "MB"]
 
 
 class Python(Model):
-    """Retain Python text for contextual validation after JSON validation.
-
-    Attributes:
-        source: Python source, or a text segment in a mixed Python template.
-    """
+    """Python text to include in a Psi4 input."""
 
     kind: Literal["python"] = Field(
-        default="python", description="Discriminator identifying the Python variant."
+        default="python", description="Selects Python text to include in the input."
     )
     source: str = Field(
-        description="Python source, or a text segment in a mixed Python template."
+        description=(
+            "Python statements, or text surrounding a Psi4 block in a mixed statement."
+        )
     )
 
 
 class OptionExpression(Model):
-    """Retain a native option expression with Psi4's quoting rules.
-
-    Attributes:
-        source: Expression spelling before native quoting and substitution.
-    """
+    """An option value written in Psi4 input notation."""
 
     kind: Literal["option_expression"] = Field(
         default="option_expression",
-        description="Discriminator identifying the OptionExpression variant.",
+        description="Selects a Psi4 option value written as input text.",
     )
-    source: str = Field(
-        description="Expression spelling before native quoting and substitution."
-    )
+    source: str = Field(description="Psi4 option value as input text, such as cc-pvdz.")
 
 
 class OptionReference(Model):
-    """Reference a Python binding from an option assignment.
-
-    Attributes:
-        name: Python name following the native dollar marker.
-    """
+    """Use an earlier Python value as a Psi4 option."""
 
     kind: Literal["option_reference"] = Field(
         default="option_reference",
-        description="Discriminator identifying the OptionReference variant.",
+        description="Selects an earlier Python value for an option.",
     )
     name: str = Field(
-        description="Python name following the native dollar marker.",
+        description=(
+            "Earlier Python name; Psi4 writes this reference with a dollar sign."
+        ),
         min_length=1,
         examples=_OPTION_REFERENCE_NAME_EXAMPLES,
     )
 
 
 class OptionArray(Model):
-    """Represent nested option arrays without evaluating their expressions.
-
-    Attributes:
-        parts: Ordered expression segments and nested arrays, including commas.
-    """
+    """An array of Psi4 option values, including nested arrays."""
 
     kind: Literal["option_array"] = Field(
         default="option_array",
-        description="Discriminator identifying the OptionArray variant.",
+        description="Selects an array of Psi4 option values.",
     )
     parts: tuple[OptionValue, ...] = Field(
         default=(),
-        description="Ordered expression segments and nested arrays, including commas.",
+        description=(
+            "Array contents in order; text entries include any separating commas."
+        ),
     )
 
 
 type OptionValue = Annotated[
     OptionExpression | OptionReference | OptionArray,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A Psi4 option expression, named Python value, or array.",
+    ),
 ]
 
 
 class OptionAssignment(Model):
-    """Assign one option while preserving order and Python references.
-
-    Attributes:
-        key: Native option name.
-        value: Native expression, Python reference, or nested array.
-    """
+    """One Psi4 setting and its value."""
 
     key: str = Field(
-        description="Native option name.",
+        description="Psi4 setting name, such as basis or e_convergence.",
         min_length=1,
         examples=_OPTION_ASSIGNMENT_KEY_EXAMPLES,
     )
     value: OptionValue = Field(
-        description="Native expression, Python reference, or nested array."
+        description="Setting value as input text, a named Python value, or an array."
     )
 
 
 class SetOptions(Model):
-    """Specify global or module-scoped native options.
-
-    Attributes:
-        modules: Ordered native module list; empty means global options.
-        assignments: Option assignments in their original execution order.
-        style: Inline command or braced block.
-    """
+    """Settings applied globally or to selected Psi4 modules."""
 
     kind: Literal["set"] = Field(
-        default="set", description="Discriminator identifying the SetOptions variant."
+        default="set", description="Selects a group of Psi4 settings."
     )
     modules: tuple[str, ...] = Field(
         default=(),
-        description="Ordered native module list; empty means global options.",
+        description=(
+            "Psi4 module names, such as scf; an empty list selects global settings."
+        ),
     )
     assignments: tuple[OptionAssignment, ...] = Field(
-        default=(), description="Option assignments in their original execution order."
+        default=(), description="Settings to apply in the supplied order."
     )
     style: Literal["inline", "block"] = Field(
-        default="block", description="Inline command or braced block."
+        default="block",
+        description="Write settings on one line or inside a braced block.",
     )
 
 
 class BasisAssignment(Model):
-    """Assign a basis globally or to an element or atom label.
-
-    Attributes:
-        basis: Named basis or local basis payload label.
-        target: Optional element or atom label; omitted means all atoms.
-    """
+    """Apply a basis set to all atoms, an element, or an atom label."""
 
     kind: Literal["basis_assignment"] = Field(
         default="basis_assignment",
-        description="Discriminator identifying the BasisAssignment variant.",
+        description="Selects a basis-set assignment.",
     )
     basis: str = Field(
-        description="Named basis or local basis payload label.",
+        description=(
+            "Basis-set name, such as cc-pvdz, or a label defined in this block."
+        ),
         min_length=1,
         examples=_BASIS_ASSIGNMENT_BASIS_EXAMPLES,
     )
     target: str | None = Field(
         default=None,
-        description="Optional element or atom label; omitted means all atoms.",
+        description="Element or atom label; null applies the basis to all atoms.",
         min_length=1,
         examples=_BASIS_ASSIGNMENT_TARGET_EXAMPLES,
     )
 
 
 class BasisLabel(Model):
-    """Introduce a named basis-data section.
-
-    Attributes:
-        name: Native label inside square brackets.
-    """
+    """Name a section of basis-set data for use by assignments."""
 
     kind: Literal["basis_label"] = Field(
         default="basis_label",
-        description="Discriminator identifying the BasisLabel variant.",
+        description="Selects a named section of basis-set data.",
     )
-    name: str = Field(description="Native label inside square brackets.", min_length=1)
+    name: str = Field(
+        description="Section name used by basis assignments in this block.",
+        min_length=1,
+    )
 
 
 class BasisData(Model):
-    """Retain a record in the embedded Gaussian basis/ECP language.
-
-    Attributes:
-        text: Basis-reader record, preserved without Python interpretation.
-    """
+    """One line of Gaussian basis-set or effective core potential data."""
 
     kind: Literal["basis_data"] = Field(
         default="basis_data",
-        description="Discriminator identifying the BasisData variant.",
+        description="Selects one line of basis-set data.",
     )
     text: str = Field(
-        description="Basis-reader record, preserved without Python interpretation."
+        description="One line of Gaussian basis-set or effective core potential data."
     )
 
 
 type BasisRecord = Annotated[
     BasisAssignment | BasisLabel | BasisData,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A basis assignment, section label, or line of basis-set data.",
+    ),
 ]
 
 
 class Basis(Model):
-    """Define a basis for any supported native basis role.
-
-    Attributes:
-        role: Native role, such as basis or df_basis_scf.
-        name: Optional user-supplied binding for this definition.
-        records: Ordered assignments, labels, and embedded GBS/ECP records.
-    """
+    """Define an orbital or auxiliary basis set using assignments and data lines."""
 
     kind: Literal["basis"] = Field(
-        default="basis", description="Discriminator identifying the Basis variant."
+        default="basis", description="Selects a basis-set definition."
     )
     role: str = Field(
         default="basis",
-        description="Native role, such as basis or df_basis_scf.",
+        description="Psi4 basis setting to define, such as basis or df_basis_scf.",
         pattern=r"^(?:basis(?:_relativistic)?|df_basis_(?:scf|mp2|cc|sapt|sad|dct))$",
     )
     name: str | None = Field(
-        default=None, description="Optional user-supplied binding for this definition."
+        default=None, description="Optional Python name for this basis definition."
     )
     records: tuple[BasisRecord, ...] = Field(
         default=(),
-        description="Ordered assignments, labels, and embedded GBS/ECP records.",
+        description=(
+            "Basis assignments, section labels, and data lines in input order."
+        ),
     )
 
 
 class PointCharge(Model):
-    """Place one external point charge in the declared external units.
-
-    Attributes:
-        charge: External charge magnitude.
-        position: Three numeric Cartesian coordinates.
-    """
+    """A point charge at a specified position."""
 
     kind: Literal["point_charge"] = Field(
         default="point_charge",
-        description="Discriminator identifying the PointCharge variant.",
+        description="Selects a point charge in an external-potential block.",
     )
-    charge: Number = Field(description="External charge magnitude.")
+    charge: Number = Field(
+        description="Signed point charge in elementary-charge units."
+    )
     position: tuple[Number, Number, Number] = Field(
-        description="Three numeric Cartesian coordinates."
+        description="Charge x, y, and z coordinates in the block's length unit."
     )
 
 
 class ExternalAtom(Model):
-    """Place a nucleus in an external diffuse-charge fragment.
-
-    Attributes:
-        nucleus: Element, label, ghost notation, and optional isotope mass.
-        position: Three numeric Cartesian coordinates.
-    """
+    """An atom in an external diffuse-charge fragment."""
 
     kind: Literal["external_atom"] = Field(
         default="external_atom",
-        description="Discriminator identifying the ExternalAtom variant.",
+        description="Selects an atom in an external diffuse-charge fragment.",
     )
     nucleus: Nucleus = Field(
-        description="Element, label, ghost notation, and optional isotope mass."
+        description="Element label and any isotope or ghost-center settings."
     )
     position: tuple[Number, Number, Number] = Field(
-        description="Three numeric Cartesian coordinates."
+        description="Atom x, y, and z coordinates in the block's length unit."
     )
 
 
 class ExternalBasis(Model):
-    """Specify an external fragment's orbital or density-fitting basis.
-
-    Attributes:
-        role: Native external basis option.
-        value: Basis-reader value, retained as native text.
-    """
+    """An orbital or fitting basis for an external fragment."""
 
     kind: Literal["external_basis"] = Field(
         default="external_basis",
-        description="Discriminator identifying the ExternalBasis variant.",
+        description="Selects a basis setting for an external fragment.",
     )
     role: Literal["basis", "df_basis_scf"] = Field(
-        description="Native external basis option."
+        description="Basis setting for the external fragment."
     )
-    value: str = Field(description="Basis-reader value, retained as native text.")
+    value: str = Field(description="Basis-set name or Psi4 basis expression.")
 
 
 type ExternalRecord = Annotated[
     PointCharge | ExternalAtom | ExternalBasis | Units | FragmentSeparator,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description=(
+            "A charge, atom, basis setting, unit declaration, or fragment separator."
+        ),
+    ),
 ]
 
 
 class External(Model):
-    """Specify an external potential with ordered point and diffuse charges.
-
-    Attributes:
-        name: Optional native external-potential label.
-        records: Complete ordered external specification.
-    """
+    """Point and diffuse charges in Psi4's legacy external-block syntax."""
 
     kind: Literal["external"] = Field(
         default="external",
-        description="Discriminator identifying the External variant.",
+        description="Selects a legacy external-potential block.",
     )
     name: str | None = Field(
-        default=None, description="Optional native external-potential label."
+        default=None, description="Optional name for this external potential."
     )
     records: tuple[ExternalRecord, ...] = Field(
-        default=(), description="Complete ordered external specification."
+        default=(),
+        description=(
+            "Charges, atoms, basis settings, units, and separators in input order."
+        ),
     )
 
 
-class PCM(Model):
-    """Contain complete PCMSolver input at an explicit foreign-language boundary.
+class PCM(PCMFields, Model):
+    """A pcm block containing PCMSolver solvent settings.
 
     Attributes:
-        name: Optional native block label.
-        body: Embedded PCMSolver configuration, including its nested sections.
+        name: Optional block name as written in Psi4 input.
+        body: PCMSolver sections retained as text, including their line breaks.
     """
 
-    kind: Literal["pcm"] = Field(
-        default="pcm", description="Discriminator identifying the PCM variant."
-    )
-    name: str | None = Field(default=None, description="Optional native block label.")
-    body: str = Field(
-        description="Embedded PCMSolver configuration, including its nested sections."
-    )
 
-
-class CFour(Model):
-    """Contain literal CFOUR configuration without interpreting its language.
+class CFour(CFourFields, Model):
+    """A cfour block containing CFOUR configuration text.
 
     Attributes:
-        name: Optional native block label.
-        body: Literal embedded CFOUR input, including hashes and whitespace.
+        name: Optional block name as written in Psi4 input.
+        body: CFOUR text retained with its original line breaks.
     """
-
-    kind: Literal["cfour"] = Field(
-        default="cfour", description="Discriminator identifying the CFour variant."
-    )
-    name: str | None = Field(default=None, description="Optional native block label.")
-    body: str = Field(
-        description="Literal embedded CFOUR input, including hashes and whitespace."
-    )
 
 
 class Memory(Model):
-    """Specify the native memory directive, including legacy name prefixes.
-
-    Attributes:
-        amount: Numeric memory amount.
-        units: Native decimal or binary memory unit.
-        prefix: Prefix recognized by the reference memory substitution.
-    """
+    """The maximum memory allocated to Psi4."""
 
     kind: Literal["memory"] = Field(
-        default="memory", description="Discriminator identifying the Memory variant."
+        default="memory", description="Selects the memory limit for Psi4."
     )
-    amount: Number = Field(description="Numeric memory amount.")
+    amount: Number = Field(description="Memory limit in the chosen units.")
     units: str = Field(
-        description="Native decimal or binary memory unit.",
+        description="Memory unit, such as MB, GB, MiB, or GiB.",
         pattern=r"^[kKmMgGtTpPbBeE][iI]?[bB]$",
         examples=_MEMORY_UNITS_EXAMPLES,
     )
     prefix: str = Field(
         default="",
-        description="Prefix recognized by the reference memory substitution.",
+        description=(
+            "Text preceding the memory keyword in legacy input; usually empty."
+        ),
     )
 
 
 type NativeNode = Annotated[
     Molecule | SetOptions | Basis | External | PCM | CFour | Memory,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description=(
+            "A Psi4 molecule, settings, basis, external potential, solvent, "
+            "CFOUR, or memory block."
+        ),
+    ),
 ]
 
 
 class PythonTemplate(Model):
-    """Expose native children embedded anywhere in surrounding Python syntax.
-
-    Text segments are concatenated with emitted native children. Native children
-    remain directly accessible for inspection and editing. Validation checks the
-    complete assembled program so Python scope and indentation retain context.
-
-    Attributes:
-        parts: Ordered Python text segments and first-class native nodes.
-    """
+    """Python statements containing Psi4 blocks between text sections."""
 
     kind: Literal["python_template"] = Field(
         default="python_template",
-        description="Discriminator identifying the PythonTemplate variant.",
+        description="Selects Python text with Psi4 blocks inserted between its parts.",
     )
     parts: tuple[TemplatePart, ...] = Field(
-        description="Ordered Python text segments and first-class native nodes."
+        description=(
+            "Python text and Psi4 blocks in the order they appear in the input."
+        )
     )
 
 
 type TemplatePart = Annotated[
     Python | Molecule | SetOptions | Basis | External | PCM | CFour | Memory,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="Python text or a Psi4 block within a larger Python statement.",
+    ),
 ]
 
 type Node = Annotated[
@@ -396,20 +349,20 @@ type Node = Annotated[
     | PCM
     | CFour
     | Memory,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description="A Python statement, Psi4 block, or combination of the two.",
+    ),
 ]
 
 
 class Job(Model):
-    """Describe an ordered, serializable Psi4 job.
-
-    Attributes:
-        body: Ordered Python and native statements, including mixed templates.
-    """
+    """Python statements and Psi4 blocks that form a complete input."""
 
     body: tuple[Node, ...] = Field(
         default=(),
-        description="Ordered Python and native statements, including mixed templates.",
+        description="Python statements and Psi4 blocks in input order.",
     )
 
 

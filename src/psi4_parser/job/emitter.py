@@ -272,18 +272,23 @@ def _node(node: Node) -> str:
 
 
 def emit_job(job: Job, *, validate: bool = True) -> str:
-    """Emit a job and check native and contextual Python syntax by default.
+    r"""Write a structured job as complete Psi4 input text.
 
     Args:
-        job: Structured native job; its Python text is never executed.
-        validate: Run the established parser on the complete emitted source.
+        job: Ordered Python statements and native Psi4 blocks.
+        validate: Check the complete output, including Python scope rules,
+            before returning it; defaults to True.
 
     Returns:
-        Psithon source with one empty line between top-level components.
+        Psithon text with regenerated native block layout and one empty line
+        between top-level components.
 
     Raises:
-        JobSyntaxError: Emitted Python or native syntax is invalid.
-        ValueError: An atom reference or inline option specification is invalid.
+        JobSyntaxError: The output contains invalid Psi4 or Python syntax.
+        ValueError: An atom reference or inline option is invalid.
+
+    Example:
+        ``source = emit_job(read_job("set basis sto-3g\n"))``
     """  # noqa: DOC502 - Native emission helpers also raise ValueError.
     source = "\n\n".join(_node(node).rstrip("\r\n") for node in job.body)
     if source:

@@ -1,94 +1,86 @@
-# Synchronizing a Psi4 upgrade
+# Verify and apply a Psi4 upgrade
 
-Run from the parser checkout with a supplied, already-built reference:
+From the parser checkout, supply a clean Psi4 source checkout and matching,
+already-built launchers:
 
 ```sh
 uv run --locked psi4-sync \
-  --source /Users/jason/CLionProjects/psi4 \
-  --reference-python /Users/jason/.local/bin/psi4-python \
-  --binary /Users/jason/.local/bin/psi4
+  --source /path/to/psi4-source \
+  --reference-python /path/to/psi4-python \
+  --binary /path/to/psi4
 ```
 
-The default command applies a verified upgrade to this working tree. `--check`
-performs the same verification and produces an update patch without changing
-the accepted grammar, generated artifacts or compatibility manifest.
-`--offline` requires cached uv dependencies. `--timeout` sets each subprocess
-stage's limit in seconds, with a default of 1,800.
+The default command applies a verified upgrade to the working tree. Add `--check`
+to verify and produce a patch while leaving the accepted grammar, generated
+files, and compatibility manifest in place. `--offline` uses cached uv
+dependencies; `--timeout` limits each subprocess stage, defaulting to 1,800 seconds.
 
-The runner needs macOS or Linux, Git, uv, Python 3.15 and Java usable by
-antlr4-tools. Commands receive closed standard input; a missing runtime cannot
-turn an unattended job into an installation prompt. The reference account must
-have no `.psi4rc`. Keep the supplied Psi4 checkout outside the parser checkout.
-The pipeline does not fetch, build or install Psi4.
+The runner requires macOS or Linux, Git, uv, Python 3.15, and Java available to
+`antlr4-tools`. Provision the runtimes before an unattended run; regeneration
+stages receive closed standard input. Keep the Psi4 checkout outside this parser checkout and
+use a reference account without `.psi4rc`. Fetching and building Psi4 belongs to
+the caller's setup.
 
-The Python `Settings` API uses `pydantic-settings`, validates positive finite
-timeouts and preserves immutable configuration. It can load `PSI4_SYNC_PROJECT`,
-`PSI4_SYNC_SOURCE`, `PSI4_SYNC_PYTHON`, `PSI4_SYNC_BINARY`, `PSI4_SYNC_CHECK`,
-`PSI4_SYNC_OFFLINE` and `PSI4_SYNC_TIMEOUT` from the environment. Explicit
-constructor values take precedence. The Click CLI supplies its explicit options
-and documented defaults to that model.
+## What is checked
 
-## Verification and promotion
+1. Match the clean source revision to Psi4's build metadata and installed reader
+   files. Compare both launchers' versions, exported names, and reader fingerprints,
+   preserving launcher symlink basenames.
+2. Compare reader and language fingerprints with [psi4.json](psi4.json).
+   Python hashes describe parsed code, so comments and formatting can change.
+   C++ reader hashes use complete file bytes. Reader-code changes, added or removed
+   readers, Python minor-version changes, and Unicode changes require assessment.
+3. Copy the parser into an isolated candidate, refresh the two namespace-name
+   tables, and install its locked dependencies.
+4. Regenerate with ANTLR and run Ruff, formatting checks, strict mypy, and the full
+   test suite against the supplied Psi4 launchers.
+5. Check all `tests/**/input.dat` files in the supplied upstream checkout, including
+   new inputs. Compare translated Python abstract syntax trees (ASTs) with Psi4,
+   recheck curated reference fixtures, and require JSON and Psithon round trips
+   for accepted job models.
+   Missing dependencies and newly accepted negative cases fail verification.
+6. Check that the parser working tree stayed unchanged during verification.
+   Publish accepted artifacts and write the compatibility manifest last.
+   Ordinary write failures restore the previous files.
 
-1. Verify a clean source revision against Psi4's build metadata and installed
-   reader bytes. Probe both supplied launchers and compare their inventories,
-   versions and reader fingerprints. Launcher symlink basenames are preserved.
-2. Compare reader and Python language fingerprints with `psi4.json`. Python
-   source hashes use ASTs, so ordinary comment and formatting changes pass.
-   C++ reader files use complete byte hashes. Added or removed reader files,
-   changed reader code, Python minor versions and Unicode tables stop the run.
-3. Copy the parser into an isolated candidate and refresh only its two
-   namespace inventories. Install the candidate with `uv sync --locked`.
-4. Regenerate using ANTLR, then require Ruff, formatting, strict mypy and the
-   full test suite with both real-Psi4 reference variables populated.
-5. Check the *current supplied upstream checkout's* `tests/**/input.dat` files,
-   including newly added inputs. Compare their translated Python ASTs with
-   Psi4. Recheck reference acceptance for every curated CPython/interpolation
-   fixture. Require native job AST round trips through JSON and emitted Psithon
-   for accepted reference cases. Grammar-to-model coverage tests run with the
-   suite; the candidate also retains the optional backend's typing stubs.
-   Missing dependencies and newly accepted negatives fail the run.
-6. Detect edits to this working tree made while verification was running. On
-   success, replace the grammar and generated artifacts, publishing the new
-   compatibility manifest last. Failed writes restore the previous artifacts.
+Generation uses `psi4-regenerate`, including its lexer-base import adjustment.
+The refreshed name tables remain in the grammar. Normal parser use relies on
+the recorded compatibility data; Psi4 is required for these upgrade checks.
 
-Synchronization invokes the existing ANTLR regeneration command, including its
-existing lexer-base import adjustment; it adds no generated-code postprocessing.
-Inventories remain in the grammar. Psi4 is needed only for these maintenance
-checks, not for normal parser validation.
+## Reports and recovery
 
-Each run creates `.cache/psi4-sync-*/report.json`, individual stage logs and, on
-success, `update.patch`. The differential report gives input counts and concrete
-mismatches. Failed candidates are retained for diagnosis; successful candidates
-are removed. Cache directories can be removed after reports have been collected.
-The POSIX lock prevents concurrent synchronizations and releases automatically
-when the process exits. Individual file replacements are atomic and ordinary
-write failures roll back; a machine crash during multi-file promotion can require
-rerunning the command. The accepted manifest is written last.
+Each run writes `.cache/psi4-sync-*/report.json` and stage logs. Successful runs
+also write `update.patch`, including when `--check` is used. Reports identify
+reference versions, changed fingerprints, input counts, and mismatches.
+Failed candidates remain available for diagnosis; successful candidates are
+removed. Collect the reports before removing cache directories.
 
-## Scope of unattended updates
+A process lock prevents concurrent synchronizations. File replacements are atomic
+individually, with rollback for ordinary write failures. A machine crash during
+publication can require another run; the accepted manifest is written last.
 
-New namespace exports, physical-constant names, unrelated Psi4 changes and Python
-source comments can pass unattended. Changes to guarded preprocessing or molecule
-readers require a grammar assessment. The failing report names the changed
-fingerprints and reference versions. After updating the grammar and regression
-cases for an assessed change, update the relevant baseline fingerprints and rerun
-the entire pipeline. Never advance the baseline simply to silence an alert.
+## Which updates can run unattended
 
-This is regression-based compatibility verification, not a proof of equivalence.
-Scientific option schemas, basis contents and calculation correctness remain with
-Psi4. PCM differential checks use controlled empty solver output to check wrapper
-syntax and brace boundaries; they do not certify PCMSolver's scientific schema.
-The baseline records this coverage mode explicitly.
+New exported names, physical-constant names, unrelated Psi4 changes, and Python
+source comments can pass verification automatically. Changes to guarded
+preprocessing or molecule readers require reviewing the grammar and adding
+regression cases. Update baseline fingerprints after that assessment, then run
+the full pipeline again. Advancing fingerprints alone bypasses the evidence the
+baseline is meant to preserve.
 
-## Calling from automation
+Verification provides regression evidence. Psi4 remains responsible for scientific
+option schemas, basis contents, and calculation results. PCM checks use controlled
+empty solver output to test preprocessing and brace boundaries; the manifest
+records that mode separately from scientific PCMSolver validation.
 
-Run the same command after provisioning a matching reference build. The command
-is non-interactive and returns zero only on verified success; failed preflight,
-reader changes, tool errors and failed tests return nonzero. Use `--check` for a
-verification job that produces a proposed patch. Omit it for unattended local
-working-tree promotion. Committing or publishing the resulting update belongs
-to the caller's release process.
+## Automation and Python settings
 
-Reports and proposed patches stay in the local cache. No remote workflow,
-artifact uploads, Git pushes or recurring jobs are configured by this pipeline.
+The command is noninteractive and returns 0 only after verified success.
+Use `--check` to produce a proposed patch; omit it to update the local working
+tree. The caller controls committing and publishing the result.
+
+For Python callers, `Settings` accepts the environment variables
+`PSI4_SYNC_PROJECT`, `PSI4_SYNC_SOURCE`, `PSI4_SYNC_PYTHON`, `PSI4_SYNC_BINARY`,
+`PSI4_SYNC_CHECK`, `PSI4_SYNC_OFFLINE`, and `PSI4_SYNC_TIMEOUT`. Explicit constructor
+values take precedence. The CLI supplies its required paths and command-line
+defaults explicitly.

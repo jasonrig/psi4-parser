@@ -1,4 +1,16 @@
-"""Construct, inspect, and serialize native Psi4 jobs."""
+"""Read, edit, and write Psi4 input as ordered Python and native components.
+
+read_job(source) returns a Job whose body contains typed molecule, settings,
+basis, and other native blocks alongside Python text. Construct a new input
+with Job(body=(...)), and write it with emit_job(job).
+
+Molecules expose atom IDs for coordinate edits and preserve the order of their
+records. Number stores input spelling such as "1.2D-3"; Variable names a
+geometry parameter. Use model_dump_json(), model_validate_json(), and
+model_json_schema() on Job to save, load, and describe the document format.
+
+For geometry transformations and calculation helpers, use psi4_parser.builder.
+"""
 
 from psi4_parser.job.emitter import emit_job
 from psi4_parser.job.model import (

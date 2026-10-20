@@ -1,90 +1,79 @@
 # Parser fixtures
 
-All 2,992 input files are curated here by expected parser result: 1,359 positive
-and 1,633 negative.
+The corpus contains **2,992 `.dat` files**: 1,359 accepted inputs and 1,633
+rejected inputs. Counts describe parser results; accepted files can still depend
+on variables, files, or modules from their original test setup.
 
-| Directory or file | Count | Expected result |
-| --- | ---: | --- |
-| `positive/psi4/` | 662 | Accepted |
-| `positive/parser/` | 83 | Accepted |
-| `positive/helium.dat` | 1 | Accepted |
-| `negative/parser/` | 27 | Rejected with at least one diagnostic |
-| `positive/conformance/` | 245 | Accepted |
-| `negative/conformance/` | 245 | Rejected with at least one diagnostic |
-| `positive/reference/cpython/` | 88 | Accepted |
-| `negative/reference/cpython/` | 633 | Rejected with at least one diagnostic |
-| `positive/reference/interpolation/` | 280 | Accepted |
-| `negative/reference/interpolation/` | 728 | Rejected with at least one diagnostic |
+| Directory or file                   | Count | Expected result         |
+| ----------------------------------- | ----: | ----------------------- |
+| `positive/psi4/`                    |   662 | Accepted                |
+| `positive/parser/`                  |    83 | Accepted                |
+| `positive/helium.dat`               |     1 | Accepted                |
+| `negative/parser/`                  |    27 | At least one diagnostic |
+| `positive/conformance/`             |   245 | Accepted                |
+| `negative/conformance/`             |   245 | At least one diagnostic |
+| `positive/reference/cpython/`       |    88 | Accepted                |
+| `negative/reference/cpython/`       |   633 | At least one diagnostic |
+| `positive/reference/interpolation/` |   280 | Accepted                |
+| `negative/reference/interpolation/` |   728 | At least one diagnostic |
 
-`positive/psi4/` contains unmodified `tests/**/input.dat` files from Psi4
-commit `60c9b2a773c05abc26991c5ed48cf9862cdb4978`, preserving its test directory
-structure and license files. `positive/helium.dat` is the HF/STO-3G job used
-for the calculation check.
+## Sources and licenses
 
-The `parser/` directories contain snapshots of the local test inputs, including
-the installed-preprocessor comparisons. Their paths identify the test module,
-function and case ID or one-based parameter index. Duplicate inputs used by
-different tests are retained.
+`positive/psi4/` contains unchanged `tests/**/input.dat` files from Psi4 commit
+`60c9b2a773c05abc26991c5ed48cf9862cdb4978`, preserving their directory structure.
+The copied [COPYING](positive/psi4/COPYING) and
+[COPYING.LESSER](positive/psi4/COPYING.LESSER) files retain the upstream licenses.
+`positive/helium.dat` is the HF/STO-3G input used for a calculation check.
 
-The `conformance/` directories contain matched pairs with identical relative
-paths. They cover binding and scope rules, parameters, annotations, exception
-groups, comprehensions, patterns, calls, assignment targets, literals, Unicode,
-comments, future imports, and native Psithon fields. Most Python statements use an `if False` guard
-so launcher checks validate compilation without evaluating undefined names.
-Native molecule cases perform only small geometry construction, without energy
-calculations. Every fixture is exercised directly by `tests/test_fixtures.py`.
-Future-import fixtures remain at module scope to exercise the actual hoisting
-and compiler-flag behavior.
+The `parser/` directories snapshot local test inputs, including comparisons with
+the installed preprocessor. Paths identify the test module, function, and case
+ID or one-based parameter index. Inputs used by several tests are retained at
+each corresponding path.
 
-The CPython corpus contains 721 independent examples from `test_syntax.py`,
-`test_named_expressions.py`, `test_patma.py` and `test_type_params.py` on the
-upstream `3.15` branch. Each was translated by the installed Psi4 preprocessor
-and checked by its bundled compiler without executing the job. The manifest
-at `reference/cpython-provenance.json` records origins, source hashes and
-reference outcomes; `reference/CPYTHON-LICENSE` supplies the upstream license.
-These are reference regressions, so they need not have one-to-one counterparts.
+The CPython corpus contains 721 examples from the upstream `3.15` branch's
+`test_syntax.py`, `test_named_expressions.py`, `test_patma.py`, and
+`test_type_params.py`. Each was translated by Psi4 and checked by its bundled
+Python compiler. [The provenance manifest](reference/cpython-provenance.json)
+records origins, source hashes, and outcomes;
+[CPYTHON-LICENSE](reference/CPYTHON-LICENSE) retains the license.
 
-The interpolation corpus covers all six f/t-string prefixes, single and triple
-quotes of both styles, 21 payload shapes, and complete/incomplete endings:
-1,008 cases in total. Every result was checked by the installed Psi4 preprocessor
-and bundled Python compiler without executing the job. The matrix found no
-remaining mismatches or validator crashes. Generation parameters, input hashes
-and reference outcomes are in `reference/interpolation-provenance.json`.
+The interpolation corpus contains 1,008 combinations of six f/t-string prefixes,
+both quote styles, single and triple quotes, 21 content patterns, and complete or
+incomplete endings. Its [manifest](reference/interpolation-provenance.json)
+records generation parameters, hashes, and reference outcomes.
 
-The matched conformance cases additionally exercise Python scope and binding
-interactions, exact parameter separators, class-private names, open sequence
-patterns, native option expression quoting, basis layout conflicts and lexical
-preprocessing. Physical NULs, a BOM and carriage returns are intentional in
-the lexical fixtures. Tests decode their bytes without newline translation.
+## Coverage
 
-Literal-wrapper pairs check incomplete escapes and broken triple quotes in
-CFOUR, GBS, PubChem and XYZ comment text. Interpolated-string cases distinguish
-literal chunks, format specifications and replacement expressions, including
-protected CFOUR content. Native field cases cover Unicode decimals, numeric
-word characters, numeric and ignored header names, generated Python identifiers,
-and numeric calls that require Python number syntax. Binding pairs also account
-for names that Psi4 introduces or reads while expanding native statements.
+Matched `conformance/` cases have identical relative paths under `positive/` and
+`negative/`. They cover Python scope, bindings, parameters, annotations, exception
+groups, comprehensions, patterns, calls, assignments, literals, Unicode, comments,
+future imports, and Psithon fields. Reference corpora contain independent cases
+and do not require matched counterparts.
 
-Preprocessing pairs exercise transformations inside strings, namespace aliases,
-the default prelude, first-line `extract_subsets`, future-line ordering and
-literal values changed by comments or blank-line handling. Native Unicode-space
-cases distinguish broad regex separators from QCEElemental's narrower geometry
-separators. Two local PCM positives were corrected to indent their inner closing
-braces; a separate negative records the first column-zero boundary. Reference
-tests isolate that boundary with controlled solver output when PCMSolver is
-unavailable.
+Further cases exercise:
 
-Native-expression pairs cover parenthesized calls, function defaults, f-string
-fields and explicit line continuations. They distinguish single-call expansions
-from multiple calls in an expression, required arguments after defaults, and
-invalid conversions. Relative lazy imports of modules named `__future__` are
-paired with the forbidden absolute future-import form.
+- Psi4's transformations inside strings, namespace expansion, default imports,
+  `extract_subsets`, future-line order, and generated names.
+- Invalid escapes and triple quotes in CFOUR, basis data, PubChem, and XYZ titles;
+  f/t-string literal text, fields, and format specifications.
+- Unicode names, numbers, and separators, distinguishing Psi4 regex whitespace
+  from QCEElemental's geometry separators.
+- Native statements used in expressions, function defaults, interpolation fields,
+  and backslash continuations, including expansions to several Python calls.
+- PCM's first column-zero closing brace, tested with controlled solver output
+  when PCMSolver is unavailable.
 
-The initial differential audit found 55 false accepts among 56 matched negative
-cases. Those cases now fail ANTLR validation; their nearby positive variants
-remain accepted. The optional launcher suite asserts both the exit status and
-the reported error family, so a missing name at execution time does not count
-as an expected syntax rejection.
+Physical NULs, byte-order marks, and carriage returns in lexical cases are
+intentional. Tests decode bytes without newline translation.
 
-Accepted fixtures can require variables, files or optional modules from their
-test setup; parser acceptance does not imply a standalone runnable job.
+## Running the checks
+
+`tests/test_fixtures.py` checks every input. Conformance statements generally use
+`if False` so launcher checks compile them without evaluating undefined names;
+future imports remain at module scope. Native molecule cases construct small
+geometries. Reference corpus checks compare preprocessing and compilation.
+
+The optional launcher checks require both the expected exit status and error
+family, so a runtime missing-name error cannot count as a syntax rejection.
+See the [upgrade workflow](../../compatibility/README.md) for checks against a
+supplied Psi4 build.

@@ -441,17 +441,20 @@ def _statement(result: ParseResult, node: ParserRuleContext) -> Node:
 
 
 def read_job(source: str | ParseResult) -> Job:
-    """Construct first-class native nodes without reading or executing job data.
+    """Read Psi4 input into editable molecule, settings, and Python components.
 
     Args:
-        source: Input text or an existing ANTLR parse result.
+        source: Complete Psithon text, or a result returned by psi4_parser.parse().
 
     Returns:
-        JSON-compatible job with Python-only source and explicit native children.
+        A job whose body follows input order. Native blocks have typed fields;
+        Python statements remain source text. Use model_dump_json() to save it
+        or emit_job() to generate input text after editing. Parsed atoms receive
+        IDs a1, a2, and so on within each molecule.
 
     Raises:
-        JobSyntaxError: Native or contextual Python validation rejects the input.
-        ValueError: A native production has no explicit model conversion.
+        JobSyntaxError: The source contains invalid Psi4 or Python syntax.
+        ValueError: A native construct cannot be converted to a job component.
     """  # noqa: DOC502 - Native conversion helpers also raise ValueError.
     result = parse(source) if isinstance(source, str) else source
     if result.diagnostics:

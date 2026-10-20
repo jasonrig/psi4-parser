@@ -32,11 +32,12 @@ from psi4_parser.formatting import format_source
 
 
 class OptionScope(Model):
-    """Identify a global or module-local option whose state must be restored."""
+    """A Psi4 setting whose previous value must be restored."""
 
-    option: str = Field(description="Uppercase option name.")
+    option: str = Field(description="Psi4 setting name in uppercase.")
     module: str | None = Field(
-        default=None, description="Uppercase module name, or None for a global option."
+        default=None,
+        description="Psi4 module name in uppercase, or null for a global setting.",
     )
 
     def arguments(self) -> list[str]:
@@ -567,14 +568,41 @@ def _compile_job(spec: c.JobSpec) -> CompiledJob:
 
 
 def lower_job(spec: c.JobSpec) -> native.Job:
-    """Return a compiled AST after validating bindings and complete input.
+    """Convert a composed builder job into editable Psi4 input statements.
+
+    Args:
+        spec: Molecules, settings, calculations, and Python steps in execution order.
+            References must name earlier declarations or assignments on every
+            execution path. Python components declare their names with provides.
+
+    Returns:
+        A ``psi4_parser.job.Job`` with typed molecule and option blocks and
+        Python text. Use emit_job() to write it, or render_job() to produce text
+        directly from the builder job.
 
     Raises:
-        CompilationError: A component, reference, or emitted input is invalid.
+        CompilationError: A name, reference, atom selection, constraint, or input
+            statement is invalid. Its diagnostics locate the component and field.
     """  # noqa: DOC502 - The shared compilation path retains field diagnostics.
     return _compile_job(spec).job
 
 
 def render_job(spec: c.JobSpec) -> str:
-    """Return validated Psithon with the agreed formatting style."""
+    """Create complete Psi4 input text from a composed builder job.
+
+    Args:
+        spec: Molecules, settings, calculations, and Python steps in execution order.
+            References must name earlier declarations or assignments on every
+            execution path. Python components declare their names with provides.
+
+    Returns:
+        Validated Psithon text, ready to save as an input file. It includes the
+        Python needed for calculation-local settings and constraints.
+
+    Invalid specifications raise CompilationError with diagnostics locating
+    the component and field to correct.
+
+    Example:
+        ``Path("input.dat").write_text(render_job(job), encoding="utf-8")``
+    """
     return format_source(_compile_job(spec).source)

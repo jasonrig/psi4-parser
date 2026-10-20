@@ -1,9 +1,8 @@
 # Build Psi4 jobs with Python
 
-Use `psi4_parser.builder` to construct inputs from reusable components, transform
-molecules, and save complete specifications as JSON. Rendering checks the whole
-input and applies the standard formatting style. It does not execute Python or
-run calculations.
+Use `psi4_parser.builder` to compose inputs, transform molecules, and save job
+specifications as JSON. Components describe what Psi4 should do; `render_job()`
+turns them into a complete, validated input.
 
 ## Compose components
 
@@ -16,24 +15,34 @@ job = JobSpec() | h2 | options(basis="cc-pvdz") | energy("scf", molecule=h2.ref)
 source = render_job(job)
 ```
 
-A molecule declaration's `.ref` refers to its explicit Python name. Declare it
-before using it. Calculations can use `assign="e_scf"` or
-`assign=("e_scf", "wfn")` for tuple unpacking. A calculation with one assigned
-name exposes `.ref` for subsequent calls; use `Reference(name="wfn")` to select
-an unpacked binding.
+`compose(*components)`, `a + b`, and `JobSpec() | a | b` concatenate components
+in order. Existing specifications are flattened. Repeated settings and
+calculations keep their positions and effects. Components and transformations
+return new values, so they can be reused.
 
-`compose(*components)` concatenates components and existing specifications.
-`+` is an equivalent shorthand. Composition preserves every component in order:
-it does not merge options, insert dependencies, or deduplicate declarations.
-Duplicate declarations and unresolved structured references fail at compilation.
+`molecule(name, geometry)` declares a named molecule. Place it before any step
+using its `.ref`. Calculations can assign results with `assign="e_scf"` or unpack
+several values, for example:
 
-`pipe(value, *stages)` is the named counterpart to `|`. Job components act as
-append stages. Molecules use `|` for transformations; fragment assembly has its
-own named operation.
+```python
+from psi4_parser.builder import Molecule, Reference, call, energy, molecule
+
+h2 = molecule("h2", Molecule.from_xyz("2\nH2\nH 0 0 0\nH 0 0 .74\n"))
+scf = energy("scf", molecule=h2.ref, return_wfn=True, assign=("e_scf", "wfn"))
+dipole = call("psi4.oeprop", Reference(name="wfn"), "DIPOLE")
+```
+
+A component with one assigned result exposes `.ref`. For unpacked results, use
+`Reference(name=...)` to select a name. Strings are literal values;
+`Expression(source=...)` supplies Python code evaluated when the input runs.
+
+`pipe(value, *stages)` applies functions from left to right, like `|`.
+Molecule stages transform geometry; job components append themselves to a job.
+Use `assemble_fragments()` to combine molecular parts.
 
 ## Nest composed jobs
 
-Use ordinary job components as the bodies of loops and conditionals:
+Loops and branches take composed jobs as their bodies:
 
 ```python
 from psi4_parser.builder import (
@@ -55,20 +64,22 @@ methods = for_each(
 job = compose(h2, options(basis="cc-pvdz"), methods)
 ```
 
-A body is a `JobSpec`, so it accepts the same composition and pipeline operations
-as a complete job. `for_each`, `if_else`, `while_loop`, and `with_context` build
-`ForLoop`, `Conditional`, `WhileLoop`, and `WithBlock` components. Conditions,
-iterables, and context managers accept literal values, references, or explicit
-`Expression` values. Empty and comment-only bodies receive `pass`.
+- `for_each(target, iterable, body)` repeats steps over a sequence.
+- `if_else(condition, body, otherwise=...)` chooses a branch.
+- `while_loop(condition, body)` repeats while its condition is true.
+- `with_context(context, body, target=...)` enters a context manager.
+  `WithBlock(items=(WithItem(...), ...), body=...)` enters several.
 
-`if_else(condition, body, otherwise=...)` selects between two specifications.
-`for_each` and `while_loop` also accept `otherwise`, with Python's loop-else
-meaning: it runs after normal exhaustion, and is skipped after `break`.
-Use nested conditionals in an alternative body for additional branches.
-`with_context(context, body, target="handle")` enters one context manager;
-`WithBlock(items=(WithItem(...), ...), body=...)` enters several.
+Conditions, iterables, and context managers accept values, references, or
+`Expression` objects. Use an expression for a Python test such as
+`Expression(source="e_scf < -1.0")`; a string remains literal text. Empty and
+comment-only bodies receive `pass`.
 
-Use `TryBlock` for exception handling and cleanup:
+Loops accept `otherwise`, following Python's loop-else rule: it runs after normal
+completion, including zero iterations, and is skipped by `break`.
+Use nested conditionals in `otherwise` for additional branches.
+
+For exception handling and cleanup:
 
 ```python
 from psi4_parser.builder import (
@@ -92,35 +103,31 @@ guarded = TryBlock(
             body=compose(Python(source="print(error)")),
         ),
     ),
-    finally_body=compose(Python(source="print('Finished calculation attempt')")),
+    finally_body=compose(Python(source="print('Calculation attempt finished')")),
 )
 ```
 
-`otherwise` on a try block runs only after its body succeeds. Omit a handler's
-`exception` for a bare catch-all handler; it must be last. An exception binding
-is available in its handler and is deleted afterward, as in Python.
+`TryBlock.otherwise` runs after a successful body. `finally_body` runs on success
+or failure. A handler with no `exception` catches any exception and must be last.
+Its exception name is available inside that handler and is deleted afterward.
 
-Structured references require a definitely bound name. A name assigned in both
-conditional branches is available afterward. A new loop result or loop target
-is not guaranteed, because a loop may run zero times. To update a result in a
-loop and use it afterward, initialize it before the loop. Nested calculation
-and call assignments may update existing bindings; top-level duplicate checks
-remain in place. Molecule declarations remain unique on each possible path.
-Branches may choose different coordinates for the same named molecule; later
-typed constraints require a common atom layout and compatible frame settings.
+### Names across branches and loops
 
-Context managers can suppress exceptions, so assignments in their bodies are
-not guaranteed afterward. For multiple managers, an earlier manager can also
-suppress an error while entering a later one. Tuple-target unpacking can fail
-and be suppressed. Cleanup code cannot assume that an earlier statement in the
-try body succeeded. The compiler accounts for these paths conservatively.
+A structured reference must name a value assigned on every path that reaches
+it. Assignments in both branches of an `if_else` are available afterward. A loop
+can run zero times, so initialize a result before the loop if later steps need
+it. Context managers can suppress exceptions, leaving body assignments or later
+context-entry targets unset. Cleanup code must also allow for a failed try body.
 
-Binding checks cover structured components and trust the explicit names in
-`Python.provides`; arbitrary Python side effects are not inferred. Functions,
-classes, and pattern matching remain available through Python-source components.
-All blocks support attached comments and JSON serialization. Native children
-remain accessible in the lowered tree, and complete-input validation checks
-Python context rules such as the placement of `break` and `continue`.
+Nested calculations and calls may update existing names. Top-level duplicate
+assignments are rejected, and molecule declarations must be unique on each path.
+Branches may declare different geometries under the same name; later constraints
+require the branches to agree on atom layout and frame settings.
+
+Use `Python(source=..., provides=(...))` to declare names supplied by a Python
+fragment. The compiler trusts those declarations. Python fragments also support
+functions, classes, and pattern matching. Complete-input checks enforce scope
+rules, including where `break`, `continue`, and `return` are allowed.
 
 ## Attach block comments
 
@@ -128,29 +135,30 @@ Python context rules such as the placement of `break` and `continue`.
 from psi4_parser.builder import Memory, compose, options, render_job
 
 memory = Memory(amount=1.0, units="GiB").with_comment("Memory for this job.")
-basis = options(basis="cc-pvdz").with_comment(
-    "Basis for the comparison.\n\nKeep this setting across all jobs."
-)
+basis = options(basis="cc-pvdz").with_comment("Basis for the comparison.\n\nKeep across jobs.")
 source = render_job(compose(memory, basis))
 ```
 
-Pass plain text without generated hash prefixes. Each line becomes a standalone
-`#` comment, and empty lines become `#`. Comments precede their component; blank
-lines between components go above its comment group. They are retained in JSON
-and when reusing components. Inline attachments and comments on individual
-atoms or assignments are not supported.
+Supply plain text without leading hashes. Each line becomes `# text`; empty lines
+become `#`. Comments appear immediately before their component at its indentation.
+Required separators go above the comment group. Attachments stay with components
+through composition, immutable updates, and JSON round trips.
+
+Attachments apply to whole components, including control-flow blocks.
+Use input text for comments within atom rows, assignments, or statement lines.
 
 ## Import geometry and specify states
 
-`Molecule.from_xyz(text, state=...)` and `Molecule.from_file(path,
-file_format=...)` import one structure. XYZ imports leave charge and multiplicity
-unspecified unless supplied. Other formats retain Open Babel's resolved state,
-which may include format defaults. No import infers Psi4 fragments from bonds.
+`Molecule.from_xyz(text, state=...)` and `Molecule.from_file(path, file_format=...)`
+read one structure with coordinates. XYZ leaves charge and multiplicity
+unspecified unless supplied; other formats use Open Babel's resolved state,
+including format defaults. Generate coordinates before importing a structure
+that contains only connectivity.
 
-Coordinate-only formats use explicit `perceive_bonds=True` to request bond
-perception. Supplied connectivity remains available through `molecule.bonds`.
-Imports retain stable atom IDs (`a1`, `a2`, ...), isotope labels, and ghost labels.
-Manual `Nucleus` values can also specify an explicit isotope mass.
+Atom IDs are `a1`, `a2`, and so on in file order. Imports retain isotope and ghost
+labels and supplied bonds. Use `perceive_bonds=True` to infer bonds from positions.
+Connectivity is available through `molecule.bonds`; define Psi4 fragments
+explicitly. Manual `Nucleus` objects can also specify isotope masses.
 
 ```python
 from psi4_parser.builder import (
@@ -167,78 +175,16 @@ right = left | translate((angstrom(3), angstrom(0), angstrom(0)))
 dimer = assemble_fragments(("left", left), ("right", right), state=singlet)
 ```
 
-Assembly namespaces IDs, for example `left:a1`, and preserves fragment states.
-The overall state must be specified when needed; combined multiplicity is never
-inferred. Nested fragment structures with an additional subsystem-wide state
-must be flattened explicitly because Psithon cannot express that hierarchy.
+Assembly prefixes atom IDs, such as `left:a1`, and parameter names, such as
+`left_R`. It preserves fragment states; choose the overall charge and multiplicity
+separately when needed. Nested fragments with an additional subsystem-wide state
+must be flattened because Psithon cannot express that hierarchy.
 
-Manual molecules support Cartesian and Z-matrix records, geometry parameters,
-external geometry sources, effective fragments, symmetry, and frame directives.
-`GeometrySource` keeps a filename or PubChem query unresolved. Numerical
-transformations require resolved atomic coordinates.
-
-## Molecular symmetry
-
-Set `symmetry="c2v"` when constructing a `Molecule` to request that computational
-subgroup. The setting is retained in JSON and through coordinate conversions,
-and emits `symmetry c2v` in the molecule block. Leave it as `None` for Psi4's
-automatic detection, or use `"c1"` to request a calculation without exploiting
-point-group symmetry. Psi4 uses a supported Abelian subgroup even when the full
-molecular point group is non-Abelian, such as tetrahedral methane.
-
-Conversions preserve the geometry within their stated tolerances and retain
-atom identities; they do not permute equivalent atoms to obtain a match. Supply
-the complete geometry: the builder never expands a symmetry-unique subset of
-atoms or symmetrizes coordinates automatically.
-
-Geometry edits check an explicit computational symmetry request with a
-`1e-9` angstrom positional tolerance, stricter than Psi4's `1e-8` bohr symmetry
-check. If it no longer fits, they emit
-`SymmetryChangedWarning` and adopt a verified lower subgroup. Stretching only
-one O–H bond in `c2v` water, for example, retains `cs`; a distortion with no
-remaining supported symmetry adopts `c1`. Every atom, isotope mass, ghost role,
-fragment, and state is retained. The check does not adjust other coordinates.
-Unresolved geometry cannot establish symmetry, so an edit that leaves it
-unresolved warns and uses `c1`. An unset request remains automatic.
-
-Use `with_symmetry("c1")` to relax symmetry intentionally before an edit. This
-changes the request without changing any coordinates or parameter references,
-and subsequent edits do not warn about symmetry loss. `with_symmetry(None)`
-restores automatic Psi4 detection. Selecting another supported subgroup checks
-that it fits the resolved geometry first. Axis-qualified requests require
-`fixed_orientation=True` for independent verification.
-
-```python
-from psi4_parser.builder import Molecule, angstrom, set_distance, with_symmetry
-
-water = Molecule.from_xyz("3\nWater\nO 0 0 0\nH 0 .757 .586\nH 0 -.757 .586\n")
-relaxed = (
-    water
-    | with_symmetry("c1")
-    | set_distance(("a1", "a2"), angstrom(1.2), moving=("a2",))
-)
-```
-
-`detect_point_group(geometry)` reports the full Schoenflies group using MolSym,
-with a `1e-6` angstrom detection tolerance. For example, tetrahedral methane is
-`"Td"`, although a Psi4 calculation uses a supported Abelian subgroup. Linear
-groups are returned as `"Cinfv"` or `"Dinfh"`. Detection uses disposable arrays;
-it never adopts recentered or symmetrized backend coordinates. Dummy reference
-atoms are excluded, and custom isotope masses are retained.
-
-MolSym distinguishes sites by mass. If equal-mass sites have different elements
-or ghost roles, full-group detection raises `ValueError` rather than conflate
-them. The independent edit checks still distinguish those roles.
-
-Irrep-indexed options, such as `DOCC`, retain their supplied values after a
-symmetry change; choose their entries for the new computational group.
-
-To keep equal bonds or angles linked, reuse one `Parameter` in a hand-authored
-Z-matrix, then change the shared value with `with_parameter`. Conversion does
-not infer shared parameters from coincidentally equal values. Keep Cartesian
-coordinates and the appropriate frame directives when laboratory axes matter.
-Verification searches up to 10,000 candidate frames; a request that cannot be
-verified within that limit is relaxed conservatively, with a warning.
+Manual molecules can contain Cartesian or Z-matrix coordinates, parameters,
+geometry sources, effective fragment potential (EFP) placements, and symmetry
+and frame settings.
+`GeometrySource` retains a file path or PubChem query for Psi4 to resolve.
+Numerical transformations require resolved atomic coordinates.
 
 ## Transform molecules
 
@@ -253,22 +199,68 @@ changed = (
 )
 ```
 
-`set_distance`, `set_angle`, and `set_dihedral` require the moving side explicitly.
-It must contain the final coordinate endpoint and exclude its fixed reference
-atoms. Other selected atoms move rigidly with that endpoint.
+`set_distance`, `set_angle`, and `set_dihedral` require a `moving` selection.
+Include the final coordinate endpoint and exclude the preceding reference atoms.
+Selected atoms move together; other atoms retain their positions.
+`connected_side(molecule, fixed, moving)` finds one side of a known bond.
+A bond in a ring requires an explicit selection.
 
-`connected_side(molecule, fixed, moving)` can select the connected side of an
-explicit bond. Ring cuts are ambiguous and require a manual selection.
+`translate`, `rotate`, and `reorder_atoms` preserve IDs and molecular metadata.
+Reordering must retain fragment order and keep Z-matrix references valid.
+`with_parameter(name, value)` replaces an existing geometry parameter while
+retaining its references.
 
-`translate`, `rotate`, and `reorder_atoms` retain atom identities and metadata.
-Reordering stays within fragments and must keep Z-matrix anchors valid. Use
-`with_parameter(name, value)` to replace a declared symbolic coordinate.
-Numerical edits require Cartesian, resolved coordinates: apply `to_cartesian`
-explicitly before discarding symbolic relationships.
+Numerical edits require resolved Cartesian coordinates. Use `to_cartesian()` to
+resolve symbolic or Z-matrix geometry first. Keep the symbolic representation
+when parameters should remain linked to coordinates.
 
 Lengths use `angstrom()` or `bohr()`; angles use `degrees()` or `radians()`.
-`positions(molecule)` returns resolved positions in angstroms. Numerical values
-must be finite, and dimensioned parameters must match their coordinate.
+Values must be finite and have the coordinate's dimension.
+`positions(molecule)` returns resolved `(x, y, z)` values in angstroms by atom ID.
+
+## Molecular symmetry
+
+Supply every atom. The builder retains coordinates and identities rather than
+expanding symmetry-unique atoms or adjusting coordinates to force symmetry.
+Set `Molecule.symmetry` or use a stage to choose the computational point group:
+
+```python
+from psi4_parser.builder import Molecule, angstrom, set_distance, with_symmetry
+
+water = Molecule.from_xyz("3\nWater\nO 0 0 0\nH 0 .757 .586\nH 0 -.757 .586\n")
+relaxed = (
+    water
+    | with_symmetry("c1")
+    | set_distance(("a1", "a2"), angstrom(1.2), moving=("a2",))
+)
+```
+
+`with_symmetry("c1")` fully relaxes symmetry. Choose a compatible lower group for
+partial relaxation, or `None` for Psi4's automatic detection. Supported requests
+are `c1`, `ci`, `cs`, `c2`, `d2`, `c2v`, `c2h`, and `d2h`; axis-qualified requests
+require `fixed_orientation=True` for verification.
+
+Edits and conversions check explicit requests at a positional tolerance of
+`1e-9` angstrom. An incompatible request emits `SymmetryChangedWarning` and is
+lowered to a verified subgroup. Stretching one O–H bond in C2v water can retain
+Cs; a general distortion may require C1. Unresolved geometry that cannot verify
+the request also warns and uses C1. An unset request stays automatic.
+
+`detect_point_group(geometry)` uses MolSym to report the full molecular group,
+such as `Td` for methane, with a `1e-6` angstrom tolerance. Linear groups are
+`Cinfv` and `Dinfh`. Dummy atoms are excluded; isotope masses are retained.
+Detection leaves coordinates unchanged. Psi4 calculations use one of its
+supported computational subgroups.
+
+MolSym distinguishes sites by mass. Equal-mass sites with different elements or
+ghost roles raise `ValueError`; edit-time checks distinguish those roles.
+Computational symmetry verification searches up to 10,000 candidate frames and
+warns before relaxing a request it cannot verify.
+
+After a symmetry change, adjust symmetry-dependent options such as `DOCC` for
+the new group. To keep equal bonds or angles linked, reuse a `Parameter` in a Z-matrix
+and update it with `with_parameter()`. Conversion retains atom identities but
+creates independent parameters for requested coordinates.
 
 ## Convert coordinate representations
 
@@ -282,29 +274,32 @@ internal = peroxide | to_zmatrix(
 )
 ```
 
-Requested distances, angles, and dihedrals become named geometry variables.
-Use `with_parameter("D", degrees(90))` to change the selected torsion later.
-`to_cartesian(molecule)` resolves a symbolic or internal representation.
+Requested distances, bond angles, and dihedrals become adjustable parameters.
+Names must be new and unique. For example, update the torsion above with
+`with_parameter("D", degrees(90))`. `to_cartesian(molecule)` resolves coordinates
+back to Cartesian positions.
 
-Conversion preserves atom order by default. `reorder=True` permits a different
-order within fragments to satisfy requested coordinates or find a usable
-reference plane. Stable IDs are retained; the result's `atoms` exposes the order.
-Use `layout=(AnchorLayout(...), ...)` to supply explicit reference choices and
-bypass automatic search.
+Atom order is preserved by default. `reorder=True` allows reordering within
+fragments to satisfy references; IDs and fragment order remain stable.
+The result's `atoms` tuple gives its final ordering.
+Use `layout=(AnchorLayout(...), ...)` to specify references and bypass search.
 
-`frame="canonical"` acknowledges that the laboratory frame can change. Psi4
-normalizes Z-matrix orientation, so `frame="preserve"` rejects multi-atom
-conversions; keep Cartesian coordinates when the absolute frame matters.
+`frame="canonical"` allows translation and rotation into Psi4's standard Z-matrix
+frame. `frame="preserve"` rejects multi-atom conversions; retain Cartesian
+coordinates when laboratory positions and axes matter.
 
-Dummy insertion requires `allow_dummies=True`. Inserted dummies have stable IDs
-and nucleus label `X`. They can supply a missing reference plane, but cannot
-make a collinear requested dihedral meaningful.
+`allow_dummies=True` permits reference atoms labeled `X`, each with a unique ID.
+They can provide a missing reference plane for linear geometry. A requested
+dihedral must already be defined; inserting dummies cannot repair a collinear
+requested torsion.
 
-Automatic layout search defaults to 10,000 candidate states, controlled by
-`max_states`. Incompatible requests, exhausted search, and numerical degeneracy
-produce distinct errors. Reconstruction is verified after a proper rigid
-alignment, excluding reflections. Default tolerances are `1e-8` angstrom for
-positions and `1e-6` degrees for angles; both must be finite and positive.
+Automatic search considers up to `max_states=10_000` candidates.
+`IncompatibleCoordinatesError` reports conflicting requests or frames,
+`LayoutSearchExhaustedError` reports the search limit, and
+`DegenerateGeometryError` reports undefined geometry or failed reconstruction.
+Verification allows proper rotation and translation, excluding reflections.
+Default tolerances are `1e-8` angstrom for positions and `1e-6` degrees for angles;
+both must be finite and positive.
 
 ## Configure optimization constraints
 
@@ -336,43 +331,41 @@ job = compose(
 source = render_job(job)
 ```
 
-Typed constraints currently target OptKing. Use `freeze(coordinate)` or
-`bound(coordinate, lower, upper)` with distance, angle, dihedral, out-of-plane,
-or Cartesian coordinates. Frozen coordinates retain their initial value. For
-an exact target, first manipulate the geometry and then freeze the coordinate.
-A range must have distinct lower and upper bounds.
+Attach typed constraints to `optimize()` with an explicit molecule reference.
+They use OptKing. `freeze(coordinate)` retains the starting value;
+`bound(coordinate, lower, upper)` restricts it to a range with lower below upper.
+For an exact target, edit the geometry and then freeze the coordinate.
 
-Constraints use stable atom IDs. Compilation resolves optimizer indices after
-reordering and excludes reference-frame dummies. Cartesian constraints require
-Cartesian geometry. Ranged Cartesian constraints also require the molecule's
-`fixed_com=True` and `fixed_orientation=True` so the axes retain their meaning.
+Coordinates can be distances, angles, dihedrals, out-of-plane angles, or Cartesian
+axes. Atom IDs are resolved to optimizer indices after reordering; dummy atoms
+are excluded. Cartesian constraints require Cartesian geometry. Cartesian bounds
+also require `fixed_com=True` and `fixed_orientation=True` to keep the axes fixed.
 
-Local options and generated constraints are restored with `try/finally`,
-including when the calculation raises. Persistent `options(...)` components
-remain in effect. Conflicting typed and raw definitions of the same constraint
-setting are rejected.
+`local_options` and generated constraints apply to one call and are restored in
+`try/finally`, including after an exception. Composed `options(...)` remain in
+effect. Defining the same constraint through both typed constraints and
+`local_options` or `optimizer_keywords` raises an error.
 
-The generated calls retain Psi4's ordinary molecule mutation semantics. Jobs,
-loops, and separate input files for a scan remain the caller's choice.
+Generated calls follow Psi4's ordinary molecule-update behavior. Choose loops,
+separate jobs, or separate files to organize a scan.
 
 ## Use other Psi4 interfaces
 
 `energy`, `gradient`, `hessian`, `optimize`, `frequency`, and `properties` accept
-open method names and extra keyword arguments. Use `call(target, *args, **kwargs)`
-for other interfaces. Strings are literal values; `Reference` names an explicit
-binding and `Expression` supplies Python syntax. `Python(source=..., provides=...)`
-can declare bindings used by later structured components.
+method names and extra keyword arguments from Psi4's interfaces.
+Use `call(target, *args, **kwargs)` for other functions, `Reference` for earlier
+named values, and `Expression` for Python expressions. `Python(source=...,
+provides=...)` adds statements and declares the names they make available.
 
-The native components are `MoleculeDeclaration`, `Options`, `Basis`, `External`,
-`PCM`, `CFour`, and `Memory`. Basis definitions expose assignment, section-label,
-and data records; external potentials expose their ordered records. PCM and
-CFour take explicit embedded-language bodies. Other optimizers remain accessible
-through generic calls and their ordinary argument interfaces.
+Native components cover `MoleculeDeclaration`, `Options`, `Basis`, `External`,
+`PCM`, `CFour`, and `Memory`. Basis definitions contain assignments, labels,
+and data records. PCM and CFOUR accept text in their respective solver languages.
+Other optimizers are available through generic calls and their usual arguments.
 
 ## Apply external potentials
 
-Pass an `ExternalPotential` to a calculation's `external_potentials` argument.
-Charge positions require explicit lengths; rendering converts them to bohr.
+Pass `ExternalPotential` through a calculation's `external_potentials` argument.
+Positions have explicit length units and are converted to bohr when rendered.
 
 ```python
 from psi4_parser.builder import ExternalPointCharge, ExternalPotential, angstrom, energy
@@ -388,39 +381,33 @@ field = ExternalPotential(
 calculation = energy("scf", external_potentials=field)
 ```
 
-A potential can combine `points`, `diffuse`, and `matrix` contributions.
-`GaussianCharge` takes a charge, an explicitly dimensioned position, and a
-positive `exponent` in inverse square bohr. `PotentialMatrix` contains an
-immutable square matrix in atomic units:
-`PotentialMatrix(((1.0, 0.2), (0.2, -1.0)))`. Its AO ordering and dimension must
-match the calculation's basis, which Psi4 checks at runtime.
+Potentials combine point charges, Gaussian charges, and matrices through `points`,
+`diffuse`, and `matrix`. Charges use elementary-charge units. `GaussianCharge`
+requires a positive `exponent` in inverse square bohr. `PotentialMatrix` holds a
+square matrix in hartree, ordered by the calculation's atomic basis functions.
+For example: `PotentialMatrix(((1.0, 0.2), (0.2, -1.0)))`. Psi4 checks its size
+against the basis at runtime.
 
-For FI-SAPT, use `FragmentPotentials(fragments=(FragmentPotential(fragment="A",
-potential=field), ...))`. Subsystem labels are `A`, `B`, and `C`, each used at
-most once. Point-only fragment potentials are emitted as charge lists, which
-also work with FI-SAPT's field-file export. In the supplied Psi4 version, that
-exporter does not support Gaussian or matrix contributions; set
-`fisapt_do_fsapt=False` to run those contributions without the F-SAPT analysis
-and export. Potential values can be reused in generic calls and are retained in
-job JSON. Raw driver arguments remain available for other forms.
+For FI-SAPT, use `FragmentPotentials` containing `FragmentPotential` entries
+labeled `A`, `B`, or `C`, each at most once. Point-only entries are emitted as
+charge lists compatible with F-SAPT field-file export. The pinned Psi4 exporter
+supports only point charges; set `fisapt_do_fsapt=False` for Gaussian or matrix
+contributions when their F-SAPT analysis and export are unnecessary.
 
-The `External` component represents Psi4's legacy `external { ... }` syntax;
-current Psi4 versions reject that old interface. Use the argument models above
-for executable modern inputs.
+`External` represents the legacy `external { ... }` block, which the pinned
+Psi4 build rejects. Use the argument models above for executable inputs.
 
 ## Locate construction errors
 
-`lower_job()` and `render_job()` raise `CompilationError` when a component,
-reference, or complete input is invalid. It remains a `ValueError` for existing
-exception handlers. Each entry in `error.diagnostics` contains a `path` made of
-field names and zero-based indices, a readable `location`, and a `message`.
-Complete-input parser failures also retain the emitted Psithon `line` and `column`.
+`lower_job()` and `render_job()` raise `CompilationError`, a `ValueError` subclass,
+for invalid components, references, or complete input. Each diagnostic gives a
+`path` of field names and zero-based indices, a readable `location`, and a
+`message`. Parser errors also include the generated input's line and column.
 
-For example, an unresolved method reference in the second component reports
+For example, an undeclared method reference in the second component reports
 `components[1].method: Reference must follow its declaration: missing`.
-Errors in nested argument containers and atom selections identify the
-corresponding fields. The diagnostics can be serialized with
-`diagnostic.model_dump_json()`.
+Nested arguments and atom selections identify their corresponding fields.
+Serialize a diagnostic with `diagnostic.model_dump_json()`.
 
 ## Save specifications and emit input
 
@@ -429,21 +416,20 @@ from psi4_parser.builder import JobSpec, Memory, compose, lower_job, render_job
 
 job = compose(Memory(amount=1.0).with_comment("Memory budget."))
 document = job.model_dump_json(indent=2)
-schema = JobSpec.model_json_schema()
 restored = JobSpec.model_validate_json(document)
+schema = JobSpec.model_json_schema()
 source = render_job(restored)
 native_tree = lower_job(restored)
 ```
 
-The JSON document retains construction intent, molecular geometry, references,
-constraints, and comments. It does not store transformation callables or replay
-recipes. Each tagged variant's `kind` defaults when constructing its concrete
-Python class and is included in JSON. The schema has no version field.
+JSON stores ordered components, resulting geometry, references, constraints,
+and comments. Apply transformations before saving. Concrete Python constructors
+supply their `kind` tags; JSON includes them to identify each variant.
 
-Loading JSON validates structure. `lower_job` additionally checks declarations,
-references, backend combinations, and complete input syntax. `render_job` also
-formats the result. The emitted input depends on Psi4 and its requested solvers;
-it does not import this builder package.
+Loading checks structure. `lower_job()` checks declarations, references,
+constraint compatibility, and complete syntax, returning a `psi4_parser.job.Job`.
+`render_job()` returns the formatted input. Generated inputs use Psi4 and their
+requested solvers and are self-contained with respect to the builder package.
 
-The CLI's existing JSON conversion uses the parsed native job representation
-from `psi4_parser.job`. Builder specifications use the Python API described here.
+The MCP tool accepts this `JobSpec` JSON. The CLI's conversion and schema commands
+use the separate [editable-input format](native-jobs.md) from `psi4_parser.job`.

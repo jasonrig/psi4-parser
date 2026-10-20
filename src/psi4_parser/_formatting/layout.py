@@ -6,7 +6,7 @@ from itertools import pairwise
 from typing import Literal
 
 from antlr4 import ParserRuleContext, Token
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from psi4_parser._tree import rule_name
 from psi4_parser.api import ParseResult, SourceSpan
@@ -17,33 +17,29 @@ type Alignment = Literal["left", "right", "number"]
 
 
 class Edit(BaseModel):
-    """Replace a half-open original-source interval with text.
-
-    Attributes:
-        start: First original character replaced.
-        stop: First original character after the replacement.
-        text: Replacement source.
-    """
+    """A section of input text and its replacement."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    start: int
-    stop: int
-    text: str
+    start: int = Field(description="First character to replace, counting from zero.")
+    stop: int = Field(
+        description=(
+            "First character after the section to replace, counting from zero."
+        )
+    )
+    text: str = Field(description="Replacement text.")
 
 
 class Cell(BaseModel):
-    """Locate one intact table field in the original source.
-
-    Attributes:
-        start: First source character of the field.
-        stop: Exclusive source end of the field.
-        text: Significant field spelling; literal atom labels retain interior spaces.
-    """
+    """One table field and its position in the input text."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    start: int
-    stop: int
-    text: str
+    start: int = Field(description="First character of this field, counting from zero.")
+    stop: int = Field(
+        description="First character after this field, counting from zero."
+    )
+    text: str = Field(
+        description="Field text, including spaces that belong to the value."
+    )
 
 
 # Table cells, before/after padding pairs, and consecutive syntax sections.

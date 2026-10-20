@@ -12,59 +12,71 @@ type Assignment = AssignmentTarget | None
 
 
 class Reference(Model):
-    """Reference a preceding explicit Python binding."""
+    """Use a value assigned by an earlier job step."""
 
     kind: Literal["reference"] = Field(
-        default="reference", description="Structured binding reference."
+        default="reference",
+        description="Selects a reference to an earlier named value.",
     )
     name: str = Field(
-        min_length=1, description="Previously declared Python identifier."
+        min_length=1,
+        description=(
+            "Name assigned by an earlier step on every possible execution path."
+        ),
     )
 
 
 class Expression(Model):
-    """Retain an explicit Python expression for contextual validation."""
+    """A Python expression that supplies a value when the input runs."""
 
     kind: Literal["expression"] = Field(
-        default="expression", description="Python expression."
+        default="expression", description="Selects a Python expression."
     )
-    source: str = Field(min_length=1, description="Python expression source.")
+    source: str = Field(
+        min_length=1,
+        description="Python expression to include, such as e_scf + correction.",
+    )
 
 
 class LiteralValue(Model):
-    """Represent a literal without interpreting strings as Python code."""
+    """A string, number, boolean, or null passed as a value."""
 
-    kind: Literal["literal"] = Field(default="literal", description="Python literal.")
-    value: str | bool | int | float | None = Field(description="Literal scalar value.")
+    kind: Literal["literal"] = Field(
+        default="literal",
+        description="Selects a string, number, boolean, or null value.",
+    )
+    value: str | bool | int | float | None = Field(
+        description="Value to pass directly; strings are treated as text."
+    )
 
 
 class SequenceValue(Model):
-    """Retain an immutable Python list or tuple expression."""
+    """A Python list or tuple containing values in order."""
 
     kind: Literal["sequence"] = Field(
-        default="sequence", description="Python sequence."
+        default="sequence", description="Selects a list or tuple of values."
     )
-    items: tuple[Value, ...] = Field(default=(), description="Ordered sequence values.")
+    items: tuple[Value, ...] = Field(default=(), description="Values in list order.")
     style: Literal["list", "tuple"] = Field(
-        default="list", description="Emitted Python sequence type."
+        default="list", description="Python container to create: list or tuple."
     )
 
 
 class MappingEntry(Model):
-    """Associate a Python mapping key with its value."""
+    """One dictionary key and its associated value."""
 
-    key: Value = Field(description="Mapping key expression.")
-    value: Value = Field(description="Mapping value expression.")
+    key: Value = Field(description="Dictionary key, usually a literal string.")
+    value: Value = Field(description="Value associated with this key.")
 
 
 class MappingValue(Model):
-    """Retain ordered entries in a Python dictionary expression."""
+    """A Python dictionary built from ordered key-value pairs."""
 
     kind: Literal["mapping"] = Field(
-        default="mapping", description="Python dictionary."
+        default="mapping", description="Selects a dictionary of key-value pairs."
     )
     entries: tuple[MappingEntry, ...] = Field(
-        default=(), description="Ordered mapping entries."
+        default=(), description="Dictionary entries in insertion order."
     )
 
 
@@ -76,7 +88,14 @@ type Value = Annotated[
     | MappingValue
     | ExternalPotential
     | FragmentPotentials,
-    Field(discriminator="kind", json_schema_extra={"required": ["kind"]}),
+    Field(
+        discriminator="kind",
+        json_schema_extra={"required": ["kind"]},
+        description=(
+            "A literal, earlier named value, Python expression, collection, "
+            "or external potential."
+        ),
+    ),
 ]
 type InputValue = (
     str
@@ -98,7 +117,15 @@ type InputValue = (
 
 
 def value(item: InputValue) -> Value:
-    """Return immutable expression models for convenient Python values."""
+    """Convert Python argument values into reusable job values.
+
+    Strings become literal text, lists and tuples retain their container type,
+    and dictionaries retain insertion order. Reference and Expression specify
+    values to look up or evaluate when the generated input runs.
+
+    Returns:
+        A serializable value accepted by calculation and call components.
+    """
     if isinstance(
         item,
         (
@@ -128,7 +155,10 @@ def value(item: InputValue) -> Value:
 
 
 def assignment_names(assignment: Assignment) -> tuple[str, ...]:
-    """Return the declared binding names while preserving their order."""
+    """Return assigned result names in order.
+
+    A single name becomes a one-element tuple; None gives an empty tuple.
+    """
     if assignment is None:
         return ()
     return (assignment,) if isinstance(assignment, str) else assignment

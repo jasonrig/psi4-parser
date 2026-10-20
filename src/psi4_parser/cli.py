@@ -16,17 +16,18 @@ from psi4_parser.api import validate
 from psi4_parser.ast import InvalidInputError
 from psi4_parser.formatting import FormattingError, format_source
 from psi4_parser.job import Job, emit_job, read_job
+from psi4_parser.mcp import command as mcp_command
 
 type SourceFormat = Literal["psithon", "json"]
 
 
 class PreparedInput(BaseModel):
-    """Retain a formatting input and its verified replacement text."""
+    """An input file and its proposed replacement text."""
 
     model_config = ConfigDict(frozen=True, strict=True)
-    path: Path = Field(description="Input path, or a dash for standard input.")
-    original: str = Field(description="Original input text.")
-    formatted: str = Field(description="Validated, formatted replacement text.")
+    path: Path = Field(description="Input file path, or - for standard input.")
+    original: str = Field(description="Input text as read from the source.")
+    formatted: str = Field(description="Replacement text produced by the formatter.")
 
 
 class _Failure(click.ClickException):
@@ -302,6 +303,7 @@ main.add_command(validate_input)
 main.add_command(convert)
 main.add_command(schema)
 main.add_command(format_command)
+main.add_command(mcp_command)
 format_command.add_command(show)
 format_command.add_command(diff)
 format_command.add_command(check)

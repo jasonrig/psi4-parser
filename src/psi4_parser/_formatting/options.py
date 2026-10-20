@@ -16,14 +16,14 @@ from psi4_parser._tree import contexts, rule_name
 
 
 class OccupationVector(BaseModel):
-    """Retain wrapped numeric rows with their starting continuation column."""
+    """A list of orbital occupation numbers split over several lines."""
 
     model_config = ConfigDict(frozen=True, strict=True)
     rows: list[NumericRow] = Field(
-        description="Physical segments of one occupation vector."
+        description="Lines of numbers that belong to one orbital occupation list."
     )
     baseline: int = Field(
-        description="Column used to align corresponding vector entries."
+        description="Column used to align entries across these lines."
     )
 
 

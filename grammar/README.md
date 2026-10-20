@@ -1,129 +1,135 @@
-# Grammar maintenance
+# Parser design and grammar maintenance
 
-`PsithonParser.file_input` recognizes the complete mixed input. The imported
-Python grammars and the native overrides generate one lexer and one parser.
-All validation decisions live in these grammars or their required lexer support;
-the public wrapper exposes ANTLR results and collects diagnostics.
+`PsithonParser.file_input` recognizes complete Psithon input. The native grammars
+import Python productions and generate one lexer and one parser. Grammar
+predicates and lexer support implement syntax and static checks;
+`psi4_parser.api` exposes their results and source positions.
 
-| Concern                                     | Implementation                                                                                                 | Primary reference                                                                  |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Python productions and interpolation modes  | `PythonParser.g4`, `PythonLexer.g4`, upstream `PythonLexerBase`                                                | CPython `Grammar/python.gram`; grammars-v4 Python 3.14                             |
-| Python 3.15 syntax and corrected separators | Overrides at the end of `PsithonParser.g4`                                                                     | Lazy imports, unpacking comprehensions, CPython parameter productions              |
-| Unicode character classes                   | Complete Unicode 17 identifier, decimal, numeric-word and whitespace ranges; NFKC and reserved-constant checks | Bundled Python 3.15 interpreter; CPython `Python/ast.c`; native Python `re` fields |
-| Native headers and physical boundaries      | `PsithonLexer.g4`, `NativeLexerSupport`                                                                        | Psi4 `psi4/driver/inputparser.py`                                                  |
-| Molecule fields and external potentials     | Native productions and `psithon_native_constraint`                                                             | Psi4 input preprocessor; QCEElemental molecule reader                              |
-| Option expressions                          | `set_option_*`, `psithon_option_python`                                                                        | `quotify`, `process_set_command`, `process_set_commands`                           |
-| Python wrappers for native blocks           | `psithon_molecule_python`, `psithon_basis_python`, `psithon_external_python`                                   | Corresponding `process_*_command` functions and `process_basis_block`              |
-| Ordered rewrites and source positions       | `psithon_project`, `psithon_project_replace`, `psithon_source_error`                                           | Reference `process_input` filter order                                             |
-| Executing scopes                            | `psithon_scope`, `psithon_loop`, `psithon_owner`                                                               | CPython `Python/symtable.c`, `Python/codegen.c`                                    |
-| Declarations and bindings                   | `psithon_bindings`, `psithon_binding_name`                                                                     | Symbol-table declaration order, nonlocals, private mangling                        |
-| Comprehensions and annotations              | `psithon_comprehension`, `psithon_restricted_expression`                                                       | Comprehension binding conflicts and annotation scopes                              |
-| Patterns, literals and control flow         | `psithon_pattern`, `psithon_literal`, `psithon_interpolated_literal`, `psithon_constraints`                    | CPython AST validation and code generation                                         |
-| Future and lazy imports                     | `psithon_future`, `psithon_lazy_import`                                                                        | Psi4 future-line hoisting; CPython compiler flags and lazy-import restrictions     |
+## Where the rules live
 
-The public `parse()` API retains the original text, complete ANTLR token stream,
-CST and diagnostics. `PsithonLexer.g4` records character-boundary offsets in its
-existing input-preparation hook, covering CRLF/CR normalization, the synthetic
-terminal newline and extraction of echoed input from output logs. Comment masking
-preserves prepared-text width. `ParseResult.source_span()` translates ANTLR's
-inclusive token boundaries to exclusive-end intervals in the original string;
-`source_text()` slices that string. Hidden tokens remain in the token stream.
-The tree and token text still represent prepared validation input, so a token
-stream's `getText()` is not an original-file reconstruction. Context spans follow
-ANTLR's first/last-token boundaries and exclude surrounding trivia. For output
-logs, `source` retains the whole log while the CST covers the extracted input.
-Unanchored recovery tokens have no source interval. A local vendored-helper fix
-anchors split interpolation tokens after the retained prefix and accounts for
-newlines in that prefix. No second lexer or bespoke syntax tree is introduced.
+| Concern                           | Implementation                                              | Reference                                               |
+| --------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| Python syntax and interpolation   | `PythonParser.g4`, `PythonLexer.g4`, `PythonLexerBase`      | CPython grammar; grammars-v4 Python 3.14                |
+| Python 3.15 changes               | Overrides in `PsithonParser.g4`                             | Lazy imports, unpacking comprehensions, parameter rules |
+| Native headers and boundaries     | `PsithonLexer.g4`, `NativeLexerSupport`                     | Psi4 `driver/inputparser.py`                            |
+| Molecules and external potentials | Native productions, `psithon_native_constraint`             | Psi4 preprocessor and QCEElemental molecule reader      |
+| Options and generated Python      | `set_option_*`, `psithon_*_python`, `psithon_project`       | Psi4 `process_*` functions and filter order             |
+| Python scope and bindings         | `psithon_scope`, `psithon_bindings`, comprehension helpers  | CPython symbol table and code generation                |
+| Patterns, literals, imports       | `psithon_pattern`, literal, future, and lazy-import helpers | CPython syntax checks and compiler rules                |
+| Unicode fields                    | Unicode 17 tables, normalization, and field checks          | Python 3.15 identifiers and native reader expressions   |
 
-The first recognition pass checks native structure and fields. Python context
-restrictions are deferred because rewrites can change names, scope classification
-and literal values. A constant alias in a capture pattern, for example, becomes
-an attribute value pattern after namespace expansion.
+The Python grammar and lexer-base provenance is recorded in the
+[project README](../README.md#compatibility-and-provenance). Keep upstream license
+notices when editing imported files.
 
-The namespace inventories are extracted mechanically by `uv run --locked psi4-sync`.
-Its accepted reference fingerprints are in `compatibility/psi4.json`; the
-maintenance runner changes these tables in an isolated candidate, regenerates
-with ANTLR and promotes only after the compatibility checks pass. See
-`compatibility/README.md` for the upgrade contract and source-change guards.
+## Parsing passes
 
-`psithon_project` follows the reference filter order, including changes inside
-quoted text. It protects CFOUR content, removes comments, flattens arrays, quotes
-options, expands native blocks, handles newlines and `extract_subsets`, rewrites
-memory and basis commands, restores literals, hoists exact future lines, prepends
-the default imports, then substitutes namespaces. Header inventories pin that
-last step to the reference build. A character-position map follows every rewrite.
+1. Prepare the input: normalize line endings, add a terminal newline if needed,
+   and extract echoed input from a Psi4 output log. Record positions in the
+   original text throughout preparation.
+2. Recognize the mixed Python/native structure and check native fields.
+3. Translate the complete input using Psi4's preprocessing rules.
+4. Parse that Python translation through the same `file_input` rule with native
+   preprocessing disabled, applying Python scope and static checks.
 
-The complete projected job is recognized through another invocation of the same
-`file_input` production with native preprocessing disabled. This pass applies
-Python predicates and static checks. Its tree is private to validation; the
-returned mixed-source tree contains no generated wrappers. Normal parser validation
-uses no `eval`, `ast.parse`, `compile`, or Psi4 installation. The separate
-maintenance checks use reference compilation and AST comparisons. The separate
-public `build_ast()` API consumes the validated Python lowering through the
-standard `ast` module; formatting compares that AST together with retained native
-payloads and the original CST, allowing verified native molecule layout changes. See the [formatting contract](../docs/formatting.md).
+Python context checks run after translation because rewrites can change names,
+literals, and scope. For example, an unqualified constant in a capture pattern
+can become an attribute value pattern after namespace expansion.
+The returned tree describes the mixed input; the second tree is used internally
+for validation.
 
-`native_expression` serves both standalone native statements and Python atoms.
-A single option or CFOUR call can therefore occur in a parenthesized expression,
-function default or interpolation field. If a block expands to multiple calls,
-the projected Python rules decide whether the surrounding position allows them.
-Inline options use `set_command` without consuming the enclosing Python newline.
+`psithon_project` follows Psi4's filter order: protect CFOUR text, remove comments,
+flatten arrays, quote options, expand blocks, handle newlines and `extract_subsets`,
+rewrite memory and basis commands, restore literals, move future imports, prepend
+default imports, and expand namespaces. Position mappings follow each rewrite.
+Some rewrites also affect quoted text, so Python token boundaries alone are
+insufficient to reproduce them.
 
-Executing-scope predicates and binding-owner lookup serve separate purposes.
-Comprehensions have their own execution restrictions, while named expressions
-bind in a containing scope. Definition headers and the first comprehension
-iterable execute outside the new body. All bindings are collected before forward
-nonlocals are resolved, including class-private names. Imports bind names but
-use CPython's `DEF_IMPORT` behavior: an import alone permits a later `global` or
-`nonlocal`; a prior read or local assignment does not.
+The namespace-name tables are extracted by `psi4-sync`. Their accepted source
+fingerprints are in [the compatibility manifest](../compatibility/psi4.json).
+The [upgrade workflow](../compatibility/README.md) verifies changes before
+publishing regenerated artifacts.
 
-Projection also models names introduced by Psi4. A `global core` after a native
-`set` fails because the generated call already reads `core`. The default prelude
-reads `core` and assigns `psi4_io` before user statements. Future placement is
-checked on the final Python program, including other statements carried along
-with a hoisted future line.
+## Original source access
 
-Literal payloads do not inherit option-variable restrictions. File paths can
-contain dollar signs; GBS/ECP and solver text are not restricted Python-expression
-subsets. Their Python wrappers still need valid quoting and escapes. Geometry
-separators follow QCEElemental's ASCII spaces, tabs and commas, while native regex
-fields permit wider Unicode whitespace.
+`parse()` returns the original text, mixed-input tree, token stream, and diagnostics.
+`ParseResult.source_span(node)` returns an original-text interval with an exclusive
+end; `source_text(node)` returns its text. Context spans follow the first and last
+tokens, excluding surrounding comments and whitespace. Recovery tokens without
+an original position have no interval.
 
-Two legacy details matter: the blank-line call passes `re.MULTILINE` as a
-replacement count, so space-only lines survive; the PCM regex stops at its first
-column-zero closing brace regardless of depth. The vendored lexer has a small
-recovery guard for malformed short f/t-strings before their first field, avoiding
-an empty-stack crash.
+The tree and token text describe prepared input. Use the source helpers, rather
+than a token stream's `getText()`, to recover original text. For output logs,
+`source` retains the whole log and `input_span` locates the extracted job.
+Mappings account for CRLF/CR normalization, added terminal newlines, comment
+masking, and split interpolation tokens.
 
-Referenced files and scientific schemas remain with their readers. `from_file`
-geometry is represented without opening the file. PCM's wrapper uses a
-representative empty result; actual solver output is serialized as literal list
-data, and keyword validation requires PCMSolver. The grammar does not resolve
-runtime names, option availability, electronic consistency, basis libraries,
-interpreter resource budgets, or user `.psi4rc` code.
+`build_ast()` separately turns the validated Python translation into a standard
+Python abstract syntax tree (AST). The formatter compares that AST, retained
+native data, and the mixed syntax tree. See [formatting verification](../docs/formatting.md#program-comparison).
 
-An independent audit compared projected Python ASTs for all 653 upstream inputs
-processable without PCMSolver. Random anonymous-basis identifiers were normalized
-for comparison. These results provide compatibility evidence, not a formal proof.
+## Python and native interactions
 
-For a change, first add a rejected input and a nearby accepted input under
-`test/fixtures/{negative,positive}/conformance` using the same relative path.
-Check the installed Psi4 launcher, including its reported exception, before
-changing the grammar. Update `.g4` sources, regenerate with
-`uv run psi4-regenerate`, and run the entire fixture suite with `PSI4_BINARY` and
-`PSI4_PYTHON` set. Keep upstream notices and provenance. Generated Python should
-never receive a manual semantic fix.
+`native_expression` permits native constructs in Python expressions, including
+parentheses, function defaults, and interpolation fields. The translated Python
+determines whether an expansion to one or several calls fits that position.
+Inline options stop before the enclosing Python newline.
 
-Generation runs in a temporary directory and checks every expected artifact and
-both generated Python modules for syntax before replacing the working files.
-Compiler and generated-Python syntax failures leave the existing parser untouched;
-handwritten stubs and package files are retained. File publication is per artifact,
-not a transaction across the directory.
+Execution scopes and binding owners are tracked separately. A named expression
+inside a comprehension can assign to an enclosing scope; definition headers and
+the first comprehension iterable execute outside the new body. Bindings are
+collected before resolving forward `nonlocal` declarations and class-private names.
+Imports follow CPython's `DEF_IMPORT` rule: an import alone permits a later
+`global` or `nonlocal`, while an earlier read or local assignment may forbid it.
 
-ANTLR 4.13.2 treats embedded actions as target-language text using C/Java comment
-rules. It does not recognize Python `#` comments there: an unmatched apostrophe,
-quote, or brace in such a comment can confuse action-block scanning. Keep these
-characters balanced in action comments. This affects compiling `.g4` files only;
-it does not restrict comments in parsed Psithon inputs. See ANTLR's
-[`NESTED_ACTION` rule](https://github.com/antlr/antlr4/blob/4.13.2/tool/src/org/antlr/v4/parse/ANTLRLexer.g#L337-L402).
+Checks include names introduced by Psi4. For example, `global core` after `set`
+conflicts with the generated call's earlier read of `core`. Default imports read
+`core` and assign `psi4_io` before user statements. Future-import placement is
+checked after hoisting, including statements sharing the moved line.
+
+Literal data uses its reader's rules. File paths may contain dollar signs;
+basis/ECP and solver bodies retain their language syntax. Generated Python
+wrappers still require valid quoting and escapes. Geometry separators follow
+QCEElemental's ASCII spaces, tabs, and commas; some Psi4 regex fields allow wider
+Unicode whitespace.
+
+Two preprocessing details need particular care: Psi4 passes `re.MULTILINE` as a
+replacement count when removing blank lines, so space-only lines survive; its
+PCM regex ends at the first column-zero closing brace regardless of nesting.
+The lexer also guards malformed short f/t-strings before their first field so
+validation returns diagnostics instead of an empty-stack error.
+
+## Validation boundaries
+
+Parsing retains geometry file and PubChem references as data. Their readers
+resolve them when an input runs. PCM syntax checks use a representative empty
+solver result to validate Python wrappers; PCMSolver checks its own settings.
+Psi4 also resolves runtime names, options, electronic states, and basis libraries.
+
+Compatibility tests compare translated Python ASTs and reader results against
+the supplied Psi4 build. Anonymous basis names are normalized for comparison.
+This provides regression evidence under the recorded versions.
+
+## Change and regenerate the grammar
+
+Add a rejected input and a nearby accepted input under
+`test/fixtures/{negative,positive}/conformance`, using the same relative path.
+Check the supplied Psi4 launcher's outcome and exception family, then edit `.g4`
+sources and regenerate:
+
+```sh
+uv run psi4-regenerate
+PSI4_BINARY=/path/to/psi4 PSI4_PYTHON=/path/to/psi4-python uv run pytest
+```
+
+Fix grammar behavior in the maintained sources and regenerate the Python files.
+Generation stages its output in a temporary directory and checks every expected
+artifact and both generated Python modules before replacing files. Grammar or
+syntax failures leave the existing parser in place. Publication replaces files
+individually; handwritten stubs and package files remain.
+
+ANTLR 4.13.2 scans embedded actions using C/Java comment rules. A Python `#`
+comment containing an unmatched quote, apostrophe, or brace can confuse that
+scanner. Keep delimiters balanced in action comments. This restriction concerns
+grammar generation; ordinary Psithon comments use the input language's rules.
+See ANTLR's [`NESTED_ACTION` rule](https://github.com/antlr/antlr4/blob/4.13.2/tool/src/org/antlr/v4/parse/ANTLRLexer.g#L337-L402).

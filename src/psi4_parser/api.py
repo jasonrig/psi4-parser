@@ -4,7 +4,7 @@ from typing import Literal, override
 
 from antlr4 import CommonTokenStream, InputStream, ParserRuleContext, Token
 from antlr4.error.ErrorListener import ErrorListener
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 # noinspection PyProtectedMember
 from psi4_parser._generated.PsithonLexer import PsithonLexer
@@ -17,64 +17,66 @@ type SourceSpan = tuple[int, int]
 
 
 class Diagnostic(BaseModel):
-    """Describe an ANTLR syntax error.
-
-    Attributes:
-        line: One-based source line.
-        column: Zero-based source column.
-        message: Description from the lexer or parser.
-    """
+    """A syntax error and its location in the input."""
 
     model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
 
-    line: int
-    column: int
-    message: str
+    line: int = Field(description="Line containing the error, counting from 1.")
+    column: int = Field(description="Column containing the error, counting from 0.")
+    message: str = Field(description="What is wrong with the input syntax.")
 
 
 class NativePayload(BaseModel):
-    """Retain native data required in addition to the canonical Python lowering.
-
-    Attributes:
-        kind: Reader payload type or a compiler-generated anonymous basis marker.
-        text: Data after native preprocessing, or an empty basis marker.
-    """
+    """Psi4-specific data retained alongside the Python input text."""
 
     model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
-    kind: Literal["pcm", "from_file", "anonymous_basis", "external"]
-    text: str
+    kind: Literal["pcm", "from_file", "anonymous_basis", "external"] = Field(
+        description=(
+            "Type of retained Psi4 data: solvent, file geometry, basis "
+            "marker, or external potential."
+        )
+    )
+    text: str = Field(description="Psi4 data text associated with this item.")
 
 
 class ParseResult(BaseModel):
-    """Expose ANTLR parsing results alongside the exact original source.
-
-    Attributes:
-        source: Original input, including comments and physical newline spelling.
-        tree: ANTLR concrete syntax tree; recovered input can contain error nodes.
-        tokens: Complete validation token stream, including hidden-channel tokens.
-        diagnostics: Lexer, parser and grammar-constraint errors.
-        python_source: Grammar-owned Python lowering, or None when unavailable.
-            Anonymous basis identifiers and generated external-geometry padding
-            are canonicalized for AST comparison. This is syntax-only lowering;
-            user statements and referenced data files are never executed or read.
-        native_data: Data retained by the grammar's native lowering callbacks.
-        input_span: Original-source interval of the job, excluding an output-log
-            wrapper. None is permitted for manually constructed legacy results.
-        source_offsets: Original character offsets for validation-text boundaries.
-            Tokens refer to prepared text; use source_span or source_text to access
-            their original spelling. Offsets count Python string characters.
-    """
+    """Original input, parsed structure, and any syntax errors."""
 
     model_config = ConfigDict(frozen=True, strict=True, arbitrary_types_allowed=True)
 
-    source: str
-    tree: ParserRuleContext
-    tokens: CommonTokenStream
-    diagnostics: tuple[Diagnostic, ...]
-    source_offsets: tuple[int, ...]
-    python_source: str | None = None
-    native_data: tuple[NativePayload, ...] = ()
-    input_span: SourceSpan | None = None
+    source: str = Field(
+        description="Original input text, including comments and line endings."
+    )
+    tree: ParserRuleContext = Field(
+        description="Syntax tree produced by the input parser."
+    )
+    tokens: CommonTokenStream = Field(
+        description="Input tokens, including spaces and comments."
+    )
+    diagnostics: tuple[Diagnostic, ...] = Field(
+        description="Syntax errors found in the input."
+    )
+    source_offsets: tuple[int, ...] = Field(
+        description=(
+            "Original character positions corresponding to the parser's prepared text."
+        )
+    )
+    python_source: str | None = Field(
+        default=None,
+        description=(
+            "Equivalent Python input text produced by the parser, when available."
+        ),
+    )
+    native_data: tuple[NativePayload, ...] = Field(
+        default=(),
+        description="Psi4-specific data retained alongside the Python input text.",
+    )
+    input_span: SourceSpan | None = Field(
+        default=None,
+        description=(
+            "Start and end character positions of the job within the original text."
+        ),
+    )
 
     def source_span(self, node: ParserRuleContext | Token) -> SourceSpan:
         """Return an original-source interval with an exclusive end offset.

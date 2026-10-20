@@ -1,4 +1,19 @@
-"""Construct immutable molecular systems and composable Psi4 input jobs."""
+"""Build Psi4 inputs from molecules, settings, and calculation steps.
+
+Start with Molecule.from_xyz() or Molecule.from_file(), declare it with
+molecule(name, geometry), then compose declarations, options(), and calculation
+steps in execution order. Use a declaration's .ref in later calculations and
+render_job() to get input text.
+
+Molecular edits such as set_dihedral() return functions: apply them with
+``geometry | edit`` or pipe(geometry, edit). Job components append in the same
+way: ``JobSpec() | declaration | settings | calculation``. Every operation
+returns a reusable value.
+
+Use JobSpec.model_dump_json() to save a specification,
+JobSpec.model_validate_json() to read one, and JobSpec.model_json_schema() to
+describe its JSON fields. Rendering checks names and references across the job.
+"""
 
 from psi4_parser.builder._model import Angle, Length, angstrom, bohr, degrees, radians
 from psi4_parser.builder._vectors import DegenerateGeometryError
