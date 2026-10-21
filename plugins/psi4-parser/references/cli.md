@@ -28,6 +28,31 @@ exit codes. Capture stderr and the exit status. A nonzero formatting check can
 mean that a valid file needs formatting; it is distinct from a parsing error.
 Preview changes before an in-place write and retain the requested destination.
 
+## Check input without running calculations
+
+For a builder specification, `render_job()` checks component references, atom
+selections, and constraint definitions, then validates and formats the generated
+input. It returns text without executing the generated calculation statements.
+To check a saved input in the same runtime:
+
+```sh
+uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser validate input.dat
+uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser format check input.dat
+```
+
+These commands check syntax and formatting without executing the input. Report
+what was checked; successful validation does not establish scientific suitability,
+method availability, or runtime dependencies.
+
+When an accessible Psi4 environment is relevant to the task, inspect its
+imports, version, and the specific interface needed. For validation-only tasks,
+keep runtime checks limited to inspection. When the task calls for calculation
+results or execution checks, use Psi4 directly and retain relevant output.
+Report environment failures, input diagnostics, and execution results separately.
+Missing Psi4 access should generally not block input generation.
+
+## JSON formats and further reference
+
 CLI JSON and schema commands use `psi4_parser.job.Job`, which represents existing
 input as editable records. Builder specifications use `psi4_parser.builder.JobSpec`;
 inspect that model's `model_dump_json()`, `model_validate_json()`, and

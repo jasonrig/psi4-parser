@@ -1,6 +1,6 @@
 {
   "name": "psi4-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Build Psi4 inputs with Python and validate, format, or convert existing inputs.",
   "author": {
     "name": "jasonrig"

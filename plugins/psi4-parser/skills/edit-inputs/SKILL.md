@@ -5,6 +5,11 @@ description: Use when validating or formatting Psi4 input, converting between Ps
 
 # Check and edit Psi4 inputs
 
+Use the parser CLI and reader for input checks and edits. Use Psi4 directly
+when runtime inspection or calculation execution serves the task. Continue input
+work without Psi4; follow the [version guidance](../../references/psi4.md) when
+choosing documentation.
+
 1. Read [runtime and discovery](../../references/runtime.md), then the
    [CLI workflow](../../references/cli.md).
 2. Inspect the selected command's `--help`. Choose validation, formatting,
