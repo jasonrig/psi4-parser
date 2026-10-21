@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "psi4-parser",
+  "version": "0.1.0",
+  "description": "Build Psi4 inputs with Python and validate, format, or convert existing inputs.",
+  "author": {
+    "name": "jasonrig"
+  },
+  "homepage": "https://github.com/jasonrig/psi4-parser",
+  "repository": "https://github.com/jasonrig/psi4-parser",
+  "keywords": [
+    "psi4",
+    "quantum-chemistry",
+    "python"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Psi4 Inputs",
+        "shortDescription": "Build and check Psi4 inputs",
+        "longDescription": "Write reusable Python scripts to construct Psi4 jobs. Inspect the installed API and use its command line to validate, format, and convert input files.",
+        "developerName": "jasonrig",
+        "category": "Scientific Research",
+        "capabilities": [],
+        "defaultPrompt": "Write a Python builder script for my Psi4 calculation and save the generated input."
+      }
+    }
+  }
+}

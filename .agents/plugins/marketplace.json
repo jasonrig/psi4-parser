@@ -1,0 +1,20 @@
+{
+  "name": "psi4-parser",
+  "interface": {
+    "displayName": "Psi4 Inputs"
+  },
+  "plugins": [
+    {
+      "name": "psi4-parser",
+      "source": {
+        "source": "local",
+        "path": "./plugins/psi4-parser"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Scientific Research"
+    }
+  ]
+}

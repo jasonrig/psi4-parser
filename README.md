@@ -18,6 +18,13 @@ uv sync --locked --no-dev
 Psi4 is needed to execute generated inputs. Java is needed only to regenerate
 the parser.
 
+## Agent plugin
+
+Install the [Psi4 Inputs plugin](plugins/psi4-parser/README.md) in Codex or
+Claude Code to build jobs with Python scripts and check existing inputs. Its
+skills discover the installed API and CLI help, with `uvx` commands that run
+directly from this repository.
+
 ## Validate input
 
 ```sh
