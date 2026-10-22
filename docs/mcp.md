@@ -1,9 +1,17 @@
-# Create Psi4 input through MCP
+# Plan calculations and create Psi4 input through MCP
 
 The `render_psithon` tool accepts molecules, settings, and calculation steps as
 JSON. It returns complete Psi4 input text or writes a file and returns its full
 path. Its input schema describes all builder components, including fragments,
 constraints, comments, and nested control flow.
+
+The server also exposes compact scientific planning tools for discovery,
+independent request verification, bounded construction, paged explanations, and
+export. Start with `psi4-parser mcp --planning-only` to expose those tools without
+the recursive builder schema. See [planning interfaces](formal-interfaces.md) for
+the complete file-handle workflow and temporary-file lifetime.
+For repeated molecular inputs, save a molecule once and use `formal_request` to
+assemble complete requests from handle-based templates.
 
 ## Connect an agent
 

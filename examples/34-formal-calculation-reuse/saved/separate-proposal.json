@@ -1,0 +1,1241 @@
+{
+  "status": "constructed",
+  "plan": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "water",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": -0.757,
+                "z": 0.587,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a3",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.757,
+                "z": 0.587,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "spectrum_geometry",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "water",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "spectrum_geometry"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "thermal_geometry",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "water",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "thermal_geometry"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "spectrum_analysis",
+        "driver": "frequency",
+        "sapt": null,
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "spectrum_analysis"
+        ],
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        }
+      },
+      {
+        "kind": "calculation",
+        "id": "thermal_analysis",
+        "driver": "frequency",
+        "sapt": null,
+        "geometry": "thermal_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "thermal_analysis"
+        ],
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        }
+      },
+      {
+        "kind": "product",
+        "id": "spectrum",
+        "calculation": "spectrum_analysis",
+        "name": "harmonic_frequencies",
+        "electronic_target": null,
+        "quantity": null,
+        "satisfies": [
+          "spectrum"
+        ]
+      },
+      {
+        "kind": "product",
+        "id": "gibbs_correction",
+        "calculation": "thermal_analysis",
+        "name": "gibbs_correction",
+        "electronic_target": null,
+        "quantity": null,
+        "satisfies": [
+          "gibbs_correction"
+        ]
+      },
+      {
+        "kind": "calculation",
+        "id": "first_energy",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "first_energy"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "second_energy",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "second_energy"
+        ],
+        "analysis": null
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "spectrum_geometry",
+        "geometry": "water"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "thermal_geometry",
+        "geometry": "water"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "spectrum_analysis",
+        "geometry": "spectrum_geometry"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "thermal_analysis",
+        "geometry": "thermal_geometry"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "first_energy",
+        "geometry": "spectrum_geometry"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "second_energy",
+        "geometry": "spectrum_geometry"
+      }
+    ]
+  },
+  "report": {
+    "status": "proved",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "7e2c6dcb323407dfdd48cb66353dc28e5b73711a635ccf55dc0110ccae634d0e",
+    "solver_version": "5.3.1",
+    "diagnostics": [],
+    "obligations": [
+      {
+        "index": 0,
+        "path": [
+          "requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require spectrum_geometry to consume geometry water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_0 \"water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"water\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_0 \"water\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"water\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"water\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"water\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_0 \"water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"water\") false))))\n  (mp (asserted (distinct geometry_0 \"water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 1,
+        "path": [
+          "requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require thermal_geometry to consume geometry water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_1 \"water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"water\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_1 \"water\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"water\") (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"water\")) (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"water\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_1 \"water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"water\") false))))\n  (mp (asserted (distinct geometry_1 \"water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 2,
+        "path": [
+          "requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require spectrum_analysis to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_2 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_2 a!1) (not (= geometry_2 a!1)))))\n      (a!4 (= (not (distinct geometry_2 \"spectrum_geometry\"))\n              (not (not (= geometry_2 a!1)))))\n      (a!5 (= (not (not (= geometry_2 a!1))) (= geometry_2 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_2 \"spectrum_geometry\")\n                                   (distinct geometry_2 a!1)))\n                  a!2\n                  (= (distinct geometry_2 \"spectrum_geometry\")\n                     (not (= geometry_2 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_2 \"spectrum_geometry\"))\n                     (= geometry_2 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_2 \"spectrum_geometry\")))\n               a!6\n               (= geometry_2 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_2 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_2 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_2 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 3,
+        "path": [
+          "requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require thermal_analysis to consume geometry thermal_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_3 \"thermal_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_3 a!1) (not (= geometry_3 a!1)))))\n      (a!4 (= (not (distinct geometry_3 \"thermal_geometry\"))\n              (not (not (= geometry_3 a!1)))))\n      (a!5 (= (not (not (= geometry_3 a!1))) (= geometry_3 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"thermal_geometry\" a!1))\n                                (= (distinct geometry_3 \"thermal_geometry\")\n                                   (distinct geometry_3 a!1)))\n                  a!2\n                  (= (distinct geometry_3 \"thermal_geometry\")\n                     (not (= geometry_3 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_3 \"thermal_geometry\"))\n                     (= geometry_3 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_3 \"thermal_geometry\")))\n               a!6\n               (= geometry_3 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"thermal_geometry\" a!1))\n                                (= (distinct geometry_3 \"thermal_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_3 \"thermal_geometry\") false))))\n  (mp (asserted (distinct geometry_3 \"thermal_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 4,
+        "path": [
+          "requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require first_energy to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_6 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_6 a!1) (not (= geometry_6 a!1)))))\n      (a!4 (= (not (distinct geometry_6 \"spectrum_geometry\"))\n              (not (not (= geometry_6 a!1)))))\n      (a!5 (= (not (not (= geometry_6 a!1))) (= geometry_6 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_6 \"spectrum_geometry\")\n                                   (distinct geometry_6 a!1)))\n                  a!2\n                  (= (distinct geometry_6 \"spectrum_geometry\")\n                     (not (= geometry_6 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_6 \"spectrum_geometry\"))\n                     (= geometry_6 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_6 \"spectrum_geometry\")))\n               a!6\n               (= geometry_6 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_6 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_6 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_6 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 5,
+        "path": [
+          "requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require second_energy to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_7 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"spectrum_geometry\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_7 \"spectrum_geometry\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"spectrum_geometry\")\n                     (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"spectrum_geometry\"))\n                     (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"spectrum_geometry\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_7 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_7 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 6,
+        "path": [
+          "request",
+          "derived_requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require spectrum_geometry to consume geometry water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_0 \"water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"water\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_0 \"water\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"water\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"water\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"water\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_0 \"water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"water\") false))))\n  (mp (asserted (distinct geometry_0 \"water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 7,
+        "path": [
+          "request",
+          "derived_requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require thermal_geometry to consume geometry water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_1 \"water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"water\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_1 \"water\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"water\") (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"water\")) (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"water\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"water\" a!1))\n                                (= (distinct geometry_1 \"water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"water\") false))))\n  (mp (asserted (distinct geometry_1 \"water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 8,
+        "path": [
+          "request",
+          "derived_requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require spectrum_analysis to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_2 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_2 a!1) (not (= geometry_2 a!1)))))\n      (a!4 (= (not (distinct geometry_2 \"spectrum_geometry\"))\n              (not (not (= geometry_2 a!1)))))\n      (a!5 (= (not (not (= geometry_2 a!1))) (= geometry_2 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_2 \"spectrum_geometry\")\n                                   (distinct geometry_2 a!1)))\n                  a!2\n                  (= (distinct geometry_2 \"spectrum_geometry\")\n                     (not (= geometry_2 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_2 \"spectrum_geometry\"))\n                     (= geometry_2 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_2 \"spectrum_geometry\")))\n               a!6\n               (= geometry_2 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_2 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_2 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_2 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 9,
+        "path": [
+          "request",
+          "derived_requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require thermal_analysis to consume geometry thermal_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_3 \"thermal_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_3 a!1) (not (= geometry_3 a!1)))))\n      (a!4 (= (not (distinct geometry_3 \"thermal_geometry\"))\n              (not (not (= geometry_3 a!1)))))\n      (a!5 (= (not (not (= geometry_3 a!1))) (= geometry_3 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"thermal_geometry\" a!1))\n                                (= (distinct geometry_3 \"thermal_geometry\")\n                                   (distinct geometry_3 a!1)))\n                  a!2\n                  (= (distinct geometry_3 \"thermal_geometry\")\n                     (not (= geometry_3 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_3 \"thermal_geometry\"))\n                     (= geometry_3 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_3 \"thermal_geometry\")))\n               a!6\n               (= geometry_3 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"thermal_geometry\" a!1))\n                                (= (distinct geometry_3 \"thermal_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_3 \"thermal_geometry\") false))))\n  (mp (asserted (distinct geometry_3 \"thermal_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 10,
+        "path": [
+          "request",
+          "derived_requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require first_energy to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_6 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_6 a!1) (not (= geometry_6 a!1)))))\n      (a!4 (= (not (distinct geometry_6 \"spectrum_geometry\"))\n              (not (not (= geometry_6 a!1)))))\n      (a!5 (= (not (not (= geometry_6 a!1))) (= geometry_6 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_6 \"spectrum_geometry\")\n                                   (distinct geometry_6 a!1)))\n                  a!2\n                  (= (distinct geometry_6 \"spectrum_geometry\")\n                     (not (= geometry_6 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_6 \"spectrum_geometry\"))\n                     (= geometry_6 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_6 \"spectrum_geometry\")))\n               a!6\n               (= geometry_6 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_6 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_6 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_6 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 11,
+        "path": [
+          "request",
+          "derived_requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require second_energy to consume geometry spectrum_geometry.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_6 () String)\n(declare-fun model_6 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"water\") true)))\n (not $x9)))\n(assert\n (let (($x64 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x64)))\n(assert\n (let (($x245 (and (distinct geometry_1 \"water\") true)))\n (not $x245)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"spectrum_geometry\") true)))\n (not $x289)))\n(assert\n (let (($x329 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x329)))\n(assert\n (let (($x353 (and (distinct geometry_3 \"thermal_geometry\") true)))\n (not $x353)))\n(assert\n (let (($x382 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x382)))\n(assert\n (let (($x407 (and (distinct geometry_6 \"spectrum_geometry\") true)))\n (not $x407)))\n(assert\n (let (($x427 (and (distinct model_6 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x427)))\n(assert\n (let (($x450 (and (distinct geometry_7 \"spectrum_geometry\") true)))\n (not $x450)))\n(assert\n (let (($x470 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x470)))\n(assert\n (and (distinct geometry_7 \"spectrum_geometry\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 121)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"spectrum_geometry\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_7 \"spectrum_geometry\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"spectrum_geometry\")\n                     (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"spectrum_geometry\"))\n                     (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"spectrum_geometry\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"spectrum_geometry\" a!1))\n                                (= (distinct geometry_7 \"spectrum_geometry\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"spectrum_geometry\") false))))\n  (mp (asserted (distinct geometry_7 \"spectrum_geometry\")) a!8 false)))))))",
+        "counterexample": []
+      }
+    ],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+      "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "water",
+        "system": "water",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "water"
+      },
+      {
+        "id": "spectrum_geometry",
+        "system": "water",
+        "source": "water",
+        "producer": "spectrum_geometry",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "water"
+      },
+      {
+        "id": "thermal_geometry",
+        "system": "water",
+        "source": "water",
+        "producer": "thermal_geometry",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "water"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "spectrum_geometry",
+        "producer": "spectrum_geometry",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "thermal_geometry",
+        "producer": "thermal_geometry",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "thermal_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "spectrum_analysis",
+        "producer": "spectrum_analysis",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "thermal_analysis",
+        "producer": "thermal_analysis",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "thermal_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "spectrum",
+        "producer": "spectrum_analysis",
+        "quantity": {
+          "meaning": "harmonic_frequencies",
+          "unit": "cm^-1",
+          "shape": [
+            "3*atoms"
+          ],
+          "frame": null,
+          "number_kind": "complex"
+        },
+        "system": "water",
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": "harmonic_frequencies",
+        "electronic_target": null,
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        },
+        "sapt": null
+      },
+      {
+        "id": "gibbs_correction",
+        "producer": "thermal_analysis",
+        "quantity": {
+          "meaning": "gibbs_correction",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "thermal_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": "gibbs_correction",
+        "electronic_target": null,
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        },
+        "sapt": null
+      },
+      {
+        "id": "first_energy",
+        "producer": "first_energy",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "second_energy",
+        "producer": "second_energy",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "water",
+        "geometry": "spectrum_geometry",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [
+      {
+        "producer": "spectrum_analysis",
+        "format": "psi4_vibrec",
+        "label": "formal_7e2c6dcb323407dfdd48cb66353dc28e5b73711a635ccf55dc0110ccae634d0e_2",
+        "filename_template": "formal_7e2c6dcb323407dfdd48cb66353dc28e5b73711a635ccf55dc0110ccae634d0e_2.{pid}.vibrec",
+        "directory": "engine_output_directory",
+        "bindings": [
+          {
+            "quantity": "spectrum",
+            "key": "omega",
+            "encoding": "qcelemental_datum_json"
+          }
+        ]
+      },
+      {
+        "producer": "thermal_analysis",
+        "format": "psi4_vibrec",
+        "label": "formal_7e2c6dcb323407dfdd48cb66353dc28e5b73711a635ccf55dc0110ccae634d0e_3",
+        "filename_template": "formal_7e2c6dcb323407dfdd48cb66353dc28e5b73711a635ccf55dc0110ccae634d0e_3.{pid}.vibrec",
+        "directory": "engine_output_directory",
+        "bindings": [
+          {
+            "quantity": "gibbs_correction",
+            "key": "G_corr",
+            "encoding": "qcelemental_datum_json"
+          }
+        ]
+      }
+    ],
+    "native_variables": [],
+    "required_components": [
+      {
+        "name": "optking",
+        "version": null
+      },
+      {
+        "name": "qcelemental",
+        "version": null
+      }
+    ],
+    "request_digest": "35476658d69e3f2519e7a0cf64c66a8359084f622f93e12437bacce26f87b115",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "spectrum_geometry",
+        "steps": [
+          "spectrum_geometry"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "thermal_geometry",
+        "steps": [
+          "thermal_geometry"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "spectrum_analysis",
+        "steps": [
+          "spectrum_analysis"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "thermal_analysis",
+        "steps": [
+          "thermal_analysis"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "spectrum",
+        "steps": [
+          "spectrum"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "gibbs_correction",
+        "steps": [
+          "gibbs_correction"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "first_energy",
+        "steps": [
+          "first_energy"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "second_energy",
+        "steps": [
+          "second_energy"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": true,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29971
+    },
+    "verification_digest": "39bc755ec3d83f347f913cc95349ef5e62c745c98efa601952663e37aefe1d25"
+  },
+  "attempts": 1,
+  "choices": [
+    {
+      "goal": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "thermal_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "spectrum_analysis",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "analytic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "thermal_analysis",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "analytic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "first_energy",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "second_energy",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    }
+  ],
+  "diagnostics": [],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(declare-fun goal_1_choice_0 () Bool)\n(declare-fun goal_1_model () String)\n(declare-fun goal_1_route () String)\n(declare-fun goal_2_choice_0 () Bool)\n(declare-fun goal_2_model () String)\n(declare-fun goal_2_route () String)\n(declare-fun goal_3_choice_0 () Bool)\n(declare-fun goal_3_model () String)\n(declare-fun goal_3_route () String)\n(declare-fun goal_6_choice_0 () Bool)\n(declare-fun goal_6_model () String)\n(declare-fun goal_6_route () String)\n(declare-fun goal_7_choice_0 () Bool)\n(declare-fun goal_7_model () String)\n(declare-fun goal_7_route () String)\n(declare-fun call_1_root_1 () Bool)\n(declare-fun call_1_root_0 () Bool)\n(declare-fun goal_1_call () String)\n(declare-fun call_3_root_1 () Bool)\n(declare-fun call_3_root_0 () Bool)\n(declare-fun goal_3_call () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n (or goal_1_choice_0))\n(assert\n ((_ at-most 1) goal_1_choice_0))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_route \"automatic\") true))))\n(assert\n (or goal_2_choice_0))\n(assert\n ((_ at-most 1) goal_2_choice_0))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_route \"analytic\") true))))\n(assert\n (or goal_3_choice_0))\n(assert\n ((_ at-most 1) goal_3_choice_0))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_route \"analytic\") true))))\n(assert\n (or goal_6_choice_0))\n(assert\n ((_ at-most 1) goal_6_choice_0))\n(assert\n (=> goal_6_choice_0 (not (and (distinct goal_6_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_6_choice_0 (not (and (distinct goal_6_route \"automatic\") true))))\n(assert\n (or goal_7_choice_0))\n(assert\n ((_ at-most 1) goal_7_choice_0))\n(assert\n (=> goal_7_choice_0 (not (and (distinct goal_7_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_7_choice_0 (not (and (distinct goal_7_route \"automatic\") true))))\n(assert\n (or call_1_root_0 call_1_root_1))\n(assert\n ((_ at-most 1) call_1_root_0 call_1_root_1))\n(assert\n (=> call_1_root_0 (and (not (and (distinct goal_1_call \"thermal_geometry\") true)))))\n(assert\n (let (($x351 (not (and (distinct goal_1_call \"spectrum_geometry\") true))))\n (let (($x361 (and $x351 (not (and (distinct \"spectrum_geometry\" \"spectrum_geometry\") true)) (not (and (distinct \"water\" \"water\") true)) (not (and (distinct goal_1_model goal_0_model) true)) (not (and (distinct goal_1_route goal_0_route) true)))))\n (=> call_1_root_1 $x361))))\n(assert\n (or call_3_root_0 call_3_root_1))\n(assert\n ((_ at-most 1) call_3_root_0 call_3_root_1))\n(assert\n (=> call_3_root_0 (and (not (and (distinct goal_3_call \"thermal_analysis\") true)))))\n(assert\n (let (($x351 (not (and (distinct goal_1_call \"spectrum_geometry\") true))))\n (let (($x417 (and (not (and (distinct goal_3_call \"spectrum_analysis\") true)) (not (and (distinct \"spectrum_analysis\" \"spectrum_analysis\") true)) $x351 (not (and (distinct goal_3_model goal_2_model) true)) (not (and (distinct goal_3_route goal_2_route) true)))))\n (=> call_3_root_1 $x417))))\n(assert\n goal_0_choice_0)\n(assert\n goal_1_choice_0)\n(assert\n goal_2_choice_0)\n(assert\n goal_3_choice_0)\n(assert\n goal_6_choice_0)\n(assert\n goal_7_choice_0)\n(assert\n call_1_root_0)\n(assert\n call_3_root_0)\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "avoid"
+  },
+  "reuses": [],
+  "last_candidate": null
+}

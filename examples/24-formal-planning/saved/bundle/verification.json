@@ -1,0 +1,323 @@
+{
+  "status": "proved",
+  "runtime_policy": "operator_managed",
+  "capability_status": "supported",
+  "plan_digest": "3602c9b7c2d68c185ffa014baa3620ea4e83da79a4b4cc9cc0cbff80779c555d",
+  "solver_version": "5.3.1",
+  "diagnostics": [],
+  "obligations": [
+    {
+      "index": 0,
+      "path": [
+        "requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require opt to consume geometry h2.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 1,
+      "path": [
+        "requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require freq to consume geometry opt.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_1 \"opt\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"opt\"\n                       (str.++ (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 112))\n                               (seq.unit (_ Char 116))))))\n      (a!2 (= (distinct geometry_1 \"opt\")\n              (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))))\n      (a!3 (not (= geometry_1\n                   (str.++ (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 112))\n                           (seq.unit (_ Char 116))))))\n      (a!7 (= (not (distinct geometry_1 \"opt\"))\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116)))\n                     (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116))))))\n(let ((a!4 (= (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_1 \"opt\") a!3))\n                         (= (not (distinct geometry_1 \"opt\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"opt\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_1\n                  (str.++ (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 112))\n                          (seq.unit (_ Char 116)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_1 \"opt\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_1 \"opt\") false))))\n  (mp (asserted (distinct geometry_1 \"opt\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 2,
+      "path": [
+        "requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require gradient to consume geometry opt.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_2 \"opt\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"opt\"\n                       (str.++ (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 112))\n                               (seq.unit (_ Char 116))))))\n      (a!2 (= (distinct geometry_2 \"opt\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 112))\n                           (seq.unit (_ Char 116))))))\n      (a!7 (= (not (distinct geometry_2 \"opt\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116)))\n                     (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"opt\") a!3))\n                         (= (not (distinct geometry_2 \"opt\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"opt\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 112))\n                          (seq.unit (_ Char 116)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"opt\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"opt\") false))))\n  (mp (asserted (distinct geometry_2 \"opt\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 3,
+      "path": [
+        "request",
+        "derived_requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require opt to consume geometry h2.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 4,
+      "path": [
+        "request",
+        "derived_requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require freq to consume geometry opt.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_1 \"opt\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"opt\"\n                       (str.++ (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 112))\n                               (seq.unit (_ Char 116))))))\n      (a!2 (= (distinct geometry_1 \"opt\")\n              (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))))\n      (a!3 (not (= geometry_1\n                   (str.++ (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 112))\n                           (seq.unit (_ Char 116))))))\n      (a!7 (= (not (distinct geometry_1 \"opt\"))\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116)))\n                     (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116))))))\n(let ((a!4 (= (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_1 \"opt\") a!3))\n                         (= (not (distinct geometry_1 \"opt\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"opt\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_1\n                  (str.++ (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 112))\n                          (seq.unit (_ Char 116)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_1 \"opt\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_1 \"opt\") false))))\n  (mp (asserted (distinct geometry_1 \"opt\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 5,
+      "path": [
+        "request",
+        "derived_requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require gradient to consume geometry opt.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct geometry_2 \"opt\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"opt\"\n                       (str.++ (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 112))\n                               (seq.unit (_ Char 116))))))\n      (a!2 (= (distinct geometry_2 \"opt\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 112))\n                           (seq.unit (_ Char 116))))))\n      (a!7 (= (not (distinct geometry_2 \"opt\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116)))\n                     (str.++ (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 112))\n                             (seq.unit (_ Char 116))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 112))\n                                (seq.unit (_ Char 116))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 112))\n                         (seq.unit (_ Char 116)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"opt\") a!3))\n                         (= (not (distinct geometry_2 \"opt\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"opt\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 112))\n                          (seq.unit (_ Char 116)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"opt\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"opt\") false))))\n  (mp (asserted (distinct geometry_2 \"opt\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 6,
+      "path": [
+        "request",
+        "derived_requirements",
+        3
+      ],
+      "status": "proved",
+      "message": "Require opt and freq to use the same method, basis, and reference.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct model_0 model_1) true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 45))\n                   (seq.unit (_ Char 51))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 123))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 118))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 107))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 125))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93)))))\n(let ((a!2 (rewrite (= (distinct model_0 a!1) (not (= model_0 a!1)))))\n      (a!4 (= (not (distinct model_0\n                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n              (not (not (= model_0 a!1)))))\n      (a!5 (= (not (not (= model_0 a!1))) (= model_0 a!1)))\n      (a!8 (rewrite (= (distinct model_1 a!1) (not (= model_1 a!1)))))\n      (a!10 (= (not (distinct model_1\n                              \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n               (not (not (= model_1 a!1)))))\n      (a!11 (= (not (not (= model_1 a!1))) (= model_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_0\n                                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                                   (distinct model_0 a!1)))\n                  a!2\n                  (= (distinct model_0\n                               \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                     (not (= model_0 a!1)))))\n      (a!9 (trans (monotonicity (rewrite (= \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_1\n                                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                                   (distinct model_1 a!1)))\n                  a!8\n                  (= (distinct model_1\n                               \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                     (not (= model_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct model_0\n                                    \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n                     (= model_0 a!1))))\n      (a!12 (trans (monotonicity a!9 a!10)\n                   (rewrite a!11)\n                   (= (not (distinct model_1\n                                     \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n                      (= model_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct model_0\n                                        \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")))\n               a!6\n               (= model_0 a!1)))\n      (a!13 (mp (asserted (not (distinct model_1\n                                         \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")))\n                a!12\n                (= model_1 a!1))))\n(let ((a!14 (trans (monotonicity a!7\n                                 a!13\n                                 (= (distinct model_0 model_1)\n                                    (distinct a!1 a!1)))\n                   (rewrite (= (distinct a!1 a!1) false))\n                   (= (distinct model_0 model_1) false))))\n  (mp (asserted (distinct model_0 model_1)) a!14 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 7,
+      "path": [
+        "request",
+        "derived_requirements",
+        4
+      ],
+      "status": "proved",
+      "message": "Require opt and gradient to use the same method, basis, and reference.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"opt\") true)))\n (not $x242)))\n(assert\n (let (($x266 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x266)))\n(assert\n (let (($x289 (and (distinct geometry_2 \"opt\") true)))\n (not $x289)))\n(assert\n (let (($x309 (and (distinct model_2 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x309)))\n(assert\n (and (distinct model_0 model_2) true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 45))\n                   (seq.unit (_ Char 51))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 123))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 118))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 107))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 125))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93)))))\n(let ((a!2 (rewrite (= (distinct model_0 a!1) (not (= model_0 a!1)))))\n      (a!4 (= (not (distinct model_0\n                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n              (not (not (= model_0 a!1)))))\n      (a!5 (= (not (not (= model_0 a!1))) (= model_0 a!1)))\n      (a!8 (rewrite (= (distinct model_2 a!1) (not (= model_2 a!1)))))\n      (a!10 (= (not (distinct model_2\n                              \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n               (not (not (= model_2 a!1)))))\n      (a!11 (= (not (not (= model_2 a!1))) (= model_2 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_0\n                                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                                   (distinct model_0 a!1)))\n                  a!2\n                  (= (distinct model_0\n                               \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                     (not (= model_0 a!1)))))\n      (a!9 (trans (monotonicity (rewrite (= \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_2\n                                             \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                                   (distinct model_2 a!1)))\n                  a!8\n                  (= (distinct model_2\n                               \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")\n                     (not (= model_2 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct model_0\n                                    \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n                     (= model_0 a!1))))\n      (a!12 (trans (monotonicity a!9 a!10)\n                   (rewrite a!11)\n                   (= (not (distinct model_2\n                                     \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\"))\n                      (= model_2 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct model_0\n                                        \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")))\n               a!6\n               (= model_0 a!1)))\n      (a!13 (mp (asserted (not (distinct model_2\n                                         \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\")))\n                a!12\n                (= model_2 a!1))))\n(let ((a!14 (trans (monotonicity a!7\n                                 a!13\n                                 (= (distinct model_0 model_2)\n                                    (distinct a!1 a!1)))\n                   (rewrite (= (distinct a!1 a!1) false))\n                   (= (distinct model_0 model_2) false))))\n  (mp (asserted (distinct model_0 model_2)) a!14 false)))))))",
+      "counterexample": []
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build"
+  ],
+  "rule_version": "scientific-contracts/15",
+  "geometries": [
+    {
+      "id": "h2",
+      "system": "h2",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "h2"
+    },
+    {
+      "id": "opt",
+      "system": "h2",
+      "source": "h2",
+      "producer": "opt",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "h2"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "opt",
+      "producer": "opt",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "opt",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "freq",
+      "producer": "freq",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "opt",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "gradient",
+      "producer": "gradient",
+      "quantity": {
+        "meaning": "gradient",
+        "unit": "hartree/bohr",
+        "shape": [
+          "atoms",
+          3
+        ],
+        "frame": "opt",
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "opt",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "required_components": [],
+  "request_digest": "c563b88574d0fe833346ac0f65f9d771717fbd7be768cad77d0941801f369282",
+  "scope": "scientific_request",
+  "coverage": [
+    {
+      "goal": "opt",
+      "steps": [
+        "opt"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "freq",
+      "steps": [
+        "freq"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "gradient",
+      "steps": [
+        "gradient"
+      ],
+      "status": "covered"
+    }
+  ],
+  "request_complete": true,
+  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
+  "limits": {
+    "timeout_ms": 1000,
+    "resource_limit": 0,
+    "max_steps": 10000,
+    "max_obligations": 10000,
+    "total_timeout_ms": 30000
+  },
+  "verification_digest": "64f28a53a19fdfa5eacc8608b0777cd5ff377d268c9b4bedd0cb130a2af22e52"
+}

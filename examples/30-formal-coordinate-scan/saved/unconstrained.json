@@ -1,0 +1,565 @@
+{
+  "status": "unknown",
+  "plan": null,
+  "report": {
+    "status": "unknown",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "a4209d1f394356bc8be1c70d2e4dd4bc535b6920aa78b37c8d0ee651c38bcb7f",
+    "solver_version": "5.3.1",
+    "diagnostics": [],
+    "obligations": [
+      {
+        "index": 0,
+        "path": [
+          "requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require short:relaxed to consume geometry short:water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (and (distinct geometry_0 \"short:water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"short:water\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"short:water\" a!1))\n                                (= (distinct geometry_0 \"short:water\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"short:water\")\n                     (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"short:water\"))\n                     (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"short:water\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"short:water\" a!1))\n                                (= (distinct geometry_0 \"short:water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"short:water\") false))))\n  (mp (asserted (distinct geometry_0 \"short:water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 1,
+        "path": [
+          "requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require long:relaxed to consume geometry long:water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (and (distinct geometry_1 \"long:water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"long:water\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"long:water\" a!1))\n                                (= (distinct geometry_1 \"long:water\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"long:water\")\n                     (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"long:water\"))\n                     (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"long:water\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"long:water\" a!1))\n                                (= (distinct geometry_1 \"long:water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"long:water\") false))))\n  (mp (asserted (distinct geometry_1 \"long:water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 2,
+        "path": [
+          "request",
+          "derived_requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require short:relaxed to consume geometry short:water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (and (distinct geometry_0 \"short:water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"short:water\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"short:water\" a!1))\n                                (= (distinct geometry_0 \"short:water\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"short:water\")\n                     (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"short:water\"))\n                     (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"short:water\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"short:water\" a!1))\n                                (= (distinct geometry_0 \"short:water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"short:water\") false))))\n  (mp (asserted (distinct geometry_0 \"short:water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 3,
+        "path": [
+          "request",
+          "derived_requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require long:relaxed to consume geometry long:water.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (and (distinct geometry_1 \"long:water\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"long:water\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"long:water\" a!1))\n                                (= (distinct geometry_1 \"long:water\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"long:water\")\n                     (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"long:water\"))\n                     (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"long:water\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"long:water\" a!1))\n                                (= (distinct geometry_1 \"long:water\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"long:water\") false))))\n  (mp (asserted (distinct geometry_1 \"long:water\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 4,
+        "path": [
+          "request",
+          "derived_requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require short:water distance ('a1', 'a2') : 0.9 +/- 1e-07 angstrom. Measured from resolved input coordinates.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun coordinate_4 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (<= (/ 9.0 10.0) coordinate_4))\n(assert\n (>= (/ 9.0 10.0) coordinate_4))\n(assert\n (let (($x963 (>= (/ 9000001.0 10000000.0) coordinate_4)))\n(let (($x961 (<= (/ 8999999.0 10000000.0) coordinate_4)))\n(let (($x964 (and $x961 $x963)))\n(let (($x965 (or $x964)))\n(not $x965))))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (not (or (and (<= (/ 8999999.0 10000000.0) coordinate_4)\n                         (>= (/ 9000001.0 10000000.0) coordinate_4)))))\n      (a!2 (monotonicity (rewrite (= (<= (/ 8999999.0 10000000.0) coordinate_4)\n                                     (>= coordinate_4 (/ 8999999.0 10000000.0))))\n                         (rewrite (= (>= (/ 9000001.0 10000000.0) coordinate_4)\n                                     (<= coordinate_4 (/ 9000001.0 10000000.0))))\n                         (= (and (<= (/ 8999999.0 10000000.0) coordinate_4)\n                                 (>= (/ 9000001.0 10000000.0) coordinate_4))\n                            (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                                 (<= coordinate_4 (/ 9000001.0 10000000.0))))))\n      (a!3 (= (or (and (<= (/ 8999999.0 10000000.0) coordinate_4)\n                       (>= (/ 9000001.0 10000000.0) coordinate_4)))\n              (or (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                       (<= coordinate_4 (/ 9000001.0 10000000.0))))))\n      (a!4 (= (or (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                       (<= coordinate_4 (/ 9000001.0 10000000.0))))\n              (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                   (<= coordinate_4 (/ 9000001.0 10000000.0)))))\n      (a!5 (= (or (and (<= (/ 8999999.0 10000000.0) coordinate_4)\n                       (>= (/ 9000001.0 10000000.0) coordinate_4)))\n              (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                   (<= coordinate_4 (/ 9000001.0 10000000.0)))))\n      (a!8 (not (or (not (>= coordinate_4 (/ 8999999.0 10000000.0)))\n                    (not (<= coordinate_4 (/ 9000001.0 10000000.0))))))\n      (a!12 (= (not (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                         (<= coordinate_4 (/ 9000001.0 10000000.0))))\n               (or (not (>= coordinate_4 (/ 8999999.0 10000000.0)))\n                   (not (<= coordinate_4 (/ 9000001.0 10000000.0))))))\n      (a!14 (th-lemma (or (<= coordinate_4 (/ 9000001.0 10000000.0))\n                          (not (<= coordinate_4 (/ 9.0 10.0))))))\n      (a!15 (mp (asserted (>= (/ 9.0 10.0) coordinate_4))\n                (rewrite (= (>= (/ 9.0 10.0) coordinate_4)\n                            (<= coordinate_4 (/ 9.0 10.0))))\n                (<= coordinate_4 (/ 9.0 10.0))))\n      (a!16 (th-lemma (or (>= coordinate_4 (/ 8999999.0 10000000.0))\n                          (not (>= coordinate_4 (/ 9.0 10.0))))))\n      (a!17 (mp (asserted (<= (/ 9.0 10.0) coordinate_4))\n                (rewrite (= (<= (/ 9.0 10.0) coordinate_4)\n                            (>= coordinate_4 (/ 9.0 10.0))))\n                (>= coordinate_4 (/ 9.0 10.0)))))\n(let ((a!6 (= a!1\n              (not (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                        (<= coordinate_4 (/ 9000001.0 10000000.0))))))\n      (a!9 (rewrite (= (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                            (<= coordinate_4 (/ 9000001.0 10000000.0)))\n                       a!8)))\n      (a!10 (= (not (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                         (<= coordinate_4 (/ 9000001.0 10000000.0))))\n               (not a!8)))\n      (a!11 (= (not a!8)\n               (or (not (>= coordinate_4 (/ 8999999.0 10000000.0)))\n                   (not (<= coordinate_4 (/ 9000001.0 10000000.0)))))))\n(let ((a!7 (mp (asserted a!1)\n               (monotonicity (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                             a!6)\n               (not (and (>= coordinate_4 (/ 8999999.0 10000000.0))\n                         (<= coordinate_4 (/ 9000001.0 10000000.0)))))))\n(let ((a!13 (mp a!7\n                (trans (monotonicity a!9 a!10) (rewrite a!11) a!12)\n                (or (not (>= coordinate_4 (/ 8999999.0 10000000.0)))\n                    (not (<= coordinate_4 (/ 9000001.0 10000000.0)))))))\n  (unit-resolution a!13\n                   (unit-resolution a!14\n                                    a!15\n                                    (<= coordinate_4 (/ 9000001.0 10000000.0)))\n                   (unit-resolution a!16\n                                    a!17\n                                    (>= coordinate_4 (/ 8999999.0 10000000.0)))\n                   false)))))",
+        "counterexample": []
+      },
+      {
+        "index": 5,
+        "path": [
+          "request",
+          "derived_requirements",
+          3
+        ],
+        "status": "unknown",
+        "message": "Require short:relaxed distance ('a1', 'a2') : 0.9 +/- 1e-07 angstrom. No established constraint for this coordinate on future geometry short:relaxed.",
+        "smt2": "",
+        "proof": null,
+        "counterexample": []
+      },
+      {
+        "index": 6,
+        "path": [
+          "request",
+          "derived_requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require long:water distance ('a1', 'a2') : 1.1 +/- 1e-07 angstrom. Measured from resolved input coordinates.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun coordinate_6 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"short:water\") true)))\n (not $x9)))\n(assert\n (let (($x78 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x78)))\n(assert\n (let (($x253 (and (distinct geometry_1 \"long:water\") true)))\n (not $x253)))\n(assert\n (let (($x281 (and (distinct model_1 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x281)))\n(assert\n (<= (/ 11.0 10.0) coordinate_6))\n(assert\n (>= (/ 11.0 10.0) coordinate_6))\n(assert\n (let (($x1020 (>= (/ 11000001.0 10000000.0) coordinate_6)))\n(let (($x981 (<= (/ 10999999.0 10000000.0) coordinate_6)))\n(let (($x1021 (and $x981 $x1020)))\n(let (($x1022 (or $x1021)))\n(not $x1022))))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (not (or (and (<= (/ 10999999.0 10000000.0) coordinate_6)\n                         (>= (/ 11000001.0 10000000.0) coordinate_6)))))\n      (a!2 (monotonicity (rewrite (= (<= (/ 10999999.0 10000000.0) coordinate_6)\n                                     (>= coordinate_6 (/ 10999999.0 10000000.0))))\n                         (rewrite (= (>= (/ 11000001.0 10000000.0) coordinate_6)\n                                     (<= coordinate_6 (/ 11000001.0 10000000.0))))\n                         (= (and (<= (/ 10999999.0 10000000.0) coordinate_6)\n                                 (>= (/ 11000001.0 10000000.0) coordinate_6))\n                            (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                                 (<= coordinate_6 (/ 11000001.0 10000000.0))))))\n      (a!3 (= (or (and (<= (/ 10999999.0 10000000.0) coordinate_6)\n                       (>= (/ 11000001.0 10000000.0) coordinate_6)))\n              (or (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                       (<= coordinate_6 (/ 11000001.0 10000000.0))))))\n      (a!4 (= (or (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                       (<= coordinate_6 (/ 11000001.0 10000000.0))))\n              (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                   (<= coordinate_6 (/ 11000001.0 10000000.0)))))\n      (a!5 (= (or (and (<= (/ 10999999.0 10000000.0) coordinate_6)\n                       (>= (/ 11000001.0 10000000.0) coordinate_6)))\n              (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                   (<= coordinate_6 (/ 11000001.0 10000000.0)))))\n      (a!8 (not (or (not (>= coordinate_6 (/ 10999999.0 10000000.0)))\n                    (not (<= coordinate_6 (/ 11000001.0 10000000.0))))))\n      (a!12 (= (not (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                         (<= coordinate_6 (/ 11000001.0 10000000.0))))\n               (or (not (>= coordinate_6 (/ 10999999.0 10000000.0)))\n                   (not (<= coordinate_6 (/ 11000001.0 10000000.0))))))\n      (a!14 (th-lemma (or (<= coordinate_6 (/ 11000001.0 10000000.0))\n                          (not (<= coordinate_6 (/ 11.0 10.0))))))\n      (a!15 (mp (asserted (>= (/ 11.0 10.0) coordinate_6))\n                (rewrite (= (>= (/ 11.0 10.0) coordinate_6)\n                            (<= coordinate_6 (/ 11.0 10.0))))\n                (<= coordinate_6 (/ 11.0 10.0))))\n      (a!16 (th-lemma (or (>= coordinate_6 (/ 10999999.0 10000000.0))\n                          (not (>= coordinate_6 (/ 11.0 10.0))))))\n      (a!17 (mp (asserted (<= (/ 11.0 10.0) coordinate_6))\n                (rewrite (= (<= (/ 11.0 10.0) coordinate_6)\n                            (>= coordinate_6 (/ 11.0 10.0))))\n                (>= coordinate_6 (/ 11.0 10.0)))))\n(let ((a!6 (= a!1\n              (not (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                        (<= coordinate_6 (/ 11000001.0 10000000.0))))))\n      (a!9 (rewrite (= (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                            (<= coordinate_6 (/ 11000001.0 10000000.0)))\n                       a!8)))\n      (a!10 (= (not (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                         (<= coordinate_6 (/ 11000001.0 10000000.0))))\n               (not a!8)))\n      (a!11 (= (not a!8)\n               (or (not (>= coordinate_6 (/ 10999999.0 10000000.0)))\n                   (not (<= coordinate_6 (/ 11000001.0 10000000.0)))))))\n(let ((a!7 (mp (asserted a!1)\n               (monotonicity (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                             a!6)\n               (not (and (>= coordinate_6 (/ 10999999.0 10000000.0))\n                         (<= coordinate_6 (/ 11000001.0 10000000.0)))))))\n(let ((a!13 (mp a!7\n                (trans (monotonicity a!9 a!10) (rewrite a!11) a!12)\n                (or (not (>= coordinate_6 (/ 10999999.0 10000000.0)))\n                    (not (<= coordinate_6 (/ 11000001.0 10000000.0)))))))\n  (unit-resolution a!13\n                   (unit-resolution a!14\n                                    a!15\n                                    (<= coordinate_6 (/ 11000001.0 10000000.0)))\n                   (unit-resolution a!16\n                                    a!17\n                                    (>= coordinate_6 (/ 10999999.0 10000000.0)))\n                   false)))))",
+        "counterexample": []
+      },
+      {
+        "index": 7,
+        "path": [
+          "request",
+          "derived_requirements",
+          5
+        ],
+        "status": "unknown",
+        "message": "Require long:relaxed distance ('a1', 'a2') : 1.1 +/- 1e-07 angstrom. No established constraint for this coordinate on future geometry long:relaxed.",
+        "smt2": "",
+        "proof": null,
+        "counterexample": []
+      }
+    ],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+      "Coordinate measurements use floating-point geometry and unit conversions; caller tolerances define accepted input differences. Future coordinate bounds assume successful enforcement of the declared optimizer constraints."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "short:water",
+        "system": "short:water",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "short:water"
+      },
+      {
+        "id": "long:water",
+        "system": "long:water",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "long:water"
+      },
+      {
+        "id": "short:relaxed",
+        "system": "short:water",
+        "source": "short:water",
+        "producer": "short:relaxed",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "short:water"
+      },
+      {
+        "id": "long:relaxed",
+        "system": "long:water",
+        "source": "long:water",
+        "producer": "long:relaxed",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "long:water"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "short:relaxed",
+        "producer": "short:relaxed",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "short:water",
+        "geometry": "short:relaxed",
+        "model": {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "long:relaxed",
+        "producer": "long:relaxed",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "long:water",
+        "geometry": "long:relaxed",
+        "model": {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [],
+    "native_variables": [],
+    "required_components": [
+      {
+        "name": "optking",
+        "version": null
+      }
+    ],
+    "request_digest": "12cad03c6b5099190cf610d31e59b701338ba4f16e7c56167a9423d5642b6e89",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "short:relaxed",
+        "steps": [
+          "short:relaxed"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "long:relaxed",
+        "steps": [
+          "long:relaxed"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": false,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29993
+    },
+    "verification_digest": "964325e8b2f7632db056d1ebe1a251ca49e72eb7426ebb91ba4d409403d336c1"
+  },
+  "attempts": 1,
+  "choices": [],
+  "diagnostics": [
+    {
+      "path": [
+        "request",
+        "derived_requirements",
+        3
+      ],
+      "message": "Require short:relaxed distance ('a1', 'a2') : 0.9 +/- 1e-07 angstrom. No established constraint for this coordinate on future geometry short:relaxed.",
+      "code": "candidate_obligation",
+      "status": "unknown"
+    },
+    {
+      "path": [
+        "request",
+        "derived_requirements",
+        5
+      ],
+      "message": "Require long:relaxed distance ('a1', 'a2') : 1.1 +/- 1e-07 angstrom. No established constraint for this coordinate on future geometry long:relaxed.",
+      "code": "candidate_obligation",
+      "status": "unknown"
+    }
+  ],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(declare-fun goal_1_choice_0 () Bool)\n(declare-fun goal_1_model () String)\n(declare-fun goal_1_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"analytic\") true))))\n(assert\n (or goal_1_choice_0))\n(assert\n ((_ at-most 1) goal_1_choice_0))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_model \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_route \"analytic\") true))))\n(assert\n (not (and goal_0_choice_0 goal_1_choice_0)))\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "prefer"
+  },
+  "reuses": [],
+  "last_candidate": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "short:water",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": -0.7112256762516267,
+                "z": 0.551505246974511,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a3",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.757,
+                "z": 0.587,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      },
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "long:water",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": -0.869275826529766,
+                "z": 0.6740619685244024,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a3",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.757,
+                "z": 0.587,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "short:relaxed",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "short:water",
+        "model": {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "short:relaxed"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "long:relaxed",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "long:water",
+        "model": {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "long:relaxed"
+        ],
+        "analysis": null
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "short:relaxed",
+        "geometry": "short:water"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "long:relaxed",
+        "geometry": "long:water"
+      }
+    ]
+  }
+}

@@ -1,19 +1,23 @@
 # Runtime and API discovery
 
-The builder and CLI normally run without a Psi4 binary or Python module. Continue
-building, rendering, validating, and formatting inputs when neither is available.
-An accessible Psi4 environment is useful for checking its version and directly
-inspecting behavior, especially its Python interface. Use the
-[version guidance](psi4.md) to choose documentation when that access is absent.
+The builder and CLI run in the parser's Python environment. Build, render,
+validate, and format inputs without inspecting target binaries, dependencies,
+or versions. Use the [source guidance](psi4.md) to choose chemistry documentation.
 
-Use the parser environment for builder scripts and CLI operations, and a
-configured Psi4 environment for its executable or Python API. They may use
-different Python interpreters. Keep discovery and use consistent within each
-environment; the task determines whether calculation execution is needed.
+Use one parser environment for API discovery, builder scripts, and CLI operations.
+For separately requested runtime work, use the operator's configured Psi4
+environment. It may use another interpreter or run on another machine.
 
 Use the user's existing environment if it already supplies the intended
-`psi4_parser` version. Otherwise, with uv and Git available, run from the user's
-working directory:
+`psi4_parser` version. For a local development checkout, run its own environment;
+this includes local source changes that a remote Git install cannot fetch:
+
+```sh
+uv run --project /path/to/psi4-parser python /path/to/build.py
+```
+
+Check `inspect.getfile()` in that environment and use it for both discovery and
+scripts. Otherwise, with uv and Git available, run from the user's working directory:
 
 ```sh
 PSI4_PARSER_SOURCE='git+https://github.com/jasonrig/psi4-parser.git@main'
@@ -34,9 +38,8 @@ branch-based cache, add `--refresh-package psi4-parser` to the `uvx` options.
 
 ## Identify the runtime and inspect the API
 
-At the start of the task, record the parser package version, resolved Git commit
-when available, and intended Psi4 version in the task notes. Mark an assumed Psi4
-version as such. Use these identities for subsequent commands and documentation.
+Record the parser package version and resolved Git commit when available. Use
+that same parser source for subsequent discovery and construction commands.
 
 Create a short discovery script, or pass Python on standard input:
 
@@ -60,7 +63,7 @@ PY
 
 If installation metadata records no commit, retain the package version and
 source location; a different checkout's HEAD does not identify this runtime.
-Use the [Psi4 version guidance](psi4.md) to establish the intended Psi4 version.
+Use the [Psi4 source guidance](psi4.md) for consequential method and option choices.
 
 Use `dir(module)` to find names and `inspect.signature(object)` for arguments,
 types, and defaults. Use `help()` primarily for functions and methods, and
@@ -80,8 +83,10 @@ for name, field in model.model_fields.items():
     print(name, "required" if field.is_required() else "optional", field.description)
 ```
 
-Read only the relevant fields. Use `model_json_schema()` when JSON structure or
-constraints need inspection, selecting the relevant definitions for large models.
+Read only the relevant fields. Some recursive model constructor signatures omit
+fields; use `model_fields` and selected schema definitions for the complete
+contract. Use `model_json_schema()` when JSON structure or constraints need
+inspection, selecting the relevant definitions for large models.
 
 The installed package contains readable Python source. Guides and example build
 scripts live in the [repository](https://github.com/jasonrig/psi4-parser); use a

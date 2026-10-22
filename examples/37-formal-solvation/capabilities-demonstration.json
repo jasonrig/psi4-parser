@@ -1,0 +1,237 @@
+{
+  "schema_version": "1",
+  "id": "solvent-demonstration",
+  "application": "psi4",
+  "evidence": [
+    {
+      "id": "fixture",
+      "source": "Explicit teaching declarations, not evidence for an installed application.",
+      "kind": "declaration",
+      "application_version": "demonstration/1",
+      "build": null,
+      "digest": null
+    }
+  ],
+  "methods": [
+    {
+      "method": "hf",
+      "driver": "energy",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "ddx",
+        "ddx_model:pcm",
+        "ddx_model:cosmo",
+        "ddx_model:lpb"
+      ],
+      "options": [
+        "ddx.ddx_lmax",
+        "ddx.ddx_model",
+        "ddx.ddx_solvent",
+        "ddx.ddx_radii_set",
+        "ddx.ddx_radii_scaling",
+        "ddx.ddx_solvent_epsilon",
+        "ddx.ddx_solvent_kappa",
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [
+        {
+          "name": "scf_type",
+          "module": null,
+          "values": [
+            "PK"
+          ],
+          "case_sensitive": true
+        }
+      ],
+      "components": [
+        "pyddx"
+      ],
+      "products": [],
+      "evidence": [
+        "fixture"
+      ]
+    }
+  ],
+  "bases": [
+    {
+      "name": "sto-3g",
+      "role": "basis",
+      "status": "supported",
+      "elements": [
+        "H"
+      ],
+      "ecps": [],
+      "functions": [
+        {
+          "element": "H",
+          "spherical": 1,
+          "cartesian": 1
+        }
+      ],
+      "sequence": null,
+      "evidence": [
+        "fixture"
+      ]
+    }
+  ],
+  "options": [
+    {
+      "name": "ddx_solvent",
+      "module": "DDX",
+      "status": "supported",
+      "values": [],
+      "types": [
+        "string"
+      ],
+      "minimum": null,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_model",
+      "module": "DDX",
+      "status": "supported",
+      "values": [
+        "pcm",
+        "cosmo",
+        "lpb"
+      ],
+      "types": [],
+      "minimum": null,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_radii_set",
+      "module": "DDX",
+      "status": "supported",
+      "values": [
+        "uff"
+      ],
+      "types": [],
+      "minimum": null,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_radii_scaling",
+      "module": "DDX",
+      "status": "supported",
+      "values": [],
+      "types": [
+        "real"
+      ],
+      "minimum": 0.0,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_solvent_epsilon",
+      "module": "DDX",
+      "status": "supported",
+      "values": [],
+      "types": [
+        "real"
+      ],
+      "minimum": 1.0,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_solvent_kappa",
+      "module": "DDX",
+      "status": "supported",
+      "values": [],
+      "types": [
+        "real"
+      ],
+      "minimum": 0.0,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "ddx_lmax",
+      "module": "DDX",
+      "status": "supported",
+      "values": [],
+      "types": [
+        "integer"
+      ],
+      "minimum": 0.0,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    },
+    {
+      "name": "scf_type",
+      "module": null,
+      "status": "supported",
+      "values": [
+        "PK"
+      ],
+      "types": [],
+      "minimum": null,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "fixture"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "pyddx",
+      "version": "demonstration/1",
+      "status": "supported",
+      "evidence": [
+        "fixture"
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "kind": "ddx",
+      "radii_set": "uff",
+      "status": "supported",
+      "elements": [
+        "H"
+      ],
+      "solvents": [
+        "water"
+      ],
+      "evidence": [
+        "fixture"
+      ]
+    }
+  ]
+}

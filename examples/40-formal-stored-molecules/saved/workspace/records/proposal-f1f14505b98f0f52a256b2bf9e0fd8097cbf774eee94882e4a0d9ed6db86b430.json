@@ -1,0 +1,559 @@
+{
+  "status": "constructed",
+  "plan": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "waters",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.758,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a3",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": -0.758,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a4",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 3.5,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a5",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 4.258,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a6",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 2.742,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a7",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 7.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a8",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 7.758,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a9",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 6.242,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a10",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 10.5,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a11",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 11.258,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a12",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 9.742,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a13",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 14.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a14",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 14.758,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a15",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 13.242,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a16",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 17.5,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a17",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 18.258,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a18",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 16.742,
+                "y": 0.0,
+                "z": 0.504,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": "c1",
+          "fixed_com": true,
+          "fixed_orientation": true,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "energy",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "waters",
+        "model": {
+          "method": "mp2",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "energy"
+        ],
+        "analysis": null
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "energy",
+        "geometry": "waters"
+      }
+    ]
+  },
+  "report": {
+    "status": "proved",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "ede35c61fe1f4d92002b2e8944d6d397617c49cb0433b6342fe28db347902fe5",
+    "solver_version": "5.3.1",
+    "diagnostics": [],
+    "obligations": [
+      {
+        "index": 0,
+        "path": [
+          "requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require energy to consume geometry waters.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"mp2\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"mp2_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"CONV\\\"\"}\"\"],[[\"\"\"\",\"\"qc_module\"\"],\"\"{\\\"\"value\\\"\":\\\"\"OCC\\\"\"}\"\"],[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 115)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"waters\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"waters\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"waters\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"waters\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"waters\") false))))\n  (mp (asserted (distinct geometry_0 \"waters\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 1,
+        "path": [
+          "request",
+          "derived_requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require energy to consume geometry waters.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"mp2\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"mp2_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"CONV\\\"\"}\"\"],[[\"\"\"\",\"\"qc_module\"\"],\"\"{\\\"\"value\\\"\":\\\"\"OCC\\\"\"}\"\"],[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 115)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"waters\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"waters\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"waters\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"waters\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"waters\") false))))\n  (mp (asserted (distinct geometry_0 \"waters\")) a!8 false)))))))",
+        "counterexample": []
+      }
+    ],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "waters",
+        "system": "waters",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3",
+          "a4",
+          "a5",
+          "a6",
+          "a7",
+          "a8",
+          "a9",
+          "a10",
+          "a11",
+          "a12",
+          "a13",
+          "a14",
+          "a15",
+          "a16",
+          "a17",
+          "a18"
+        ],
+        "frame": "waters"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "energy",
+        "producer": "energy",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "waters",
+        "geometry": "waters",
+        "model": {
+          "method": "mp2",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [],
+    "native_variables": [],
+    "required_components": [],
+    "request_digest": "bf075b7fa60ecc32b4a66920a77003f27e4211ea5a3ae2cfb47562ae0e7ea9a6",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "energy",
+        "steps": [
+          "energy"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": true,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29997
+    },
+    "verification_digest": "6a61c5d17dff3273123330f8683e7d559793bb52f4baef7a076bf3b3e4f5738b"
+  },
+  "attempts": 1,
+  "choices": [
+    {
+      "goal": "energy",
+      "model": {
+        "method": "mp2",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    }
+  ],
+  "diagnostics": [],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"mp2\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"mp2_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"CONV\\\"\"}\"\"],[[\"\"\"\",\"\"qc_module\"\"],\"\"{\\\"\"value\\\"\":\\\"\"OCC\\\"\"}\"\"],[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n goal_0_choice_0)\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "prefer"
+  },
+  "reuses": [],
+  "last_candidate": null
+}

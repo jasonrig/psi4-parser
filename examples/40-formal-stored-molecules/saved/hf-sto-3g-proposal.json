@@ -1,0 +1,60 @@
+{
+  "proposal": {
+    "handle": "proposal:1a040efee8174fd8dc2f6749a9316d263d58fd3711ccf7f6e59bb9b0cd47bbf6",
+    "kind": "proposal",
+    "sha256": "1a040efee8174fd8dc2f6749a9316d263d58fd3711ccf7f6e59bb9b0cd47bbf6",
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/proposal-1a040efee8174fd8dc2f6749a9316d263d58fd3711ccf7f6e59bb9b0cd47bbf6.json",
+    "bytes": 18471
+  },
+  "status": "constructed",
+  "attempts": 1,
+  "plan": {
+    "handle": "plan:65447f4a8b5a130007079ce8601e9040fbc650691eb2229834f52bd78b34af2e",
+    "kind": "plan",
+    "sha256": "65447f4a8b5a130007079ce8601e9040fbc650691eb2229834f52bd78b34af2e",
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/plan-65447f4a8b5a130007079ce8601e9040fbc650691eb2229834f52bd78b34af2e.json",
+    "bytes": 8043
+  },
+  "verification": {
+    "reference": {
+      "handle": "verification:4277eed7e52ea1f2c9cb35c98a7ab786990ff19c219b1363a9b603e93ba7cec6",
+      "kind": "verification",
+      "sha256": "4277eed7e52ea1f2c9cb35c98a7ab786990ff19c219b1363a9b603e93ba7cec6",
+      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-4277eed7e52ea1f2c9cb35c98a7ab786990ff19c219b1363a9b603e93ba7cec6.json",
+      "bytes": 7950
+    },
+    "runtime_policy": "operator_managed",
+    "status": "proved",
+    "capability_status": "supported",
+    "scope": "scientific_request",
+    "request_complete": true,
+    "coverage": {
+      "covered": 1
+    },
+    "obligations": {
+      "proved": 2
+    },
+    "diagnostic_count": 0,
+    "assumption_count": 7,
+    "verification_digest": "a822c4674aa858a396f035be6d08563081e8a8d2a2dc6e870b903cee1481a5ff",
+    "rule_version": "scientific-contracts/15",
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "request_digest": "c8506c52e281bd5dfb931f646941e15baac75585fd10397cf7f23f71e07d5b6e",
+    "plan_digest": "18d48c8aed712638afe0efb10d2c7cac9510e21d7bcfd1b064e4780fb4832016",
+    "required_components": []
+  },
+  "choice_count": 1,
+  "choices": [
+    {
+      "goal": "energy",
+      "method": "hf",
+      "basis": "sto-3g",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    }
+  ],
+  "calculation_count": 1,
+  "shared_call_count": 0,
+  "last_candidate": null
+}

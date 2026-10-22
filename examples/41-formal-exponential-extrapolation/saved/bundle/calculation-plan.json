@@ -1,0 +1,710 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.758,
+              "y": 0.0,
+              "z": 0.504,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": -0.758,
+              "y": 0.0,
+              "z": 0.504,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "linear_dt:low",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "linear_dt:low"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "linear_dt:high",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvtz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "linear_dt:high",
+        "sqrt_tq:low",
+        "correlation_tq:low:reference"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "linear_dt:basis_limit",
+      "terms": [
+        {
+          "result": "linear_dt:low",
+          "coefficient": {
+            "numerator": -243672155848987319,
+            "denominator": 1000000000000000000
+          }
+        },
+        {
+          "result": "linear_dt:high",
+          "coefficient": {
+            "numerator": 1243672155848987319,
+            "denominator": 1000000000000000000
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_reference_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "exponential",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "linear_dt:low",
+          "basis": "cc-pvdz",
+          "cardinal": 2
+        },
+        "high": {
+          "result": "linear_dt:high",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "alpha": {
+          "numerator": 163,
+          "denominator": 100
+        },
+        "shape": "cardinal",
+        "coefficient_digits": 18
+      },
+      "satisfies": [
+        "linear_dt:basis_limit"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "sqrt_tq:high",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvqz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "sqrt_tq:high",
+        "correlation_tq:high:reference"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "sqrt_tq:basis_limit",
+      "terms": [
+        {
+          "result": "linear_dt:high",
+          "coefficient": {
+            "numerator": -113402218707240537,
+            "denominator": 500000000000000000
+          }
+        },
+        {
+          "result": "sqrt_tq:high",
+          "coefficient": {
+            "numerator": 613402218707240537,
+            "denominator": 500000000000000000
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_reference_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "exponential",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "linear_dt:high",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "high": {
+          "result": "sqrt_tq:high",
+          "basis": "cc-pvqz",
+          "cardinal": 4
+        },
+        "alpha": {
+          "numerator": 63,
+          "denominator": 10
+        },
+        "shape": "sqrt_cardinal",
+        "coefficient_digits": 18
+      },
+      "satisfies": [
+        "sqrt_tq:basis_limit"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "correlation_tq:low:target",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvtz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "correlation_tq:low:target"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "correlation_tq:low:correction",
+      "terms": [
+        {
+          "result": "correlation_tq:low:target",
+          "coefficient": 1
+        },
+        {
+          "result": "linear_dt:high",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "correlation_tq:low:correction"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "correlation_tq:high:target",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvqz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "correlation_tq:high:target"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "correlation_tq:high:correction",
+      "terms": [
+        {
+          "result": "correlation_tq:high:target",
+          "coefficient": 1
+        },
+        {
+          "result": "sqrt_tq:high",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "correlation_tq:high:correction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "correlation_tq:basis_limit",
+      "terms": [
+        {
+          "result": "correlation_tq:low:correction",
+          "coefficient": {
+            "numerator": -27,
+            "denominator": 37
+          }
+        },
+        {
+          "result": "correlation_tq:high:correction",
+          "coefficient": {
+            "numerator": 64,
+            "denominator": 37
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "inverse_power",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "correlation_tq:low:correction",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "high": {
+          "result": "correlation_tq:high:correction",
+          "basis": "cc-pvqz",
+          "cardinal": 4
+        },
+        "power": 3
+      },
+      "satisfies": [
+        "correlation_tq:basis_limit"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "linear_total",
+      "terms": [
+        {
+          "result": "linear_dt:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "result": "correlation_tq:basis_limit",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "linear_total"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "sqrt_total",
+      "terms": [
+        {
+          "result": "sqrt_tq:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "result": "correlation_tq:basis_limit",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "sqrt_total"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "model_comparison",
+      "terms": [
+        {
+          "result": "sqrt_total",
+          "coefficient": 1
+        },
+        {
+          "result": "linear_total",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "model_comparison"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "uses_geometry",
+      "calculation": "linear_dt:low",
+      "geometry": "water"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "linear_dt:high",
+      "geometry": "water"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "linear_dt:basis_limit",
+      "terms": [
+        {
+          "result": "linear_dt:low",
+          "coefficient": {
+            "numerator": -243672155848987319,
+            "denominator": 1000000000000000000
+          }
+        },
+        {
+          "result": "linear_dt:high",
+          "coefficient": {
+            "numerator": 1243672155848987319,
+            "denominator": 1000000000000000000
+          }
+        }
+      ]
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "sqrt_tq:high",
+      "geometry": "water"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "sqrt_tq:basis_limit",
+      "terms": [
+        {
+          "result": "linear_dt:high",
+          "coefficient": {
+            "numerator": -113402218707240537,
+            "denominator": 500000000000000000
+          }
+        },
+        {
+          "result": "sqrt_tq:high",
+          "coefficient": {
+            "numerator": 613402218707240537,
+            "denominator": 500000000000000000
+          }
+        }
+      ]
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "correlation_tq:low:target",
+      "geometry": "water"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "correlation_tq:low:correction",
+      "terms": [
+        {
+          "result": "correlation_tq:low:target",
+          "coefficient": 1
+        },
+        {
+          "result": "linear_dt:high",
+          "coefficient": -1
+        }
+      ]
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "correlation_tq:high:target",
+      "geometry": "water"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "correlation_tq:high:correction",
+      "terms": [
+        {
+          "result": "correlation_tq:high:target",
+          "coefficient": 1
+        },
+        {
+          "result": "sqrt_tq:high",
+          "coefficient": -1
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "correlation_tq:basis_limit",
+      "terms": [
+        {
+          "result": "correlation_tq:low:correction",
+          "coefficient": {
+            "numerator": -27,
+            "denominator": 37
+          }
+        },
+        {
+          "result": "correlation_tq:high:correction",
+          "coefficient": {
+            "numerator": 64,
+            "denominator": 37
+          }
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "linear_total",
+      "terms": [
+        {
+          "result": "linear_dt:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "result": "correlation_tq:basis_limit",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "sqrt_total",
+      "terms": [
+        {
+          "result": "sqrt_tq:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "result": "correlation_tq:basis_limit",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "model_comparison",
+      "terms": [
+        {
+          "result": "sqrt_total",
+          "coefficient": 1
+        },
+        {
+          "result": "linear_total",
+          "coefficient": -1
+        }
+      ]
+    }
+  ]
+}

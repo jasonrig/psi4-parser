@@ -1,0 +1,2452 @@
+{
+  "application_version": "1.12a1.dev43",
+  "version_long": "1.12a1.dev43+60c9b2a",
+  "source_commit": "60c9b2a773c05abc26991c5ed48cf9862cdb4978",
+  "core_sha256": "9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
+  "python_version": "3.15.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "audit_sha256": "7a08ecc3f82f48165227edc02959764e927d69a382cc99a1bc0f0995e18e26c3",
+  "python_sources": [
+    {
+      "path": "driver/procrouting/solvent/ddx.py",
+      "sha256": "d436f2365a9131b524e6f438fd816b934534b8aa362d4a54a61d8de822d652f6"
+    },
+    {
+      "path": "driver/procrouting/solvent/__init__.py",
+      "sha256": "8951b2cbfd89e762a44ea9ad61b324fe4fef3d383e04d89cee9da14c73eea36d"
+    },
+    {
+      "path": "driver/procrouting/scf_proc/scf_iterator.py",
+      "sha256": "4de3bf96fb09d46d2ad7cace03dbad667068e00526edf4adf4ea00df60d7aa8a"
+    },
+    {
+      "path": "driver/procrouting/proc_util.py",
+      "sha256": "84d87df1244a0c06beaa9c626d108d3ed3ac80db586e81b5e2db5b589d73c12f"
+    },
+    {
+      "path": "driver/qcdb/psivardefs.py",
+      "sha256": "d560503e47c53f7c3b63d88a8ff5a21fd218054ce910e1eb26a04c8e61297c16"
+    },
+    {
+      "path": "driver/driver_cbs.py",
+      "sha256": "f956c0831c4023dc95b96bcbdcbab798fe58870eab4c7dfffb7f4b3319d5d869"
+    },
+    {
+      "path": "driver/driver_cbs_helper.py",
+      "sha256": "1d26785aa87334267de8b1964725c21c5b659d0557406c758416396d9ee83dbc"
+    },
+    {
+      "path": "driver/qcdb/vib.py",
+      "sha256": "154d637bce0be27d472c915d838e7e04cbed33b4253178267b107c20745a3b7d"
+    },
+    {
+      "path": "driver/inputparser.py",
+      "sha256": "80f0ba7969b71a29ea567743eb24911550b9557f1f4883e569ca43d5a417da5a"
+    },
+    {
+      "path": "driver/driver.py",
+      "sha256": "7d2485decb726bf62f18ca5f6c624b6dbc36d540dc9fbe2187a232189be13db6"
+    },
+    {
+      "path": "driver/driver_util.py",
+      "sha256": "f7e8118f835d5c669526089abf03321ca33b9e0b220f0d24ed9360e0cdb6219c"
+    },
+    {
+      "path": "driver/procrouting/proc.py",
+      "sha256": "98ac648d84cc4587ec034b9207d3c6fbc3cd74df4c0409a85478e5467c0dd408"
+    },
+    {
+      "path": "driver/procrouting/proc_table.py",
+      "sha256": "995fb0b19407cbc17d29f3c10052f5fe2beeef331eb097250c34ddedcb9cbe73"
+    },
+    {
+      "path": "driver/p4util/python_helpers.py",
+      "sha256": "0c39ba0ef11a32fb1a4e921dae64213e5af38ab69d9007170ace44113c49574f"
+    },
+    {
+      "path": "driver/p4util/exceptions.py",
+      "sha256": "886800298ca7f6501b40e2826485029a9d163fcb75b9a14cc1c13463c00b56e1"
+    }
+  ],
+  "basis_sources": [
+    {
+      "path": "cc-pvdz-ri.gbs",
+      "sha256": "a121fe1f16e2fca6dced2fe6e9845d723c0220f671fb10e2bc0ac2154aef0522"
+    },
+    {
+      "path": "cc-pvtz-ri.gbs",
+      "sha256": "886b7baf1a6e96c3f2fa1439d75dc991003d6c69e91c3769b2d9c8e018d8cb73"
+    },
+    {
+      "path": "cc-pvqz-ri.gbs",
+      "sha256": "b8c2c6112b646a7ad6774e70535a78a1b05ec727b28d7bb8491f67781711be87"
+    },
+    {
+      "path": "cc-pvdz-jkfit.gbs",
+      "sha256": "0ce02adc7d0c5c517e3128131a2fe147c587b5241311f178adc21c6987b67ebf"
+    },
+    {
+      "path": "cc-pvtz-jkfit.gbs",
+      "sha256": "a7f961866b44a2112f545e919d39b5c3d5a00287b06eeea5f6405fbad980468a"
+    },
+    {
+      "path": "cc-pvqz-jkfit.gbs",
+      "sha256": "7b68da07767e81c6a3656111d77399463f37f89a40232dac1128a3c53edfeada"
+    },
+    {
+      "path": "sto-3g.gbs",
+      "sha256": "b472adfbcd0d87e1fd054963b8073a95b5ec265e8b0fd46951a56005f0f227d7"
+    },
+    {
+      "path": "cc-pvdz.gbs",
+      "sha256": "9fe1562f050bc7290c98e765a4bf86dcbc1dbe6380a75d49cc835b89fd34a0e8"
+    },
+    {
+      "path": "cc-pvtz.gbs",
+      "sha256": "41e6452a999090bf6991b8b1f37198dfd8269f645fa1d0296609acafe83aaa99"
+    },
+    {
+      "path": "cc-pvqz.gbs",
+      "sha256": "45774bc7d8ab5289de40ce890430ea1d9e6736303b0e8e37bf9125d96031e4a8"
+    },
+    {
+      "path": "def2-svp.gbs",
+      "sha256": "6a88947cc200fd3cf8d5536f5a4a2815cc6e7e83ee7938ad0184af80ae4a2fdf"
+    }
+  ],
+  "basis_dimensions": [
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "H",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "He",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Li",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Be",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "B",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "C",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "N",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "O",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "F",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ne",
+      "spherical": 56,
+      "cartesian": 66,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Na",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Mg",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Al",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Si",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "P",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "S",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Cl",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ar",
+      "spherical": 76,
+      "cartesian": 90,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "H",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "He",
+      "spherical": 27,
+      "cartesian": 29,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Li",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Be",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "B",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "C",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "N",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "O",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "F",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ne",
+      "spherical": 81,
+      "cartesian": 101,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Na",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Mg",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Al",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Si",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "P",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "S",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Cl",
+      "spherical": 122,
+      "cartesian": 156,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ar",
+      "spherical": 123,
+      "cartesian": 157,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "H",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "He",
+      "spherical": 46,
+      "cartesian": 55,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Li",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Be",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "B",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "C",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "N",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "O",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "F",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ne",
+      "spherical": 132,
+      "cartesian": 181,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Na",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Mg",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Al",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Si",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "P",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "S",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Cl",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-ri",
+      "role": "df_basis_sapt",
+      "element": "Ar",
+      "spherical": 158,
+      "cartesian": 212,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "H",
+      "spherical": 23,
+      "cartesian": 25,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "H",
+      "spherical": 23,
+      "cartesian": 25,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "B",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "B",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "C",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "C",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "N",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "N",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "O",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "O",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "F",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "F",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ne",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ne",
+      "spherical": 70,
+      "cartesian": 81,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Al",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Al",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Si",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Si",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "P",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "P",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "S",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "S",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Cl",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Cl",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ar",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ar",
+      "spherical": 112,
+      "cartesian": 130,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "H",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "H",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "B",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "B",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "C",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "C",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "N",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "N",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "O",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "O",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "F",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "F",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ne",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ne",
+      "spherical": 79,
+      "cartesian": 96,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Al",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Al",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Si",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Si",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "P",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "P",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "S",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "S",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Cl",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Cl",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ar",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ar",
+      "spherical": 121,
+      "cartesian": 145,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "H",
+      "spherical": 51,
+      "cartesian": 66,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "H",
+      "spherical": 51,
+      "cartesian": 66,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "B",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "B",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "C",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "C",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "N",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "N",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "O",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "O",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "F",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "F",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ne",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ne",
+      "spherical": 106,
+      "cartesian": 142,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Al",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Al",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Si",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Si",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "P",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "P",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "S",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "S",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Cl",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Cl",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_scf",
+      "element": "Ar",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz-jkfit",
+      "role": "df_basis_elst",
+      "element": "Ar",
+      "spherical": 148,
+      "cartesian": 191,
+      "max_am": 5,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "H",
+      "spherical": 1,
+      "cartesian": 1,
+      "max_am": 0,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "He",
+      "spherical": 1,
+      "cartesian": 1,
+      "max_am": 0,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Li",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Be",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "B",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "C",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "N",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "O",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "F",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Ne",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Na",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Mg",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Al",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Si",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "P",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "S",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Cl",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "sto-3g",
+      "role": "basis",
+      "element": "Ar",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "H",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "He",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Li",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Be",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "B",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "C",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "N",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "O",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "F",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Ne",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Na",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Mg",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Al",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Si",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "P",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "S",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Cl",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvdz",
+      "role": "basis",
+      "element": "Ar",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "H",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "He",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Li",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Be",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "B",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "C",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "N",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "O",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "F",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Ne",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Na",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Mg",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Al",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Si",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "P",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "S",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Cl",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvtz",
+      "role": "basis",
+      "element": "Ar",
+      "spherical": 34,
+      "cartesian": 39,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "H",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "He",
+      "spherical": 30,
+      "cartesian": 35,
+      "max_am": 3,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Li",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Be",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "B",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "C",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "N",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "O",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "F",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Ne",
+      "spherical": 55,
+      "cartesian": 70,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Na",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Mg",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Al",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Si",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "P",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "S",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Cl",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "cc-pvqz",
+      "role": "basis",
+      "element": "Ar",
+      "spherical": 59,
+      "cartesian": 74,
+      "max_am": 4,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "H",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "He",
+      "spherical": 5,
+      "cartesian": 5,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Li",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Be",
+      "spherical": 9,
+      "cartesian": 9,
+      "max_am": 1,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "B",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "C",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "N",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "O",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "F",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Ne",
+      "spherical": 14,
+      "cartesian": 15,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Na",
+      "spherical": 15,
+      "cartesian": 16,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Mg",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Al",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Si",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "P",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "S",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Cl",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    },
+    {
+      "basis": "def2-svp",
+      "role": "basis",
+      "element": "Ar",
+      "spherical": 18,
+      "cartesian": 19,
+      "max_am": 2,
+      "ecp_core": 0
+    }
+  ],
+  "native_sapt_available": true,
+  "ddx_available": false,
+  "pyddx_version": null,
+  "ddx_solvents": [],
+  "ddx_radii_elements": {},
+  "routing": [
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "rhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "rhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "rhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "rhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=RHF, FREEZE_CORE=FALSE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "rhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "rhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "rhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=RHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "rhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=RHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "uhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "uhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "uhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "uhf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=UHF, FREEZE_CORE=FALSE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "uhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "uhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "uhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=UHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "uhf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=UHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "rohf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "rohf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "rohf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=ROHF, FREEZE_CORE=FALSE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "rohf",
+      "frozen_core": false,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "FALSE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=ROHF, FREEZE_CORE=FALSE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "rohf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "energy",
+      "reference": "rohf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "supported",
+      "message": "Routing probe accepted without calculation"
+    },
+    {
+      "method": "mp2",
+      "driver": "gradient",
+      "reference": "rohf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=ROHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    },
+    {
+      "method": "mp2",
+      "driver": "properties",
+      "reference": "rohf",
+      "frozen_core": true,
+      "scf_type": "PK",
+      "mp2_type": "CONV",
+      "qc_module": "OCC",
+      "native_freeze_core": "TRUE",
+      "status": "unsupported",
+      "message": "Method=mp2 is not available for target derivative level (dertype=0) under conditions MP2_TYPE=CONV, REFERENCE=ROHF, FREEZE_CORE=TRUE, QC_MODULE=OCC. See https://psicode.org/psi4manual/master/capabilities.html#dd-mp2."
+    }
+  ],
+  "libint2": {
+    "onebody": [
+      6,
+      5,
+      4
+    ],
+    "eri": [
+      5,
+      4,
+      3
+    ],
+    "eri3": [
+      6,
+      5,
+      4
+    ],
+    "eri2": [
+      6,
+      5,
+      4
+    ]
+  },
+  "optking_version": "0.5.0",
+  "qcelemental_version": "0.51.3",
+  "oeprop_methods": [
+    "DIPOLE",
+    "QUADRUPOLE",
+    "MULLIKEN_CHARGES",
+    "LOWDIN_CHARGES",
+    "LOWDIN_SPINS",
+    "WIBERG_LOWDIN_INDICES",
+    "MAYER_INDICES",
+    "MBIS_CHARGES",
+    "MBIS_VOLUME_RATIOS",
+    "MO_EXTENTS",
+    "GRID_FIELD",
+    "GRID_ESP",
+    "ESP_AT_NUCLEI",
+    "NO_OCCUPATIONS"
+  ]
+}

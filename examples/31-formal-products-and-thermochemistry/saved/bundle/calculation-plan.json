@@ -1,0 +1,431 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "opt",
+      "driver": "optimize",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "analytic",
+      "properties": [],
+      "satisfies": [
+        "opt"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "frequency",
+      "driver": "frequency",
+      "sapt": null,
+      "geometry": "opt",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "analytic",
+      "properties": [],
+      "satisfies": [
+        "frequency"
+      ],
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      }
+    },
+    {
+      "kind": "product",
+      "id": "spectrum",
+      "calculation": "frequency",
+      "name": "harmonic_frequencies",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "spectrum"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "modes",
+      "calculation": "frequency",
+      "name": "normal_modes",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "modes"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hessian",
+      "calculation": "frequency",
+      "name": "hessian",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "hessian"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "gibbs_correction",
+      "calculation": "frequency",
+      "name": "gibbs_correction",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "gibbs_correction"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_gibbs",
+      "calculation": "frequency",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "hf_gibbs"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "correlated_energy",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "opt",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": true,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "correlated_energy"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "hybrid_gibbs",
+      "terms": [
+        {
+          "result": "correlated_energy",
+          "coefficient": 1
+        },
+        {
+          "result": "gibbs_correction",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "hybrid_gibbs"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "properties",
+      "driver": "properties",
+      "sapt": null,
+      "geometry": "opt",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [
+        "DIPOLE",
+        "QUADRUPOLE",
+        "MULLIKEN_CHARGES",
+        "LOWDIN_CHARGES",
+        "MAYER_INDICES",
+        "WIBERG_LOWDIN_INDICES"
+      ],
+      "satisfies": [
+        "properties"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "product",
+      "id": "dipole",
+      "calculation": "properties",
+      "name": "dipole",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "dipole"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "quadrupole",
+      "calculation": "properties",
+      "name": "quadrupole",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "quadrupole"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "mulliken",
+      "calculation": "properties",
+      "name": "mulliken_charges",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "mulliken"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "lowdin",
+      "calculation": "properties",
+      "name": "lowdin_charges",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "lowdin"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "mayer",
+      "calculation": "properties",
+      "name": "mayer_indices",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "mayer"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "wiberg",
+      "calculation": "properties",
+      "name": "wiberg_lowdin_indices",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "wiberg"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "uses_geometry",
+      "calculation": "opt",
+      "geometry": "water"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "frequency",
+      "geometry": "opt"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "correlated_energy",
+      "geometry": "opt"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "hybrid_gibbs",
+      "terms": [
+        {
+          "result": "correlated_energy",
+          "coefficient": 1
+        },
+        {
+          "result": "gibbs_correction",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "properties",
+      "geometry": "opt"
+    }
+  ]
+}

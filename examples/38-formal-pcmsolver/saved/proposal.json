@@ -1,0 +1,1288 @@
+{
+  "status": "constructed",
+  "plan": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "h2",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.8,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "vacuum",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "vacuum"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "water",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "Water",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": null,
+              "probe_radius_bohr": null,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "water"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "explicit_iefpcm",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "explicit_iefpcm"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "explicit_cpcm",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "cpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.5,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "explicit_cpcm"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "combination",
+        "id": "water_shift",
+        "terms": [
+          {
+            "result": "water",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "water_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "explicit_iefpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_iefpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "explicit_iefpcm_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "explicit_cpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_cpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "explicit_cpcm_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "equation_comparison",
+        "terms": [
+          {
+            "result": "explicit_cpcm_shift",
+            "coefficient": 1
+          },
+          {
+            "result": "explicit_iefpcm_shift",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "energy_difference",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "equation_comparison"
+        ]
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "vacuum",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "water",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "explicit_iefpcm",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "explicit_cpcm",
+        "geometry": "h2"
+      },
+      {
+        "kind": "energy_formula",
+        "result": "water_shift",
+        "terms": [
+          {
+            "result": "water",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "explicit_iefpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_iefpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "explicit_cpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_cpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "equation_comparison",
+        "terms": [
+          {
+            "result": "explicit_cpcm_shift",
+            "coefficient": 1
+          },
+          {
+            "result": "explicit_iefpcm_shift",
+            "coefficient": -1
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "status": "proved",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "4a796b1fbe66042e92a95c07576c4d59671bdd75ccc120c4f03ffa2ca7f19589",
+    "solver_version": "5.3.1",
+    "diagnostics": [],
+    "obligations": [
+      {
+        "index": 0,
+        "path": [
+          "requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require vacuum to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 1,
+        "path": [
+          "requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require water to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_1 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_1 \"h2\")\n              (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_1\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_1 \"h2\"))\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_1 \"h2\") a!3))\n                         (= (not (distinct geometry_1 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_1\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_1 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_1 \"h2\") false))))\n  (mp (asserted (distinct geometry_1 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 2,
+        "path": [
+          "requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require explicit_iefpcm to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_2 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_2 \"h2\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_2 \"h2\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"h2\") a!3))\n                         (= (not (distinct geometry_2 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"h2\") false))))\n  (mp (asserted (distinct geometry_2 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 3,
+        "path": [
+          "requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require explicit_cpcm to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_3 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_3 \"h2\")\n              (distinct geometry_3\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_3\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_3 \"h2\"))\n              (= geometry_3\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_3\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_3\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_3 \"h2\") a!3))\n                         (= (not (distinct geometry_3 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_3 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_3\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_3 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_3 \"h2\") false))))\n  (mp (asserted (distinct geometry_3 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 4,
+        "path": [
+          "requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require water_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1578 (* 1.0 energy_1)))\n(let ((?x1581 (+ ?x1578 ?x1580)))\n(and (distinct energy_4 ?x1581) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_4\n                               (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_1) energy_1))\n                         (= (+ (* 1.0 energy_1) (* (- 1.0) energy_0))\n                            (+ energy_1 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_1 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_1))))\n      (a!5 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))\n              (distinct energy_4 (+ (* (- 1.0) energy_0) energy_1))))\n      (a!6 (not (= energy_4 (+ (* (- 1.0) energy_0) energy_1))))\n      (a!9 (= (= energy_4 (+ (* (- 1.0) energy_0) energy_1))\n              (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!13 (not (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_1) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_1))))\n      (a!7 (= (distinct energy_4 (+ (* (- 1.0) energy_0) energy_1)) a!6))\n      (a!8 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 5,
+        "path": [
+          "requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require explicit_iefpcm_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1624 (* 1.0 energy_2)))\n(let ((?x1625 (+ ?x1624 ?x1580)))\n(and (distinct energy_5 ?x1625) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_5\n                               (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_2) energy_2))\n                         (= (+ (* 1.0 energy_2) (* (- 1.0) energy_0))\n                            (+ energy_2 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_2 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_2))))\n      (a!5 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))\n              (distinct energy_5 (+ (* (- 1.0) energy_0) energy_2))))\n      (a!6 (not (= energy_5 (+ (* (- 1.0) energy_0) energy_2))))\n      (a!9 (= (= energy_5 (+ (* (- 1.0) energy_0) energy_2))\n              (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!13 (not (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_2) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_2))))\n      (a!7 (= (distinct energy_5 (+ (* (- 1.0) energy_0) energy_2)) a!6))\n      (a!8 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 6,
+        "path": [
+          "requirements",
+          6
+        ],
+        "status": "proved",
+        "message": "Require explicit_cpcm_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1667 (* 1.0 energy_3)))\n(let ((?x1668 (+ ?x1667 ?x1580)))\n(and (distinct energy_6 ?x1668) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_6\n                               (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_3) energy_3))\n                         (= (+ (* 1.0 energy_3) (* (- 1.0) energy_0))\n                            (+ energy_3 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_3 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_3))))\n      (a!5 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))\n              (distinct energy_6 (+ (* (- 1.0) energy_0) energy_3))))\n      (a!6 (not (= energy_6 (+ (* (- 1.0) energy_0) energy_3))))\n      (a!9 (= (= energy_6 (+ (* (- 1.0) energy_0) energy_3))\n              (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!13 (not (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_3) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_3))))\n      (a!7 (= (distinct energy_6 (+ (* (- 1.0) energy_0) energy_3)) a!6))\n      (a!8 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 7,
+        "path": [
+          "requirements",
+          7
+        ],
+        "status": "proved",
+        "message": "Require equation_comparison to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n(let ((?x1710 (* 1.0 energy_6)))\n(let ((?x1712 (+ ?x1710 ?x1711)))\n(and (distinct energy_7 ?x1712) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_7\n                               (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_6) energy_6))\n                         (= (+ (* 1.0 energy_6) (* (- 1.0) energy_5))\n                            (+ energy_6 (* (- 1.0) energy_5)))))\n      (a!3 (rewrite (= (+ energy_6 (* (- 1.0) energy_5))\n                       (+ (* (- 1.0) energy_5) energy_6))))\n      (a!5 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))\n              (distinct energy_7 (+ (* (- 1.0) energy_5) energy_6))))\n      (a!6 (not (= energy_7 (+ (* (- 1.0) energy_5) energy_6))))\n      (a!9 (= (= energy_7 (+ (* (- 1.0) energy_5) energy_6))\n              (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!10 (not (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!13 (not (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))))\n      (a!18 (= (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_6) (* (- 1.0) energy_5))\n                     (+ (* (- 1.0) energy_5) energy_6))))\n      (a!7 (= (distinct energy_7 (+ (* (- 1.0) energy_5) energy_6)) a!6))\n      (a!8 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5))) a!6))\n      (a!11 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!15 (= a!13 (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 8,
+        "path": [
+          "request",
+          "derived_requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require vacuum to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 9,
+        "path": [
+          "request",
+          "derived_requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require water to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_1 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_1 \"h2\")\n              (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_1\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_1 \"h2\"))\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_1\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_1\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_1 \"h2\") a!3))\n                         (= (not (distinct geometry_1 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_1\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_1 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_1 \"h2\") false))))\n  (mp (asserted (distinct geometry_1 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 10,
+        "path": [
+          "request",
+          "derived_requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require explicit_iefpcm to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_2 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_2 \"h2\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_2 \"h2\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"h2\") a!3))\n                         (= (not (distinct geometry_2 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"h2\") false))))\n  (mp (asserted (distinct geometry_2 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 11,
+        "path": [
+          "request",
+          "derived_requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require explicit_cpcm to consume geometry h2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (and (distinct geometry_3 \"h2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_3 \"h2\")\n              (distinct geometry_3\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_3\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_3 \"h2\"))\n              (= geometry_3\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_3\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_3\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_3 \"h2\") a!3))\n                         (= (not (distinct geometry_3 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_3 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_3\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_3 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_3 \"h2\") false))))\n  (mp (asserted (distinct geometry_3 \"h2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 12,
+        "path": [
+          "request",
+          "derived_requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require water_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1578 (* 1.0 energy_1)))\n(let ((?x1581 (+ ?x1578 ?x1580)))\n(and (distinct energy_4 ?x1581) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_4\n                               (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_1) energy_1))\n                         (= (+ (* 1.0 energy_1) (* (- 1.0) energy_0))\n                            (+ energy_1 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_1 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_1))))\n      (a!5 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))\n              (distinct energy_4 (+ (* (- 1.0) energy_0) energy_1))))\n      (a!6 (not (= energy_4 (+ (* (- 1.0) energy_0) energy_1))))\n      (a!9 (= (= energy_4 (+ (* (- 1.0) energy_0) energy_1))\n              (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!13 (not (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_1) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_1))))\n      (a!7 (= (distinct energy_4 (+ (* (- 1.0) energy_0) energy_1)) a!6))\n      (a!8 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_4 (+ (* 1.0 energy_1) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_1) energy_4) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 13,
+        "path": [
+          "request",
+          "derived_requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require explicit_iefpcm_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1624 (* 1.0 energy_2)))\n(let ((?x1625 (+ ?x1624 ?x1580)))\n(and (distinct energy_5 ?x1625) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_5\n                               (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_2) energy_2))\n                         (= (+ (* 1.0 energy_2) (* (- 1.0) energy_0))\n                            (+ energy_2 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_2 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_2))))\n      (a!5 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))\n              (distinct energy_5 (+ (* (- 1.0) energy_0) energy_2))))\n      (a!6 (not (= energy_5 (+ (* (- 1.0) energy_0) energy_2))))\n      (a!9 (= (= energy_5 (+ (* (- 1.0) energy_0) energy_2))\n              (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!13 (not (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_2) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_2))))\n      (a!7 (= (distinct energy_5 (+ (* (- 1.0) energy_0) energy_2)) a!6))\n      (a!8 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_5 (+ (* 1.0 energy_2) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_2) energy_5) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 14,
+        "path": [
+          "request",
+          "derived_requirements",
+          6
+        ],
+        "status": "proved",
+        "message": "Require explicit_cpcm_shift to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n(let ((?x1667 (* 1.0 energy_3)))\n(let ((?x1668 (+ ?x1667 ?x1580)))\n(and (distinct energy_6 ?x1668) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_6\n                               (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_3) energy_3))\n                         (= (+ (* 1.0 energy_3) (* (- 1.0) energy_0))\n                            (+ energy_3 (* (- 1.0) energy_0)))))\n      (a!3 (rewrite (= (+ energy_3 (* (- 1.0) energy_0))\n                       (+ (* (- 1.0) energy_0) energy_3))))\n      (a!5 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))\n              (distinct energy_6 (+ (* (- 1.0) energy_0) energy_3))))\n      (a!6 (not (= energy_6 (+ (* (- 1.0) energy_0) energy_3))))\n      (a!9 (= (= energy_6 (+ (* (- 1.0) energy_0) energy_3))\n              (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!10 (not (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!13 (not (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))))\n      (a!18 (= (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_3) (* (- 1.0) energy_0))\n                     (+ (* (- 1.0) energy_0) energy_3))))\n      (a!7 (= (distinct energy_6 (+ (* (- 1.0) energy_0) energy_3)) a!6))\n      (a!8 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0))) a!6))\n      (a!11 (= (distinct energy_6 (+ (* 1.0 energy_3) (* (- 1.0) energy_0)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0)))\n      (a!15 (= a!13 (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_0 (* (- 1.0) energy_3) energy_6) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 15,
+        "path": [
+          "request",
+          "derived_requirements",
+          7
+        ],
+        "status": "proved",
+        "message": "Require equation_comparison to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun energy_0 () Real)\n(declare-fun energy_1 () Real)\n(declare-fun energy_4 () Real)\n(declare-fun energy_2 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun energy_7 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h2\") true)))\n (not $x242)))\n(assert\n (let (($x263 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x263)))\n(assert\n (let (($x774 (and (distinct geometry_2 \"h2\") true)))\n (not $x774)))\n(assert\n (let (($x795 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x795)))\n(assert\n (let (($x1131 (and (distinct geometry_3 \"h2\") true)))\n (not $x1131)))\n(assert\n (let (($x1152 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x1152)))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1578 (* 1.0 energy_1)))\n (let ((?x1581 (+ ?x1578 ?x1580)))\n (let (($x1582 (and (distinct energy_4 ?x1581) true)))\n (not $x1582))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1624 (* 1.0 energy_2)))\n (let ((?x1625 (+ ?x1624 ?x1580)))\n (let (($x1626 (and (distinct energy_5 ?x1625) true)))\n (not $x1626))))))\n(assert\n (let ((?x1580 (* (- 1.0) energy_0)))\n (let ((?x1667 (* 1.0 energy_3)))\n (let ((?x1668 (+ ?x1667 ?x1580)))\n (let (($x1669 (and (distinct energy_6 ?x1668) true)))\n (not $x1669))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n (let ((?x1710 (* 1.0 energy_6)))\n (let ((?x1712 (+ ?x1710 ?x1711)))\n (let (($x1713 (and (distinct energy_7 ?x1712) true)))\n (not $x1713))))))\n(assert\n (let ((?x1711 (* (- 1.0) energy_5)))\n(let ((?x1710 (* 1.0 energy_6)))\n(let ((?x1712 (+ ?x1710 ?x1711)))\n(and (distinct energy_7 ?x1712) true)))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (asserted (distinct energy_7\n                               (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_6) energy_6))\n                         (= (+ (* 1.0 energy_6) (* (- 1.0) energy_5))\n                            (+ energy_6 (* (- 1.0) energy_5)))))\n      (a!3 (rewrite (= (+ energy_6 (* (- 1.0) energy_5))\n                       (+ (* (- 1.0) energy_5) energy_6))))\n      (a!5 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))\n              (distinct energy_7 (+ (* (- 1.0) energy_5) energy_6))))\n      (a!6 (not (= energy_7 (+ (* (- 1.0) energy_5) energy_6))))\n      (a!9 (= (= energy_7 (+ (* (- 1.0) energy_5) energy_6))\n              (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!10 (not (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!13 (not (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))))\n      (a!18 (= (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0) (= 0.0 0.0)))\n      (a!19 (= (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0) true)))\n(let ((a!4 (trans a!2\n                  a!3\n                  (= (+ (* 1.0 energy_6) (* (- 1.0) energy_5))\n                     (+ (* (- 1.0) energy_5) energy_6))))\n      (a!7 (= (distinct energy_7 (+ (* (- 1.0) energy_5) energy_6)) a!6))\n      (a!8 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5))) a!6))\n      (a!11 (= (distinct energy_7 (+ (* 1.0 energy_6) (* (- 1.0) energy_5)))\n               a!10))\n      (a!14 (= (not a!10) (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0)))\n      (a!15 (= a!13 (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0))))\n(let ((a!12 (trans (trans (monotonicity a!4 a!5) (rewrite a!7) a!8)\n                   (monotonicity (rewrite a!9) (= a!6 a!10))\n                   a!11)))\n(let ((a!16 (trans (monotonicity a!12 (= a!13 (not a!10))) (rewrite a!14) a!15)))\n(let ((a!17 (mp (asserted a!13)\n                a!16\n                (= (+ energy_5 (* (- 1.0) energy_6) energy_7) 0.0))))\n(let ((a!20 (trans (monotonicity a!17 a!18) (rewrite (= (= 0.0 0.0) true)) a!19)))\n(let ((a!21 (trans (monotonicity a!20 (= a!10 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!10 false))))\n  (mp (mp a!1 a!12 a!10) a!21 false))))))))",
+        "counterexample": []
+      }
+    ],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+      "Equilibrium continuum equations, dielectric values, cavity choices, and discretization are scientific inputs. An electronic solvation shift omits thermal, non-electrostatic, and standard-state terms."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "h2",
+        "system": "h2",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "h2"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "vacuum",
+        "producer": "vacuum",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "water",
+        "producer": "water",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "Water",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": null,
+              "probe_radius_bohr": null,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_iefpcm",
+        "producer": "explicit_iefpcm",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_cpcm",
+        "producer": "explicit_cpcm",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "cpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.5,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "water_shift",
+        "producer": "water_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "water",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_iefpcm_shift",
+        "producer": "explicit_iefpcm_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_iefpcm",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_cpcm_shift",
+        "producer": "explicit_cpcm_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_cpcm",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "equation_comparison",
+        "producer": "equation_comparison",
+        "quantity": {
+          "meaning": "energy_difference",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_cpcm_shift",
+          "explicit_iefpcm_shift"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [],
+    "native_variables": [],
+    "required_components": [
+      {
+        "name": "pcmsolver",
+        "version": null
+      }
+    ],
+    "request_digest": "87c36d1c51bb836a894cc91a1c8027bbd87fe7210d10a601be5a854451a76de3",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "vacuum",
+        "steps": [
+          "vacuum"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "water",
+        "steps": [
+          "water"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_iefpcm",
+        "steps": [
+          "explicit_iefpcm"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_cpcm",
+        "steps": [
+          "explicit_cpcm"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "water_shift",
+        "steps": [
+          "water_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_iefpcm_shift",
+        "steps": [
+          "explicit_iefpcm_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_cpcm_shift",
+        "steps": [
+          "explicit_cpcm_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "equation_comparison",
+        "steps": [
+          "equation_comparison"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": true,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29979
+    },
+    "verification_digest": "966331694d12bd263a1a898043f0e76b8a21a97d842d31d00b17b53307d2bde4"
+  },
+  "attempts": 1,
+  "choices": [
+    {
+      "goal": "vacuum",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "water",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": {
+          "kind": "pcm",
+          "solvent": "Water",
+          "ddx": {
+            "model": "pcm",
+            "dielectric_constant": null,
+            "radii_set": "uff",
+            "radii_scaling": 1.1,
+            "screening_inverse_bohr": null
+          },
+          "pcm": {
+            "solver": "iefpcm",
+            "dielectric_constant": null,
+            "probe_radius_bohr": null,
+            "radii_set": "uff",
+            "scale_radii": false,
+            "surface_area_bohr2": 0.3,
+            "cpcm_correction": 0.0,
+            "diagonal_scaling": 1.07,
+            "scf_type": "total"
+          },
+          "settings": []
+        },
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "explicit_iefpcm",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": {
+          "kind": "pcm",
+          "solvent": "example-medium",
+          "ddx": {
+            "model": "pcm",
+            "dielectric_constant": null,
+            "radii_set": "uff",
+            "radii_scaling": 1.1,
+            "screening_inverse_bohr": null
+          },
+          "pcm": {
+            "solver": "iefpcm",
+            "dielectric_constant": 12.0,
+            "probe_radius_bohr": 2.5,
+            "radii_set": "uff",
+            "scale_radii": false,
+            "surface_area_bohr2": 0.3,
+            "cpcm_correction": 0.0,
+            "diagonal_scaling": 1.07,
+            "scf_type": "total"
+          },
+          "settings": []
+        },
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    },
+    {
+      "goal": "explicit_cpcm",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": {
+          "kind": "pcm",
+          "solvent": "example-medium",
+          "ddx": {
+            "model": "pcm",
+            "dielectric_constant": null,
+            "radii_set": "uff",
+            "radii_scaling": 1.1,
+            "screening_inverse_bohr": null
+          },
+          "pcm": {
+            "solver": "cpcm",
+            "dielectric_constant": 12.0,
+            "probe_radius_bohr": 2.5,
+            "radii_set": "uff",
+            "scale_radii": false,
+            "surface_area_bohr2": 0.3,
+            "cpcm_correction": 0.5,
+            "diagonal_scaling": 1.07,
+            "scf_type": "total"
+          },
+          "settings": []
+        },
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    }
+  ],
+  "diagnostics": [],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(declare-fun goal_1_choice_0 () Bool)\n(declare-fun goal_1_model () String)\n(declare-fun goal_1_route () String)\n(declare-fun goal_2_choice_0 () Bool)\n(declare-fun goal_2_model () String)\n(declare-fun goal_2_route () String)\n(declare-fun goal_3_choice_0 () Bool)\n(declare-fun goal_3_model () String)\n(declare-fun goal_3_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n (or goal_1_choice_0))\n(assert\n ((_ at-most 1) goal_1_choice_0))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_route \"automatic\") true))))\n(assert\n (or goal_2_choice_0))\n(assert\n ((_ at-most 1) goal_2_choice_0))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_route \"automatic\") true))))\n(assert\n (or goal_3_choice_0))\n(assert\n ((_ at-most 1) goal_3_choice_0))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_route \"automatic\") true))))\n(assert\n goal_0_choice_0)\n(assert\n goal_1_choice_0)\n(assert\n goal_2_choice_0)\n(assert\n goal_3_choice_0)\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "prefer"
+  },
+  "reuses": [],
+  "last_candidate": null
+}

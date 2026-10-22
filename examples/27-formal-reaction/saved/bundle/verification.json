@@ -1,0 +1,272 @@
+{
+  "status": "proved",
+  "runtime_policy": "operator_managed",
+  "capability_status": "supported",
+  "plan_digest": "db6fb13f606d652185484d3eccae2be8a4b4e99f560070eec9a5da1aa11b7676",
+  "solver_version": "5.3.1",
+  "diagnostics": [],
+  "obligations": [
+    {
+      "index": 0,
+      "path": [
+        "requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require dissociation:energy:H2 to consume geometry h2.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 1,
+      "path": [
+        "requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require dissociation:energy:H to consume geometry h.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (and (distinct geometry_1 \"h\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (monotonicity (rewrite (= \"h\" (seq.unit (_ Char 104))))\n                         (= (distinct geometry_1 \"h\")\n                            (distinct geometry_1 (seq.unit (_ Char 104))))))\n      (a!2 (= (distinct geometry_1 (seq.unit (_ Char 104)))\n              (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!3 (= (distinct geometry_1 \"h\")\n              (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!4 (not (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!10 (rewrite (= (distinct (seq.unit (_ Char 104))\n                                  (seq.unit (_ Char 104)))\n                        false))))\n(let ((a!5 (monotonicity (trans a!1 (rewrite a!2) a!3)\n                         (= (not (distinct geometry_1 \"h\")) a!4)))\n      (a!6 (rewrite (= a!4 (= geometry_1 (seq.unit (_ Char 104)))))))\n(let ((a!7 (trans a!5\n                  a!6\n                  (= (not (distinct geometry_1 \"h\"))\n                     (= geometry_1 (seq.unit (_ Char 104)))))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"h\")))\n               a!7\n               (= geometry_1 (seq.unit (_ Char 104))))))\n(let ((a!9 (monotonicity a!8\n                         (rewrite (= \"h\" (seq.unit (_ Char 104))))\n                         (= (distinct geometry_1 \"h\")\n                            (distinct (seq.unit (_ Char 104))\n                                      (seq.unit (_ Char 104)))))))\n  (mp (asserted (distinct geometry_1 \"h\"))\n      (trans a!9 a!10 (= (distinct geometry_1 \"h\") false))\n      false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 2,
+      "path": [
+        "requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require dissociation:reaction to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n(and (distinct energy_2 ?x310) true)))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_2\n                               (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!2 (not (= energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!4 (= (= energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))\n              (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!5 (not (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!8 (not (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!13 (= (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0) (= 0.0 0.0)))\n      (a!14 (= (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0) true)))\n(let ((a!3 (= (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))) a!2))\n      (a!6 (= (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))) a!5))\n      (a!9 (= (not a!5) (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!10 (= a!8 (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0))))\n(let ((a!7 (trans (rewrite a!3) (monotonicity (rewrite a!4) (= a!2 a!5)) a!6)))\n(let ((a!11 (trans (monotonicity a!7 (= a!8 (not a!5))) (rewrite a!9) a!10)))\n(let ((a!12 (mp (asserted a!8)\n                a!11\n                (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0))))\n(let ((a!15 (trans (monotonicity a!12 a!13) (rewrite (= (= 0.0 0.0) true)) a!14)))\n(let ((a!16 (trans (monotonicity a!15 (= a!5 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!5 false))))\n  (mp (mp a!1 a!7 a!5) a!16 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 3,
+      "path": [
+        "request",
+        "derived_requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require dissociation:energy:H2 to consume geometry h2.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (and (distinct geometry_0 \"h2\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (rewrite (= \"h2\"\n                       (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_0 \"h2\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_0 \"h2\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"h2\") a!3))\n                         (= (not (distinct geometry_0 \"h2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"h2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 104)) (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"h2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"h2\") false))))\n  (mp (asserted (distinct geometry_0 \"h2\")) a!10 false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 4,
+      "path": [
+        "request",
+        "derived_requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require dissociation:energy:H to consume geometry h.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (and (distinct geometry_1 \"h\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (monotonicity (rewrite (= \"h\" (seq.unit (_ Char 104))))\n                         (= (distinct geometry_1 \"h\")\n                            (distinct geometry_1 (seq.unit (_ Char 104))))))\n      (a!2 (= (distinct geometry_1 (seq.unit (_ Char 104)))\n              (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!3 (= (distinct geometry_1 \"h\")\n              (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!4 (not (not (= geometry_1 (seq.unit (_ Char 104))))))\n      (a!10 (rewrite (= (distinct (seq.unit (_ Char 104))\n                                  (seq.unit (_ Char 104)))\n                        false))))\n(let ((a!5 (monotonicity (trans a!1 (rewrite a!2) a!3)\n                         (= (not (distinct geometry_1 \"h\")) a!4)))\n      (a!6 (rewrite (= a!4 (= geometry_1 (seq.unit (_ Char 104)))))))\n(let ((a!7 (trans a!5\n                  a!6\n                  (= (not (distinct geometry_1 \"h\"))\n                     (= geometry_1 (seq.unit (_ Char 104)))))))\n(let ((a!8 (mp (asserted (not (distinct geometry_1 \"h\")))\n               a!7\n               (= geometry_1 (seq.unit (_ Char 104))))))\n(let ((a!9 (monotonicity a!8\n                         (rewrite (= \"h\" (seq.unit (_ Char 104))))\n                         (= (distinct geometry_1 \"h\")\n                            (distinct (seq.unit (_ Char 104))\n                                      (seq.unit (_ Char 104)))))))\n  (mp (asserted (distinct geometry_1 \"h\"))\n      (trans a!9 a!10 (= (distinct geometry_1 \"h\") false))\n      false))))))",
+      "counterexample": []
+    },
+    {
+      "index": 5,
+      "path": [
+        "request",
+        "derived_requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require dissociation:reaction to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun energy_1 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_2 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"h2\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x242 (and (distinct geometry_1 \"h\") true)))\n (not $x242)))\n(assert\n (let (($x265 (and (distinct model_1 \"[\"\"scf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"pk\\\"\"}\"\"]]]\") true)))\n (not $x265)))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n (let (($x311 (and (distinct energy_2 ?x310) true)))\n (not $x311))))\n(assert\n (let ((?x310 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))))\n(and (distinct energy_2 ?x310) true)))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_2\n                               (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!2 (not (= energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!4 (= (= energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))\n              (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!5 (not (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!8 (not (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1)))))\n      (a!13 (= (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0) (= 0.0 0.0)))\n      (a!14 (= (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0) true)))\n(let ((a!3 (= (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))) a!2))\n      (a!6 (= (distinct energy_2 (+ (* (- 1.0) energy_0) (* 2.0 energy_1))) a!5))\n      (a!9 (= (not a!5) (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0)))\n      (a!10 (= a!8 (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0))))\n(let ((a!7 (trans (rewrite a!3) (monotonicity (rewrite a!4) (= a!2 a!5)) a!6)))\n(let ((a!11 (trans (monotonicity a!7 (= a!8 (not a!5))) (rewrite a!9) a!10)))\n(let ((a!12 (mp (asserted a!8)\n                a!11\n                (= (+ energy_0 (* (- 2.0) energy_1) energy_2) 0.0))))\n(let ((a!15 (trans (monotonicity a!12 a!13) (rewrite (= (= 0.0 0.0) true)) a!14)))\n(let ((a!16 (trans (monotonicity a!15 (= a!5 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!5 false))))\n  (mp (mp a!1 a!7 a!5) a!16 false))))))))",
+      "counterexample": []
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build"
+  ],
+  "rule_version": "scientific-contracts/15",
+  "geometries": [
+    {
+      "id": "h2",
+      "system": "h2",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "h2"
+    },
+    {
+      "id": "h",
+      "system": "h",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1"
+      ],
+      "frame": "h"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "dissociation:energy:H2",
+      "producer": "dissociation:energy:H2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dissociation:energy:H",
+      "producer": "dissociation:energy:H",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h",
+      "geometry": "h",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "uhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 2
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dissociation:reaction",
+      "producer": "dissociation:reaction",
+      "quantity": {
+        "meaning": "reaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dissociation:energy:H2",
+        "dissociation:energy:H"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "required_components": [],
+  "request_digest": "f22422b7c2009795a7cf7ace199a32b73b3747aaeb28c30ab83ebd864fb413b3",
+  "scope": "scientific_request",
+  "coverage": [
+    {
+      "goal": "dissociation:energy:H2",
+      "steps": [
+        "dissociation:energy:H2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dissociation:energy:H",
+      "steps": [
+        "dissociation:energy:H"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dissociation:reaction",
+      "steps": [
+        "dissociation:reaction"
+      ],
+      "status": "covered"
+    }
+  ],
+  "request_complete": true,
+  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
+  "limits": {
+    "timeout_ms": 1000,
+    "resource_limit": 0,
+    "max_steps": 10000,
+    "max_obligations": 10000,
+    "total_timeout_ms": 30000
+  },
+  "verification_digest": "3f9e1c310bbd706c94f97b1f98f548d318472b4433df9a5d47d357cb25515b76"
+}

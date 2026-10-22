@@ -1,0 +1,158 @@
+import contextlib as _psi4_builder_contextlib
+import psi4 as _psi4_builder_psi4
+
+@_psi4_builder_contextlib.contextmanager
+def _psi4_builder_isolated_options(modules):
+    core = _psi4_builder_psi4.core
+    options = core.get_options()
+    previous_module = options.get_current_module()
+    previous_namespace = core.IO.get_default_namespace()
+    try:
+        state = _psi4_builder_psi4.driver.p4util.prepare_options_for_modules(
+            changedOnly=False, stateInsteadMediated=True
+        )
+        state['GLOBALS'] = {
+            name: {
+                'value': core.get_global_option(name),
+                'has_changed': core.has_global_option_changed(name),
+            }
+            for name in core.get_global_option_list()
+        }
+        # These native modules supplement the public utility's module list.
+        for module in dict.fromkeys(('ADC', 'DDX', 'F12', previous_module, *modules)):
+            if not module or module in state:
+                continue
+            state[module] = {
+                name: {
+                    'value': core.get_local_option(module, name),
+                    'has_changed': flags[0],
+                }
+                for name, flags in core.options_to_python(module).items()
+            }
+        if any(
+            item['value'] is None
+            for values in state.values()
+            for item in values.values()
+        ):
+            raise ValueError('Cannot isolate opaque Psi4 option values')
+        try:
+            core.clean_options()
+            core.get_options().set_current_module(previous_module)
+            yield
+        finally:
+            core.clean_options()
+            for module, values in state.items():
+                for name, item in values.items():
+                    if module == 'GLOBALS':
+                        current = core.get_global_option(name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_global_option(name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_global_option_changed(name)
+                    else:
+                        current = core.get_local_option(module, name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_local_option(module, name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_local_option_changed(module, name)
+    finally:
+        try:
+            core.get_options().set_current_module(previous_module)
+        finally:
+            core.IO.set_default_namespace(previous_namespace)
+
+molecule formal_input_0 {
+    0 1
+    O  0.0   0.0    0.0
+    H  0.0  -0.757  0.587
+    H  0.0   0.757  0.587
+    units angstrom
+}
+
+(psi4.core.clean)()
+
+formal_geometry_0 = formal_input_0.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "cc-pvdz"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    formal_energy_0 = optimize('hf', molecule=formal_geometry_0, dertype=1)
+
+(psi4.core.clean)()
+
+formal_geometry_1 = formal_geometry_0.clone()
+
+with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
+    set {
+        basis        "cc-pvdz"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    set THERMO {
+        T                           298.15
+        P                           101325.0
+        ROTATIONAL_SYMMETRY_NUMBER  2
+    }
+
+    set {
+        WRITER_FILE_LABEL  "formal_ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c_1"
+    }
+
+    set FINDIF {
+        HESSIAN_WRITE  true
+    }
+
+    formal_energy_1 = frequency('hf', molecule=formal_geometry_1, project_trans=True, project_rot=True, dertype=2)
+
+(psi4.core.clean)()
+
+formal_geometry_7 = formal_geometry_0.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "cc-pvdz"
+        reference    "rhf"
+        freeze_core  true
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+        mp2_type     "CONV"
+        qc_module    "OCC"
+    }
+
+    formal_energy_7 = energy('mp2', molecule=formal_geometry_7)
+
+(psi4.core.clean)()
+
+formal_geometry_9 = formal_geometry_0.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "cc-pvdz"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    formal_energy_9 = properties('hf', molecule=formal_geometry_9, properties=['DIPOLE', 'QUADRUPOLE', 'MULLIKEN_CHARGES', 'LOWDIN_CHARGES', 'MAYER_INDICES', 'WIBERG_LOWDIN_INDICES'])
+
+formal_results = {'opt': formal_energy_0, 'frequency': formal_energy_1, 'correlated_energy': formal_energy_7, 'properties': formal_energy_9}
+
+formal_geometries = {'water': formal_input_0, 'opt': formal_geometry_0}

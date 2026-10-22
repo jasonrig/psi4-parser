@@ -7,10 +7,10 @@
     {
       "name": "psi4-parser",
       "source": "./plugins/psi4-parser",
-      "description": "Build Psi4 inputs with Python and validate, format, or convert existing inputs."
+      "description": "Construct checked calculation plans and Psi4 inputs with Python; validate, format, or convert existing inputs."
     }
   ],
   "metadata": {
-    "description": "Python tools and agent skills for creating and checking Psi4 input."
+    "description": "Python tools and agent skills for planning calculations and creating or checking Psi4 input."
   }
 }

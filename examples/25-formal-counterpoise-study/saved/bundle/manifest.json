@@ -1,0 +1,873 @@
+{
+  "schema_version": "1",
+  "plan_digest": "99bee92ce773e66c3c2919672c58e8a807a71c1025bffaf4591b1ac064fa3bec",
+  "request_digest": "ae346ddc4f6652fb2b0f47f37457319b1af68c366e081a128e281e1699a9f0af",
+  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
+  "verification_digest": "6284747077a4a557085455576b8e95a06d9bdd92ccd16290cf6e0fe2f2b81f64",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "c878b3ab1ef195dfe65ba6fa2bcccf07396d9c8d66328f4c12af01cdff2141ad"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "9a3c948782d0207f2c75f1d613f0dc89d63a218a0d550736a615220b4724dc6a"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "c3c9855080c29b241a27380b5beb8fde9718b74b509804fd93f00059f3856787"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "06383b0f0d5c410503af8aaeab11f0c12b24d8b65ca8feadf3f1d9220827ce07"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "712e358af9de604e9b896d534b094cfd0e0e99ac020f53fd3a4bc3c881cce6eb"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "r3:opt",
+      "artifact": "r3:cluster",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:subsystem:0",
+      "artifact": "r3:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:energy:0",
+      "artifact": "r3:cp:subsystem:0",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:subsystem:1",
+      "artifact": "r3:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:energy:1",
+      "artifact": "r3:cp:subsystem:1",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:subsystem:2",
+      "artifact": "r3:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:energy:2",
+      "artifact": "r3:cp:subsystem:2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r3:cp:interaction",
+      "artifact": "r3:cp:energy:0",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "r3:cp:interaction",
+      "artifact": "r3:cp:energy:1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "r3:cp:interaction",
+      "artifact": "r3:cp:energy:2",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "r4:opt",
+      "artifact": "r4:cluster",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:subsystem:0",
+      "artifact": "r4:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:energy:0",
+      "artifact": "r4:cp:subsystem:0",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:subsystem:1",
+      "artifact": "r4:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:energy:1",
+      "artifact": "r4:cp:subsystem:1",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:subsystem:2",
+      "artifact": "r4:opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:energy:2",
+      "artifact": "r4:cp:subsystem:2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "r4:cp:interaction",
+      "artifact": "r4:cp:energy:0",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "r4:cp:interaction",
+      "artifact": "r4:cp:energy:1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "r4:cp:interaction",
+      "artifact": "r4:cp:energy:2",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "r3:cluster",
+      "system": "r3:cluster",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r3:cluster"
+    },
+    {
+      "id": "r4:cluster",
+      "system": "r4:cluster",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r4:cluster"
+    },
+    {
+      "id": "r3:opt",
+      "system": "r3:cluster",
+      "source": "r3:cluster",
+      "producer": "r3:opt",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r3:cluster"
+    },
+    {
+      "id": "r3:cp:subsystem:0",
+      "system": "r3:cp:subsystem:0",
+      "source": "r3:opt",
+      "producer": "r3:cp:subsystem:0",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r3:cluster"
+    },
+    {
+      "id": "r3:cp:subsystem:1",
+      "system": "r3:cp:subsystem:1",
+      "source": "r3:opt",
+      "producer": "r3:cp:subsystem:1",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r3:cluster"
+    },
+    {
+      "id": "r3:cp:subsystem:2",
+      "system": "r3:cp:subsystem:2",
+      "source": "r3:opt",
+      "producer": "r3:cp:subsystem:2",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r3:cluster"
+    },
+    {
+      "id": "r4:opt",
+      "system": "r4:cluster",
+      "source": "r4:cluster",
+      "producer": "r4:opt",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r4:cluster"
+    },
+    {
+      "id": "r4:cp:subsystem:0",
+      "system": "r4:cp:subsystem:0",
+      "source": "r4:opt",
+      "producer": "r4:cp:subsystem:0",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r4:cluster"
+    },
+    {
+      "id": "r4:cp:subsystem:1",
+      "system": "r4:cp:subsystem:1",
+      "source": "r4:opt",
+      "producer": "r4:cp:subsystem:1",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r4:cluster"
+    },
+    {
+      "id": "r4:cp:subsystem:2",
+      "system": "r4:cp:subsystem:2",
+      "source": "r4:opt",
+      "producer": "r4:cp:subsystem:2",
+      "coordinates_known": false,
+      "atom_ids": [
+        "A:a1",
+        "A:a2",
+        "B:a1",
+        "B:a2"
+      ],
+      "frame": "r4:cluster"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "r3:opt",
+      "producer": "r3:opt",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r3:cluster",
+      "geometry": "r3:opt",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r3:cp:energy:0",
+      "producer": "r3:cp:energy:0",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r3:cp:subsystem:0",
+      "geometry": "r3:cp:subsystem:0",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r3:cp:energy:1",
+      "producer": "r3:cp:energy:1",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r3:cp:subsystem:1",
+      "geometry": "r3:cp:subsystem:1",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r3:cp:energy:2",
+      "producer": "r3:cp:energy:2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r3:cp:subsystem:2",
+      "geometry": "r3:cp:subsystem:2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r3:cp:interaction",
+      "producer": "r3:cp:interaction",
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "r3:cp:energy:0",
+        "r3:cp:energy:1",
+        "r3:cp:energy:2"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r4:opt",
+      "producer": "r4:opt",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r4:cluster",
+      "geometry": "r4:opt",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r4:cp:energy:0",
+      "producer": "r4:cp:energy:0",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r4:cp:subsystem:0",
+      "geometry": "r4:cp:subsystem:0",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r4:cp:energy:1",
+      "producer": "r4:cp:energy:1",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r4:cp:subsystem:1",
+      "geometry": "r4:cp:subsystem:1",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r4:cp:energy:2",
+      "producer": "r4:cp:energy:2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "r4:cp:subsystem:2",
+      "geometry": "r4:cp:subsystem:2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "r4:cp:interaction",
+      "producer": "r4:cp:interaction",
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "r4:cp:energy:0",
+        "r4:cp:energy:1",
+        "r4:cp:energy:2"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "r3:cp:interaction",
+      "terms": [
+        {
+          "result": "r3:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "r3:cp:interaction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "r4:cp:interaction",
+      "terms": [
+        {
+          "result": "r4:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "r4:cp:interaction"
+      ]
+    }
+  ],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "r3:opt",
+      "steps": [
+        "r3:opt"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:subsystem:0",
+      "steps": [
+        "r3:cp:subsystem:0"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:energy:0",
+      "steps": [
+        "r3:cp:energy:0"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:subsystem:1",
+      "steps": [
+        "r3:cp:subsystem:1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:energy:1",
+      "steps": [
+        "r3:cp:energy:1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:subsystem:2",
+      "steps": [
+        "r3:cp:subsystem:2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:energy:2",
+      "steps": [
+        "r3:cp:energy:2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r3:cp:interaction",
+      "steps": [
+        "r3:cp:interaction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:opt",
+      "steps": [
+        "r4:opt"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:subsystem:0",
+      "steps": [
+        "r4:cp:subsystem:0"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:energy:0",
+      "steps": [
+        "r4:cp:energy:0"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:subsystem:1",
+      "steps": [
+        "r4:cp:subsystem:1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:energy:1",
+      "steps": [
+        "r4:cp:energy:1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:subsystem:2",
+      "steps": [
+        "r4:cp:subsystem:2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:energy:2",
+      "steps": [
+        "r4:cp:energy:2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "r4:cp:interaction",
+      "steps": [
+        "r4:cp:interaction"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Coordinate measurements use floating-point geometry and unit conversions; caller tolerances define accepted input differences. Future coordinate bounds assume successful enforcement of the declared optimizer constraints.",
+    "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

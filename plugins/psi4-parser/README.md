@@ -1,8 +1,10 @@
 # Psi4 Inputs plugin
 
-Write reusable Python scripts that create Psi4 input, or validate, format, and
-convert existing input files. The plugin contains two skills:
+Write reusable Python scripts that plan calculations, create Psi4 input, or
+validate, format, and convert existing input files. The plugin contains three skills:
 
+- **plan-calculations**: preserve independent scientific intent, use capability
+  evidence, propose or verify plans, and export checked construction bundles.
 - **build-jobs**: discover the Python builder API and write a script for a job.
 - **edit-inputs**: validate, format, and convert input using the CLI or reader API.
 
@@ -74,6 +76,39 @@ The repository's `.agents/plugins/marketplace.json` and
 the portable package; `.claude-plugin/plugin.json` supplies Claude Code metadata.
 Both hosts use the same skill and reference files.
 
-Two skills cover the workflows without duplicating the API documentation.
-Geometry editing, symmetry, constraints, nesting, and JSON are discovered within
-the relevant API rather than maintained as separate skills.
+## Plan checked inputs
+
+Give the planning skill a scientific objective and molecular inputs. It uses
+Python to describe the intended work, proposes a calculation plan, checks that
+plan against the saved requirements and scientific/input contracts, then
+exports Psi4 input with a proof report and manifest. For example, it can check
+that a requested spectrum comes from a frequency calculation at the optimized
+geometry with the specified electronic model.
+
+Start with the packaged [request-to-export and repair example](references/formal-start.md).
+It constructs every input from scratch and demonstrates a supported calculation
+rejected for using the wrong geometry. The [planning skill](skills/plan-calculations/SKILL.md)
+routes to task-specific guidance only when needed. Supported operations compose
+into new workflows; a named protocol catalogue is not required.
+
+Checks cover the requirements actually expressed: goal completeness, geometry
+provenance, permitted model choices, quantity meaning, and exact formulas.
+The agent must still choose scientifically appropriate models and express the
+right requirements. Proofs depend on capability evidence and listed assumptions;
+they do not establish convergence, numerical accuracy, or research suitability.
+Execution, result parsing, and numerical acceptance are separate tasks. Target
+binaries, optional dependencies, and versions remain operator-managed.
+
+The shared catalogue is the default. Missing scientific coverage stays unknown;
+caller declarations retain their assumption status. Use
+[targeted discovery and recovery](references/formal.md) for method conditions,
+named products, bounded searches, and unsupported work. For saved requests,
+compact CLI/MCP operations return short summaries with handles and paged
+explanations. CLI workspaces persist; copy MCP artifacts before server shutdown.
+
+Retain the complete exported bundle, including goal coverage, native output
+bindings, symbolic recipes, option policies, and hashes, for the separate result
+consumer. Revise the source request or plan and re-export when changing a checked
+job; editing emitted input alone does not update its proof. Use the matching
+library source for discovery and construction, as described in
+[runtime and discovery](references/runtime.md).

@@ -1,0 +1,232 @@
+import contextlib as _psi4_builder_contextlib
+import psi4 as _psi4_builder_psi4
+
+@_psi4_builder_contextlib.contextmanager
+def _psi4_builder_isolated_options(modules):
+    core = _psi4_builder_psi4.core
+    options = core.get_options()
+    previous_module = options.get_current_module()
+    previous_namespace = core.IO.get_default_namespace()
+    try:
+        state = _psi4_builder_psi4.driver.p4util.prepare_options_for_modules(
+            changedOnly=False, stateInsteadMediated=True
+        )
+        state['GLOBALS'] = {
+            name: {
+                'value': core.get_global_option(name),
+                'has_changed': core.has_global_option_changed(name),
+            }
+            for name in core.get_global_option_list()
+        }
+        # These native modules supplement the public utility's module list.
+        for module in dict.fromkeys(('ADC', 'DDX', 'F12', previous_module, *modules)):
+            if not module or module in state:
+                continue
+            state[module] = {
+                name: {
+                    'value': core.get_local_option(module, name),
+                    'has_changed': flags[0],
+                }
+                for name, flags in core.options_to_python(module).items()
+            }
+        if any(
+            item['value'] is None
+            for values in state.values()
+            for item in values.values()
+        ):
+            raise ValueError('Cannot isolate opaque Psi4 option values')
+        try:
+            core.clean_options()
+            core.get_options().set_current_module(previous_module)
+            yield
+        finally:
+            core.clean_options()
+            for module, values in state.items():
+                for name, item in values.items():
+                    if module == 'GLOBALS':
+                        current = core.get_global_option(name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_global_option(name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_global_option_changed(name)
+                    else:
+                        current = core.get_local_option(module, name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_local_option(module, name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_local_option_changed(module, name)
+    finally:
+        try:
+            core.get_options().set_current_module(previous_module)
+        finally:
+            core.IO.set_default_namespace(previous_namespace)
+
+molecule formal_input_0 {
+    0 1
+    C  0.0  0.0  0.0
+    O  0.0  0.0  1.13
+    units angstrom
+}
+
+molecule formal_input_1 {
+    0 3
+    O  0.0  0.0  0.0
+    O  0.0  0.0  1.21
+    units angstrom
+}
+
+molecule formal_input_2 {
+    0 1
+    O  0.0  0.0  -1.16
+    C  0.0  0.0   0.0
+    O  0.0  0.0   1.16
+    units angstrom
+}
+
+(psi4.core.clean)()
+
+formal_geometry_0 = formal_input_0.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    formal_energy_0 = optimize('hf', molecule=formal_geometry_0, dertype=1)
+
+(psi4.core.clean)()
+
+formal_geometry_1 = formal_input_1.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "uhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    formal_energy_1 = optimize('hf', molecule=formal_geometry_1, dertype=1)
+
+(psi4.core.clean)()
+
+formal_geometry_2 = formal_input_2.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    formal_energy_2 = optimize('hf', molecule=formal_geometry_2, dertype=1)
+
+(psi4.core.clean)()
+
+formal_geometry_3 = formal_geometry_0.clone()
+
+with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    set THERMO {
+        T                           298.15
+        P                           101325.0
+        ROTATIONAL_SYMMETRY_NUMBER  1
+    }
+
+    set {
+        WRITER_FILE_LABEL  "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_3"
+    }
+
+    set FINDIF {
+        HESSIAN_WRITE  true
+    }
+
+    formal_energy_3 = frequency('hf', molecule=formal_geometry_3, project_trans=True, project_rot=True, dertype=2)
+
+(psi4.core.clean)()
+
+formal_geometry_5 = formal_geometry_1.clone()
+
+with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
+    set {
+        basis        "sto-3g"
+        reference    "uhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    set THERMO {
+        T                           298.15
+        P                           101325.0
+        ROTATIONAL_SYMMETRY_NUMBER  2
+    }
+
+    set {
+        WRITER_FILE_LABEL  "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_5"
+    }
+
+    set FINDIF {
+        HESSIAN_WRITE  true
+    }
+
+    formal_energy_5 = frequency('hf', molecule=formal_geometry_5, project_trans=True, project_rot=True, dertype=2)
+
+(psi4.core.clean)()
+
+formal_geometry_7 = formal_geometry_2.clone()
+
+with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "PK"
+    }
+
+    set THERMO {
+        T                           298.15
+        P                           101325.0
+        ROTATIONAL_SYMMETRY_NUMBER  2
+    }
+
+    set {
+        WRITER_FILE_LABEL  "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_7"
+    }
+
+    set FINDIF {
+        HESSIAN_WRITE  true
+    }
+
+    formal_energy_7 = frequency('hf', molecule=formal_geometry_7, project_trans=True, project_rot=True, dertype=2)
+
+formal_results = {'opt:co': formal_energy_0, 'opt:oxygen': formal_energy_1, 'opt:co2': formal_energy_2, 'oxidation:frequency:co': formal_energy_3, 'oxidation:frequency:oxygen': formal_energy_5, 'oxidation:frequency:co2': formal_energy_7}
+
+formal_geometries = {'co': formal_input_0, 'oxygen': formal_input_1, 'co2': formal_input_2, 'opt:co': formal_geometry_0, 'opt:oxygen': formal_geometry_1, 'opt:co2': formal_geometry_2}

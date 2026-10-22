@@ -1,0 +1,342 @@
+{
+  "schema_version": "1",
+  "plan_digest": "c5b96c96ab46a2628b9e1654275408cdd25f4c55f68fc3f15e71e5db1ae7610f",
+  "request_digest": "acd1cdf8846d30d09f512056e0dace93d4fb56b3189401a65d58f48f0c15b447",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "9782c569a0ad611cb6b53c42ed476c54e8e4b34223a3e2d47ed94d854aab8921",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [
+    {
+      "name": "optking",
+      "version": null
+    },
+    {
+      "name": "qcelemental",
+      "version": null
+    }
+  ],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "b8a10131f93697694f500edb70c99d7dd40400c43a1c9c5f61a913beef67f703"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "d97c21fbc6e427a8f0c65981b073685291d38e2ed572457897ed3f4aa07e85a0"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "2b3e979de16d9132cdf6c459708f92b40f636a1f070e554bb9185053b0e2ea8b"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "311a19282e1eacfa4e3fb5d1135e9441b9217c29f63ecd47555e271c815c7721"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "opt",
+      "artifact": "water",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "freq",
+      "artifact": "opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "correlated_energy",
+      "artifact": "opt",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "correlated_gradient",
+      "artifact": "opt",
+      "kind": "geometry"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "water",
+      "system": "water",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "water"
+    },
+    {
+      "id": "opt",
+      "system": "water",
+      "source": "water",
+      "producer": "opt",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "water"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "opt",
+      "producer": "opt",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "opt",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "freq",
+      "producer": "freq",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "opt",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "correlated_energy",
+      "producer": "correlated_energy",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "opt",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": true,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "correlated_gradient",
+      "producer": "correlated_gradient",
+      "quantity": {
+        "meaning": "gradient",
+        "unit": "hartree/bohr",
+        "shape": [
+          "atoms",
+          3
+        ],
+        "frame": "opt",
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "opt",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": true,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "opt",
+      "steps": [
+        "opt"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "freq",
+      "steps": [
+        "freq"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "correlated_energy",
+      "steps": [
+        "correlated_energy"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "correlated_gradient",
+      "steps": [
+        "correlated_gradient"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

@@ -1,0 +1,306 @@
+import contextlib as _psi4_builder_contextlib
+import psi4 as _psi4_builder_psi4
+
+@_psi4_builder_contextlib.contextmanager
+def _psi4_builder_isolated_options(modules):
+    core = _psi4_builder_psi4.core
+    options = core.get_options()
+    previous_module = options.get_current_module()
+    previous_namespace = core.IO.get_default_namespace()
+    try:
+        state = _psi4_builder_psi4.driver.p4util.prepare_options_for_modules(
+            changedOnly=False, stateInsteadMediated=True
+        )
+        state['GLOBALS'] = {
+            name: {
+                'value': core.get_global_option(name),
+                'has_changed': core.has_global_option_changed(name),
+            }
+            for name in core.get_global_option_list()
+        }
+        # These native modules supplement the public utility's module list.
+        for module in dict.fromkeys(('ADC', 'DDX', 'F12', previous_module, *modules)):
+            if not module or module in state:
+                continue
+            state[module] = {
+                name: {
+                    'value': core.get_local_option(module, name),
+                    'has_changed': flags[0],
+                }
+                for name, flags in core.options_to_python(module).items()
+            }
+        if any(
+            item['value'] is None
+            for values in state.values()
+            for item in values.values()
+        ):
+            raise ValueError('Cannot isolate opaque Psi4 option values')
+        try:
+            core.clean_options()
+            core.get_options().set_current_module(previous_module)
+            yield
+        finally:
+            core.clean_options()
+            for module, values in state.items():
+                for name, item in values.items():
+                    if module == 'GLOBALS':
+                        current = core.get_global_option(name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_global_option(name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_global_option_changed(name)
+                    else:
+                        current = core.get_local_option(module, name)
+                        if item['value'] != current or item['has_changed']:
+                            core.set_local_option(module, name, item['value'])
+                        if not item['has_changed']:
+                            core.revoke_local_option_changed(module, name)
+    finally:
+        try:
+            core.get_options().set_current_module(previous_module)
+        finally:
+            core.IO.set_default_namespace(previous_namespace)
+
+molecule formal_input_0 {
+    0 1
+    --
+    0 1
+    H  0.0  0.0  0.0
+    H  0.0  0.0  0.75
+    --
+    0 1
+    H  3.0  0.0  0.0
+    H  3.0  0.0  0.75
+    units angstrom
+    no_com
+    no_reorient
+}
+
+molecule formal_input_1 {
+    0 1
+    --
+    0 1
+    H  0.0  0.0  0.0
+    H  0.0  0.0  0.75
+    --
+    0 1
+    H  4.0  0.0  0.0
+    H  4.0  0.0  0.75
+    units angstrom
+    no_com
+    no_reorient
+}
+
+(psi4.core.clean)()
+
+formal_geometry_0 = formal_input_0.clone()
+
+with _psi4_builder_isolated_options(('OPTKING',)):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DISTANCE', '1 3')
+    formal_energy_0 = optimize('scf', molecule=formal_geometry_0)
+
+formal_subsystem_1 = formal_geometry_0.clone()
+
+(formal_subsystem_1.set_active_fragment)(1)
+
+(formal_subsystem_1.set_ghost_fragment)(2)
+
+(formal_subsystem_1.set_molecular_charge)(0)
+
+(formal_subsystem_1.set_multiplicity)(1)
+
+(formal_subsystem_1.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_2 = formal_subsystem_1.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_2 = energy('scf', molecule=formal_geometry_2)
+
+formal_subsystem_3 = formal_geometry_0.clone()
+
+(formal_subsystem_3.set_ghost_fragment)(1)
+
+(formal_subsystem_3.set_active_fragment)(2)
+
+(formal_subsystem_3.set_molecular_charge)(0)
+
+(formal_subsystem_3.set_multiplicity)(1)
+
+(formal_subsystem_3.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_4 = formal_subsystem_3.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_4 = energy('scf', molecule=formal_geometry_4)
+
+formal_subsystem_5 = formal_geometry_0.clone()
+
+(formal_subsystem_5.set_active_fragment)(1)
+
+(formal_subsystem_5.set_active_fragment)(2)
+
+(formal_subsystem_5.set_molecular_charge)(0)
+
+(formal_subsystem_5.set_multiplicity)(1)
+
+(formal_subsystem_5.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_6 = formal_subsystem_5.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_6 = energy('scf', molecule=formal_geometry_6)
+
+(psi4.core.clean)()
+
+formal_geometry_8 = formal_input_1.clone()
+
+with _psi4_builder_isolated_options(('OPTKING',)):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    _psi4_builder_psi4.core.set_local_option('OPTKING', 'FROZEN_DISTANCE', '1 3')
+    formal_energy_8 = optimize('scf', molecule=formal_geometry_8)
+
+formal_subsystem_9 = formal_geometry_8.clone()
+
+(formal_subsystem_9.set_active_fragment)(1)
+
+(formal_subsystem_9.set_ghost_fragment)(2)
+
+(formal_subsystem_9.set_molecular_charge)(0)
+
+(formal_subsystem_9.set_multiplicity)(1)
+
+(formal_subsystem_9.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_10 = formal_subsystem_9.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_10 = energy('scf', molecule=formal_geometry_10)
+
+formal_subsystem_11 = formal_geometry_8.clone()
+
+(formal_subsystem_11.set_ghost_fragment)(1)
+
+(formal_subsystem_11.set_active_fragment)(2)
+
+(formal_subsystem_11.set_molecular_charge)(0)
+
+(formal_subsystem_11.set_multiplicity)(1)
+
+(formal_subsystem_11.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_12 = formal_subsystem_11.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_12 = energy('scf', molecule=formal_geometry_12)
+
+formal_subsystem_13 = formal_geometry_8.clone()
+
+(formal_subsystem_13.set_active_fragment)(1)
+
+(formal_subsystem_13.set_active_fragment)(2)
+
+(formal_subsystem_13.set_molecular_charge)(0)
+
+(formal_subsystem_13.set_multiplicity)(1)
+
+(formal_subsystem_13.update_geometry)()
+
+(psi4.core.clean)()
+
+formal_geometry_14 = formal_subsystem_13.clone()
+
+with _psi4_builder_isolated_options(()):
+    set {
+        basis        "sto-3g"
+        reference    "rhf"
+        freeze_core  false
+        puream       true
+        ddx          false
+        pcm          false
+        scf_type     "pk"
+    }
+
+    formal_energy_14 = energy('scf', molecule=formal_geometry_14)
+
+formal_results = {'r3:opt': formal_energy_0, 'r3:cp:energy:0': formal_energy_2, 'r3:cp:energy:1': formal_energy_4, 'r3:cp:energy:2': formal_energy_6, 'r4:opt': formal_energy_8, 'r4:cp:energy:0': formal_energy_10, 'r4:cp:energy:1': formal_energy_12, 'r4:cp:energy:2': formal_energy_14}
+
+formal_geometries = {'r3:cluster': formal_input_0, 'r4:cluster': formal_input_1, 'r3:opt': formal_geometry_0, 'r3:cp:subsystem:0': formal_subsystem_1, 'r3:cp:subsystem:1': formal_subsystem_3, 'r3:cp:subsystem:2': formal_subsystem_5, 'r4:opt': formal_geometry_8, 'r4:cp:subsystem:0': formal_subsystem_9, 'r4:cp:subsystem:1': formal_subsystem_11, 'r4:cp:subsystem:2': formal_subsystem_13}

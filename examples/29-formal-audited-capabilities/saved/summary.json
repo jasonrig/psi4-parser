@@ -1,0 +1,24 @@
+{
+  "status": "constructed",
+  "attempts": 2,
+  "catalog": "psi4",
+  "required_components": [
+    {
+      "name": "optking",
+      "version": null
+    },
+    {
+      "name": "qcelemental",
+      "version": null
+    }
+  ],
+  "routes": {
+    "opt": "analytic",
+    "freq": "analytic",
+    "correlated_energy": "automatic",
+    "correlated_gradient": "automatic"
+  },
+  "analytic_only": "no_candidate",
+  "missing_algorithm": "unknown",
+  "manifest_digest": "beaca034468b35ec48bc866f15ce5562e75a09eef96140845ff7925816a86411"
+}

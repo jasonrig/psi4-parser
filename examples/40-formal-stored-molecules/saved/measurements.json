@@ -1,0 +1,31 @@
+{
+  "requests": 4,
+  "molecule_uploads": 1,
+  "molecular_input_upload_bytes": 2828,
+  "request_template_upload_bytes": 3068,
+  "handle_workflow_upload_bytes": 5896,
+  "equivalent_inline_request_upload_bytes": 14072,
+  "upload_bytes_saved": 8176,
+  "proposals_constructed": 4,
+  "assembled_requests_equal_independent_inputs": true,
+  "complete_request_bytes": [
+    8035,
+    8036,
+    8282,
+    8283
+  ],
+  "summary_response_bytes": [
+    2087,
+    2088,
+    2088,
+    2089
+  ],
+  "equivalent_compact_tool_calls": {
+    "formal_load_molecule": 1,
+    "formal_load_template": 4,
+    "formal_request": 4,
+    "formal_propose": 4,
+    "formal_export": 1
+  },
+  "measurement": "UTF-8 JSON bytes and construction calls; not model tokens, agent success rates, calculation runtime, or research accuracy"
+}

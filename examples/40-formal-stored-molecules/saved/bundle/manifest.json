@@ -1,0 +1,154 @@
+{
+  "schema_version": "1",
+  "plan_digest": "01db1464c064251e3bfb937b87696e04c374a268f7000784dcdfa8c6082e96cc",
+  "request_digest": "e2bb45dc20600c8855e061e726d691e880b45ee4ab902a1011b1e7c99e1669e4",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "40519848be7dfac0f5c00d839a8e919ef8d3206294c93379a87cf074a942a620",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "57ef53a78ff66dc40436400fdddacb86eef8c6351fdf1fff6428ac40087b39fe"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "20b160011abf954f8e0c02b95d305d4a47a555306ae2c263ab11a1f64f24c5a5"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "e78cfc22b2751d90e210bf38e905843f42144a1d46afac994a5e2865762aaf1a"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "c284456fd451e8c072480b818002e2685f950d46fa75f1b84ba60681416d39b9"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "energy",
+      "artifact": "waters",
+      "kind": "geometry"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "waters",
+      "system": "waters",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7",
+        "a8",
+        "a9",
+        "a10",
+        "a11",
+        "a12",
+        "a13",
+        "a14",
+        "a15",
+        "a16",
+        "a17",
+        "a18"
+      ],
+      "frame": "waters"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "energy",
+      "producer": "energy",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "waters",
+      "geometry": "waters",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "energy",
+      "steps": [
+        "energy"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

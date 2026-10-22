@@ -1,0 +1,269 @@
+{
+  "schema_version": "1",
+  "plan_digest": "5d587c9f35428460f6ef1baaa78447c65cb132269f38619669665a3d34b3baa8",
+  "request_digest": "392963184ed12e54a584c227150b795c2d482d4ec23877fea481cbf9d7be1a10",
+  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
+  "verification_digest": "c14f55caf873b3d8f2ccb38dbd09609fa68654ab3cd40b5dc028ce560f44f909",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "900647bb99165144d61a8fa32aa8e6c5e343025662438a19d4ae55764758171c"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "81ca0718486705845938a5d3e0a57630b167a45fb573a54e3863cee8201ee557"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "c3c9855080c29b241a27380b5beb8fde9718b74b509804fd93f00059f3856787"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "0182be8201f80586779b1300cd59ad5bc5a463317a3f831c0a454467e8602702"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "2f721d63df86f2af549a1a1d8abc6eb4aca957060566b69f2500bc05250a4656"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "e_short",
+      "artifact": "short",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "e_long",
+      "artifact": "long",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "weighted_energy",
+      "artifact": "e_short",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "weighted_energy",
+      "artifact": "e_long",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "short",
+      "system": "short",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "short"
+    },
+    {
+      "id": "long",
+      "system": "long",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "long"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "e_short",
+      "producer": "e_short",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "short",
+      "geometry": "short",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "e_long",
+      "producer": "e_long",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "long",
+      "geometry": "long",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "weighted_energy",
+      "producer": "weighted_energy",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "e_short",
+        "e_long"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "weighted_energy",
+      "terms": [
+        {
+          "result": "e_short",
+          "coefficient": {
+            "numerator": 1,
+            "denominator": 3
+          }
+        },
+        {
+          "result": "e_long",
+          "coefficient": {
+            "numerator": 2,
+            "denominator": 3
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "weighted_energy"
+      ]
+    }
+  ],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "e_short",
+      "steps": [
+        "e_short"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "e_long",
+      "steps": [
+        "e_long"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "weighted_energy",
+      "steps": [
+        "weighted_energy"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

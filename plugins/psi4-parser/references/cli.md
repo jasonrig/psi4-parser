@@ -1,5 +1,10 @@
 # CLI workflow
 
+For checked scientific planning, use the separate `formal` command group and
+[formal workflow](formal.md). Its compact JSON responses, persistent records,
+independent request coverage, and scientific exit statuses differ from ordinary
+input validation. Start with `psi4-parser formal --help` in the selected runtime.
+
 Use the runtime from [runtime and discovery](runtime.md). Inspect command help
 in that same environment:
 
@@ -44,12 +49,11 @@ These commands check syntax and formatting without executing the input. Report
 what was checked; successful validation does not establish scientific suitability,
 method availability, or runtime dependencies.
 
-When an accessible Psi4 environment is relevant to the task, inspect its
-imports, version, and the specific interface needed. For validation-only tasks,
-keep runtime checks limited to inspection. When the task calls for calculation
-results or execution checks, use Psi4 directly and retain relevant output.
-Report environment failures, input diagnostics, and execution results separately.
-Missing Psi4 access should generally not block input generation.
+For separately requested calculation results or execution checks, use the
+operator's configured Psi4 environment and retain relevant output. Input-only
+validation requires no target-runtime inspection. Report input diagnostics,
+runtime failures, and execution results separately; runtime availability does
+not gate input construction.
 
 ## JSON formats and further reference
 

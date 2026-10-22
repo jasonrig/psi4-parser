@@ -1,0 +1,8 @@
+{
+  "status": "constructed",
+  "goals": 3,
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "backend_version": "psi4-builder/8",
+  "manifest_digest": "efcd67bf815878b0817f19fbd7dacdddb7782afb6043e3ef9bc2cacc08960a80"
+}

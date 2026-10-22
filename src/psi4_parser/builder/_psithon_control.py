@@ -2,6 +2,7 @@
 
 import io
 import tokenize
+from collections.abc import Callable
 from typing import Protocol
 
 from pydantic import Field
@@ -132,16 +133,22 @@ class _Scope(Model):
         return {entry.name: entry.layout for entry in self.molecules}
 
     def bind(
-        self, names: tuple[str, ...], molecule: c.MoleculeDeclaration | None = None
+        self,
+        names: tuple[str, ...],
+        molecule: c.MoleculeDeclaration | c.MoleculeClone | None = None,
     ) -> _Scope:
         known = tuple(entry for entry in self.molecules if entry.name not in names)
-        if molecule is not None:
+        if isinstance(molecule, c.MoleculeDeclaration):
             known += (
                 _MoleculeBinding(
                     name=molecule.name,
                     layout=MoleculeLayout.from_molecule(molecule.geometry),
                 ),
             )
+        elif isinstance(molecule, c.MoleculeClone):
+            source = self.layout_map().get(molecule.source.name)
+            if source is not None:
+                known += (_MoleculeBinding(name=molecule.name, layout=source),)
         return _Scope(
             definite=self.definite.union(names),
             possible=self.possible.union(names),
@@ -440,7 +447,9 @@ class _Compiler:
             ),
             scope=scope.bind(
                 names,
-                component if isinstance(component, c.MoleculeDeclaration) else None,
+                component
+                if isinstance(component, (c.MoleculeDeclaration, c.MoleculeClone))
+                else None,
             ),
             writes=frozenset(names),
         )
@@ -630,14 +639,18 @@ def _provided(component: c.LeafComponent) -> tuple[str, ...]:
         return assignment_names(component.assign)
     if isinstance(component, c.Python):
         return component.provides
-    return (component.name,) if isinstance(component, c.MoleculeDeclaration) else ()
+    return (
+        (component.name,)
+        if isinstance(component, (c.MoleculeDeclaration, c.MoleculeClone))
+        else ()
+    )
 
 
 def _check_declarations(
     component: c.LeafComponent, scope: _Scope, names: tuple[str, ...], *, nested: bool
 ) -> None:
     for index, name in enumerate(names):
-        if isinstance(component, c.MoleculeDeclaration):
+        if isinstance(component, (c.MoleculeDeclaration, c.MoleculeClone)):
             field: ComponentPath = ("name",)
         elif isinstance(component, c.Python):
             field = ("provides", index)
@@ -651,22 +664,34 @@ def _check_declarations(
             _encoding.name(name)
             if names.count(name) > 1 or (
                 name in scope.possible
-                and (not nested or isinstance(component, c.MoleculeDeclaration))
+                and (
+                    not nested
+                    or isinstance(component, (c.MoleculeDeclaration, c.MoleculeClone))
+                )
             ):
                 raise ValueError("Duplicate declaration: " + name)
 
 
 def compile_spec(
-    spec: c.JobSpec, lower: LeafLowerer, comments: CommentLowerer
+    spec: c.JobSpec,
+    lower: LeafLowerer,
+    comments: CommentLowerer,
+    *,
+    preamble: Callable[[], tuple[native.Node, ...]] | None = None,
 ) -> CompiledJob:
     """Return a native job and its complete, validated Psithon source.
+
+    Evaluate the optional preamble factory after lowering all components. Emit
+    its helper definitions once before the job and retain shifted source paths.
 
     Raises:
         CompilationError: A component, reference, or complete input is invalid.
     """
     suite = _Compiler(lower, comments).sequence(spec, _Scope())
-    combined = _join(suite.emissions)
-    job = native.Job(body=tuple(item.node for item in suite.emissions))
+    prefix = () if preamble is None else tuple(_emission(node) for node in preamble())
+    emissions = (*prefix, *suite.emissions)
+    combined = _join(emissions)
+    job = native.Job(body=tuple(item.node for item in emissions))
     source = native.emit_job(job, validate=False)
     diagnostics: list[CompilationDiagnostic] = []
     for diagnostic in parse(source).diagnostics:

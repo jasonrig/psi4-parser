@@ -1,0 +1,262 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "h2",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.85,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "opt",
+      "driver": "optimize",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "df",
+              "module": null
+            }
+          ]
+        },
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "pk",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Supply the relaxed geometry for subsequent calculations",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "freq",
+      "driver": "frequency",
+      "geometry": "opt",
+      "models": [
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "df",
+              "module": null
+            }
+          ]
+        },
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "pk",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Request a frequency calculation at the optimized geometry",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "gradient",
+      "driver": "gradient",
+      "geometry": "opt",
+      "models": [
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "df",
+              "module": null
+            }
+          ]
+        },
+        {
+          "method": "scf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "pk",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Request the primary gradient tensor on the same geometry",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    }
+  ],
+  "relations": [
+    {
+      "kind": "same_model",
+      "calculations": [
+        "opt",
+        "freq"
+      ]
+    },
+    {
+      "kind": "same_model",
+      "calculations": [
+        "opt",
+        "gradient"
+      ]
+    }
+  ]
+}

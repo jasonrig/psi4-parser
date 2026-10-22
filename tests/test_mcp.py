@@ -28,6 +28,19 @@ from psi4_parser.builder import (
 from psi4_parser.mcp import RenderResult, Settings, create_server
 
 _JSON = TypeAdapter(JsonValue)
+_TOOL_NAMES = {
+    "render_psithon",
+    "formal_load",
+    "formal_request",
+    "formal_propose",
+    "formal_verify",
+    "formal_explain",
+    "formal_export",
+    "formal_contracts",
+    "formal_capabilities",
+    "formal_schema",
+    "formal_catalogs",
+}
 
 
 @pytest.fixture(name="anyio_backend")
@@ -60,7 +73,9 @@ def _error_message(result: CallToolResult) -> str:
 
 
 @pytest.mark.anyio
-async def test_server_exposes_one_job_spec_tool(tmp_path: Path) -> None:
+async def test_server_preserves_the_renderer_schema_alongside_planning(
+    tmp_path: Path,
+) -> None:
     """Advertise the complete recursive input schema and the two-field result.
 
     Args:
@@ -70,8 +85,10 @@ async def test_server_exposes_one_job_spec_tool(tmp_path: Path) -> None:
     async with client:
         tools = await client.list_tools()
 
-    assert [tool.name for tool in tools] == ["render_psithon"]
-    document = _json_object(tools[0])
+    assert {tool.name for tool in tools} == _TOOL_NAMES
+    document = _json_object(
+        next(tool for tool in tools if tool.name == "render_psithon")
+    )
     schema = document["inputSchema"]
     assert isinstance(schema, dict)
     validator = Draft202012Validator(schema)
@@ -373,7 +390,7 @@ async def test_public_stdio_command_writes_and_cleans_up(tmp_path: Path) -> None
     client = Client(transport)
     async with client:
         tools = await client.list_tools()
-        assert [tool.name for tool in tools] == ["render_psithon"]
+        assert {tool.name for tool in tools} == _TOOL_NAMES
         response = _render_result(
             await client.call_tool_mcp(
                 "render_psithon",

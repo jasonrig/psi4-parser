@@ -5,9 +5,14 @@ description: Use when validating or formatting Psi4 input, converting between Ps
 
 # Check and edit Psi4 inputs
 
+Choose focused text edits, editable input records, or parser/AST inspection using
+[interface guidance](../../references/python.md#choose-how-to-author-the-input).
+For new programmatic jobs or checked scientific plans, follow its builder or
+formal planning route.
+
 Use the parser CLI and reader for input checks and edits. Use Psi4 directly
-when runtime inspection or calculation execution serves the task. Continue input
-work without Psi4; follow the [version guidance](../../references/psi4.md) when
+for separately requested runtime inspection or calculation execution. Continue input
+work without Psi4; follow the [source guidance](../../references/psi4.md) when
 choosing documentation.
 
 1. Read [runtime and discovery](../../references/runtime.md), then the
@@ -20,3 +25,12 @@ choosing documentation.
    resulting file or diagnostics. Check a formatting diff before writing changes.
 5. Consult [Psi4 documentation](../../references/psi4.md) when resolving method,
    option, or molecular interpretation questions.
+
+For an input exported from a checked formal plan, revise its source request or
+plan and use the [planning workflow](../plan-calculations/SKILL.md) to verify and
+export again. Editing the emitted input alone does not update its proof or
+manifest hashes. A scientific intent check requires the independent request and
+capability evidence; accepted input syntax cannot reconstruct them.
+Retain source provenance and scientific method conditions when re-exporting.
+Version/build labels and installed dependencies never constrain construction or
+produce deployment warnings; runtime is operator-managed.

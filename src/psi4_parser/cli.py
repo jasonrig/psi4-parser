@@ -1,4 +1,4 @@
-"""Validate, convert, and format Psi4 inputs from the command line."""
+"""Plan calculations and construct, validate, convert, or format Psi4 inputs."""
 
 import difflib
 import json
@@ -14,6 +14,7 @@ from psi4_parser._cli_types import INPUT_FILE, OUTPUT_STREAM, SOURCE_FORMAT
 from psi4_parser._files import atomic_replace
 from psi4_parser.api import validate
 from psi4_parser.ast import InvalidInputError
+from psi4_parser.formal_cli import command as formal_command
 from psi4_parser.formatting import FormattingError, format_source
 from psi4_parser.job import Job, emit_job, read_job
 from psi4_parser.mcp import command as mcp_command
@@ -38,7 +39,7 @@ class _Failure(click.ClickException):
 
 @click.group()
 def main() -> None:
-    """Validate, convert, and format Psi4 jobs without running calculations."""
+    """Plan calculations and build or check Psi4 input without executing it."""
 
 
 @click.command(name="validate")
@@ -304,6 +305,7 @@ main.add_command(convert)
 main.add_command(schema)
 main.add_command(format_command)
 main.add_command(mcp_command)
+main.add_command(formal_command)
 format_command.add_command(show)
 format_command.add_command(diff)
 format_command.add_command(check)

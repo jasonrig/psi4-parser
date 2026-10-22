@@ -1,0 +1,8 @@
+{
+  "status": "constructed",
+  "target": "dissociation:reaction",
+  "formula": "2 * E(H, UHF) - E(H2, RHF)",
+  "unbalanced_proposal": "no_candidate",
+  "unbalanced_verification": "violated",
+  "manifest_digest": "7e25514f708a3f9c0d5e6eb7df81ee7cdb9fb5fa2bc69dc2119502ed9d37b4d4"
+}

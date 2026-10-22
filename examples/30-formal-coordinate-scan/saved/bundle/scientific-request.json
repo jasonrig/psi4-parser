@@ -1,0 +1,337 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "short:water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.7112256762516267,
+              "z": 0.551505246974511,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    },
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "long:water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.869275826529766,
+              "z": 0.6740619685244024,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "short:relaxed",
+      "driver": "optimize",
+      "geometry": "short:water",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [
+        {
+          "kind": "frozen",
+          "coordinate": {
+            "kind": "distance",
+            "atoms": [
+              "a1",
+              "a2"
+            ],
+            "axes": ""
+          }
+        }
+      ],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "long:relaxed",
+      "driver": "optimize",
+      "geometry": "long:water",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [
+        {
+          "kind": "frozen",
+          "coordinate": {
+            "kind": "distance",
+            "atoms": [
+              "a1",
+              "a2"
+            ],
+            "axes": ""
+          }
+        }
+      ],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    }
+  ],
+  "relations": [
+    {
+      "geometry": "short:water",
+      "coordinate": {
+        "kind": "distance",
+        "atoms": [
+          "a1",
+          "a2"
+        ],
+        "axes": ""
+      },
+      "tolerance": {
+        "kind": "length",
+        "value": 1e-7,
+        "unit": "angstrom"
+      },
+      "kind": "coordinate_value",
+      "value": {
+        "kind": "length",
+        "value": 0.9,
+        "unit": "angstrom"
+      }
+    },
+    {
+      "geometry": "short:relaxed",
+      "coordinate": {
+        "kind": "distance",
+        "atoms": [
+          "a1",
+          "a2"
+        ],
+        "axes": ""
+      },
+      "tolerance": {
+        "kind": "length",
+        "value": 1e-7,
+        "unit": "angstrom"
+      },
+      "kind": "coordinate_value",
+      "value": {
+        "kind": "length",
+        "value": 0.9,
+        "unit": "angstrom"
+      }
+    },
+    {
+      "geometry": "long:water",
+      "coordinate": {
+        "kind": "distance",
+        "atoms": [
+          "a1",
+          "a2"
+        ],
+        "axes": ""
+      },
+      "tolerance": {
+        "kind": "length",
+        "value": 1e-7,
+        "unit": "angstrom"
+      },
+      "kind": "coordinate_value",
+      "value": {
+        "kind": "length",
+        "value": 1.1,
+        "unit": "angstrom"
+      }
+    },
+    {
+      "geometry": "long:relaxed",
+      "coordinate": {
+        "kind": "distance",
+        "atoms": [
+          "a1",
+          "a2"
+        ],
+        "axes": ""
+      },
+      "tolerance": {
+        "kind": "length",
+        "value": 1e-7,
+        "unit": "angstrom"
+      },
+      "kind": "coordinate_value",
+      "value": {
+        "kind": "length",
+        "value": 1.1,
+        "unit": "angstrom"
+      }
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "complex",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.8,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "b:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 3.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "b:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 3.8,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [
+          {
+            "name": "a",
+            "atom_ids": [
+              "a:a1",
+              "a:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          },
+          {
+            "name": "b",
+            "atom_ids": [
+              "b:a1",
+              "b:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          }
+        ],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": "c1",
+        "fixed_com": true,
+        "fixed_orientation": true,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "sapt_dimer",
+      "driver": "energy",
+      "geometry": "complex",
+      "models": [
+        {
+          "method": "sapt0",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [
+            {
+              "role": "df_basis_sapt",
+              "basis": "cc-pvdz-ri"
+            },
+            {
+              "role": "df_basis_elst",
+              "basis": "cc-pvdz-jkfit"
+            },
+            {
+              "role": "df_basis_scf",
+              "basis": "cc-pvdz-jkfit"
+            }
+          ],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "DF",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": {
+        "fragments": [
+          "a",
+          "b"
+        ],
+        "basis": "dimer",
+        "coupled_induction": true,
+        "midbond_fragment": null
+      }
+    },
+    {
+      "kind": "product",
+      "id": "sapt_electrostatics",
+      "calculation": "sapt_dimer",
+      "name": "sapt_electrostatics",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "sapt_exchange",
+      "calculation": "sapt_dimer",
+      "name": "sapt_exchange",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "sapt_induction",
+      "calculation": "sapt_dimer",
+      "name": "sapt_induction",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "sapt_dispersion",
+      "calculation": "sapt_dimer",
+      "name": "sapt_dispersion",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "sapt_total_energy",
+      "calculation": "sapt_dimer",
+      "name": "sapt_total_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "expression",
+      "id": "partition",
+      "terms": [
+        {
+          "goal": "sapt_electrostatics",
+          "coefficient": 1
+        },
+        {
+          "goal": "sapt_exchange",
+          "coefficient": 1
+        },
+        {
+          "goal": "sapt_induction",
+          "coefficient": 1
+        },
+        {
+          "goal": "sapt_dispersion",
+          "coefficient": 2
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "calculate",
+      "id": "sapt_monomer",
+      "driver": "energy",
+      "geometry": "complex",
+      "models": [
+        {
+          "method": "sapt0",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [
+            {
+              "role": "df_basis_sapt",
+              "basis": "cc-pvdz-ri"
+            },
+            {
+              "role": "df_basis_elst",
+              "basis": "cc-pvdz-jkfit"
+            },
+            {
+              "role": "df_basis_scf",
+              "basis": "cc-pvdz-jkfit"
+            }
+          ],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "DF",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": {
+        "fragments": [
+          "a",
+          "b"
+        ],
+        "basis": "monomer",
+        "coupled_induction": true,
+        "midbond_fragment": null
+      }
+    },
+    {
+      "kind": "subsystem",
+      "id": "cp:subsystem:0",
+      "geometry": "complex",
+      "real_fragments": [
+        "a"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "reason": "Requested full-basis subsystem"
+    },
+    {
+      "kind": "calculate",
+      "id": "cp:energy:0",
+      "driver": "energy",
+      "geometry": "cp:subsystem:0",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "cp:subsystem:1",
+      "geometry": "complex",
+      "real_fragments": [
+        "b"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "reason": "Requested full-basis subsystem"
+    },
+    {
+      "kind": "calculate",
+      "id": "cp:energy:1",
+      "driver": "energy",
+      "geometry": "cp:subsystem:1",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "cp:subsystem:2",
+      "geometry": "complex",
+      "real_fragments": [
+        "a",
+        "b"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "reason": "Requested full-basis subsystem"
+    },
+    {
+      "kind": "calculate",
+      "id": "cp:energy:2",
+      "driver": "energy",
+      "geometry": "cp:subsystem:2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "expression",
+      "id": "cp:interaction",
+      "terms": [
+        {
+          "goal": "cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "goal": "cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "goal": "cp:energy:2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Full-basis interaction through 2-body order"
+    },
+    {
+      "kind": "expression",
+      "id": "basis_comparison",
+      "terms": [
+        {
+          "goal": "sapt_monomer",
+          "coefficient": 1
+        },
+        {
+          "goal": "sapt_dimer",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "expression",
+      "id": "method_comparison",
+      "terms": [
+        {
+          "goal": "sapt_dimer",
+          "coefficient": 1
+        },
+        {
+          "goal": "cp:interaction",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "same_model",
+      "calculations": [
+        "cp:energy:0",
+        "cp:energy:1"
+      ]
+    },
+    {
+      "kind": "same_model",
+      "calculations": [
+        "cp:energy:0",
+        "cp:energy:2"
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "sapt_dimer",
+      "terms": [
+        {
+          "result": "sapt_electrostatics",
+          "coefficient": 1
+        },
+        {
+          "result": "sapt_exchange",
+          "coefficient": 1
+        },
+        {
+          "result": "sapt_induction",
+          "coefficient": 1
+        },
+        {
+          "result": "sapt_dispersion",
+          "coefficient": 1
+        }
+      ]
+    }
+  ]
+}

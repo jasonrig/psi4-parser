@@ -1,0 +1,807 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "r3:cluster",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "A:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "A:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.75,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "B:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 3.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "B:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 3.0,
+              "y": 0.0,
+              "z": 0.75,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [
+          {
+            "name": "A",
+            "atom_ids": [
+              "A:a1",
+              "A:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          },
+          {
+            "name": "B",
+            "atom_ids": [
+              "B:a1",
+              "B:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          }
+        ],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": true,
+        "fixed_orientation": true,
+        "xyz_header": null
+      }
+    },
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "r4:cluster",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "A:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "A:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.75,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "B:a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 4.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "B:a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 4.0,
+              "y": 0.0,
+              "z": 0.75,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [
+          {
+            "name": "A",
+            "atom_ids": [
+              "A:a1",
+              "A:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          },
+          {
+            "name": "B",
+            "atom_ids": [
+              "B:a1",
+              "B:a2"
+            ],
+            "efp_ids": [],
+            "state": {
+              "charge": 0,
+              "multiplicity": 1
+            }
+          }
+        ],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": true,
+        "fixed_orientation": true,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "r3:opt",
+      "driver": "optimize",
+      "sapt": null,
+      "geometry": "r3:cluster",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "kind": "frozen",
+          "coordinate": {
+            "kind": "distance",
+            "atoms": [
+              "A:a1",
+              "B:a1"
+            ],
+            "axes": ""
+          }
+        }
+      ],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r3:opt"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r3:cp:subsystem:0",
+      "geometry": "r3:opt",
+      "real_fragments": [
+        "A"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r3:cp:subsystem:0"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r3:cp:energy:0",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r3:cp:subsystem:0",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r3:cp:energy:0"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r3:cp:subsystem:1",
+      "geometry": "r3:opt",
+      "real_fragments": [
+        "B"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r3:cp:subsystem:1"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r3:cp:energy:1",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r3:cp:subsystem:1",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r3:cp:energy:1"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r3:cp:subsystem:2",
+      "geometry": "r3:opt",
+      "real_fragments": [
+        "A",
+        "B"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r3:cp:subsystem:2"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r3:cp:energy:2",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r3:cp:subsystem:2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r3:cp:energy:2"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "r3:cp:interaction",
+      "terms": [
+        {
+          "result": "r3:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "r3:cp:interaction"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r4:opt",
+      "driver": "optimize",
+      "sapt": null,
+      "geometry": "r4:cluster",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "kind": "frozen",
+          "coordinate": {
+            "kind": "distance",
+            "atoms": [
+              "A:a1",
+              "B:a1"
+            ],
+            "axes": ""
+          }
+        }
+      ],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r4:opt"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r4:cp:subsystem:0",
+      "geometry": "r4:opt",
+      "real_fragments": [
+        "A"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r4:cp:subsystem:0"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r4:cp:energy:0",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r4:cp:subsystem:0",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r4:cp:energy:0"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r4:cp:subsystem:1",
+      "geometry": "r4:opt",
+      "real_fragments": [
+        "B"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r4:cp:subsystem:1"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r4:cp:energy:1",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r4:cp:subsystem:1",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r4:cp:energy:1"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "subsystem",
+      "id": "r4:cp:subsystem:2",
+      "geometry": "r4:opt",
+      "real_fragments": [
+        "A",
+        "B"
+      ],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "satisfies": [
+        "r4:cp:subsystem:2"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "r4:cp:energy:2",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "r4:cp:subsystem:2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "r4:cp:energy:2"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "r4:cp:interaction",
+      "terms": [
+        {
+          "result": "r4:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "interaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "r4:cp:interaction"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "uses_geometry",
+      "calculation": "r3:opt",
+      "geometry": "r3:cluster"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r3:cp:energy:0",
+      "geometry": "r3:cp:subsystem:0"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r3:cp:energy:1",
+      "geometry": "r3:cp:subsystem:1"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r3:cp:energy:2",
+      "geometry": "r3:cp:subsystem:2"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "r3:cp:interaction",
+      "terms": [
+        {
+          "result": "r3:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r3:cp:energy:2",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r4:opt",
+      "geometry": "r4:cluster"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r4:cp:energy:0",
+      "geometry": "r4:cp:subsystem:0"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r4:cp:energy:1",
+      "geometry": "r4:cp:subsystem:1"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "r4:cp:energy:2",
+      "geometry": "r4:cp:subsystem:2"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "r4:cp:interaction",
+      "terms": [
+        {
+          "result": "r4:cp:energy:0",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:1",
+          "coefficient": -1
+        },
+        {
+          "result": "r4:cp:energy:2",
+          "coefficient": 1
+        }
+      ]
+    }
+  ]
+}

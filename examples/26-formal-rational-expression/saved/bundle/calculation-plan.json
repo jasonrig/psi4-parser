@@ -1,0 +1,250 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "short",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.74,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    },
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "long",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.85,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "e_short",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "short",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "e_short"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "e_long",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "long",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "e_long"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "weighted_energy",
+      "terms": [
+        {
+          "result": "e_short",
+          "coefficient": {
+            "numerator": 1,
+            "denominator": 3
+          }
+        },
+        {
+          "result": "e_long",
+          "coefficient": {
+            "numerator": 2,
+            "denominator": 3
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "weighted_energy"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "uses_geometry",
+      "calculation": "e_short",
+      "geometry": "short"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "e_long",
+      "geometry": "long"
+    },
+    {
+      "kind": "energy_formula",
+      "result": "weighted_energy",
+      "terms": [
+        {
+          "result": "e_short",
+          "coefficient": {
+            "numerator": 1,
+            "denominator": 3
+          }
+        },
+        {
+          "result": "e_long",
+          "coefficient": {
+            "numerator": 2,
+            "denominator": 3
+          }
+        }
+      ]
+    }
+  ]
+}

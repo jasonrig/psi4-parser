@@ -1,0 +1,509 @@
+{
+  "schema_version": "1",
+  "plan_digest": "5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f",
+  "request_digest": "35476658d69e3f2519e7a0cf64c66a8359084f622f93e12437bacce26f87b115",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "e9015098956958619ce1d663c11c987277f771d8e3d79c8ddff28d145a68252f",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [
+    {
+      "name": "optking",
+      "version": null
+    },
+    {
+      "name": "qcelemental",
+      "version": null
+    }
+  ],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "9ce7f665fe3979b5350f1921bdb862210a949fd99672619d2fab7343c93aca59"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "484949ae396882daefd58140f84bcd7163d57367e32e93f0f5b4843d2be84f93"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "ec6e67dfcd7995625e1b54fab37444c86fc580b6790f28075bcf582d5e125291"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "2ead77be24a4a858b70288b2a2113097740eaf82d2790f96312437be1f4a8647"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [
+    {
+      "producer": "spectrum_analysis",
+      "format": "psi4_vibrec",
+      "label": "formal_5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f_1",
+      "filename_template": "formal_5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f_1.{pid}.vibrec",
+      "directory": "engine_output_directory",
+      "bindings": [
+        {
+          "quantity": "spectrum",
+          "key": "omega",
+          "encoding": "qcelemental_datum_json"
+        },
+        {
+          "quantity": "gibbs_correction",
+          "key": "G_corr",
+          "encoding": "qcelemental_datum_json"
+        }
+      ]
+    }
+  ],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "spectrum_geometry",
+      "artifact": "water",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "spectrum_analysis",
+      "artifact": "spectrum_geometry",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "spectrum",
+      "artifact": "spectrum_analysis",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "gibbs_correction",
+      "artifact": "spectrum_analysis",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "first_energy",
+      "artifact": "spectrum_geometry",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "second_energy",
+      "artifact": "spectrum_geometry",
+      "kind": "geometry"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "water",
+      "system": "water",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "water"
+    },
+    {
+      "id": "spectrum_geometry",
+      "system": "water",
+      "source": "water",
+      "producer": "spectrum_geometry",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "water"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "spectrum_geometry",
+      "producer": "spectrum_geometry",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "spectrum_analysis",
+      "producer": "spectrum_analysis",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "spectrum",
+      "producer": "spectrum_analysis",
+      "quantity": {
+        "meaning": "harmonic_frequencies",
+        "unit": "cm^-1",
+        "shape": [
+          "3*atoms"
+        ],
+        "frame": null,
+        "number_kind": "complex"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "harmonic_frequencies",
+      "electronic_target": null,
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "sapt": null
+    },
+    {
+      "id": "gibbs_correction",
+      "producer": "spectrum_analysis",
+      "quantity": {
+        "meaning": "gibbs_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "gibbs_correction",
+      "electronic_target": null,
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "sapt": null
+    },
+    {
+      "id": "first_energy",
+      "producer": "first_energy",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "second_energy",
+      "producer": "second_energy",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "water",
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [],
+  "products": [
+    {
+      "kind": "product",
+      "id": "spectrum",
+      "calculation": "spectrum_analysis",
+      "name": "harmonic_frequencies",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "spectrum"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "gibbs_correction",
+      "calculation": "spectrum_analysis",
+      "name": "gibbs_correction",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "gibbs_correction"
+      ]
+    }
+  ],
+  "goal_coverage": [
+    {
+      "goal": "spectrum_geometry",
+      "steps": [
+        "spectrum_geometry"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "thermal_geometry",
+      "steps": [
+        "spectrum_geometry"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "spectrum_analysis",
+      "steps": [
+        "spectrum_analysis"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "thermal_analysis",
+      "steps": [
+        "spectrum_analysis"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "spectrum",
+      "steps": [
+        "spectrum"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "gibbs_correction",
+      "steps": [
+        "gibbs_correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "first_energy",
+      "steps": [
+        "first_energy"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "second_energy",
+      "steps": [
+        "second_energy"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

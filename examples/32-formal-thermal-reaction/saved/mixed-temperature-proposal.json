@@ -1,0 +1,1481 @@
+{
+  "status": "no_candidate",
+  "plan": null,
+  "report": {
+    "status": "violated",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069",
+    "solver_version": "5.3.1",
+    "diagnostics": [
+      {
+        "path": [
+          "steps",
+          9,
+          "quantity"
+        ],
+        "message": "Thermal reactions require a common temperature, pressure, treatment, and projection choices; rotational symmetry remains species-specific.",
+        "code": "reaction_thermal_context",
+        "status": "violated"
+      }
+    ],
+    "obligations": [
+      {
+        "index": 0,
+        "path": [
+          "requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require opt:co to consume geometry co.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_0 \"co\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"co\"\n                       (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!2 (= (distinct geometry_0 \"co\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!7 (= (not (distinct geometry_0 \"co\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))\n                     (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"co\") a!3))\n                         (= (not (distinct geometry_0 \"co\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"co\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"co\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"co\") false))))\n  (mp (asserted (distinct geometry_0 \"co\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 1,
+        "path": [
+          "requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require opt:oxygen to consume geometry oxygen.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_1 \"oxygen\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 120))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 110)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"oxygen\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"oxygen\" a!1))\n                                (= (distinct geometry_1 \"oxygen\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"oxygen\") (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"oxygen\")) (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"oxygen\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"oxygen\" a!1))\n                                (= (distinct geometry_1 \"oxygen\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"oxygen\") false))))\n  (mp (asserted (distinct geometry_1 \"oxygen\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 2,
+        "path": [
+          "requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require opt:co2 to consume geometry co2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_2 \"co2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"co2\"\n                       (str.++ (seq.unit (_ Char 99))\n                               (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_2 \"co2\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 99))\n                                (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 99))\n                           (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_2 \"co2\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 99))\n                         (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 99))\n                             (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 99))\n                             (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 99))\n                                (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 99))\n                         (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"co2\") a!3))\n                         (= (not (distinct geometry_2 \"co2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"co2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 99))\n                          (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"co2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"co2\") false))))\n  (mp (asserted (distinct geometry_2 \"co2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 3,
+        "path": [
+          "requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:co to consume geometry opt:co.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_3 \"opt:co\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 111)))))\n(let ((a!2 (rewrite (= (distinct geometry_3 a!1) (not (= geometry_3 a!1)))))\n      (a!4 (= (not (distinct geometry_3 \"opt:co\"))\n              (not (not (= geometry_3 a!1)))))\n      (a!5 (= (not (not (= geometry_3 a!1))) (= geometry_3 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:co\" a!1))\n                                (= (distinct geometry_3 \"opt:co\")\n                                   (distinct geometry_3 a!1)))\n                  a!2\n                  (= (distinct geometry_3 \"opt:co\") (not (= geometry_3 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_3 \"opt:co\")) (= geometry_3 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_3 \"opt:co\")))\n               a!6\n               (= geometry_3 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:co\" a!1))\n                                (= (distinct geometry_3 \"opt:co\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_3 \"opt:co\") false))))\n  (mp (asserted (distinct geometry_3 \"opt:co\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 4,
+        "path": [
+          "requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:oxygen to consume geometry opt:oxygen.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_5 \"opt:oxygen\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 120))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 110)))))\n(let ((a!2 (rewrite (= (distinct geometry_5 a!1) (not (= geometry_5 a!1)))))\n      (a!4 (= (not (distinct geometry_5 \"opt:oxygen\"))\n              (not (not (= geometry_5 a!1)))))\n      (a!5 (= (not (not (= geometry_5 a!1))) (= geometry_5 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:oxygen\" a!1))\n                                (= (distinct geometry_5 \"opt:oxygen\")\n                                   (distinct geometry_5 a!1)))\n                  a!2\n                  (= (distinct geometry_5 \"opt:oxygen\")\n                     (not (= geometry_5 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_5 \"opt:oxygen\"))\n                     (= geometry_5 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_5 \"opt:oxygen\")))\n               a!6\n               (= geometry_5 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:oxygen\" a!1))\n                                (= (distinct geometry_5 \"opt:oxygen\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_5 \"opt:oxygen\") false))))\n  (mp (asserted (distinct geometry_5 \"opt:oxygen\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 5,
+        "path": [
+          "requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:co2 to consume geometry opt:co2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_7 \"opt:co2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 50)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"opt:co2\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:co2\" a!1))\n                                (= (distinct geometry_7 \"opt:co2\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"opt:co2\") (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"opt:co2\")) (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"opt:co2\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:co2\" a!1))\n                                (= (distinct geometry_7 \"opt:co2\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"opt:co2\") false))))\n  (mp (asserted (distinct geometry_7 \"opt:co2\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 6,
+        "path": [
+          "requirements",
+          6
+        ],
+        "status": "proved",
+        "message": "Require oxidation:reaction to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n(let ((?x522 (* 1.0 ?x515)))\n(let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n(let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n(let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n(let ((?x518 (* (- 1.0) ?x411)))\n(let ((?x523 (+ ?x518 ?x520 ?x522)))\n(and (distinct energy_9 ?x523) true)))))))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (+ (* (- 1.0) (+ energy_3 product_3_gibbs_correction_1))\n              (* (- (/ 1.0 2.0)) (+ energy_5 product_5_gibbs_correction_4))\n              (* 1.0 (+ energy_7 product_7_gibbs_correction_7))))\n      (a!2 (rewrite (= (* (- 1.0) (+ energy_3 product_3_gibbs_correction_1))\n                       (+ (* (- 1.0) energy_3)\n                          (* (- 1.0) product_3_gibbs_correction_1)))))\n      (a!3 (rewrite (= (* (- (/ 1.0 2.0))\n                          (+ energy_5 product_5_gibbs_correction_4))\n                       (+ (* (- (/ 1.0 2.0)) energy_5)\n                          (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4)))))\n      (a!4 (rewrite (= (* 1.0 (+ energy_7 product_7_gibbs_correction_7))\n                       (+ energy_7 product_7_gibbs_correction_7))))\n      (a!5 (+ (+ (* (- 1.0) energy_3) (* (- 1.0) product_3_gibbs_correction_1))\n              (+ (* (- (/ 1.0 2.0)) energy_5)\n                 (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4))\n              (+ energy_7 product_7_gibbs_correction_7)))\n      (a!6 (+ (* (- 1.0) energy_3)\n              (* (- 1.0) product_3_gibbs_correction_1)\n              (* (- (/ 1.0 2.0)) energy_5)\n              (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4)\n              energy_7\n              product_7_gibbs_correction_7))\n      (a!10 (= (+ energy_3\n                  product_3_gibbs_correction_1\n                  (* (/ 1.0 2.0) energy_5)\n                  (* (/ 1.0 2.0) product_5_gibbs_correction_4)\n                  (* (- 1.0) energy_7)\n                  (* (- 1.0) product_7_gibbs_correction_7)\n                  energy_9)\n               0.0)))\n(let ((a!7 (monotonicity (trans (monotonicity a!2 a!3 a!4 (= a!1 a!5))\n                                (rewrite (= a!5 a!6))\n                                (= a!1 a!6))\n                         (= (distinct energy_9 a!1) (distinct energy_9 a!6))))\n      (a!8 (rewrite (= (distinct energy_9 a!6) (not (= energy_9 a!6)))))\n      (a!11 (monotonicity (rewrite (= (= energy_9 a!6) a!10))\n                          (= (not (= energy_9 a!6)) (not a!10))))\n      (a!14 (rewrite (= (not (not a!10)) a!10))))\n(let ((a!9 (trans a!7 a!8 (= (distinct energy_9 a!1) (not (= energy_9 a!6))))))\n(let ((a!12 (mp (asserted (distinct energy_9 a!1))\n                (trans a!9 a!11 (= (distinct energy_9 a!1) (not a!10)))\n                (not a!10)))\n      (a!13 (monotonicity (trans a!9\n                                 a!11\n                                 (= (distinct energy_9 a!1) (not a!10)))\n                          (= (not (distinct energy_9 a!1)) (not (not a!10))))))\n(let ((a!15 (trans a!13 a!14 (= (not (distinct energy_9 a!1)) a!10))))\n(let ((a!16 (mp (asserted (not (distinct energy_9 a!1))) a!15 a!10)))\n(let ((a!17 (trans (monotonicity a!16 (= a!10 (= 0.0 0.0)))\n                   (rewrite (= (= 0.0 0.0) true))\n                   (= a!10 true))))\n(let ((a!18 (trans (monotonicity a!17 (= (not a!10) (not true)))\n                   (rewrite (= (not true) false))\n                   (= (not a!10) false))))\n  (mp a!12 a!18 false)))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 7,
+        "path": [
+          "request",
+          "derived_requirements",
+          0
+        ],
+        "status": "proved",
+        "message": "Require opt:co to consume geometry co.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_0 \"co\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"co\"\n                       (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!2 (= (distinct geometry_0 \"co\")\n              (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!3 (not (= geometry_0\n                   (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!7 (= (not (distinct geometry_0 \"co\"))\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))\n                     (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))))\n(let ((a!4 (= (distinct geometry_0\n                        (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_0\n                 (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_0 \"co\") a!3))\n                         (= (not (distinct geometry_0 \"co\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_0 \"co\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_0\n                  (str.++ (seq.unit (_ Char 99)) (seq.unit (_ Char 111)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_0 \"co\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_0 \"co\") false))))\n  (mp (asserted (distinct geometry_0 \"co\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 8,
+        "path": [
+          "request",
+          "derived_requirements",
+          1
+        ],
+        "status": "proved",
+        "message": "Require opt:oxygen to consume geometry oxygen.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_1 \"oxygen\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 120))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 110)))))\n(let ((a!2 (rewrite (= (distinct geometry_1 a!1) (not (= geometry_1 a!1)))))\n      (a!4 (= (not (distinct geometry_1 \"oxygen\"))\n              (not (not (= geometry_1 a!1)))))\n      (a!5 (= (not (not (= geometry_1 a!1))) (= geometry_1 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"oxygen\" a!1))\n                                (= (distinct geometry_1 \"oxygen\")\n                                   (distinct geometry_1 a!1)))\n                  a!2\n                  (= (distinct geometry_1 \"oxygen\") (not (= geometry_1 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_1 \"oxygen\")) (= geometry_1 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_1 \"oxygen\")))\n               a!6\n               (= geometry_1 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"oxygen\" a!1))\n                                (= (distinct geometry_1 \"oxygen\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_1 \"oxygen\") false))))\n  (mp (asserted (distinct geometry_1 \"oxygen\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 9,
+        "path": [
+          "request",
+          "derived_requirements",
+          2
+        ],
+        "status": "proved",
+        "message": "Require opt:co2 to consume geometry co2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_2 \"co2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (rewrite (= \"co2\"\n                       (str.++ (seq.unit (_ Char 99))\n                               (seq.unit (_ Char 111))\n                               (seq.unit (_ Char 50))))))\n      (a!2 (= (distinct geometry_2 \"co2\")\n              (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 99))\n                                (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 50))))))\n      (a!3 (not (= geometry_2\n                   (str.++ (seq.unit (_ Char 99))\n                           (seq.unit (_ Char 111))\n                           (seq.unit (_ Char 50))))))\n      (a!7 (= (not (distinct geometry_2 \"co2\"))\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 99))\n                         (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 50))))))\n      (a!9 (distinct (str.++ (seq.unit (_ Char 99))\n                             (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 50)))\n                     (str.++ (seq.unit (_ Char 99))\n                             (seq.unit (_ Char 111))\n                             (seq.unit (_ Char 50))))))\n(let ((a!4 (= (distinct geometry_2\n                        (str.++ (seq.unit (_ Char 99))\n                                (seq.unit (_ Char 111))\n                                (seq.unit (_ Char 50))))\n              a!3))\n      (a!6 (= (not a!3)\n              (= geometry_2\n                 (str.++ (seq.unit (_ Char 99))\n                         (seq.unit (_ Char 111))\n                         (seq.unit (_ Char 50)))))))\n(let ((a!5 (monotonicity (trans (monotonicity a!1 a!2)\n                                (rewrite a!4)\n                                (= (distinct geometry_2 \"co2\") a!3))\n                         (= (not (distinct geometry_2 \"co2\")) (not a!3)))))\n(let ((a!8 (mp (asserted (not (distinct geometry_2 \"co2\")))\n               (trans a!5 (rewrite a!6) a!7)\n               (= geometry_2\n                  (str.++ (seq.unit (_ Char 99))\n                          (seq.unit (_ Char 111))\n                          (seq.unit (_ Char 50)))))))\n(let ((a!10 (trans (monotonicity a!8 a!1 (= (distinct geometry_2 \"co2\") a!9))\n                   (rewrite (= a!9 false))\n                   (= (distinct geometry_2 \"co2\") false))))\n  (mp (asserted (distinct geometry_2 \"co2\")) a!10 false))))))",
+        "counterexample": []
+      },
+      {
+        "index": 10,
+        "path": [
+          "request",
+          "derived_requirements",
+          3
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:co to consume geometry opt:co.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_3 \"opt:co\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 111)))))\n(let ((a!2 (rewrite (= (distinct geometry_3 a!1) (not (= geometry_3 a!1)))))\n      (a!4 (= (not (distinct geometry_3 \"opt:co\"))\n              (not (not (= geometry_3 a!1)))))\n      (a!5 (= (not (not (= geometry_3 a!1))) (= geometry_3 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:co\" a!1))\n                                (= (distinct geometry_3 \"opt:co\")\n                                   (distinct geometry_3 a!1)))\n                  a!2\n                  (= (distinct geometry_3 \"opt:co\") (not (= geometry_3 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_3 \"opt:co\")) (= geometry_3 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_3 \"opt:co\")))\n               a!6\n               (= geometry_3 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:co\" a!1))\n                                (= (distinct geometry_3 \"opt:co\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_3 \"opt:co\") false))))\n  (mp (asserted (distinct geometry_3 \"opt:co\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 11,
+        "path": [
+          "request",
+          "derived_requirements",
+          4
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:oxygen to consume geometry opt:oxygen.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_5 \"opt:oxygen\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 120))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 110)))))\n(let ((a!2 (rewrite (= (distinct geometry_5 a!1) (not (= geometry_5 a!1)))))\n      (a!4 (= (not (distinct geometry_5 \"opt:oxygen\"))\n              (not (not (= geometry_5 a!1)))))\n      (a!5 (= (not (not (= geometry_5 a!1))) (= geometry_5 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:oxygen\" a!1))\n                                (= (distinct geometry_5 \"opt:oxygen\")\n                                   (distinct geometry_5 a!1)))\n                  a!2\n                  (= (distinct geometry_5 \"opt:oxygen\")\n                     (not (= geometry_5 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_5 \"opt:oxygen\"))\n                     (= geometry_5 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_5 \"opt:oxygen\")))\n               a!6\n               (= geometry_5 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:oxygen\" a!1))\n                                (= (distinct geometry_5 \"opt:oxygen\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_5 \"opt:oxygen\") false))))\n  (mp (asserted (distinct geometry_5 \"opt:oxygen\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 12,
+        "path": [
+          "request",
+          "derived_requirements",
+          5
+        ],
+        "status": "proved",
+        "message": "Require oxidation:frequency:co2 to consume geometry opt:co2.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct geometry_7 \"opt:co2\") true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 50)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"opt:co2\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"opt:co2\" a!1))\n                                (= (distinct geometry_7 \"opt:co2\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"opt:co2\") (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"opt:co2\")) (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"opt:co2\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"opt:co2\" a!1))\n                                (= (distinct geometry_7 \"opt:co2\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"opt:co2\") false))))\n  (mp (asserted (distinct geometry_7 \"opt:co2\")) a!8 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 13,
+        "path": [
+          "request",
+          "derived_requirements",
+          6
+        ],
+        "status": "proved",
+        "message": "Require oxidation:reaction to equal the requested energy formula for all input energies.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n(let ((?x522 (* 1.0 ?x515)))\n(let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n(let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n(let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n(let ((?x518 (* (- 1.0) ?x411)))\n(let ((?x523 (+ ?x518 ?x520 ?x522)))\n(and (distinct energy_9 ?x523) true)))))))))\n(check-sat)\n",
+        "proof": "(let ((a!1 (+ (* (- 1.0) (+ energy_3 product_3_gibbs_correction_1))\n              (* (- (/ 1.0 2.0)) (+ energy_5 product_5_gibbs_correction_4))\n              (* 1.0 (+ energy_7 product_7_gibbs_correction_7))))\n      (a!2 (rewrite (= (* (- 1.0) (+ energy_3 product_3_gibbs_correction_1))\n                       (+ (* (- 1.0) energy_3)\n                          (* (- 1.0) product_3_gibbs_correction_1)))))\n      (a!3 (rewrite (= (* (- (/ 1.0 2.0))\n                          (+ energy_5 product_5_gibbs_correction_4))\n                       (+ (* (- (/ 1.0 2.0)) energy_5)\n                          (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4)))))\n      (a!4 (rewrite (= (* 1.0 (+ energy_7 product_7_gibbs_correction_7))\n                       (+ energy_7 product_7_gibbs_correction_7))))\n      (a!5 (+ (+ (* (- 1.0) energy_3) (* (- 1.0) product_3_gibbs_correction_1))\n              (+ (* (- (/ 1.0 2.0)) energy_5)\n                 (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4))\n              (+ energy_7 product_7_gibbs_correction_7)))\n      (a!6 (+ (* (- 1.0) energy_3)\n              (* (- 1.0) product_3_gibbs_correction_1)\n              (* (- (/ 1.0 2.0)) energy_5)\n              (* (- (/ 1.0 2.0)) product_5_gibbs_correction_4)\n              energy_7\n              product_7_gibbs_correction_7))\n      (a!10 (= (+ energy_3\n                  product_3_gibbs_correction_1\n                  (* (/ 1.0 2.0) energy_5)\n                  (* (/ 1.0 2.0) product_5_gibbs_correction_4)\n                  (* (- 1.0) energy_7)\n                  (* (- 1.0) product_7_gibbs_correction_7)\n                  energy_9)\n               0.0)))\n(let ((a!7 (monotonicity (trans (monotonicity a!2 a!3 a!4 (= a!1 a!5))\n                                (rewrite (= a!5 a!6))\n                                (= a!1 a!6))\n                         (= (distinct energy_9 a!1) (distinct energy_9 a!6))))\n      (a!8 (rewrite (= (distinct energy_9 a!6) (not (= energy_9 a!6)))))\n      (a!11 (monotonicity (rewrite (= (= energy_9 a!6) a!10))\n                          (= (not (= energy_9 a!6)) (not a!10))))\n      (a!14 (rewrite (= (not (not a!10)) a!10))))\n(let ((a!9 (trans a!7 a!8 (= (distinct energy_9 a!1) (not (= energy_9 a!6))))))\n(let ((a!12 (mp (asserted (distinct energy_9 a!1))\n                (trans a!9 a!11 (= (distinct energy_9 a!1) (not a!10)))\n                (not a!10)))\n      (a!13 (monotonicity (trans a!9\n                                 a!11\n                                 (= (distinct energy_9 a!1) (not a!10)))\n                          (= (not (distinct energy_9 a!1)) (not (not a!10))))))\n(let ((a!15 (trans a!13 a!14 (= (not (distinct energy_9 a!1)) a!10))))\n(let ((a!16 (mp (asserted (not (distinct energy_9 a!1))) a!15 a!10)))\n(let ((a!17 (trans (monotonicity a!16 (= a!10 (= 0.0 0.0)))\n                   (rewrite (= (= 0.0 0.0) true))\n                   (= a!10 true))))\n(let ((a!18 (trans (monotonicity a!17 (= (not a!10) (not true)))\n                   (rewrite (= (not true) false))\n                   (= (not a!10) false))))\n  (mp a!12 a!18 false)))))))))",
+        "counterexample": []
+      },
+      {
+        "index": 14,
+        "path": [
+          "request",
+          "derived_requirements",
+          7
+        ],
+        "status": "proved",
+        "message": "Require opt:co and oxidation:frequency:co to use the same method, basis, and reference.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct model_0 model_3) true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 45))\n                   (seq.unit (_ Char 51))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 123))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 118))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 80))\n                   (seq.unit (_ Char 75))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 125))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93)))))\n(let ((a!2 (rewrite (= (distinct model_0 a!1) (not (= model_0 a!1)))))\n      (a!4 (= (not (distinct model_0\n                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n              (not (not (= model_0 a!1)))))\n      (a!5 (= (not (not (= model_0 a!1))) (= model_0 a!1)))\n      (a!8 (rewrite (= (distinct model_3 a!1) (not (= model_3 a!1)))))\n      (a!10 (= (not (distinct model_3\n                              \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n               (not (not (= model_3 a!1)))))\n      (a!11 (= (not (not (= model_3 a!1))) (= model_3 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_0\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_0 a!1)))\n                  a!2\n                  (= (distinct model_0\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_0 a!1)))))\n      (a!9 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_3\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_3 a!1)))\n                  a!8\n                  (= (distinct model_3\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_3 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct model_0\n                                    \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                     (= model_0 a!1))))\n      (a!12 (trans (monotonicity a!9 a!10)\n                   (rewrite a!11)\n                   (= (not (distinct model_3\n                                     \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                      (= model_3 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct model_0\n                                        \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n               a!6\n               (= model_0 a!1)))\n      (a!13 (mp (asserted (not (distinct model_3\n                                         \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n                a!12\n                (= model_3 a!1))))\n(let ((a!14 (trans (monotonicity a!7\n                                 a!13\n                                 (= (distinct model_0 model_3)\n                                    (distinct a!1 a!1)))\n                   (rewrite (= (distinct a!1 a!1) false))\n                   (= (distinct model_0 model_3) false))))\n  (mp (asserted (distinct model_0 model_3)) a!14 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 15,
+        "path": [
+          "request",
+          "derived_requirements",
+          8
+        ],
+        "status": "proved",
+        "message": "Require opt:oxygen and oxidation:frequency:oxygen to use the same method, basis, and reference.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct model_1 model_5) true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 45))\n                   (seq.unit (_ Char 51))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 123))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 118))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 80))\n                   (seq.unit (_ Char 75))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 125))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93)))))\n(let ((a!2 (rewrite (= (distinct model_1 a!1) (not (= model_1 a!1)))))\n      (a!4 (= (not (distinct model_1\n                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n              (not (not (= model_1 a!1)))))\n      (a!5 (= (not (not (= model_1 a!1))) (= model_1 a!1)))\n      (a!8 (rewrite (= (distinct model_5 a!1) (not (= model_5 a!1)))))\n      (a!10 (= (not (distinct model_5\n                              \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n               (not (not (= model_5 a!1)))))\n      (a!11 (= (not (not (= model_5 a!1))) (= model_5 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_1\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_1 a!1)))\n                  a!2\n                  (= (distinct model_1\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_1 a!1)))))\n      (a!9 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_5\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_5 a!1)))\n                  a!8\n                  (= (distinct model_5\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_5 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct model_1\n                                    \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                     (= model_1 a!1))))\n      (a!12 (trans (monotonicity a!9 a!10)\n                   (rewrite a!11)\n                   (= (not (distinct model_5\n                                     \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                      (= model_5 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct model_1\n                                        \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n               a!6\n               (= model_1 a!1)))\n      (a!13 (mp (asserted (not (distinct model_5\n                                         \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n                a!12\n                (= model_5 a!1))))\n(let ((a!14 (trans (monotonicity a!7\n                                 a!13\n                                 (= (distinct model_1 model_5)\n                                    (distinct a!1 a!1)))\n                   (rewrite (= (distinct a!1 a!1) false))\n                   (= (distinct model_1 model_5) false))))\n  (mp (asserted (distinct model_1 model_5)) a!14 false)))))))",
+        "counterexample": []
+      },
+      {
+        "index": 16,
+        "path": [
+          "request",
+          "derived_requirements",
+          9
+        ],
+        "status": "proved",
+        "message": "Require opt:co2 and oxidation:frequency:co2 to use the same method, basis, and reference.",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun geometry_1 () String)\n(declare-fun model_1 () String)\n(declare-fun geometry_2 () String)\n(declare-fun model_2 () String)\n(declare-fun geometry_3 () String)\n(declare-fun model_3 () String)\n(declare-fun geometry_5 () String)\n(declare-fun model_5 () String)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_gibbs_correction_7 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun product_5_gibbs_correction_4 () Real)\n(declare-fun energy_5 () Real)\n(declare-fun product_3_gibbs_correction_1 () Real)\n(declare-fun energy_3 () Real)\n(declare-fun energy_9 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"co\") true)))\n (not $x9)))\n(assert\n (let (($x55 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x55)))\n(assert\n (let (($x241 (and (distinct geometry_1 \"oxygen\") true)))\n (not $x241)))\n(assert\n (let (($x271 (and (distinct model_1 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x271)))\n(assert\n (let (($x314 (and (distinct geometry_2 \"co2\") true)))\n (not $x314)))\n(assert\n (let (($x340 (and (distinct model_2 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x340)))\n(assert\n (let (($x364 (and (distinct geometry_3 \"opt:co\") true)))\n (not $x364)))\n(assert\n (let (($x390 (and (distinct model_3 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x390)))\n(assert\n (let (($x416 (and (distinct geometry_5 \"opt:oxygen\") true)))\n (not $x416)))\n(assert\n (let (($x442 (and (distinct model_5 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x442)))\n(assert\n (let (($x468 (and (distinct geometry_7 \"opt:co2\") true)))\n (not $x468)))\n(assert\n (let (($x494 (and (distinct model_7 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x494)))\n(assert\n (let ((?x515 (+ energy_7 product_7_gibbs_correction_7)))\n (let ((?x522 (* 1.0 ?x515)))\n (let ((?x463 (+ energy_5 product_5_gibbs_correction_4)))\n (let ((?x520 (* (- (/ 1.0 2.0)) ?x463)))\n (let ((?x411 (+ energy_3 product_3_gibbs_correction_1)))\n (let ((?x518 (* (- 1.0) ?x411)))\n (let ((?x523 (+ ?x518 ?x520 ?x522)))\n (let (($x524 (and (distinct energy_9 ?x523) true)))\n (not $x524))))))))))\n(assert\n (and (distinct model_2 model_7) true))\n(check-sat)\n",
+        "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 45))\n                   (seq.unit (_ Char 51))\n                   (seq.unit (_ Char 103))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 104))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 110))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 91))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 115))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 102))\n                   (seq.unit (_ Char 95))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 121))\n                   (seq.unit (_ Char 112))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 44))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 123))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 118))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 58))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 80))\n                   (seq.unit (_ Char 75))\n                   (seq.unit (_ Char 92))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 125))\n                   (seq.unit (_ Char 34))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93))\n                   (seq.unit (_ Char 93)))))\n(let ((a!2 (rewrite (= (distinct model_2 a!1) (not (= model_2 a!1)))))\n      (a!4 (= (not (distinct model_2\n                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n              (not (not (= model_2 a!1)))))\n      (a!5 (= (not (not (= model_2 a!1))) (= model_2 a!1)))\n      (a!8 (rewrite (= (distinct model_7 a!1) (not (= model_7 a!1)))))\n      (a!10 (= (not (distinct model_7\n                              \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n               (not (not (= model_7 a!1)))))\n      (a!11 (= (not (not (= model_7 a!1))) (= model_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_2\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_2 a!1)))\n                  a!2\n                  (= (distinct model_2\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_2 a!1)))))\n      (a!9 (trans (monotonicity (rewrite (= \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"\n                                            a!1))\n                                (= (distinct model_7\n                                             \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                                   (distinct model_7 a!1)))\n                  a!8\n                  (= (distinct model_7\n                               \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")\n                     (not (= model_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct model_2\n                                    \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                     (= model_2 a!1))))\n      (a!12 (trans (monotonicity a!9 a!10)\n                   (rewrite a!11)\n                   (= (not (distinct model_7\n                                     \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\"))\n                      (= model_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct model_2\n                                        \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n               a!6\n               (= model_2 a!1)))\n      (a!13 (mp (asserted (not (distinct model_7\n                                         \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\")))\n                a!12\n                (= model_7 a!1))))\n(let ((a!14 (trans (monotonicity a!7\n                                 a!13\n                                 (= (distinct model_2 model_7)\n                                    (distinct a!1 a!1)))\n                   (rewrite (= (distinct a!1 a!1) false))\n                   (= (distinct model_2 model_7) false))))\n  (mp (asserted (distinct model_2 model_7)) a!14 false)))))))",
+        "counterexample": []
+      }
+    ],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+      "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "co",
+        "system": "co",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "co"
+      },
+      {
+        "id": "oxygen",
+        "system": "oxygen",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "oxygen"
+      },
+      {
+        "id": "co2",
+        "system": "co2",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "co2"
+      },
+      {
+        "id": "opt:co",
+        "system": "co",
+        "source": "co",
+        "producer": "opt:co",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "co"
+      },
+      {
+        "id": "opt:oxygen",
+        "system": "oxygen",
+        "source": "oxygen",
+        "producer": "opt:oxygen",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "oxygen"
+      },
+      {
+        "id": "opt:co2",
+        "system": "co2",
+        "source": "co2",
+        "producer": "opt:co2",
+        "coordinates_known": false,
+        "atom_ids": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "frame": "co2"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "opt:co",
+        "producer": "opt:co",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co",
+        "geometry": "opt:co",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "opt:oxygen",
+        "producer": "opt:oxygen",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "oxygen",
+        "geometry": "opt:oxygen",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 3
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "opt:co2",
+        "producer": "opt:co2",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co2",
+        "geometry": "opt:co2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "oxidation:frequency:co",
+        "producer": "oxidation:frequency:co",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co",
+        "geometry": "opt:co",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "oxidation:total:co",
+        "producer": "oxidation:frequency:co",
+        "quantity": {
+          "meaning": "gibbs_free_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co",
+        "geometry": "opt:co",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": "gibbs_free_energy",
+        "electronic_target": null,
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 1,
+          "project_translations": true,
+          "project_rotations": true
+        },
+        "sapt": null
+      },
+      {
+        "id": "oxidation:frequency:oxygen",
+        "producer": "oxidation:frequency:oxygen",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "oxygen",
+        "geometry": "opt:oxygen",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 3
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "oxidation:total:oxygen",
+        "producer": "oxidation:frequency:oxygen",
+        "quantity": {
+          "meaning": "gibbs_free_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "oxygen",
+        "geometry": "opt:oxygen",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 3
+        },
+        "product": "gibbs_free_energy",
+        "electronic_target": null,
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        },
+        "sapt": null
+      },
+      {
+        "id": "oxidation:frequency:co2",
+        "producer": "oxidation:frequency:co2",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co2",
+        "geometry": "opt:co2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "oxidation:total:co2",
+        "producer": "oxidation:frequency:co2",
+        "quantity": {
+          "meaning": "gibbs_free_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "co2",
+        "geometry": "opt:co2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": "gibbs_free_energy",
+        "electronic_target": null,
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 400.0,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        },
+        "sapt": null
+      },
+      {
+        "id": "oxidation:reaction",
+        "producer": "oxidation:reaction",
+        "quantity": {
+          "meaning": "reaction_gibbs_free_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "oxidation:total:co",
+          "oxidation:total:oxygen",
+          "oxidation:total:co2"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [
+      {
+        "producer": "oxidation:frequency:co",
+        "format": "psi4_vibrec",
+        "label": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_3",
+        "filename_template": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_3.{pid}.vibrec",
+        "directory": "engine_output_directory",
+        "bindings": [
+          {
+            "quantity": "oxidation:total:co",
+            "key": "G_tot",
+            "encoding": "qcelemental_datum_json"
+          }
+        ]
+      },
+      {
+        "producer": "oxidation:frequency:oxygen",
+        "format": "psi4_vibrec",
+        "label": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_5",
+        "filename_template": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_5.{pid}.vibrec",
+        "directory": "engine_output_directory",
+        "bindings": [
+          {
+            "quantity": "oxidation:total:oxygen",
+            "key": "G_tot",
+            "encoding": "qcelemental_datum_json"
+          }
+        ]
+      },
+      {
+        "producer": "oxidation:frequency:co2",
+        "format": "psi4_vibrec",
+        "label": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_7",
+        "filename_template": "formal_558e532e63789ef082560252878f7d17a1cb5d809e84d664a6457bb6c18d8069_7.{pid}.vibrec",
+        "directory": "engine_output_directory",
+        "bindings": [
+          {
+            "quantity": "oxidation:total:co2",
+            "key": "G_tot",
+            "encoding": "qcelemental_datum_json"
+          }
+        ]
+      }
+    ],
+    "native_variables": [],
+    "required_components": [
+      {
+        "name": "optking",
+        "version": null
+      },
+      {
+        "name": "qcelemental",
+        "version": null
+      }
+    ],
+    "request_digest": "f5189500fe47ffe37588e2cb2b1f363fb648dacdcc1c37a330791a668e5e76c1",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "opt:co",
+        "steps": [
+          "opt:co"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "opt:oxygen",
+        "steps": [
+          "opt:oxygen"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "opt:co2",
+        "steps": [
+          "opt:co2"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:frequency:co",
+        "steps": [
+          "oxidation:frequency:co"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:total:co",
+        "steps": [
+          "oxidation:total:co"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:frequency:oxygen",
+        "steps": [
+          "oxidation:frequency:oxygen"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:total:oxygen",
+        "steps": [
+          "oxidation:total:oxygen"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:frequency:co2",
+        "steps": [
+          "oxidation:frequency:co2"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:total:co2",
+        "steps": [
+          "oxidation:total:co2"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "oxidation:reaction",
+        "steps": [
+          "oxidation:reaction"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": false,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29992
+    },
+    "verification_digest": "19fe89d9b4d3ce8c0e7dc72aa0013f21dc8ce95eff7356006e8d0facb4599ba8"
+  },
+  "attempts": 1,
+  "choices": [],
+  "diagnostics": [
+    {
+      "path": [
+        "steps",
+        9,
+        "quantity"
+      ],
+      "message": "Thermal reactions require a common temperature, pressure, treatment, and projection choices; rotational symmetry remains species-specific.",
+      "code": "reaction_thermal_context",
+      "status": "violated"
+    }
+  ],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(declare-fun goal_1_choice_0 () Bool)\n(declare-fun goal_1_model () String)\n(declare-fun goal_1_route () String)\n(declare-fun goal_2_choice_0 () Bool)\n(declare-fun goal_2_model () String)\n(declare-fun goal_2_route () String)\n(declare-fun goal_3_choice_0 () Bool)\n(declare-fun goal_3_model () String)\n(declare-fun goal_3_route () String)\n(declare-fun goal_5_choice_0 () Bool)\n(declare-fun goal_5_model () String)\n(declare-fun goal_5_route () String)\n(declare-fun goal_7_choice_0 () Bool)\n(declare-fun goal_7_model () String)\n(declare-fun goal_7_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"analytic\") true))))\n(assert\n (or goal_1_choice_0))\n(assert\n ((_ at-most 1) goal_1_choice_0))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_route \"analytic\") true))))\n(assert\n (or goal_2_choice_0))\n(assert\n ((_ at-most 1) goal_2_choice_0))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_route \"analytic\") true))))\n(assert\n (or goal_3_choice_0))\n(assert\n ((_ at-most 1) goal_3_choice_0))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_route \"analytic\") true))))\n(assert\n (or goal_5_choice_0))\n(assert\n ((_ at-most 1) goal_5_choice_0))\n(assert\n (=> goal_5_choice_0 (not (and (distinct goal_5_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"uhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_5_choice_0 (not (and (distinct goal_5_route \"analytic\") true))))\n(assert\n (or goal_7_choice_0))\n(assert\n ((_ at-most 1) goal_7_choice_0))\n(assert\n (=> goal_7_choice_0 (not (and (distinct goal_7_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_7_choice_0 (not (and (distinct goal_7_route \"analytic\") true))))\n(assert\n (not (and (distinct goal_0_model goal_3_model) true)))\n(assert\n (not (and (distinct goal_1_model goal_5_model) true)))\n(assert\n (not (and (distinct goal_2_model goal_7_model) true)))\n(assert\n (let (($x940 (and goal_0_choice_0 goal_1_choice_0 goal_2_choice_0 goal_3_choice_0 goal_5_choice_0 goal_7_choice_0)))\n(not $x940)))\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "prefer"
+  },
+  "reuses": [],
+  "last_candidate": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "co",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "C",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.13,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      },
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "oxygen",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.21,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 3
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      },
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "co2",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.16,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "C",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a3",
+              "nucleus": {
+                "label": "O",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.16,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "opt:co",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "co",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "opt:co"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "opt:oxygen",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "oxygen",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "opt:oxygen"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "opt:co2",
+        "driver": "optimize",
+        "sapt": null,
+        "geometry": "co2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "opt:co2"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "oxidation:frequency:co",
+        "driver": "frequency",
+        "sapt": null,
+        "geometry": "opt:co",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "oxidation:frequency:co"
+        ],
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 1,
+          "project_translations": true,
+          "project_rotations": true
+        }
+      },
+      {
+        "kind": "product",
+        "id": "oxidation:total:co",
+        "calculation": "oxidation:frequency:co",
+        "name": "gibbs_free_energy",
+        "electronic_target": null,
+        "quantity": null,
+        "satisfies": [
+          "oxidation:total:co"
+        ]
+      },
+      {
+        "kind": "calculation",
+        "id": "oxidation:frequency:oxygen",
+        "driver": "frequency",
+        "sapt": null,
+        "geometry": "opt:oxygen",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "oxidation:frequency:oxygen"
+        ],
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 298.15,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        }
+      },
+      {
+        "kind": "product",
+        "id": "oxidation:total:oxygen",
+        "calculation": "oxidation:frequency:oxygen",
+        "name": "gibbs_free_energy",
+        "electronic_target": null,
+        "quantity": null,
+        "satisfies": [
+          "oxidation:total:oxygen"
+        ]
+      },
+      {
+        "kind": "calculation",
+        "id": "oxidation:frequency:co2",
+        "driver": "frequency",
+        "sapt": null,
+        "geometry": "opt:co2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "analytic",
+        "properties": [],
+        "satisfies": [
+          "oxidation:frequency:co2"
+        ],
+        "analysis": {
+          "conditions": {
+            "temperature_kelvin": 400.0,
+            "pressure_pascal": 101325.0,
+            "treatment": "ideal_gas_rrho"
+          },
+          "rotational_symmetry_number": 2,
+          "project_translations": true,
+          "project_rotations": true
+        }
+      },
+      {
+        "kind": "product",
+        "id": "oxidation:total:co2",
+        "calculation": "oxidation:frequency:co2",
+        "name": "gibbs_free_energy",
+        "electronic_target": null,
+        "quantity": null,
+        "satisfies": [
+          "oxidation:total:co2"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "oxidation:reaction",
+        "terms": [
+          {
+            "result": "oxidation:total:co",
+            "coefficient": -1
+          },
+          {
+            "result": "oxidation:total:oxygen",
+            "coefficient": {
+              "numerator": -1,
+              "denominator": 2
+            }
+          },
+          {
+            "result": "oxidation:total:co2",
+            "coefficient": 1
+          }
+        ],
+        "quantity": {
+          "meaning": "reaction_gibbs_free_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "oxidation:reaction"
+        ]
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "opt:co",
+        "geometry": "co"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "opt:oxygen",
+        "geometry": "oxygen"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "opt:co2",
+        "geometry": "co2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "oxidation:frequency:co",
+        "geometry": "opt:co"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "oxidation:frequency:oxygen",
+        "geometry": "opt:oxygen"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "oxidation:frequency:co2",
+        "geometry": "opt:co2"
+      },
+      {
+        "kind": "energy_formula",
+        "result": "oxidation:reaction",
+        "terms": [
+          {
+            "result": "oxidation:total:co",
+            "coefficient": -1
+          },
+          {
+            "result": "oxidation:total:oxygen",
+            "coefficient": {
+              "numerator": -1,
+              "denominator": 2
+            }
+          },
+          {
+            "result": "oxidation:total:co2",
+            "coefficient": 1
+          }
+        ]
+      }
+    ]
+  }
+}

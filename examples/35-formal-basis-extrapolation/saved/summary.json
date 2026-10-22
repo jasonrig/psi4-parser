@@ -1,0 +1,58 @@
+{
+  "status": "constructed",
+  "goals": 16,
+  "top_level_calls": 6,
+  "reuses": [
+    {
+      "calculation": "dt:high:target",
+      "goals": [
+        "dt:high:target",
+        "tq:low:target"
+      ]
+    },
+    {
+      "calculation": "dt:high:reference",
+      "goals": [
+        "dt:high:reference",
+        "tq:low:reference"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "scheme": "inverse_power",
+      "family": "cc-pvXZ",
+      "low": {
+        "result": "dt:low:correction",
+        "basis": "cc-pvdz",
+        "cardinal": 2
+      },
+      "high": {
+        "result": "dt:high:correction",
+        "basis": "cc-pvtz",
+        "cardinal": 3
+      },
+      "power": 3
+    },
+    {
+      "scheme": "inverse_power",
+      "family": "cc-pvXZ",
+      "low": {
+        "result": "tq:low:correction",
+        "basis": "cc-pvtz",
+        "cardinal": 3
+      },
+      "high": {
+        "result": "tq:high:correction",
+        "basis": "cc-pvqz",
+        "cardinal": 4
+      },
+      "power": 3
+    }
+  ],
+  "rejections": {
+    "wrong-family": "no_candidate",
+    "wrong-weights": "no_candidate"
+  },
+  "manifest_digest": "0770297ee7c2c0f67cb5126ae575df4c945071da92f2ffb9706ec93375d653bd"
+}

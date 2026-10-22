@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "psi4-parser",
-  "version": "0.1.1",
-  "description": "Build Psi4 inputs with Python and validate, format, or convert existing inputs.",
+  "version": "0.1.20",
+  "description": "Turn scientific requirements into checked Psi4 calculation plans and input bundles; build, validate, format, or convert inputs with Python.",
   "author": {
     "name": "jasonrig"
   },
@@ -11,18 +11,19 @@
   "keywords": [
     "psi4",
     "quantum-chemistry",
-    "python"
+    "python",
+    "formal-reasoning"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Psi4 Inputs",
-        "shortDescription": "Build and check Psi4 inputs",
-        "longDescription": "Write reusable Python scripts to construct Psi4 jobs. Inspect the installed API and use its command line to validate, format, and convert input files.",
+        "shortDescription": "Plan and build Psi4 inputs",
+        "longDescription": "Describe molecular inputs, allowed models, geometry dependencies, and requested quantities. Propose a plan, check its coverage and scientific/input contracts, and export Psi4 input with verification records. Compose supported operations into new workflows using Python or compact CLI/MCP interfaces. The agent chooses scientific requirements; verification checks their implementation. Execution and result interpretation are separate.",
         "developerName": "jasonrig",
         "category": "Scientific Research",
         "capabilities": [],
-        "defaultPrompt": "Write a Python builder script for my Psi4 calculation and save the generated input."
+        "defaultPrompt": "Plan my Psi4 calculations from independent scientific requirements, inspect matching capability evidence, and save a checked input bundle."
       }
     }
   }

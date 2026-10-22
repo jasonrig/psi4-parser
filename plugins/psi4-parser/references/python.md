@@ -1,14 +1,38 @@
 # Python job workflow
 
-Prefer `psi4_parser.builder` for constructing and revising inputs. Explore its
-public exports and the specific helpers needed for the task. Its docstrings
-describe geometry units, atom selections, symmetry, references, constraints,
-and control flow.
+## Choose how to author the input
 
-Use an available Psi4 executable or Python API for targeted runtime inspection
-and calculation execution. Direct Python API use is also appropriate when it is
-clearer for a required interface. Choose the approach that fits the task and
-retain inspectable scripts and inputs.
+Choose the interface from the task, then discover its current exports, field
+descriptions, signatures, and relevant command help. These approaches compose;
+a job can use the builder for molecular preparation and formal reasoning for
+its calculation plan.
+
+| Approach | Use it when |
+| --- | --- |
+| Handwritten Psithon | A small, fully specified input or focused text edit is clearest, or a native feature needs direct syntax. Validate the complete input afterward. Prefer a small text edit when original comments and layout must remain intact. |
+| Low-level editable input records (`psi4_parser.job`) | You need to construct or edit native blocks, symbolic coordinates, settings, or mixed Psithon/Python as structured data. This is particularly useful for existing inputs. Emission rebuilds native layout. |
+| Builder (`psi4_parser.builder`) | You are generating new jobs programmatically, transforming molecular geometry, applying atom-based constraints, or composing reusable components and parameter sweeps. |
+| Formal reasoning (`psi4_parser.formal`) | You need to translate scientific requirements into a plan and check goal completeness, geometry dependencies, permitted choices, quantities, or formulas against independent intent. Use the builder for molecular preparation. |
+
+The editable input records differ from parser syntax trees and the translated
+Python AST. Discover `parse()` when original source positions or syntax analysis
+matter, and `build_ast()` for analysis of translated Python. These inspection
+interfaces are not the normal job-authoring path.
+
+A handwritten or builder-only section is outside a formal plan's checked scope.
+If formal reasoning cannot cover a required feature, report that gap rather than
+weakening the request to pass. Changing exported text requires updating the
+source plan/request and reverifying before claiming the modified input is checked.
+
+## Construct with the builder
+
+Explore the builder's public exports and the specific helpers needed for the
+task. Its docstrings describe geometry units, atom selections, symmetry,
+references, constraints, and control flow.
+
+Use Psi4's executable or Python API for separately requested runtime investigation
+or execution. Construction uses inspectable builder scripts and inputs without
+examining the target environment.
 
 Before expanding a large job, resolve ambiguities in essential inputs, requested
 outputs, and choices that materially affect the result. Use the user's context
@@ -36,6 +60,21 @@ and symmetry handling. Use explicit units and electronic states when the task
 requires them. Rendering validates and formats the complete input; see the
 [validation path](cli.md#check-input-without-running-calculations) for checking
 saved input and distinguishing syntax checks from runtime inspection.
+
+For independent scientific requirements, permitted choices, or proved
+relationships between geometries, models, and quantities, use the
+[planning skill](../skills/plan-calculations/SKILL.md) and
+[formal workflow](formal.md). Save the scientific request independently, supply
+matching capability evidence, and propose or verify a plan before export.
+`ScientificRequest`, formal `Plan`, and builder `JobSpec` are distinct formats.
+
+For a fully declared ordinary builder call, set `isolate_options=True` and put
+its required options in `local_options`. That call starts from native defaults
+and restores captured option state afterward. Ordinary helpers otherwise keep
+ambient options available; formal construction always enables isolation. Process
+resources and unlisted plugin state remain separate. See the
+[isolation guide](https://github.com/jasonrig/psi4-parser/blob/main/docs/formal-isolation.md)
+at the selected runtime ref.
 
 For existing input, explore `psi4_parser.job`, starting with `read_job()` and
 `emit_job()`. Its editable records serve a different purpose from builder

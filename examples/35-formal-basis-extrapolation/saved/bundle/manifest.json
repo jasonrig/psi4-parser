@@ -1,0 +1,1014 @@
+{
+  "schema_version": "1",
+  "plan_digest": "b5484bf35ccdd9384e73e58539929345f4fe0e98ffec2f6a73bc107d0fbf6660",
+  "request_digest": "6415e21b1943ec7c74ca9bd0329d3f737c7b81b7fc6f23125ff039532a5f3565",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "12bbaa22b1469365a25281b476deb2d2c0970e25406f11f3632ef803b2e3ccad",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "a2f09aac82d7ecda4ff518932dd8a095e8608def7ee2b6bf49ce44cb39a35fb3"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "fcb2a5413fb5b57e7b6585f4fa5066514eee3d0e0ffb73dd693557015335603b"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "9941835d9e552a2b113231beac669a8bf7ad29f18d398c9e7ab96f2bbf222259"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "6d27269acbcc2bb83fb49b8948c3b9843e0947d9763843873a6739c3d7ef3118"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "dt:low:target",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dt:low:reference",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dt:low:correction",
+      "artifact": "dt:low:target",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dt:low:correction",
+      "artifact": "dt:low:reference",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dt:high:target",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dt:high:reference",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dt:high:correction",
+      "artifact": "dt:high:target",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dt:high:correction",
+      "artifact": "dt:high:reference",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dt:basis_limit",
+      "artifact": "dt:low:correction",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dt:basis_limit",
+      "artifact": "dt:high:correction",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:low:correction",
+      "artifact": "dt:high:target",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:low:correction",
+      "artifact": "dt:high:reference",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:high:target",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "tq:high:reference",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "tq:high:correction",
+      "artifact": "tq:high:target",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:high:correction",
+      "artifact": "tq:high:reference",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:basis_limit",
+      "artifact": "tq:low:correction",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "tq:basis_limit",
+      "artifact": "tq:high:correction",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "electronic_estimate",
+      "artifact": "tq:high:reference",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "electronic_estimate",
+      "artifact": "tq:basis_limit",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "comparison",
+      "artifact": "tq:basis_limit",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "comparison",
+      "artifact": "dt:basis_limit",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "h2",
+      "system": "h2",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "h2"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "dt:low:target",
+      "producer": "dt:low:target",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:low:reference",
+      "producer": "dt:low:reference",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:low:correction",
+      "producer": "dt:low:correction",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dt:low:target",
+        "dt:low:reference"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:high:target",
+      "producer": "dt:high:target",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvtz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:high:reference",
+      "producer": "dt:high:reference",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvtz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:high:correction",
+      "producer": "dt:high:correction",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dt:high:target",
+        "dt:high:reference"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dt:basis_limit",
+      "producer": "dt:basis_limit",
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dt:low:correction",
+        "dt:high:correction"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "tq:low:correction",
+      "producer": "tq:low:correction",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dt:high:target",
+        "dt:high:reference"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "tq:high:target",
+      "producer": "tq:high:target",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "mp2",
+        "basis": "cc-pvqz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "tq:high:reference",
+      "producer": "tq:high:reference",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvqz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "tq:high:correction",
+      "producer": "tq:high:correction",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "tq:high:target",
+        "tq:high:reference"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "tq:basis_limit",
+      "producer": "tq:basis_limit",
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "tq:low:correction",
+        "tq:high:correction"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "electronic_estimate",
+      "producer": "electronic_estimate",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "tq:high:reference",
+        "tq:basis_limit"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "comparison",
+      "producer": "comparison",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "tq:basis_limit",
+        "dt:basis_limit"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "dt:low:correction",
+      "terms": [
+        {
+          "result": "dt:low:target",
+          "coefficient": 1
+        },
+        {
+          "result": "dt:low:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "dt:low:correction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "dt:high:correction",
+      "terms": [
+        {
+          "result": "dt:high:target",
+          "coefficient": 1
+        },
+        {
+          "result": "dt:high:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "dt:high:correction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "dt:basis_limit",
+      "terms": [
+        {
+          "result": "dt:low:correction",
+          "coefficient": {
+            "numerator": -8,
+            "denominator": 19
+          }
+        },
+        {
+          "result": "dt:high:correction",
+          "coefficient": {
+            "numerator": 27,
+            "denominator": 19
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "inverse_power",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "dt:low:correction",
+          "basis": "cc-pvdz",
+          "cardinal": 2
+        },
+        "high": {
+          "result": "dt:high:correction",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "power": 3
+      },
+      "satisfies": [
+        "dt:basis_limit"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "tq:low:correction",
+      "terms": [
+        {
+          "result": "dt:high:target",
+          "coefficient": 1
+        },
+        {
+          "result": "dt:high:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "tq:low:correction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "tq:high:correction",
+      "terms": [
+        {
+          "result": "tq:high:target",
+          "coefficient": 1
+        },
+        {
+          "result": "tq:high:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "tq:high:correction"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "tq:basis_limit",
+      "terms": [
+        {
+          "result": "tq:low:correction",
+          "coefficient": {
+            "numerator": -27,
+            "denominator": 37
+          }
+        },
+        {
+          "result": "tq:high:correction",
+          "coefficient": {
+            "numerator": 64,
+            "denominator": 37
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "inverse_power",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "tq:low:correction",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "high": {
+          "result": "tq:high:correction",
+          "basis": "cc-pvqz",
+          "cardinal": 4
+        },
+        "power": 3
+      },
+      "satisfies": [
+        "tq:basis_limit"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "electronic_estimate",
+      "terms": [
+        {
+          "result": "tq:high:reference",
+          "coefficient": 1
+        },
+        {
+          "result": "tq:basis_limit",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "electronic_estimate"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "comparison",
+      "terms": [
+        {
+          "result": "tq:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "result": "dt:basis_limit",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "comparison"
+      ]
+    }
+  ],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "dt:low:target",
+      "steps": [
+        "dt:low:target"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:low:reference",
+      "steps": [
+        "dt:low:reference"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:low:correction",
+      "steps": [
+        "dt:low:correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:high:target",
+      "steps": [
+        "dt:high:target"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:high:reference",
+      "steps": [
+        "dt:high:reference"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:high:correction",
+      "steps": [
+        "dt:high:correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dt:basis_limit",
+      "steps": [
+        "dt:basis_limit"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:low:target",
+      "steps": [
+        "dt:high:target"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:low:reference",
+      "steps": [
+        "dt:high:reference"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:low:correction",
+      "steps": [
+        "tq:low:correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:high:target",
+      "steps": [
+        "tq:high:target"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:high:reference",
+      "steps": [
+        "tq:high:reference"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:high:correction",
+      "steps": [
+        "tq:high:correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "tq:basis_limit",
+      "steps": [
+        "tq:basis_limit"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "electronic_estimate",
+      "steps": [
+        "electronic_estimate"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "comparison",
+      "steps": [
+        "comparison"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "The explicitly chosen inverse-power model estimates the requested basis-limit correction; asymptotic convergence, exponent suitability, reference-state consistency, and numerical accuracy are assumptions.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

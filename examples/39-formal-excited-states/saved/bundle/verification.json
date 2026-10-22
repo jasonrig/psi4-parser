@@ -1,0 +1,1606 @@
+{
+  "status": "proved",
+  "runtime_policy": "operator_managed",
+  "capability_status": "supported",
+  "plan_digest": "254dd8c6d0d161642c9d6396629460bf734fc6d5f3a2e8c14aa7975b49d8a163",
+  "solver_version": "5.3.1",
+  "diagnostics": [],
+  "obligations": [
+    {
+      "index": 0,
+      "path": [
+        "requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require hf_rpa to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_0 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"molecule\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_0 \"molecule\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"molecule\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"molecule\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"molecule\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_0 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"molecule\") false))))\n  (mp (asserted (distinct geometry_0 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 1,
+      "path": [
+        "requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require hf_rpa_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n(let ((?x379 (* 1.0 energy_0)))\n(let ((?x381 (+ ?x379 ?x380)))\n(and (distinct energy_6 ?x381) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_6\n                               (+ (* 1.0 energy_0)\n                                  (* 1.0 product_0_excitation_energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_0) energy_0))\n                         (rewrite (= (* 1.0 product_0_excitation_energy_0)\n                                     product_0_excitation_energy_0))\n                         (= (+ (* 1.0 energy_0)\n                               (* 1.0 product_0_excitation_energy_0))\n                            (+ energy_0 product_0_excitation_energy_0))))\n      (a!3 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              (distinct energy_6 (+ energy_0 product_0_excitation_energy_0))))\n      (a!4 (= (distinct energy_6 (+ energy_0 product_0_excitation_energy_0))\n              (not (= energy_6 (+ energy_0 product_0_excitation_energy_0)))))\n      (a!5 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              (not (= energy_6 (+ energy_0 product_0_excitation_energy_0)))))\n      (a!6 (= (= energy_6 (+ energy_0 product_0_excitation_energy_0))\n              (= (+ energy_0 product_0_excitation_energy_0 (* (- 1.0) energy_6))\n                 0.0)))\n      (a!7 (not (= (+ energy_0\n                      product_0_excitation_energy_0\n                      (* (- 1.0) energy_6))\n                   0.0)))\n      (a!11 (not (distinct energy_6\n                           (+ (* 1.0 energy_0)\n                              (* 1.0 product_0_excitation_energy_0)))))\n      (a!16 (= (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_6 (+ energy_0 product_0_excitation_energy_0))) a!7))\n      (a!9 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_0\n                      product_0_excitation_energy_0\n                      (* (- 1.0) energy_6))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 2,
+      "path": [
+        "requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require hf_tda to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_7 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"molecule\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_7 \"molecule\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"molecule\") (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"molecule\")) (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"molecule\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_7 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"molecule\") false))))\n  (mp (asserted (distinct geometry_7 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 3,
+      "path": [
+        "requirements",
+        3
+      ],
+      "status": "proved",
+      "message": "Require hf_tda_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n(let ((?x595 (* 1.0 energy_7)))\n(let ((?x597 (+ ?x595 ?x596)))\n(and (distinct energy_13 ?x597) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_13\n                               (+ (* 1.0 energy_7)\n                                  (* 1.0 product_7_excitation_energy_6)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_7) energy_7))\n                         (rewrite (= (* 1.0 product_7_excitation_energy_6)\n                                     product_7_excitation_energy_6))\n                         (= (+ (* 1.0 energy_7)\n                               (* 1.0 product_7_excitation_energy_6))\n                            (+ energy_7 product_7_excitation_energy_6))))\n      (a!3 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              (distinct energy_13 (+ energy_7 product_7_excitation_energy_6))))\n      (a!4 (= (distinct energy_13 (+ energy_7 product_7_excitation_energy_6))\n              (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))))\n      (a!5 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))))\n      (a!6 (= (= energy_13 (+ energy_7 product_7_excitation_energy_6))\n              (= (+ energy_7\n                    product_7_excitation_energy_6\n                    (* (- 1.0) energy_13))\n                 0.0)))\n      (a!7 (not (= (+ energy_7\n                      product_7_excitation_energy_6\n                      (* (- 1.0) energy_13))\n                   0.0)))\n      (a!11 (not (distinct energy_13\n                           (+ (* 1.0 energy_7)\n                              (* 1.0 product_7_excitation_energy_6)))))\n      (a!16 (= (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))\n              a!7))\n      (a!9 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_7\n                      product_7_excitation_energy_6\n                      (* (- 1.0) energy_13))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 4,
+      "path": [
+        "requirements",
+        4
+      ],
+      "status": "proved",
+      "message": "Require pbe_rpa to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_14 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_14 a!1) (not (= geometry_14 a!1)))))\n      (a!4 (= (not (distinct geometry_14 \"molecule\"))\n              (not (not (= geometry_14 a!1)))))\n      (a!5 (= (not (not (= geometry_14 a!1))) (= geometry_14 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_14 \"molecule\")\n                                   (distinct geometry_14 a!1)))\n                  a!2\n                  (= (distinct geometry_14 \"molecule\")\n                     (not (= geometry_14 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_14 \"molecule\"))\n                     (= geometry_14 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_14 \"molecule\")))\n               a!6\n               (= geometry_14 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_14 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_14 \"molecule\") false))))\n  (mp (asserted (distinct geometry_14 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 5,
+      "path": [
+        "requirements",
+        5
+      ],
+      "status": "proved",
+      "message": "Require pbe_rpa_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n(let ((?x696 (* 1.0 energy_14)))\n(let ((?x698 (+ ?x696 ?x697)))\n(and (distinct energy_20 ?x698) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_20\n                               (+ (* 1.0 energy_14)\n                                  (* 1.0 product_14_excitation_energy_12)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_14) energy_14))\n                         (rewrite (= (* 1.0 product_14_excitation_energy_12)\n                                     product_14_excitation_energy_12))\n                         (= (+ (* 1.0 energy_14)\n                               (* 1.0 product_14_excitation_energy_12))\n                            (+ energy_14 product_14_excitation_energy_12))))\n      (a!3 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              (distinct energy_20 (+ energy_14 product_14_excitation_energy_12))))\n      (a!4 (= (distinct energy_20 (+ energy_14 product_14_excitation_energy_12))\n              (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))))\n      (a!5 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))))\n      (a!6 (= (= energy_20 (+ energy_14 product_14_excitation_energy_12))\n              (= (+ energy_14\n                    product_14_excitation_energy_12\n                    (* (- 1.0) energy_20))\n                 0.0)))\n      (a!7 (not (= (+ energy_14\n                      product_14_excitation_energy_12\n                      (* (- 1.0) energy_20))\n                   0.0)))\n      (a!11 (not (distinct energy_20\n                           (+ (* 1.0 energy_14)\n                              (* 1.0 product_14_excitation_energy_12)))))\n      (a!16 (= (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))\n              a!7))\n      (a!9 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_14\n                      product_14_excitation_energy_12\n                      (* (- 1.0) energy_20))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 6,
+      "path": [
+        "requirements",
+        6
+      ],
+      "status": "proved",
+      "message": "Require rpa_tda_gap_comparison to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n(let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n(let ((?x737 (+ ?x380 ?x736)))\n(and (distinct energy_21 ?x737) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_21\n                               (+ (* 1.0 product_0_excitation_energy_0)\n                                  (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 product_0_excitation_energy_0)\n                                     product_0_excitation_energy_0))\n                         (= (+ (* 1.0 product_0_excitation_energy_0)\n                               (* (- 1.0) product_7_excitation_energy_6))\n                            (+ product_0_excitation_energy_0\n                               (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!3 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              (distinct energy_21\n                        (+ product_0_excitation_energy_0\n                           (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!4 (not (= energy_21\n                   (+ product_0_excitation_energy_0\n                      (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!7 (= (+ product_0_excitation_energy_0\n                 (* (- 1.0) product_7_excitation_energy_6)\n                 (* (- 1.0) energy_21))\n              0.0))\n      (a!11 (not (distinct energy_21\n                           (+ (* 1.0 product_0_excitation_energy_0)\n                              (* (- 1.0) product_7_excitation_energy_6))))))\n(let ((a!5 (= (distinct energy_21\n                        (+ product_0_excitation_energy_0\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              a!4))\n      (a!6 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              a!4))\n      (a!8 (= (= energy_21\n                 (+ product_0_excitation_energy_0\n                    (* (- 1.0) product_7_excitation_energy_6)))\n              a!7))\n      (a!9 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              (not a!7)))\n      (a!13 (rewrite (= (not (not a!7)) a!7))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!5) a!6)\n                   (monotonicity (rewrite a!8) (= a!4 (not a!7)))\n                   a!9)))\n(let ((a!12 (monotonicity a!10 (= a!11 (not (not a!7))))))\n(let ((a!14 (monotonicity (mp (asserted a!11)\n                              (trans a!12 a!13 (= a!11 a!7))\n                              a!7)\n                          (= a!7 (= 0.0 0.0)))))\n(let ((a!15 (trans a!14 (rewrite (= (= 0.0 0.0) true)) (= a!7 true))))\n(let ((a!16 (trans (monotonicity a!15 (= (not a!7) (not true)))\n                   (rewrite (= (not true) false))\n                   (= (not a!7) false))))\n  (mp (mp a!1 a!10 (not a!7)) a!16 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 7,
+      "path": [
+        "request",
+        "derived_requirements",
+        0
+      ],
+      "status": "proved",
+      "message": "Require hf_rpa to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_0 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"molecule\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_0 \"molecule\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"molecule\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"molecule\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"molecule\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_0 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"molecule\") false))))\n  (mp (asserted (distinct geometry_0 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 8,
+      "path": [
+        "request",
+        "derived_requirements",
+        1
+      ],
+      "status": "proved",
+      "message": "Require hf_rpa_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n(let ((?x379 (* 1.0 energy_0)))\n(let ((?x381 (+ ?x379 ?x380)))\n(and (distinct energy_6 ?x381) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_6\n                               (+ (* 1.0 energy_0)\n                                  (* 1.0 product_0_excitation_energy_0)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_0) energy_0))\n                         (rewrite (= (* 1.0 product_0_excitation_energy_0)\n                                     product_0_excitation_energy_0))\n                         (= (+ (* 1.0 energy_0)\n                               (* 1.0 product_0_excitation_energy_0))\n                            (+ energy_0 product_0_excitation_energy_0))))\n      (a!3 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              (distinct energy_6 (+ energy_0 product_0_excitation_energy_0))))\n      (a!4 (= (distinct energy_6 (+ energy_0 product_0_excitation_energy_0))\n              (not (= energy_6 (+ energy_0 product_0_excitation_energy_0)))))\n      (a!5 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              (not (= energy_6 (+ energy_0 product_0_excitation_energy_0)))))\n      (a!6 (= (= energy_6 (+ energy_0 product_0_excitation_energy_0))\n              (= (+ energy_0 product_0_excitation_energy_0 (* (- 1.0) energy_6))\n                 0.0)))\n      (a!7 (not (= (+ energy_0\n                      product_0_excitation_energy_0\n                      (* (- 1.0) energy_6))\n                   0.0)))\n      (a!11 (not (distinct energy_6\n                           (+ (* 1.0 energy_0)\n                              (* 1.0 product_0_excitation_energy_0)))))\n      (a!16 (= (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_6 (+ energy_0 product_0_excitation_energy_0))) a!7))\n      (a!9 (= (distinct energy_6\n                        (+ (* 1.0 energy_0)\n                           (* 1.0 product_0_excitation_energy_0)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_0\n                     product_0_excitation_energy_0\n                     (* (- 1.0) energy_6))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_0\n                      product_0_excitation_energy_0\n                      (* (- 1.0) energy_6))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 9,
+      "path": [
+        "request",
+        "derived_requirements",
+        2
+      ],
+      "status": "proved",
+      "message": "Require hf_tda to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_7 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_7 a!1) (not (= geometry_7 a!1)))))\n      (a!4 (= (not (distinct geometry_7 \"molecule\"))\n              (not (not (= geometry_7 a!1)))))\n      (a!5 (= (not (not (= geometry_7 a!1))) (= geometry_7 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_7 \"molecule\")\n                                   (distinct geometry_7 a!1)))\n                  a!2\n                  (= (distinct geometry_7 \"molecule\") (not (= geometry_7 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_7 \"molecule\")) (= geometry_7 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_7 \"molecule\")))\n               a!6\n               (= geometry_7 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_7 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_7 \"molecule\") false))))\n  (mp (asserted (distinct geometry_7 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 10,
+      "path": [
+        "request",
+        "derived_requirements",
+        3
+      ],
+      "status": "proved",
+      "message": "Require hf_tda_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n(let ((?x595 (* 1.0 energy_7)))\n(let ((?x597 (+ ?x595 ?x596)))\n(and (distinct energy_13 ?x597) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_13\n                               (+ (* 1.0 energy_7)\n                                  (* 1.0 product_7_excitation_energy_6)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_7) energy_7))\n                         (rewrite (= (* 1.0 product_7_excitation_energy_6)\n                                     product_7_excitation_energy_6))\n                         (= (+ (* 1.0 energy_7)\n                               (* 1.0 product_7_excitation_energy_6))\n                            (+ energy_7 product_7_excitation_energy_6))))\n      (a!3 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              (distinct energy_13 (+ energy_7 product_7_excitation_energy_6))))\n      (a!4 (= (distinct energy_13 (+ energy_7 product_7_excitation_energy_6))\n              (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))))\n      (a!5 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))))\n      (a!6 (= (= energy_13 (+ energy_7 product_7_excitation_energy_6))\n              (= (+ energy_7\n                    product_7_excitation_energy_6\n                    (* (- 1.0) energy_13))\n                 0.0)))\n      (a!7 (not (= (+ energy_7\n                      product_7_excitation_energy_6\n                      (* (- 1.0) energy_13))\n                   0.0)))\n      (a!11 (not (distinct energy_13\n                           (+ (* 1.0 energy_7)\n                              (* 1.0 product_7_excitation_energy_6)))))\n      (a!16 (= (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_13 (+ energy_7 product_7_excitation_energy_6)))\n              a!7))\n      (a!9 (= (distinct energy_13\n                        (+ (* 1.0 energy_7)\n                           (* 1.0 product_7_excitation_energy_6)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_7\n                     product_7_excitation_energy_6\n                     (* (- 1.0) energy_13))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_7\n                      product_7_excitation_energy_6\n                      (* (- 1.0) energy_13))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 11,
+      "path": [
+        "request",
+        "derived_requirements",
+        4
+      ],
+      "status": "proved",
+      "message": "Require pbe_rpa to consume geometry molecule.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (and (distinct geometry_14 \"molecule\") true))\n(check-sat)\n",
+      "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 109))\n                   (seq.unit (_ Char 111))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 99))\n                   (seq.unit (_ Char 117))\n                   (seq.unit (_ Char 108))\n                   (seq.unit (_ Char 101)))))\n(let ((a!2 (rewrite (= (distinct geometry_14 a!1) (not (= geometry_14 a!1)))))\n      (a!4 (= (not (distinct geometry_14 \"molecule\"))\n              (not (not (= geometry_14 a!1)))))\n      (a!5 (= (not (not (= geometry_14 a!1))) (= geometry_14 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_14 \"molecule\")\n                                   (distinct geometry_14 a!1)))\n                  a!2\n                  (= (distinct geometry_14 \"molecule\")\n                     (not (= geometry_14 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_14 \"molecule\"))\n                     (= geometry_14 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_14 \"molecule\")))\n               a!6\n               (= geometry_14 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"molecule\" a!1))\n                                (= (distinct geometry_14 \"molecule\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_14 \"molecule\") false))))\n  (mp (asserted (distinct geometry_14 \"molecule\")) a!8 false)))))))",
+      "counterexample": []
+    },
+    {
+      "index": 12,
+      "path": [
+        "request",
+        "derived_requirements",
+        5
+      ],
+      "status": "proved",
+      "message": "Require pbe_rpa_derived_total to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n(let ((?x696 (* 1.0 energy_14)))\n(let ((?x698 (+ ?x696 ?x697)))\n(and (distinct energy_20 ?x698) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_20\n                               (+ (* 1.0 energy_14)\n                                  (* 1.0 product_14_excitation_energy_12)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_14) energy_14))\n                         (rewrite (= (* 1.0 product_14_excitation_energy_12)\n                                     product_14_excitation_energy_12))\n                         (= (+ (* 1.0 energy_14)\n                               (* 1.0 product_14_excitation_energy_12))\n                            (+ energy_14 product_14_excitation_energy_12))))\n      (a!3 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              (distinct energy_20 (+ energy_14 product_14_excitation_energy_12))))\n      (a!4 (= (distinct energy_20 (+ energy_14 product_14_excitation_energy_12))\n              (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))))\n      (a!5 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))))\n      (a!6 (= (= energy_20 (+ energy_14 product_14_excitation_energy_12))\n              (= (+ energy_14\n                    product_14_excitation_energy_12\n                    (* (- 1.0) energy_20))\n                 0.0)))\n      (a!7 (not (= (+ energy_14\n                      product_14_excitation_energy_12\n                      (* (- 1.0) energy_20))\n                   0.0)))\n      (a!11 (not (distinct energy_20\n                           (+ (* 1.0 energy_14)\n                              (* 1.0 product_14_excitation_energy_12)))))\n      (a!16 (= (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)\n               (= 0.0 0.0)))\n      (a!17 (= (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)\n               true)))\n(let ((a!8 (= (not (= energy_20 (+ energy_14 product_14_excitation_energy_12)))\n              a!7))\n      (a!9 (= (distinct energy_20\n                        (+ (* 1.0 energy_14)\n                           (* 1.0 product_14_excitation_energy_12)))\n              a!7))\n      (a!12 (= (not a!7)\n               (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0)))\n      (a!13 (= a!11\n               (= (+ energy_14\n                     product_14_excitation_energy_12\n                     (* (- 1.0) energy_20))\n                  0.0))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!4) a!5)\n                   (monotonicity (rewrite a!6) a!8)\n                   a!9)))\n(let ((a!14 (trans (monotonicity a!10 (= a!11 (not a!7))) (rewrite a!12) a!13)))\n(let ((a!15 (mp (asserted a!11)\n                a!14\n                (= (+ energy_14\n                      product_14_excitation_energy_12\n                      (* (- 1.0) energy_20))\n                   0.0))))\n(let ((a!18 (trans (monotonicity a!15 a!16) (rewrite (= (= 0.0 0.0) true)) a!17)))\n(let ((a!19 (trans (monotonicity a!18 (= a!7 (not true)))\n                   (rewrite (= (not true) false))\n                   (= a!7 false))))\n  (mp (mp a!1 a!10 a!7) a!19 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 13,
+      "path": [
+        "request",
+        "derived_requirements",
+        6
+      ],
+      "status": "proved",
+      "message": "Require rpa_tda_gap_comparison to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n(let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n(let ((?x737 (+ ?x380 ?x736)))\n(and (distinct energy_21 ?x737) true)))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (asserted (distinct energy_21\n                               (+ (* 1.0 product_0_excitation_energy_0)\n                                  (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 product_0_excitation_energy_0)\n                                     product_0_excitation_energy_0))\n                         (= (+ (* 1.0 product_0_excitation_energy_0)\n                               (* (- 1.0) product_7_excitation_energy_6))\n                            (+ product_0_excitation_energy_0\n                               (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!3 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              (distinct energy_21\n                        (+ product_0_excitation_energy_0\n                           (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!4 (not (= energy_21\n                   (+ product_0_excitation_energy_0\n                      (* (- 1.0) product_7_excitation_energy_6)))))\n      (a!7 (= (+ product_0_excitation_energy_0\n                 (* (- 1.0) product_7_excitation_energy_6)\n                 (* (- 1.0) energy_21))\n              0.0))\n      (a!11 (not (distinct energy_21\n                           (+ (* 1.0 product_0_excitation_energy_0)\n                              (* (- 1.0) product_7_excitation_energy_6))))))\n(let ((a!5 (= (distinct energy_21\n                        (+ product_0_excitation_energy_0\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              a!4))\n      (a!6 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              a!4))\n      (a!8 (= (= energy_21\n                 (+ product_0_excitation_energy_0\n                    (* (- 1.0) product_7_excitation_energy_6)))\n              a!7))\n      (a!9 (= (distinct energy_21\n                        (+ (* 1.0 product_0_excitation_energy_0)\n                           (* (- 1.0) product_7_excitation_energy_6)))\n              (not a!7)))\n      (a!13 (rewrite (= (not (not a!7)) a!7))))\n(let ((a!10 (trans (trans (monotonicity a!2 a!3) (rewrite a!5) a!6)\n                   (monotonicity (rewrite a!8) (= a!4 (not a!7)))\n                   a!9)))\n(let ((a!12 (monotonicity a!10 (= a!11 (not (not a!7))))))\n(let ((a!14 (monotonicity (mp (asserted a!11)\n                              (trans a!12 a!13 (= a!11 a!7))\n                              a!7)\n                          (= a!7 (= 0.0 0.0)))))\n(let ((a!15 (trans a!14 (rewrite (= (= 0.0 0.0) true)) (= a!7 true))))\n(let ((a!16 (trans (monotonicity a!15 (= (not a!7) (not true)))\n                   (rewrite (= (not true) false))\n                   (= (not a!7) false))))\n  (mp (mp a!1 a!10 (not a!7)) a!16 false))))))))",
+      "counterexample": []
+    },
+    {
+      "index": 14,
+      "path": [
+        "request",
+        "derived_requirements",
+        7
+      ],
+      "status": "proved",
+      "message": "Require hf_rpa_total_1 to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n(let ((?x379 (* 1.0 energy_0)))\n(let ((?x381 (+ ?x379 ?x380)))\n(let ((?x374 (+ energy_0 product_0_excitation_energy_0)))\n(and (distinct ?x374 ?x381) true))))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (distinct (+ energy_0 product_0_excitation_energy_0)\n                     (+ (* 1.0 energy_0) (* 1.0 product_0_excitation_energy_0))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_0) energy_0))\n                         (rewrite (= (* 1.0 product_0_excitation_energy_0)\n                                     product_0_excitation_energy_0))\n                         (= (+ (* 1.0 energy_0)\n                               (* 1.0 product_0_excitation_energy_0))\n                            (+ energy_0 product_0_excitation_energy_0))))\n      (a!4 (rewrite (= (distinct (+ energy_0 product_0_excitation_energy_0)\n                                 (+ energy_0 product_0_excitation_energy_0))\n                       false))))\n(let ((a!3 (monotonicity a!2\n                         (= a!1\n                            (distinct (+ energy_0 product_0_excitation_energy_0)\n                                      (+ energy_0 product_0_excitation_energy_0))))))\n  (mp (asserted a!1) (trans a!3 a!4 (= a!1 false)) false)))",
+      "counterexample": []
+    },
+    {
+      "index": 15,
+      "path": [
+        "request",
+        "derived_requirements",
+        8
+      ],
+      "status": "proved",
+      "message": "Require hf_tda_total_1 to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n(let ((?x595 (* 1.0 energy_7)))\n(let ((?x597 (+ ?x595 ?x596)))\n(let ((?x591 (+ energy_7 product_7_excitation_energy_6)))\n(and (distinct ?x591 ?x597) true))))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (distinct (+ energy_7 product_7_excitation_energy_6)\n                     (+ (* 1.0 energy_7) (* 1.0 product_7_excitation_energy_6))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_7) energy_7))\n                         (rewrite (= (* 1.0 product_7_excitation_energy_6)\n                                     product_7_excitation_energy_6))\n                         (= (+ (* 1.0 energy_7)\n                               (* 1.0 product_7_excitation_energy_6))\n                            (+ energy_7 product_7_excitation_energy_6))))\n      (a!4 (rewrite (= (distinct (+ energy_7 product_7_excitation_energy_6)\n                                 (+ energy_7 product_7_excitation_energy_6))\n                       false))))\n(let ((a!3 (monotonicity a!2\n                         (= a!1\n                            (distinct (+ energy_7 product_7_excitation_energy_6)\n                                      (+ energy_7 product_7_excitation_energy_6))))))\n  (mp (asserted a!1) (trans a!3 a!4 (= a!1 false)) false)))",
+      "counterexample": []
+    },
+    {
+      "index": 16,
+      "path": [
+        "request",
+        "derived_requirements",
+        9
+      ],
+      "status": "proved",
+      "message": "Require pbe_rpa_total_1 to equal the requested energy formula for all input energies.",
+      "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(declare-fun product_0_excitation_energy_0 () Real)\n(declare-fun energy_0 () Real)\n(declare-fun energy_6 () Real)\n(declare-fun geometry_7 () String)\n(declare-fun model_7 () String)\n(declare-fun product_7_excitation_energy_6 () Real)\n(declare-fun energy_7 () Real)\n(declare-fun energy_13 () Real)\n(declare-fun geometry_14 () String)\n(declare-fun model_14 () String)\n(declare-fun product_14_excitation_energy_12 () Real)\n(declare-fun energy_14 () Real)\n(declare-fun energy_20 () Real)\n(declare-fun energy_21 () Real)\n(assert\n (let (($x9 (and (distinct geometry_0 \"molecule\") true)))\n (not $x9)))\n(assert\n (let (($x69 (and (distinct model_0 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x69)))\n(assert\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x379 (* 1.0 energy_0)))\n (let ((?x381 (+ ?x379 ?x380)))\n (let (($x382 (and (distinct energy_6 ?x381) true)))\n (not $x382))))))\n(assert\n (let (($x423 (and (distinct geometry_7 \"molecule\") true)))\n (not $x423)))\n(assert\n (let (($x444 (and (distinct model_7 \"[\"\"td-hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"tda\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x444)))\n(assert\n (let ((?x596 (* 1.0 product_7_excitation_energy_6)))\n (let ((?x595 (* 1.0 energy_7)))\n (let ((?x597 (+ ?x595 ?x596)))\n (let (($x598 (and (distinct energy_13 ?x597) true)))\n (not $x598))))))\n(assert\n (let (($x637 (and (distinct geometry_14 \"molecule\") true)))\n (not $x637)))\n(assert\n (let (($x658 (and (distinct model_14 \"[\"\"td-pbe\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,\"\"{\\\"\"states\\\"\":3,\\\"\"spin\\\"\":\\\"\"singlet\\\"\",\\\"\"approximation\\\"\":\\\"\"rpa\\\"\",\\\"\"residual_threshold\\\"\":1e-6,\\\"\"max_iterations\\\"\":60}\"\",[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x658)))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n (let ((?x696 (* 1.0 energy_14)))\n (let ((?x698 (+ ?x696 ?x697)))\n (let (($x699 (and (distinct energy_20 ?x698) true)))\n (not $x699))))))\n(assert\n (let ((?x736 (* (- 1.0) product_7_excitation_energy_6)))\n (let ((?x380 (* 1.0 product_0_excitation_energy_0)))\n (let ((?x737 (+ ?x380 ?x736)))\n (let (($x738 (and (distinct energy_21 ?x737) true)))\n (not $x738))))))\n(assert\n (let ((?x697 (* 1.0 product_14_excitation_energy_12)))\n(let ((?x696 (* 1.0 energy_14)))\n(let ((?x698 (+ ?x696 ?x697)))\n(let ((?x692 (+ energy_14 product_14_excitation_energy_12)))\n(and (distinct ?x692 ?x698) true))))))\n(check-sat)\n",
+      "proof": "(let ((a!1 (distinct (+ energy_14 product_14_excitation_energy_12)\n                     (+ (* 1.0 energy_14)\n                        (* 1.0 product_14_excitation_energy_12))))\n      (a!2 (monotonicity (rewrite (= (* 1.0 energy_14) energy_14))\n                         (rewrite (= (* 1.0 product_14_excitation_energy_12)\n                                     product_14_excitation_energy_12))\n                         (= (+ (* 1.0 energy_14)\n                               (* 1.0 product_14_excitation_energy_12))\n                            (+ energy_14 product_14_excitation_energy_12))))\n      (a!4 (rewrite (= (distinct (+ energy_14 product_14_excitation_energy_12)\n                                 (+ energy_14 product_14_excitation_energy_12))\n                       false))))\n(let ((a!3 (monotonicity a!2\n                         (= a!1\n                            (distinct (+ energy_14\n                                         product_14_excitation_energy_12)\n                                      (+ energy_14\n                                         product_14_excitation_energy_12))))))\n  (mp (asserted a!1) (trans a!3 a!4 (= a!1 false)) false)))",
+      "counterexample": []
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "TD-SCF roots are energy-ordered within the requested spin/irrep allocation, without physical state tracking. Irrep-specific occupied/virtual spaces and a suitable reference are assumed; RPA also assumes the required stability. Numerical convergence and physical accuracy remain separate."
+  ],
+  "rule_version": "scientific-contracts/15",
+  "geometries": [
+    {
+      "id": "molecule",
+      "system": "molecule",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "frame": "molecule"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "hf_rpa",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_gap_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_gap_2",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_total_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_strength_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_moment_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "hf_rpa",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_derived_total",
+      "producer": "hf_rpa_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_rpa",
+        "hf_rpa_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_gap_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_gap_2",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_total_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_strength_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_moment_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "hf_tda",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_derived_total",
+      "producer": "hf_tda_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_tda",
+        "hf_tda_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_gap_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_gap_2",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_total_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_strength_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_moment_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "pbe_rpa",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_derived_total",
+      "producer": "pbe_rpa_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "pbe_rpa",
+        "pbe_rpa_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "rpa_tda_gap_comparison",
+      "producer": "rpa_tda_gap_comparison",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_rpa_gap_1",
+        "hf_tda_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "native_outputs": [],
+  "native_variables": [
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_gap_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_gap_2",
+      "key": "TD-HF ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_total_1",
+      "key": "TD-HF ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_strength_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_moment_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_gap_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_gap_2",
+      "key": "TD-HF ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_total_1",
+      "key": "TD-HF ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_strength_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_moment_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_gap_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_gap_2",
+      "key": "TD-DFT ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_total_1",
+      "key": "TD-DFT ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_strength_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_moment_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    }
+  ],
+  "required_components": [],
+  "request_digest": "8b8f5bca04a9d942075524a543fcdc04be082e201e67d74d240c2cc096fe57a8",
+  "scope": "scientific_request",
+  "coverage": [
+    {
+      "goal": "hf_rpa",
+      "steps": [
+        "hf_rpa"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_gap_1",
+      "steps": [
+        "hf_rpa_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_gap_2",
+      "steps": [
+        "hf_rpa_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_total_1",
+      "steps": [
+        "hf_rpa_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_strength_1",
+      "steps": [
+        "hf_rpa_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_moment_1",
+      "steps": [
+        "hf_rpa_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_derived_total",
+      "steps": [
+        "hf_rpa_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda",
+      "steps": [
+        "hf_tda"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_gap_1",
+      "steps": [
+        "hf_tda_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_gap_2",
+      "steps": [
+        "hf_tda_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_total_1",
+      "steps": [
+        "hf_tda_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_strength_1",
+      "steps": [
+        "hf_tda_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_moment_1",
+      "steps": [
+        "hf_tda_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_derived_total",
+      "steps": [
+        "hf_tda_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa",
+      "steps": [
+        "pbe_rpa"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_gap_1",
+      "steps": [
+        "pbe_rpa_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_gap_2",
+      "steps": [
+        "pbe_rpa_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_total_1",
+      "steps": [
+        "pbe_rpa_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_strength_1",
+      "steps": [
+        "pbe_rpa_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_moment_1",
+      "steps": [
+        "pbe_rpa_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_derived_total",
+      "steps": [
+        "pbe_rpa_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "rpa_tda_gap_comparison",
+      "steps": [
+        "rpa_tda_gap_comparison"
+      ],
+      "status": "covered"
+    }
+  ],
+  "request_complete": true,
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "limits": {
+    "timeout_ms": 1000,
+    "resource_limit": 0,
+    "max_steps": 10000,
+    "max_obligations": 10000,
+    "total_timeout_ms": 30000
+  },
+  "verification_digest": "db92508f3c697adca6adecbbc7d21ae27e0e48e23bc74b04ea4b6e4c8f0604c0"
+}

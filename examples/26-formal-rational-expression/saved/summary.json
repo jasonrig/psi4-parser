@@ -1,0 +1,19 @@
+{
+  "status": "constructed",
+  "expression": {
+    "id": "weighted_energy",
+    "terms": [
+      {
+        "result": "e_short",
+        "coefficient": "1/3"
+      },
+      {
+        "result": "e_long",
+        "coefficient": "2/3"
+      }
+    ]
+  },
+  "unsupported_proposal": "no_candidate",
+  "unsupported_verification": "unsupported",
+  "manifest_digest": "b6d4e427e0b348ae3e18d0f42b8cbe65ec0d4db49cfe53c902b31f3f618f855e"
+}

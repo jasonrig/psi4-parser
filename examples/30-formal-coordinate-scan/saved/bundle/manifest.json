@@ -1,0 +1,230 @@
+{
+  "schema_version": "1",
+  "plan_digest": "96c4d0bc243d28d75dcc0d63fee126956e95283c1bcd8abae97559c4aa95031a",
+  "request_digest": "1785ab394bded378eaed65cea6a9903df7e91f3bde21cf57eae570a4b972aac3",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "0e2d1e7a4d05c81bb1a96131f6fb2f4cfdd2b4b742a799488b3a8830589b15d6",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [
+    {
+      "name": "optking",
+      "version": null
+    }
+  ],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "e3ab5818928e35b3e0205893f83394f43f859d507e8bd54dc3b57e5b017e7059"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "70c333dec61206ffa12726c1a744fa6aebc1c7a8d2fe6613bee4b23530d1f98a"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "02eef7fb28a72252865ed972a0eb34f400f5095ce60f2c819e899b451381ca89"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "a727ee172a7ddc196c2fe08ac858038230f2089a1a2d46fa1e2a46591ea8bcea"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "short:relaxed",
+      "artifact": "short:water",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "long:relaxed",
+      "artifact": "long:water",
+      "kind": "geometry"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "short:water",
+      "system": "short:water",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "short:water"
+    },
+    {
+      "id": "long:water",
+      "system": "long:water",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "long:water"
+    },
+    {
+      "id": "short:relaxed",
+      "system": "short:water",
+      "source": "short:water",
+      "producer": "short:relaxed",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "short:water"
+    },
+    {
+      "id": "long:relaxed",
+      "system": "long:water",
+      "source": "long:water",
+      "producer": "long:relaxed",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "long:water"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "short:relaxed",
+      "producer": "short:relaxed",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "short:water",
+      "geometry": "short:relaxed",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "long:relaxed",
+      "producer": "long:relaxed",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "long:water",
+      "geometry": "long:relaxed",
+      "model": {
+        "method": "hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "short:relaxed",
+      "steps": [
+        "short:relaxed"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "long:relaxed",
+      "steps": [
+        "long:relaxed"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Coordinate measurements use floating-point geometry and unit conversions; caller tolerances define accepted input differences. Future coordinate bounds assume successful enforcement of the declared optimizer constraints.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

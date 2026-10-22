@@ -1,0 +1,11 @@
+{
+  "status": "constructed",
+  "goals": 22,
+  "calls": 3,
+  "coverage": 22,
+  "native_variables": 15,
+  "runtime_policy": "operator_managed",
+  "wrong_weight_status": "no_candidate",
+  "backend_version": "psi4-builder/8",
+  "manifest_digest": "d8088d93037c1aaafc1bba35ae96ef0eb3250bc0570bda9041ca6ec4e0ad00bf"
+}

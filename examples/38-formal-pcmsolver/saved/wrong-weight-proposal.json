@@ -1,0 +1,934 @@
+{
+  "status": "no_candidate",
+  "plan": null,
+  "report": {
+    "status": "invalid",
+    "runtime_policy": "operator_managed",
+    "capability_status": "supported",
+    "plan_digest": "8f729a8c6b442986d56ae7b04add5df87e26dfb5ec60a3c68f720bd68ce800d7",
+    "solver_version": "5.3.1",
+    "diagnostics": [
+      {
+        "path": [
+          "steps",
+          4,
+          "quantity"
+        ],
+        "message": "An electronic solvation shift is one solvated energy minus one vacuum energy.",
+        "code": "solvation_formula",
+        "status": "invalid"
+      }
+    ],
+    "obligations": [],
+    "assumptions": [
+      "Psi4 calls complete successfully with documented return values and molecule updates.",
+      "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+      "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+      "Geometry equality means shared provenance, not numerical or physical equivalence.",
+      "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+      "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+      "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+      "Equilibrium continuum equations, dielectric values, cavity choices, and discretization are scientific inputs. An electronic solvation shift omits thermal, non-electrostatic, and standard-state terms."
+    ],
+    "rule_version": "scientific-contracts/15",
+    "geometries": [
+      {
+        "id": "h2",
+        "system": "h2",
+        "source": null,
+        "producer": null,
+        "coordinates_known": true,
+        "atom_ids": [
+          "a1",
+          "a2"
+        ],
+        "frame": "h2"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "vacuum",
+        "producer": "vacuum",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "water",
+        "producer": "water",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "Water",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": null,
+              "probe_radius_bohr": null,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_iefpcm",
+        "producer": "explicit_iefpcm",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_cpcm",
+        "producer": "explicit_cpcm",
+        "quantity": {
+          "meaning": "electronic_energy",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": "h2",
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "cpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.5,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "operands": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "water_shift",
+        "producer": "water_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "water",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_iefpcm_shift",
+        "producer": "explicit_iefpcm_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_iefpcm",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "explicit_cpcm_shift",
+        "producer": "explicit_cpcm_shift",
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_cpcm",
+          "vacuum"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      },
+      {
+        "id": "equation_comparison",
+        "producer": "equation_comparison",
+        "quantity": {
+          "meaning": "energy_difference",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "system": null,
+        "geometry": null,
+        "model": null,
+        "operands": [
+          "explicit_cpcm_shift",
+          "explicit_iefpcm_shift"
+        ],
+        "state": null,
+        "product": null,
+        "electronic_target": null,
+        "analysis": null,
+        "sapt": null
+      }
+    ],
+    "native_outputs": [],
+    "native_variables": [],
+    "required_components": [
+      {
+        "name": "pcmsolver",
+        "version": null
+      }
+    ],
+    "request_digest": "dcb08ed5aef992177a7d4260751048afc4bf52d11eb70e2d4b69e67084024a6e",
+    "scope": "scientific_request",
+    "coverage": [
+      {
+        "goal": "vacuum",
+        "steps": [
+          "vacuum"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "water",
+        "steps": [
+          "water"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_iefpcm",
+        "steps": [
+          "explicit_iefpcm"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_cpcm",
+        "steps": [
+          "explicit_cpcm"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "water_shift",
+        "steps": [
+          "water_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_iefpcm_shift",
+        "steps": [
+          "explicit_iefpcm_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "explicit_cpcm_shift",
+        "steps": [
+          "explicit_cpcm_shift"
+        ],
+        "status": "covered"
+      },
+      {
+        "goal": "equation_comparison",
+        "steps": [
+          "equation_comparison"
+        ],
+        "status": "covered"
+      }
+    ],
+    "request_complete": false,
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "limits": {
+      "timeout_ms": 1000,
+      "resource_limit": 0,
+      "max_steps": 10000,
+      "max_obligations": 10000,
+      "total_timeout_ms": 29989
+    },
+    "verification_digest": "b4aeefec7fdadfaf281d752f872e61eb2311f26628b130d91b01520ca6e64e61"
+  },
+  "attempts": 1,
+  "choices": [],
+  "diagnostics": [
+    {
+      "path": [
+        "steps",
+        4,
+        "quantity"
+      ],
+      "message": "An electronic solvation shift is one solvated energy minus one vacuum energy.",
+      "code": "solvation_formula",
+      "status": "invalid"
+    }
+  ],
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(declare-fun goal_1_choice_0 () Bool)\n(declare-fun goal_1_model () String)\n(declare-fun goal_1_route () String)\n(declare-fun goal_2_choice_0 () Bool)\n(declare-fun goal_2_model () String)\n(declare-fun goal_2_route () String)\n(declare-fun goal_3_choice_0 () Bool)\n(declare-fun goal_3_model () String)\n(declare-fun goal_3_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n (or goal_1_choice_0))\n(assert\n ((_ at-most 1) goal_1_choice_0))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"Water\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"probe_radius_bohr\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_1_choice_0 (not (and (distinct goal_1_route \"automatic\") true))))\n(assert\n (or goal_2_choice_0))\n(assert\n ((_ at-most 1) goal_2_choice_0))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"iefpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.0,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_2_choice_0 (not (and (distinct goal_2_route \"automatic\") true))))\n(assert\n (or goal_3_choice_0))\n(assert\n ((_ at-most 1) goal_3_choice_0))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],\"\"{\\\"\"kind\\\"\":\\\"\"pcm\\\"\",\\\"\"solvent\\\"\":\\\"\"example-medium\\\"\",\\\"\"ddx\\\"\":{\\\"\"model\\\"\":\\\"\"pcm\\\"\",\\\"\"dielectric_constant\\\"\":null,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"radii_scaling\\\"\":1.1,\\\"\"screening_inverse_bohr\\\"\":null},\\\"\"pcm\\\"\":{\\\"\"solver\\\"\":\\\"\"cpcm\\\"\",\\\"\"dielectric_constant\\\"\":12.0,\\\"\"probe_radius_bohr\\\"\":2.5,\\\"\"radii_set\\\"\":\\\"\"uff\\\"\",\\\"\"scale_radii\\\"\":false,\\\"\"surface_area_bohr2\\\"\":0.3,\\\"\"cpcm_correction\\\"\":0.5,\\\"\"diagonal_scaling\\\"\":1.07,\\\"\"scf_type\\\"\":\\\"\"total\\\"\"},\\\"\"settings\\\"\":[]}\"\",null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_3_choice_0 (not (and (distinct goal_3_route \"automatic\") true))))\n(assert\n (let (($x2343 (and goal_0_choice_0 goal_1_choice_0 goal_2_choice_0 goal_3_choice_0)))\n(not $x2343)))\n(check-sat)\n",
+  "preferences": {
+    "calculation_reuse": "prefer"
+  },
+  "reuses": [],
+  "last_candidate": {
+    "schema_version": "2",
+    "molecules": [
+      {
+        "comments": [],
+        "kind": "molecule",
+        "name": "h2",
+        "geometry": {
+          "atoms": [
+            {
+              "id": "a1",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "unit": "angstrom"
+              }
+            },
+            {
+              "id": "a2",
+              "nucleus": {
+                "label": "H",
+                "ghost": "none",
+                "mass": null
+              },
+              "coordinates": {
+                "kind": "cartesian",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.8,
+                "unit": "angstrom"
+              }
+            }
+          ],
+          "bonds": [],
+          "fragments": [],
+          "state": {
+            "charge": 0,
+            "multiplicity": 1
+          },
+          "parameters": [],
+          "sources": [],
+          "efp": [],
+          "units": "angstrom",
+          "symmetry": null,
+          "fixed_com": false,
+          "fixed_orientation": false,
+          "xyz_header": null
+        }
+      }
+    ],
+    "steps": [
+      {
+        "kind": "calculation",
+        "id": "vacuum",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "vacuum"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "water",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "Water",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": null,
+              "probe_radius_bohr": null,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "water"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "explicit_iefpcm",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "iefpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.0,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "explicit_iefpcm"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "calculation",
+        "id": "explicit_cpcm",
+        "driver": "energy",
+        "sapt": null,
+        "geometry": "h2",
+        "model": {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": {
+            "kind": "pcm",
+            "solvent": "example-medium",
+            "ddx": {
+              "model": "pcm",
+              "dielectric_constant": null,
+              "radii_set": "uff",
+              "radii_scaling": 1.1,
+              "screening_inverse_bohr": null
+            },
+            "pcm": {
+              "solver": "cpcm",
+              "dielectric_constant": 12.0,
+              "probe_radius_bohr": 2.5,
+              "radii_set": "uff",
+              "scale_radii": false,
+              "surface_area_bohr2": 0.3,
+              "cpcm_correction": 0.5,
+              "diagonal_scaling": 1.07,
+              "scf_type": "total"
+            },
+            "settings": []
+          },
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        },
+        "constraints": [],
+        "quantity": null,
+        "derivative_route": "automatic",
+        "properties": [],
+        "satisfies": [
+          "explicit_cpcm"
+        ],
+        "analysis": null
+      },
+      {
+        "kind": "combination",
+        "id": "water_shift",
+        "terms": [
+          {
+            "result": "water",
+            "coefficient": 2
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "water_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "explicit_iefpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_iefpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "explicit_iefpcm_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "explicit_cpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_cpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "electronic_solvation_shift",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "explicit_cpcm_shift"
+        ]
+      },
+      {
+        "kind": "combination",
+        "id": "equation_comparison",
+        "terms": [
+          {
+            "result": "explicit_cpcm_shift",
+            "coefficient": 1
+          },
+          {
+            "result": "explicit_iefpcm_shift",
+            "coefficient": -1
+          }
+        ],
+        "quantity": {
+          "meaning": "energy_difference",
+          "unit": "hartree",
+          "shape": [],
+          "frame": null,
+          "number_kind": "real"
+        },
+        "extrapolation": null,
+        "satisfies": [
+          "equation_comparison"
+        ]
+      }
+    ],
+    "requirements": [
+      {
+        "kind": "uses_geometry",
+        "calculation": "vacuum",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "water",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "explicit_iefpcm",
+        "geometry": "h2"
+      },
+      {
+        "kind": "uses_geometry",
+        "calculation": "explicit_cpcm",
+        "geometry": "h2"
+      },
+      {
+        "kind": "energy_formula",
+        "result": "water_shift",
+        "terms": [
+          {
+            "result": "water",
+            "coefficient": 2
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "explicit_iefpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_iefpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "explicit_cpcm_shift",
+        "terms": [
+          {
+            "result": "explicit_cpcm",
+            "coefficient": 1
+          },
+          {
+            "result": "vacuum",
+            "coefficient": -1
+          }
+        ]
+      },
+      {
+        "kind": "energy_formula",
+        "result": "equation_comparison",
+        "terms": [
+          {
+            "result": "explicit_cpcm_shift",
+            "coefficient": 1
+          },
+          {
+            "result": "explicit_iefpcm_shift",
+            "coefficient": -1
+          }
+        ]
+      }
+    ]
+  }
+}

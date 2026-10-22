@@ -1,0 +1,60 @@
+{
+  "proposal": {
+    "handle": "proposal:55e8ca0df1873b7e6b5d5c0f672565e5431d27ad790bdec1d49d9ff9d1fce3b3",
+    "kind": "proposal",
+    "sha256": "55e8ca0df1873b7e6b5d5c0f672565e5431d27ad790bdec1d49d9ff9d1fce3b3",
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/proposal-55e8ca0df1873b7e6b5d5c0f672565e5431d27ad790bdec1d49d9ff9d1fce3b3.json",
+    "bytes": 19651
+  },
+  "status": "constructed",
+  "attempts": 1,
+  "plan": {
+    "handle": "plan:20b160011abf954f8e0c02b95d305d4a47a555306ae2c263ab11a1f64f24c5a5",
+    "kind": "plan",
+    "sha256": "20b160011abf954f8e0c02b95d305d4a47a555306ae2c263ab11a1f64f24c5a5",
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/plan-20b160011abf954f8e0c02b95d305d4a47a555306ae2c263ab11a1f64f24c5a5.json",
+    "bytes": 8271
+  },
+  "verification": {
+    "reference": {
+      "handle": "verification:1089dd13b9699fcf29218f2013f7855c4eee8d497b56f08d0052dee2536d5942",
+      "kind": "verification",
+      "sha256": "1089dd13b9699fcf29218f2013f7855c4eee8d497b56f08d0052dee2536d5942",
+      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-1089dd13b9699fcf29218f2013f7855c4eee8d497b56f08d0052dee2536d5942.json",
+      "bytes": 8482
+    },
+    "runtime_policy": "operator_managed",
+    "status": "proved",
+    "capability_status": "supported",
+    "scope": "scientific_request",
+    "request_complete": true,
+    "coverage": {
+      "covered": 1
+    },
+    "obligations": {
+      "proved": 2
+    },
+    "diagnostic_count": 0,
+    "assumption_count": 7,
+    "verification_digest": "26fa3b240cbabac46fd9626ca0f48c7fd27113a9d4ae58da28b2465907baec58",
+    "rule_version": "scientific-contracts/15",
+    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+    "request_digest": "e2bb45dc20600c8855e061e726d691e880b45ee4ab902a1011b1e7c99e1669e4",
+    "plan_digest": "01db1464c064251e3bfb937b87696e04c374a268f7000784dcdfa8c6082e96cc",
+    "required_components": []
+  },
+  "choice_count": 1,
+  "choices": [
+    {
+      "goal": "energy",
+      "method": "mp2",
+      "basis": "cc-pvdz",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "preference_rank": 0
+    }
+  ],
+  "calculation_count": 1,
+  "shared_call_count": 0,
+  "last_candidate": null
+}

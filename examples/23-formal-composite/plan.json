@@ -1,0 +1,243 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "h2",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.74,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "hf_large",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "h2",
+      "model": {
+        "method": "scf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "mp2_small",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "h2",
+      "model": {
+        "method": "mp2",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "hf_small",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "h2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [],
+      "analysis": null
+    },
+    {
+      "kind": "combination",
+      "id": "correction",
+      "terms": [
+        {
+          "result": "mp2_small",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_small",
+          "coefficient": -1
+        }
+      ],
+      "quantity": null,
+      "extrapolation": null,
+      "satisfies": []
+    },
+    {
+      "kind": "combination",
+      "id": "estimate",
+      "terms": [
+        {
+          "result": "hf_large",
+          "coefficient": 1
+        },
+        {
+          "result": "correction",
+          "coefficient": 1
+        }
+      ],
+      "quantity": null,
+      "extrapolation": null,
+      "satisfies": []
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "same_geometry",
+      "calculations": [
+        "hf_large",
+        "mp2_small"
+      ]
+    },
+    {
+      "kind": "same_geometry",
+      "calculations": [
+        "hf_large",
+        "hf_small"
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "estimate",
+      "terms": [
+        {
+          "result": "hf_large",
+          "coefficient": 1
+        },
+        {
+          "result": "mp2_small",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_small",
+          "coefficient": -1
+        }
+      ]
+    }
+  ]
+}

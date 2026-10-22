@@ -1,0 +1,352 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "spectrum_geometry",
+      "driver": "optimize",
+      "geometry": "water",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": "one-water-optimization",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "thermal_geometry",
+      "driver": "optimize",
+      "geometry": "water",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": "one-water-optimization",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "spectrum_analysis",
+      "driver": "frequency",
+      "geometry": "spectrum_geometry",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "thermal_analysis",
+      "driver": "frequency",
+      "geometry": "thermal_geometry",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "reuse_group": "one-water-analysis",
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "spectrum",
+      "calculation": "spectrum_analysis",
+      "name": "harmonic_frequencies",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "gibbs_correction",
+      "calculation": "thermal_analysis",
+      "name": "gibbs_correction",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "calculate",
+      "id": "first_energy",
+      "driver": "energy",
+      "geometry": "spectrum_geometry",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "second_energy",
+      "driver": "energy",
+      "geometry": "spectrum_geometry",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    }
+  ],
+  "relations": []
+}

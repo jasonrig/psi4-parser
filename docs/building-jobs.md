@@ -4,6 +4,15 @@ Use `psi4_parser.builder` to compose inputs, transform molecules, and save job
 specifications as JSON. Components describe what Psi4 should do; `render_job()`
 turns them into a complete, validated input.
 
+For a call that must start from native option defaults, supply its settings in
+`local_options` and set `isolate_options=True`. See
+[option isolation](formal-isolation.md) for restoration, module coverage, and
+resource settings. Formal construction enables this mode for every calculation.
+
+For explicit relationships between calculation geometries, models, or energy
+expressions, use the separate [formal constructor](formal-jobs.md). It checks
+the supplied requirements before producing a builder job or input text.
+
 ## Compose components
 
 ```python
@@ -135,7 +144,9 @@ rules, including where `break`, `continue`, and `return` are allowed.
 from psi4_parser.builder import Memory, compose, options, render_job
 
 memory = Memory(amount=1.0, units="GiB").with_comment("Memory for this job.")
-basis = options(basis="cc-pvdz").with_comment("Basis for the comparison.\n\nKeep across jobs.")
+basis = options(basis="cc-pvdz").with_comment(
+    "Basis for the comparison.\n\nKeep across jobs."
+)
 source = render_job(compose(memory, basis))
 ```
 

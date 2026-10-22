@@ -1,0 +1,201 @@
+{
+  "schema_version": "1",
+  "id": "demonstration-only-not-engine-evidence",
+  "application": "psi4",
+  "evidence": [
+    {
+      "id": "teaching-assumptions",
+      "source": "examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build",
+      "kind": "declaration",
+      "application_version": "demonstration/1",
+      "build": null,
+      "digest": null
+    }
+  ],
+  "methods": [
+    {
+      "method": "scf",
+      "driver": "energy",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "constraints",
+        "ghost_centers"
+      ],
+      "options": [
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [],
+      "components": [],
+      "products": [],
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    },
+    {
+      "method": "scf",
+      "driver": "optimize",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "constraints",
+        "ghost_centers"
+      ],
+      "options": [
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [],
+      "components": [],
+      "products": [],
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    },
+    {
+      "method": "scf",
+      "driver": "frequency",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "constraints",
+        "ghost_centers"
+      ],
+      "options": [
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [],
+      "components": [],
+      "products": [],
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    },
+    {
+      "method": "scf",
+      "driver": "gradient",
+      "reference": "rhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "gradient",
+        "unit": "hartree/bohr",
+        "shape": [
+          "atoms",
+          3
+        ],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "constraints",
+        "ghost_centers"
+      ],
+      "options": [
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [],
+      "components": [],
+      "products": [],
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    },
+    {
+      "method": "scf",
+      "driver": "energy",
+      "reference": "uhf",
+      "derivative_route": "automatic",
+      "status": "supported",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "features": [
+        "constraints",
+        "ghost_centers"
+      ],
+      "options": [
+        "scf_type"
+      ],
+      "bases": [],
+      "conditions": [],
+      "components": [],
+      "products": [],
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    }
+  ],
+  "bases": [
+    {
+      "name": "sto-3g",
+      "role": "basis",
+      "status": "supported",
+      "elements": [
+        "H"
+      ],
+      "ecps": [],
+      "functions": [
+        {
+          "element": "H",
+          "spherical": 1,
+          "cartesian": 1
+        }
+      ],
+      "sequence": null,
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    }
+  ],
+  "options": [
+    {
+      "name": "scf_type",
+      "module": null,
+      "status": "supported",
+      "values": [
+        "pk"
+      ],
+      "types": [],
+      "minimum": null,
+      "maximum": null,
+      "case_sensitive": true,
+      "evidence": [
+        "teaching-assumptions"
+      ]
+    }
+  ],
+  "components": [],
+  "environments": []
+}

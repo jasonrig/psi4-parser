@@ -1,0 +1,22 @@
+{
+  "status": "constructed",
+  "goals": 16,
+  "products": 11,
+  "native_outputs": [
+    {
+      "producer": "frequency",
+      "filename_template": "formal_ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c_1.{pid}.vibrec",
+      "products": [
+        "spectrum",
+        "modes",
+        "hessian",
+        "gibbs_correction",
+        "hf_gibbs"
+      ]
+    }
+  ],
+  "wrong_temperature": "violated",
+  "temperature_kelvin": 298.15,
+  "pressure_pascal": 101325.0,
+  "manifest_digest": "0226001f274562dcf423f72663cb54096e9bd5c41c8f7c3e29a4168d2f3a8329"
+}

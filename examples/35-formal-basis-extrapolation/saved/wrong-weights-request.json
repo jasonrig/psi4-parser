@@ -1,0 +1,639 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "h2",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.8,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "dt:low:target",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "mp2",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Target treatment at cc-pvdz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "dt:low:reference",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Subtracted reference treatment at cc-pvdz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "expression",
+      "id": "dt:low:correction",
+      "terms": [
+        {
+          "goal": "dt:low:target",
+          "coefficient": 1
+        },
+        {
+          "goal": "dt:low:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Target minus reference correction at cc-pvdz"
+    },
+    {
+      "kind": "calculate",
+      "id": "dt:high:target",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "mp2",
+          "basis": "cc-pvtz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Target treatment at cc-pvtz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "dt:high:reference",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvtz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Subtracted reference treatment at cc-pvtz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "expression",
+      "id": "dt:high:correction",
+      "terms": [
+        {
+          "goal": "dt:high:target",
+          "coefficient": 1
+        },
+        {
+          "goal": "dt:high:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Target minus reference correction at cc-pvtz"
+    },
+    {
+      "kind": "expression",
+      "id": "dt:basis_limit",
+      "terms": [
+        {
+          "goal": "dt:low:correction",
+          "coefficient": {
+            "numerator": -8,
+            "denominator": 19
+          }
+        },
+        {
+          "goal": "dt:high:correction",
+          "coefficient": {
+            "numerator": 27,
+            "denominator": 19
+          }
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "inverse_power",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "dt:low:correction",
+          "basis": "cc-pvdz",
+          "cardinal": 2
+        },
+        "high": {
+          "result": "dt:high:correction",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "power": 3
+      },
+      "reason": "Inverse-power correction estimate for dt"
+    },
+    {
+      "kind": "calculate",
+      "id": "tq:low:target",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "mp2",
+          "basis": "cc-pvtz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Target treatment at cc-pvtz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "tq:low:reference",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvtz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Subtracted reference treatment at cc-pvtz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "expression",
+      "id": "tq:low:correction",
+      "terms": [
+        {
+          "goal": "tq:low:target",
+          "coefficient": 1
+        },
+        {
+          "goal": "tq:low:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Target minus reference correction at cc-pvtz"
+    },
+    {
+      "kind": "calculate",
+      "id": "tq:high:target",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "mp2",
+          "basis": "cc-pvqz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Target treatment at cc-pvqz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "tq:high:reference",
+      "driver": "energy",
+      "geometry": "h2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvqz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Subtracted reference treatment at cc-pvqz",
+      "analysis": null,
+      "reuse_group": "shared-basis-points",
+      "sapt": null
+    },
+    {
+      "kind": "expression",
+      "id": "tq:high:correction",
+      "terms": [
+        {
+          "goal": "tq:high:target",
+          "coefficient": 1
+        },
+        {
+          "goal": "tq:high:reference",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Target minus reference correction at cc-pvqz"
+    },
+    {
+      "kind": "expression",
+      "id": "tq:basis_limit",
+      "terms": [
+        {
+          "goal": "tq:low:correction",
+          "coefficient": -1
+        },
+        {
+          "goal": "tq:high:correction",
+          "coefficient": 2
+        }
+      ],
+      "quantity": {
+        "meaning": "basis_limit_correction",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": {
+        "scheme": "inverse_power",
+        "family": "cc-pvXZ",
+        "low": {
+          "result": "tq:low:correction",
+          "basis": "cc-pvtz",
+          "cardinal": 3
+        },
+        "high": {
+          "result": "tq:high:correction",
+          "basis": "cc-pvqz",
+          "cardinal": 4
+        },
+        "power": 3
+      },
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "expression",
+      "id": "electronic_estimate",
+      "terms": [
+        {
+          "goal": "tq:high:reference",
+          "coefficient": 1
+        },
+        {
+          "goal": "tq:basis_limit",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Finite QZ reference plus extrapolated TQ correction"
+    },
+    {
+      "kind": "expression",
+      "id": "comparison",
+      "terms": [
+        {
+          "goal": "tq:basis_limit",
+          "coefficient": 1
+        },
+        {
+          "goal": "dt:basis_limit",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Symbolic comparison of two explicitly chosen estimates"
+    }
+  ],
+  "relations": []
+}

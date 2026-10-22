@@ -1,0 +1,85 @@
+{
+  "status": "constructed",
+  "goals": 8,
+  "logical_calculations": 6,
+  "top_level_calls": {
+    "shared": 4,
+    "separate": 6
+  },
+  "reuses": [
+    {
+      "calculation": "spectrum_geometry",
+      "goals": [
+        "spectrum_geometry",
+        "thermal_geometry"
+      ]
+    },
+    {
+      "calculation": "spectrum_analysis",
+      "goals": [
+        "spectrum_analysis",
+        "thermal_analysis"
+      ]
+    }
+  ],
+  "goal_coverage": [
+    {
+      "goal": "spectrum_geometry",
+      "steps": [
+        "spectrum_geometry"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "thermal_geometry",
+      "steps": [
+        "spectrum_geometry"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "spectrum_analysis",
+      "steps": [
+        "spectrum_analysis"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "thermal_analysis",
+      "steps": [
+        "spectrum_analysis"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "spectrum",
+      "steps": [
+        "spectrum"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "gibbs_correction",
+      "steps": [
+        "gibbs_correction"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "first_energy",
+      "steps": [
+        "first_energy"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "second_energy",
+      "steps": [
+        "second_energy"
+      ],
+      "status": "covered"
+    }
+  ],
+  "changed_request_status": "violated",
+  "manifest_digest": "f38212a9a2c1b779bdcbb931a7ba0fb2dffde012aec47654bf97ac70d041157a"
+}

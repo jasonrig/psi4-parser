@@ -1,0 +1,528 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "co",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "C",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 1.13,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    },
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "oxygen",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 1.21,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 3
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    },
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "co2",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": -1.16,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "C",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 1.16,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "opt:co",
+      "driver": "optimize",
+      "geometry": "co",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "opt:oxygen",
+      "driver": "optimize",
+      "geometry": "oxygen",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "opt:co2",
+      "driver": "optimize",
+      "geometry": "co2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "calculate",
+      "id": "oxidation:frequency:co",
+      "driver": "frequency",
+      "geometry": "opt:co",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Thermal analysis of co in reaction oxidation",
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 1,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "oxidation:total:co",
+      "calculation": "oxidation:frequency:co",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Native gibbs_free_energy of co in reaction oxidation"
+    },
+    {
+      "kind": "calculate",
+      "id": "oxidation:frequency:oxygen",
+      "driver": "frequency",
+      "geometry": "opt:oxygen",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "uhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Thermal analysis of oxygen in reaction oxidation",
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "oxidation:total:oxygen",
+      "calculation": "oxidation:frequency:oxygen",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Native gibbs_free_energy of oxygen in reaction oxidation"
+    },
+    {
+      "kind": "calculate",
+      "id": "oxidation:frequency:co2",
+      "driver": "frequency",
+      "geometry": "opt:co2",
+      "models": [
+        {
+          "method": "hf",
+          "basis": "sto-3g",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "analytic"
+      ],
+      "properties": [],
+      "reason": "Thermal analysis of co2 in reaction oxidation",
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "oxidation:total:co2",
+      "calculation": "oxidation:frequency:co2",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "reason": "Native gibbs_free_energy of co2 in reaction oxidation"
+    },
+    {
+      "kind": "expression",
+      "id": "oxidation:reaction",
+      "terms": [
+        {
+          "goal": "oxidation:total:co",
+          "coefficient": -1
+        },
+        {
+          "goal": "oxidation:total:oxygen",
+          "coefficient": {
+            "numerator": -1,
+            "denominator": 2
+          }
+        },
+        {
+          "goal": "oxidation:total:co2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "reaction_gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Closed gibbs_free_energy reaction oxidation"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "same_model",
+      "calculations": [
+        "opt:co",
+        "oxidation:frequency:co"
+      ]
+    },
+    {
+      "kind": "same_model",
+      "calculations": [
+        "opt:oxygen",
+        "oxidation:frequency:oxygen"
+      ]
+    },
+    {
+      "kind": "same_model",
+      "calculations": [
+        "opt:co2",
+        "oxidation:frequency:co2"
+      ]
+    }
+  ]
+}

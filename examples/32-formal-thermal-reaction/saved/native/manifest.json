@@ -1,0 +1,831 @@
+{
+  "schema_version": "1",
+  "plan_digest": "5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef",
+  "request_digest": "e369df7804d084817d32d36b479facf84ad0798b379f4f7d56bab46b30aceb45",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "a215ceda688d99b737f930a596d44dcaab60480f8309a89aff26275aa2eee730",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [
+    {
+      "name": "optking",
+      "version": null
+    },
+    {
+      "name": "qcelemental",
+      "version": null
+    }
+  ],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "63937c05f801b98391bd654edf9a028e441ccaee7afab45509f3432e16aa371d"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "e38ea75fdaea8610e75ed8b16f3bcd6edeb395c4efe7a8324086d7192d858525"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "3936b804d03113d96d28e5356b82f6136a8078c64a90aa1f1abb1184f9a0f055"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "57f7c6752132e1bcf35d61468d3c0cbf06a2f9200b651bea4c4bad96aa303cef"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [
+    {
+      "producer": "oxidation:frequency:co",
+      "format": "psi4_vibrec",
+      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_3",
+      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_3.{pid}.vibrec",
+      "directory": "engine_output_directory",
+      "bindings": [
+        {
+          "quantity": "oxidation:total:co",
+          "key": "G_tot",
+          "encoding": "qcelemental_datum_json"
+        }
+      ]
+    },
+    {
+      "producer": "oxidation:frequency:oxygen",
+      "format": "psi4_vibrec",
+      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_5",
+      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_5.{pid}.vibrec",
+      "directory": "engine_output_directory",
+      "bindings": [
+        {
+          "quantity": "oxidation:total:oxygen",
+          "key": "G_tot",
+          "encoding": "qcelemental_datum_json"
+        }
+      ]
+    },
+    {
+      "producer": "oxidation:frequency:co2",
+      "format": "psi4_vibrec",
+      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_7",
+      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_7.{pid}.vibrec",
+      "directory": "engine_output_directory",
+      "bindings": [
+        {
+          "quantity": "oxidation:total:co2",
+          "key": "G_tot",
+          "encoding": "qcelemental_datum_json"
+        }
+      ]
+    }
+  ],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "opt:co",
+      "artifact": "co",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "opt:oxygen",
+      "artifact": "oxygen",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "opt:co2",
+      "artifact": "co2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "oxidation:frequency:co",
+      "artifact": "opt:co",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "oxidation:total:co",
+      "artifact": "oxidation:frequency:co",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "oxidation:frequency:oxygen",
+      "artifact": "opt:oxygen",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "oxidation:total:oxygen",
+      "artifact": "oxidation:frequency:oxygen",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "oxidation:frequency:co2",
+      "artifact": "opt:co2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "oxidation:total:co2",
+      "artifact": "oxidation:frequency:co2",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "oxidation:reaction",
+      "artifact": "oxidation:total:co",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "oxidation:reaction",
+      "artifact": "oxidation:total:oxygen",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "oxidation:reaction",
+      "artifact": "oxidation:total:co2",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "co",
+      "system": "co",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "co"
+    },
+    {
+      "id": "oxygen",
+      "system": "oxygen",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "oxygen"
+    },
+    {
+      "id": "co2",
+      "system": "co2",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "co2"
+    },
+    {
+      "id": "opt:co",
+      "system": "co",
+      "source": "co",
+      "producer": "opt:co",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "co"
+    },
+    {
+      "id": "opt:oxygen",
+      "system": "oxygen",
+      "source": "oxygen",
+      "producer": "opt:oxygen",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "oxygen"
+    },
+    {
+      "id": "opt:co2",
+      "system": "co2",
+      "source": "co2",
+      "producer": "opt:co2",
+      "coordinates_known": false,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "frame": "co2"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "opt:co",
+      "producer": "opt:co",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co",
+      "geometry": "opt:co",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "opt:oxygen",
+      "producer": "opt:oxygen",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "oxygen",
+      "geometry": "opt:oxygen",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "uhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 3
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "opt:co2",
+      "producer": "opt:co2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co2",
+      "geometry": "opt:co2",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "oxidation:frequency:co",
+      "producer": "oxidation:frequency:co",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co",
+      "geometry": "opt:co",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "oxidation:total:co",
+      "producer": "oxidation:frequency:co",
+      "quantity": {
+        "meaning": "gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co",
+      "geometry": "opt:co",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "gibbs_free_energy",
+      "electronic_target": null,
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 1,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "sapt": null
+    },
+    {
+      "id": "oxidation:frequency:oxygen",
+      "producer": "oxidation:frequency:oxygen",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "oxygen",
+      "geometry": "opt:oxygen",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "uhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 3
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "oxidation:total:oxygen",
+      "producer": "oxidation:frequency:oxygen",
+      "quantity": {
+        "meaning": "gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "oxygen",
+      "geometry": "opt:oxygen",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "uhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 3
+      },
+      "product": "gibbs_free_energy",
+      "electronic_target": null,
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "sapt": null
+    },
+    {
+      "id": "oxidation:frequency:co2",
+      "producer": "oxidation:frequency:co2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co2",
+      "geometry": "opt:co2",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "oxidation:total:co2",
+      "producer": "oxidation:frequency:co2",
+      "quantity": {
+        "meaning": "gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "co2",
+      "geometry": "opt:co2",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "gibbs_free_energy",
+      "electronic_target": null,
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      },
+      "sapt": null
+    },
+    {
+      "id": "oxidation:reaction",
+      "producer": "oxidation:reaction",
+      "quantity": {
+        "meaning": "reaction_gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "oxidation:total:co",
+        "oxidation:total:oxygen",
+        "oxidation:total:co2"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "oxidation:reaction",
+      "terms": [
+        {
+          "result": "oxidation:total:co",
+          "coefficient": -1
+        },
+        {
+          "result": "oxidation:total:oxygen",
+          "coefficient": {
+            "numerator": -1,
+            "denominator": 2
+          }
+        },
+        {
+          "result": "oxidation:total:co2",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "reaction_gibbs_free_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "oxidation:reaction"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "kind": "product",
+      "id": "oxidation:total:co",
+      "calculation": "oxidation:frequency:co",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "oxidation:total:co"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "oxidation:total:oxygen",
+      "calculation": "oxidation:frequency:oxygen",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "oxidation:total:oxygen"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "oxidation:total:co2",
+      "calculation": "oxidation:frequency:co2",
+      "name": "gibbs_free_energy",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "oxidation:total:co2"
+      ]
+    }
+  ],
+  "goal_coverage": [
+    {
+      "goal": "opt:co",
+      "steps": [
+        "opt:co"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "opt:oxygen",
+      "steps": [
+        "opt:oxygen"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "opt:co2",
+      "steps": [
+        "opt:co2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:frequency:co",
+      "steps": [
+        "oxidation:frequency:co"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:total:co",
+      "steps": [
+        "oxidation:total:co"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:frequency:oxygen",
+      "steps": [
+        "oxidation:frequency:oxygen"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:total:oxygen",
+      "steps": [
+        "oxidation:total:oxygen"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:frequency:co2",
+      "steps": [
+        "oxidation:frequency:co2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:total:co2",
+      "steps": [
+        "oxidation:total:co2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "oxidation:reaction",
+      "steps": [
+        "oxidation:reaction"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

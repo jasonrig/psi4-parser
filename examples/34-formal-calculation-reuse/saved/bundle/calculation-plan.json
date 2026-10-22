@@ -1,0 +1,278 @@
+{
+  "schema_version": "2",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "water",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.757,
+              "z": 0.587,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": null,
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "steps": [
+    {
+      "kind": "calculation",
+      "id": "spectrum_geometry",
+      "driver": "optimize",
+      "sapt": null,
+      "geometry": "water",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "spectrum_geometry",
+        "thermal_geometry"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "spectrum_analysis",
+      "driver": "frequency",
+      "sapt": null,
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "analytic",
+      "properties": [],
+      "satisfies": [
+        "spectrum_analysis",
+        "thermal_analysis"
+      ],
+      "analysis": {
+        "conditions": {
+          "temperature_kelvin": 298.15,
+          "pressure_pascal": 101325.0,
+          "treatment": "ideal_gas_rrho"
+        },
+        "rotational_symmetry_number": 2,
+        "project_translations": true,
+        "project_rotations": true
+      }
+    },
+    {
+      "kind": "product",
+      "id": "spectrum",
+      "calculation": "spectrum_analysis",
+      "name": "harmonic_frequencies",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "spectrum"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "gibbs_correction",
+      "calculation": "spectrum_analysis",
+      "name": "gibbs_correction",
+      "electronic_target": null,
+      "quantity": null,
+      "satisfies": [
+        "gibbs_correction"
+      ]
+    },
+    {
+      "kind": "calculation",
+      "id": "first_energy",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "first_energy"
+      ],
+      "analysis": null
+    },
+    {
+      "kind": "calculation",
+      "id": "second_energy",
+      "driver": "energy",
+      "sapt": null,
+      "geometry": "spectrum_geometry",
+      "model": {
+        "method": "hf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "constraints": [],
+      "quantity": null,
+      "derivative_route": "automatic",
+      "properties": [],
+      "satisfies": [
+        "second_energy"
+      ],
+      "analysis": null
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "uses_geometry",
+      "calculation": "spectrum_geometry",
+      "geometry": "water"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "spectrum_analysis",
+      "geometry": "spectrum_geometry"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "first_energy",
+      "geometry": "spectrum_geometry"
+    },
+    {
+      "kind": "uses_geometry",
+      "calculation": "second_energy",
+      "geometry": "spectrum_geometry"
+    }
+  ]
+}

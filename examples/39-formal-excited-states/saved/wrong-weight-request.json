@@ -1,0 +1,559 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "comments": [],
+      "kind": "molecule",
+      "name": "molecule",
+      "geometry": {
+        "atoms": [
+          {
+            "id": "a1",
+            "nucleus": {
+              "label": "C",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a2",
+            "nucleus": {
+              "label": "O",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 1.21,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a3",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": 0.94,
+              "z": -0.58,
+              "unit": "angstrom"
+            }
+          },
+          {
+            "id": "a4",
+            "nucleus": {
+              "label": "H",
+              "ghost": "none",
+              "mass": null
+            },
+            "coordinates": {
+              "kind": "cartesian",
+              "x": 0.0,
+              "y": -0.94,
+              "z": -0.58,
+              "unit": "angstrom"
+            }
+          }
+        ],
+        "bonds": [],
+        "fragments": [],
+        "state": {
+          "charge": 0,
+          "multiplicity": 1
+        },
+        "parameters": [],
+        "sources": [],
+        "efp": [],
+        "units": "angstrom",
+        "symmetry": "c1",
+        "fixed_com": false,
+        "fixed_orientation": false,
+        "xyz_header": null
+      }
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "hf_rpa",
+      "driver": "energy",
+      "geometry": "molecule",
+      "models": [
+        {
+          "method": "td-hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": {
+            "states": 3,
+            "spin": "singlet",
+            "approximation": "rpa",
+            "residual_threshold": 1e-6,
+            "max_iterations": 60
+          },
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_gap_1",
+      "calculation": "hf_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_gap_2",
+      "calculation": "hf_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_total_1",
+      "calculation": "hf_rpa",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_strength_1",
+      "calculation": "hf_rpa",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_moment_1",
+      "calculation": "hf_rpa",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "expression",
+      "id": "hf_rpa_derived_total",
+      "terms": [
+        {
+          "goal": "hf_rpa",
+          "coefficient": 2
+        },
+        {
+          "goal": "hf_rpa_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "calculate",
+      "id": "hf_tda",
+      "driver": "energy",
+      "geometry": "molecule",
+      "models": [
+        {
+          "method": "td-hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": {
+            "states": 3,
+            "spin": "singlet",
+            "approximation": "tda",
+            "residual_threshold": 1e-6,
+            "max_iterations": 60
+          },
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_gap_1",
+      "calculation": "hf_tda",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_gap_2",
+      "calculation": "hf_tda",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_total_1",
+      "calculation": "hf_tda",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_strength_1",
+      "calculation": "hf_tda",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_moment_1",
+      "calculation": "hf_tda",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "expression",
+      "id": "hf_tda_derived_total",
+      "terms": [
+        {
+          "goal": "hf_tda",
+          "coefficient": 1
+        },
+        {
+          "goal": "hf_tda_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "calculate",
+      "id": "pbe_rpa",
+      "driver": "energy",
+      "geometry": "molecule",
+      "models": [
+        {
+          "method": "td-pbe",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": {
+            "states": 3,
+            "spin": "singlet",
+            "approximation": "rpa",
+            "residual_threshold": 1e-6,
+            "max_iterations": 60
+          },
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_gap_1",
+      "calculation": "pbe_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_gap_2",
+      "calculation": "pbe_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_total_1",
+      "calculation": "pbe_rpa",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_strength_1",
+      "calculation": "pbe_rpa",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_moment_1",
+      "calculation": "pbe_rpa",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "reason": "Requested calculation product"
+    },
+    {
+      "kind": "expression",
+      "id": "pbe_rpa_derived_total",
+      "terms": [
+        {
+          "goal": "pbe_rpa",
+          "coefficient": 1
+        },
+        {
+          "goal": "pbe_rpa_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    },
+    {
+      "kind": "expression",
+      "id": "rpa_tda_gap_comparison",
+      "terms": [
+        {
+          "goal": "hf_rpa_gap_1",
+          "coefficient": 1
+        },
+        {
+          "goal": "hf_tda_gap_1",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "reason": "Requested expression"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "energy_formula",
+      "result": "hf_rpa_total_1",
+      "terms": [
+        {
+          "result": "hf_rpa",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_rpa_gap_1",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "hf_tda_total_1",
+      "terms": [
+        {
+          "result": "hf_tda",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_tda_gap_1",
+          "coefficient": 1
+        }
+      ]
+    },
+    {
+      "kind": "energy_formula",
+      "result": "pbe_rpa_total_1",
+      "terms": [
+        {
+          "result": "pbe_rpa",
+          "coefficient": 1
+        },
+        {
+          "result": "pbe_rpa_gap_1",
+          "coefficient": 1
+        }
+      ]
+    }
+  ]
+}

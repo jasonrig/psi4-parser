@@ -1,0 +1,262 @@
+{
+  "schema_version": "1",
+  "plan_digest": "db6fb13f606d652185484d3eccae2be8a4b4e99f560070eec9a5da1aa11b7676",
+  "request_digest": "f22422b7c2009795a7cf7ace199a32b73b3747aaeb28c30ab83ebd864fb413b3",
+  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
+  "verification_digest": "3f9e1c310bbd706c94f97b1f98f548d318472b4433df9a5d47d357cb25515b76",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "89a8635c24288297f8be044833db6dffed546a3c88485ba8debaf7fec2835a1d"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "3f5bcce1b3537b33323b518419dad7d60a70169f30e7128062aa174a2665e570"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "c3c9855080c29b241a27380b5beb8fde9718b74b509804fd93f00059f3856787"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "9d0c055e4872c63452e93a826d8e812a5f7c94710cd4e395f63aca57d0479541"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "5cb6ad3c75f5d3b43fd9c87872092229deef23e211dfc688a2e4e3db189018c9"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [],
+  "dependencies": [
+    {
+      "consumer": "dissociation:energy:H2",
+      "artifact": "h2",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dissociation:energy:H",
+      "artifact": "h",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "dissociation:reaction",
+      "artifact": "dissociation:energy:H2",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "dissociation:reaction",
+      "artifact": "dissociation:energy:H",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "h2",
+      "system": "h2",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2"
+      ],
+      "frame": "h2"
+    },
+    {
+      "id": "h",
+      "system": "h",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1"
+      ],
+      "frame": "h"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "dissociation:energy:H2",
+      "producer": "dissociation:energy:H2",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h2",
+      "geometry": "h2",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dissociation:energy:H",
+      "producer": "dissociation:energy:H",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "h",
+      "geometry": "h",
+      "model": {
+        "method": "scf",
+        "basis": "sto-3g",
+        "reference": "uhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": null,
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "pk",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 2
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "dissociation:reaction",
+      "producer": "dissociation:reaction",
+      "quantity": {
+        "meaning": "reaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "dissociation:energy:H2",
+        "dissociation:energy:H"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "dissociation:reaction",
+      "terms": [
+        {
+          "result": "dissociation:energy:H2",
+          "coefficient": -1
+        },
+        {
+          "result": "dissociation:energy:H",
+          "coefficient": 2
+        }
+      ],
+      "quantity": {
+        "meaning": "reaction_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "dissociation:reaction"
+      ]
+    }
+  ],
+  "products": [],
+  "goal_coverage": [
+    {
+      "goal": "dissociation:energy:H2",
+      "steps": [
+        "dissociation:energy:H2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dissociation:energy:H",
+      "steps": [
+        "dissociation:energy:H"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "dissociation:reaction",
+      "steps": [
+        "dissociation:reaction"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

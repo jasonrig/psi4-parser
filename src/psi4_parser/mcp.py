@@ -3,7 +3,7 @@
 from collections.abc import AsyncIterator
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Annotated, Self
+from typing import Annotated, Self, TypedDict
 
 import click
 from fastmcp import FastMCP
@@ -23,6 +23,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from psi4_parser._cli_types import DIRECTORY
 from psi4_parser._files import atomic_replace
 from psi4_parser.builder import JobSpec, render_job
+from psi4_parser.formal.workspace import PlanningWorkspace
+from psi4_parser.formal_mcp import register_tools
 
 
 def _filename(value: str) -> str:
@@ -43,7 +45,7 @@ type Filename = Annotated[
 
 
 class Settings(BaseSettings):
-    """Where the server creates its temporary output directory."""
+    """Configure temporary artifacts and compact planning-tool discovery."""
 
     model_config = SettingsConfigDict(env_prefix="PSI4_MCP_", frozen=True)
 
@@ -53,6 +55,15 @@ class Settings(BaseSettings):
             "Parent directory for temporary outputs; null uses the system default."
         ),
     )
+    planning_only: bool = Field(
+        default=False,
+        description="Expose planning tools without the recursive builder schema.",
+    )
+
+
+class _Overrides(TypedDict, total=False):
+    temp_parent: Path
+    planning_only: bool
 
 
 class RenderResult(BaseModel):
@@ -79,18 +90,27 @@ class RenderResult(BaseModel):
         return self
 
 
+def _open_planning(
+    directory: Path | None, cached: PlanningWorkspace | None
+) -> PlanningWorkspace:
+    if directory is None:
+        raise ToolError("The server's planning workspace is not available")
+    return cached if cached is not None else PlanningWorkspace(directory / "planning")
+
+
 def create_server(settings: Settings | None = None) -> FastMCP[None]:
-    """Return a stdio server with one renderer and lifetime-scoped temporary files.
+    """Return a stdio server for rendering and compact scientific planning.
 
     Args:
         settings: Output-directory settings, or environment defaults when omitted.
     """
     configuration = settings if settings is not None else Settings()
     directory: Path | None = None
+    planning: PlanningWorkspace | None = None
 
     @lifespan
     async def workspace(_server: FastMCP[None]) -> AsyncIterator[None]:
-        nonlocal directory
+        nonlocal directory, planning
         with TemporaryDirectory(
             prefix="psi4-parser-", dir=configuration.temp_parent
         ) as temporary:
@@ -99,6 +119,7 @@ def create_server(settings: Settings | None = None) -> FastMCP[None]:
                 yield None
             finally:
                 directory = None
+                planning = None
 
     server: FastMCP[None] = FastMCP(
         "Psi4 job builder",
@@ -142,13 +163,22 @@ def create_server(settings: Settings | None = None) -> FastMCP[None]:
         except (ValueError, OSError) as error:
             raise ToolError(str(error)) from error
 
-    server.tool(render_psithon)
+    if not configuration.planning_only:
+        server.tool(render_psithon)
+
+    def planning_workspace() -> PlanningWorkspace:
+        nonlocal planning
+        planning = _open_planning(directory, planning)
+        return planning
+
+    register_tools(server, planning_workspace)
     return server
 
 
 @click.option("--temp-parent", type=DIRECTORY, default=None)
-def _serve(temp_parent: Path | None) -> None:
-    """Serve job rendering over stdio; delete temporary outputs on shutdown.
+@click.option("--planning-only", is_flag=True, default=None)
+def _serve(temp_parent: Path | None, planning_only: bool | None) -> None:
+    """Serve construction and planning; remove temporary files on shutdown.
 
     Set PSI4_MCP_TEMP_PARENT or --temp-parent to choose an existing parent
     directory. The server creates its own private temporary directory inside it.
@@ -156,14 +186,18 @@ def _serve(temp_parent: Path | None) -> None:
 
     Args:
         temp_parent: Explicit temporary parent, overriding the environment.
+        planning_only: Expose only compact planning tools; null uses the environment.
 
     Raises:
         click.ClickException: Configuration or temporary-directory creation fails.
     """
     try:
-        settings = (
-            Settings() if temp_parent is None else Settings(temp_parent=temp_parent)
-        )
+        overrides: _Overrides = {}
+        if temp_parent is not None:
+            overrides["temp_parent"] = temp_parent
+        if planning_only is not None:
+            overrides["planning_only"] = planning_only
+        settings = Settings(**overrides)
         create_server(settings).run(transport="stdio", show_banner=False)
     except (ValidationError, OSError) as error:
         raise click.ClickException(str(error)) from error
@@ -172,7 +206,8 @@ def _serve(temp_parent: Path | None) -> None:
 command: click.Command = click.command(
     name="mcp",
     help=(
-        "Create Psi4 input through a stdio MCP server.\n\n"
+        "Plan calculations and create Psi4 input through a stdio MCP server.\n\n"
+        "Use --planning-only for compact planning tools without the builder schema. "
         "Set --temp-parent or PSI4_MCP_TEMP_PARENT to choose an existing parent "
         "directory for temporary outputs; otherwise use the system temporary "
         "directory. Copy or move written files to a durable location."

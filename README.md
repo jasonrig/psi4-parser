@@ -18,12 +18,37 @@ uv sync --locked --no-dev
 Psi4 is needed to execute generated inputs. Java is needed only to regenerate
 the parser.
 
+Use the separate [`psi4_parser.formal` module](docs/formal-jobs.md) to construct
+jobs with proved geometry, model, and energy relationships. It uses Z3 from
+Python and reports counterexamples when a proposed plan violates its requirements.
+[Scientific planning](docs/scientific-planning.md) adds independent requests,
+scientific/input contracts, bounded selection, and construction bundles. Shared
+contracts apply across releases by default; no version-specific profile is needed.
+Use the [compact planning interfaces](docs/formal-interfaces.md) through Python,
+the `formal` CLI group, or `mcp --planning-only` with reusable file handles.
+Save exact molecular inputs once and assemble new independent requests from
+handle-based templates; exported bundles retain complete molecular data.
+[Calculation reuse](docs/formal-reuse.md) shares matching calls only when the
+independent scientific request permits it; every requested goal remains covered.
+[Basis-limit correction recipes](docs/formal-extrapolation.md) retain explicit
+convergence models, basis-series evidence, and independently checked coefficients.
+Exponential HF reference estimates include certified coefficient-error bounds
+and compose with inverse-power correlation corrections.
+[SAPT contracts](docs/formal-sapt.md) retain monomer partitions, spin and fitting
+choices, and named interaction components for a separate result consumer.
+[Solvent contracts](docs/formal-solvation.md) check equilibrium DDX/PCMSolver construction
+and electronic shifts against a common vacuum treatment and geometry.
+[Excited-state contracts](docs/formal-excited-states.md) declare response roots,
+spin sectors, and named transitions while preserving the ground-reference return.
+
 ## Agent plugin
 
 Install the [Psi4 Inputs plugin](plugins/psi4-parser/README.md) in Codex or
-Claude Code to build jobs with Python scripts and check existing inputs. Its
-skills discover the installed API and CLI help, with `uvx` commands that run
-directly from this repository.
+Claude Code to plan calculations, build jobs with Python scripts, and check
+existing inputs. The dedicated planning skill uses independent requests,
+capability evidence, verification, and construction export. Skills discover the
+selected runtime's API and command help; see the plugin's runtime guidance for
+remote revisions and local development checkouts.
 
 ## Validate input
 
@@ -130,6 +155,9 @@ JSON. It returns Psi4 input text or the full path of a written file. Copy or mov
 written files to a durable location.
 
 See [MCP setup and requests](docs/mcp.md).
+For compact scientific planning without the builder schema, run
+`psi4-parser mcp --planning-only` and follow the
+[file-handle workflow](docs/formal-interfaces.md).
 
 ## Read and edit existing input
 

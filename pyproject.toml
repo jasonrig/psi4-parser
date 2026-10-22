@@ -11,6 +11,7 @@ dependencies = [
     "openbabel>=3.2.1",
     "pydantic>=2.14.1",
     "pydantic-settings>=2.16.0",
+    "z3-solver>=5.3.1.0",
 ]
 
 [project.scripts]
@@ -103,6 +104,8 @@ max-complexity = 10
 "tests/**" = ["S101", "PLR2004"]
 # Match the public names of Open Babel's existing SWIG binding API.
 "typings/openbabel/*.pyi" = ["N802"]
+# Match the capitalized constructors in Z3's public Python API.
+"typings/z3/*.pyi" = ["N802"]
 
 [tool.ruff.format]
 preview = false

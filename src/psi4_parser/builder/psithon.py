@@ -10,6 +10,7 @@ from psi4_parser.builder import _encoding
 from psi4_parser.builder import components as c
 from psi4_parser.builder import molecular as m
 from psi4_parser.builder._model import BOHR_ANGSTROM, Angle, Length, Model
+from psi4_parser.builder._option_isolation import ISOLATION_SOURCE
 from psi4_parser.builder._psithon_control import (
     CompiledJob,
     MoleculeLayout,
@@ -422,16 +423,9 @@ def _typed_constraints(
     return constraints
 
 
-def _calculation(
-    component: c.Calculation,
-    bindings: set[str],
-    molecules: dict[str, MoleculeLayout],
-    serial: int,
-) -> native.Node:
-    statement = _calculation_statement(component, bindings)
-    if not component.constraints and not component.local_options:
-        return native.Python(source=statement)
-    constraints = _typed_constraints(component, molecules)
+def _calculation_scopes(
+    component: c.Calculation, constraints: dict[str, str]
+) -> list[OptionScope]:
     snapshots: list[OptionScope] = []
     for block in component.local_options:
         for module in block.modules or ("",):
@@ -442,11 +436,31 @@ def _calculation(
                 for a in block.assignments
             )
     snapshots.extend(OptionScope(module="OPTKING", option=key) for key in constraints)
+    if component.pcm_input is not None:
+        snapshots.append(OptionScope(module="PCM", option="PCMSOLVER_PARSED_FNAME"))
     unique: list[OptionScope] = []
     for snapshot in snapshots:
         if snapshot not in unique:
             unique.append(snapshot)
-    snapshots = unique
+    return unique
+
+
+def _calculation(
+    component: c.Calculation,
+    bindings: set[str],
+    molecules: dict[str, MoleculeLayout],
+    serial: int,
+) -> native.Node:
+    statement = _calculation_statement(component, bindings)
+    if (
+        not component.constraints
+        and not component.local_options
+        and not component.isolate_options
+        and component.pcm_input is None
+    ):
+        return native.Python(source=statement)
+    constraints = _typed_constraints(component, molecules)
+    snapshots = _calculation_scopes(component, constraints)
     temporary = _PREFIX + f"options_{serial}"
     setup = (
         "import psi4 as "
@@ -459,6 +473,11 @@ def _calculation(
         + ", ".join(repr(scope.arguments()) for scope in snapshots)
         + ")\ntry:\n"
     )
+    cleanup = "finally:\n    " + temporary + ".restore()\n"
+    if component.isolate_options:
+        modules = tuple(sorted({scope.module for scope in snapshots if scope.module}))
+        setup = "with " + _PREFIX + "isolated_options(" + repr(modules) + "):\n"
+        cleanup = ""
     parts: list[native.TemplatePart] = [native.Python(source=setup)]
     for index, block in enumerate(component.local_options):
         with compilation_context("local_options", index):
@@ -484,7 +503,14 @@ def _calculation(
         + ")\n"
         for key, text in constraints.items()
     )
-    body += "    " + statement + "\nfinally:\n    " + temporary + ".restore()\n"
+    if component.pcm_input is not None:
+        pcm_text = _encoding.encode_value(
+            LiteralValue(value=component.pcm_input), bindings
+        )
+        body += (
+            "    " + _PREFIX + "psi4.set_options({'PCM__INPUT': " + pcm_text + "})\n"
+        )
+    body += "    " + statement + "\n" + cleanup
     parts.append(native.Python(source=body))
     return native.PythonTemplate(parts=tuple(parts))
 
@@ -522,6 +548,16 @@ def _lower(
 ) -> native.Node:
     if isinstance(component, c.Calculation):
         return _calculation(component, bindings, molecules, serial)
+    if isinstance(component, c.MoleculeClone):
+        with compilation_context("source"):
+            source = _encoding.encode_value(component.source, bindings)
+            if component.source.name not in molecules:
+                raise ValueError(
+                    "Cloning requires a known, consistent molecular layout"
+                )
+        return native.Python(
+            source=f"{_encoding.name(component.name)} = {source}.clone()"
+        )
     if isinstance(component, c.Call):
         arguments: list[str] = []
         for index, argument in enumerate(component.args):
@@ -564,7 +600,23 @@ def _commented(component: c.JobComponent, node: native.Node) -> native.Node:
 
 
 def _compile_job(spec: c.JobSpec) -> CompiledJob:
-    return compile_spec(spec, _lower, _commented)
+    uses_isolation = False
+
+    def lower(
+        component: c.LeafComponent,
+        bindings: set[str],
+        molecules: dict[str, MoleculeLayout],
+        serial: int,
+    ) -> native.Node:
+        nonlocal uses_isolation
+        if isinstance(component, c.Calculation) and component.isolate_options:
+            uses_isolation = True
+        return _lower(component, bindings, molecules, serial)
+
+    def preamble() -> tuple[native.Node, ...]:
+        return (native.Python(source=ISOLATION_SOURCE),) if uses_isolation else ()
+
+    return compile_spec(spec, lower, _commented, preamble=preamble)
 
 
 def lower_job(spec: c.JobSpec) -> native.Job:

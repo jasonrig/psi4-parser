@@ -1,0 +1,62 @@
+{
+  "schema_version": "1",
+  "molecules": [
+    {
+      "name": "waters",
+      "molecule": "molecule:23868ea72f5418217a0312327e68942211330bed82b8a776f752a9a53cb7758e"
+    }
+  ],
+  "goals": [
+    {
+      "kind": "calculate",
+      "id": "energy",
+      "driver": "energy",
+      "geometry": "waters",
+      "models": [
+        {
+          "method": "mp2",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            },
+            {
+              "name": "mp2_type",
+              "value": "CONV",
+              "module": null
+            },
+            {
+              "name": "qc_module",
+              "value": "OCC",
+              "module": null
+            }
+          ]
+        }
+      ],
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
+    }
+  ],
+  "relations": []
+}

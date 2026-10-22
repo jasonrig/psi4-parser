@@ -1,0 +1,1868 @@
+{
+  "schema_version": "1",
+  "plan_digest": "254dd8c6d0d161642c9d6396629460bf734fc6d5f3a2e8c14aa7975b49d8a163",
+  "request_digest": "8b8f5bca04a9d942075524a543fcdc04be082e201e67d74d240c2cc096fe57a8",
+  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
+  "verification_digest": "db92508f3c697adca6adecbbc7d21ae27e0e48e23bc74b04ea4b6e4c8f0604c0",
+  "backend_version": "psi4-builder/8",
+  "runtime_policy": "operator_managed",
+  "option_policy": "native_defaults_per_calculation",
+  "namespace_policy": "restore_after_calculation",
+  "required_components": [],
+  "files": [
+    {
+      "path": "scientific-request.json",
+      "sha256": "5c40975efdf49d6a7c85297f3d15c149dbf884bfc07368f9345a62e2fdb0ccfd"
+    },
+    {
+      "path": "calculation-plan.json",
+      "sha256": "d0dbb7b685d0a02c9d8f6d19f79375b0b91231c07a4578cf639deeee4bf0d010"
+    },
+    {
+      "path": "capabilities.json",
+      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "a83bb04a154e3a8c152f69776fe52ece36944ee663735d2325556317cc016b5a"
+    },
+    {
+      "path": "inputs/workflow.dat",
+      "sha256": "9b6ab89a432e0dac59048a43cf9e3ddc5f615b31dc2f6601c006dd14a1d722ab"
+    }
+  ],
+  "native_inputs": [
+    "inputs/workflow.dat"
+  ],
+  "native_outputs": [],
+  "native_variables": [
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_gap_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_gap_2",
+      "key": "TD-HF ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_total_1",
+      "key": "TD-HF ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_strength_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_rpa",
+      "quantity": "hf_rpa_moment_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_gap_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_gap_2",
+      "key": "TD-HF ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_total_1",
+      "key": "TD-HF ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_strength_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "hf_tda",
+      "quantity": "hf_tda_moment_1",
+      "key": "TD-HF ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_gap_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_gap_2",
+      "key": "TD-DFT ROOT 0 -> ROOT 2 EXCITATION ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_total_1",
+      "key": "TD-DFT ROOT 1 TOTAL ENERGY",
+      "unit": "hartree",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_strength_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 OSCILLATOR STRENGTH (LEN)",
+      "unit": "1",
+      "storage": "scalar",
+      "lifetime": "after_producer_before_next_calculation"
+    },
+    {
+      "producer": "pbe_rpa",
+      "quantity": "pbe_rpa_moment_1",
+      "key": "TD-DFT ROOT 0 -> ROOT 1 ELECTRIC TRANSITION DIPOLE MOMENT (LEN)",
+      "unit": "e*bohr",
+      "storage": "array",
+      "lifetime": "after_producer_before_next_calculation"
+    }
+  ],
+  "dependencies": [
+    {
+      "consumer": "hf_rpa",
+      "artifact": "molecule",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "hf_rpa_gap_1",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_gap_2",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_total_1",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_strength_1",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_moment_1",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_derived_total",
+      "artifact": "hf_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_rpa_derived_total",
+      "artifact": "hf_rpa_gap_1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda",
+      "artifact": "molecule",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "hf_tda_gap_1",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_gap_2",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_total_1",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_strength_1",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_moment_1",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_derived_total",
+      "artifact": "hf_tda",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "hf_tda_derived_total",
+      "artifact": "hf_tda_gap_1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa",
+      "artifact": "molecule",
+      "kind": "geometry"
+    },
+    {
+      "consumer": "pbe_rpa_gap_1",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_gap_2",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_total_1",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_strength_1",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_moment_1",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_derived_total",
+      "artifact": "pbe_rpa",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "pbe_rpa_derived_total",
+      "artifact": "pbe_rpa_gap_1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "rpa_tda_gap_comparison",
+      "artifact": "hf_rpa_gap_1",
+      "kind": "quantity"
+    },
+    {
+      "consumer": "rpa_tda_gap_comparison",
+      "artifact": "hf_tda_gap_1",
+      "kind": "quantity"
+    }
+  ],
+  "geometries": [
+    {
+      "id": "molecule",
+      "system": "molecule",
+      "source": null,
+      "producer": null,
+      "coordinates_known": true,
+      "atom_ids": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "frame": "molecule"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "hf_rpa",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_gap_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_gap_2",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_total_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_strength_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_moment_1",
+      "producer": "hf_rpa",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "hf_rpa",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_rpa_derived_total",
+      "producer": "hf_rpa_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_rpa",
+        "hf_rpa_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_gap_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_gap_2",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_total_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_strength_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_moment_1",
+      "producer": "hf_tda",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "hf_tda",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-hf",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "tda",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "hf_tda_derived_total",
+      "producer": "hf_tda_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_tda",
+        "hf_tda_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "electronic_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_gap_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_gap_2",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excitation_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_total_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_strength_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "oscillator_strength_length",
+        "unit": "1",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_moment_1",
+      "producer": "pbe_rpa",
+      "quantity": {
+        "meaning": "electric_transition_dipole_length",
+        "unit": "e*bohr",
+        "shape": [
+          1,
+          3
+        ],
+        "frame": "pbe_rpa",
+        "number_kind": "real"
+      },
+      "system": "molecule",
+      "geometry": "molecule",
+      "model": {
+        "method": "td-pbe",
+        "basis": "cc-pvdz",
+        "reference": "rhf",
+        "frozen_core": false,
+        "puream": true,
+        "basis_assignments": [],
+        "auxiliary_bases": [],
+        "ecps": [],
+        "environment": null,
+        "external_potential": null,
+        "electric_field": null,
+        "electronic_target": null,
+        "tdscf": {
+          "states": 3,
+          "spin": "singlet",
+          "approximation": "rpa",
+          "residual_threshold": 1e-6,
+          "max_iterations": 60
+        },
+        "settings": [
+          {
+            "name": "scf_type",
+            "value": "PK",
+            "module": null
+          }
+        ]
+      },
+      "operands": [],
+      "state": {
+        "charge": 0,
+        "multiplicity": 1
+      },
+      "product": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "pbe_rpa_derived_total",
+      "producer": "pbe_rpa_derived_total",
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "pbe_rpa",
+        "pbe_rpa_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    },
+    {
+      "id": "rpa_tda_gap_comparison",
+      "producer": "rpa_tda_gap_comparison",
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "system": null,
+      "geometry": null,
+      "model": null,
+      "operands": [
+        "hf_rpa_gap_1",
+        "hf_tda_gap_1"
+      ],
+      "state": null,
+      "product": null,
+      "electronic_target": null,
+      "analysis": null,
+      "sapt": null
+    }
+  ],
+  "expressions": [
+    {
+      "kind": "combination",
+      "id": "hf_rpa_derived_total",
+      "terms": [
+        {
+          "result": "hf_rpa",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_rpa_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "hf_rpa_derived_total"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "hf_tda_derived_total",
+      "terms": [
+        {
+          "result": "hf_tda",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_tda_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "hf_tda_derived_total"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "pbe_rpa_derived_total",
+      "terms": [
+        {
+          "result": "pbe_rpa",
+          "coefficient": 1
+        },
+        {
+          "result": "pbe_rpa_gap_1",
+          "coefficient": 1
+        }
+      ],
+      "quantity": {
+        "meaning": "excited_state_energy",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "pbe_rpa_derived_total"
+      ]
+    },
+    {
+      "kind": "combination",
+      "id": "rpa_tda_gap_comparison",
+      "terms": [
+        {
+          "result": "hf_rpa_gap_1",
+          "coefficient": 1
+        },
+        {
+          "result": "hf_tda_gap_1",
+          "coefficient": -1
+        }
+      ],
+      "quantity": {
+        "meaning": "energy_difference",
+        "unit": "hartree",
+        "shape": [],
+        "frame": null,
+        "number_kind": "real"
+      },
+      "extrapolation": null,
+      "satisfies": [
+        "rpa_tda_gap_comparison"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "kind": "product",
+      "id": "hf_rpa_gap_1",
+      "calculation": "hf_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_rpa_gap_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_gap_2",
+      "calculation": "hf_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_rpa_gap_2"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_total_1",
+      "calculation": "hf_rpa",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_rpa_total_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_strength_1",
+      "calculation": "hf_rpa",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_rpa_strength_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_rpa_moment_1",
+      "calculation": "hf_rpa",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_rpa_moment_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_gap_1",
+      "calculation": "hf_tda",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_tda_gap_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_gap_2",
+      "calculation": "hf_tda",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_tda_gap_2"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_total_1",
+      "calculation": "hf_tda",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_tda_total_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_strength_1",
+      "calculation": "hf_tda",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_tda_strength_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "hf_tda_moment_1",
+      "calculation": "hf_tda",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "hf_tda_moment_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_gap_1",
+      "calculation": "pbe_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "pbe_rpa_gap_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_gap_2",
+      "calculation": "pbe_rpa",
+      "name": "excitation_energy",
+      "electronic_target": {
+        "root": 2,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "pbe_rpa_gap_2"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_total_1",
+      "calculation": "pbe_rpa",
+      "name": "excited_state_energy",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "pbe_rpa_total_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_strength_1",
+      "calculation": "pbe_rpa",
+      "name": "oscillator_strength_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "pbe_rpa_strength_1"
+      ]
+    },
+    {
+      "kind": "product",
+      "id": "pbe_rpa_moment_1",
+      "calculation": "pbe_rpa",
+      "name": "electric_transition_dipole_length",
+      "electronic_target": {
+        "root": 1,
+        "symmetry": null,
+        "multiplicity": 1
+      },
+      "quantity": null,
+      "satisfies": [
+        "pbe_rpa_moment_1"
+      ]
+    }
+  ],
+  "goal_coverage": [
+    {
+      "goal": "hf_rpa",
+      "steps": [
+        "hf_rpa"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_gap_1",
+      "steps": [
+        "hf_rpa_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_gap_2",
+      "steps": [
+        "hf_rpa_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_total_1",
+      "steps": [
+        "hf_rpa_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_strength_1",
+      "steps": [
+        "hf_rpa_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_moment_1",
+      "steps": [
+        "hf_rpa_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_rpa_derived_total",
+      "steps": [
+        "hf_rpa_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda",
+      "steps": [
+        "hf_tda"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_gap_1",
+      "steps": [
+        "hf_tda_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_gap_2",
+      "steps": [
+        "hf_tda_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_total_1",
+      "steps": [
+        "hf_tda_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_strength_1",
+      "steps": [
+        "hf_tda_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_moment_1",
+      "steps": [
+        "hf_tda_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "hf_tda_derived_total",
+      "steps": [
+        "hf_tda_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa",
+      "steps": [
+        "pbe_rpa"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_gap_1",
+      "steps": [
+        "pbe_rpa_gap_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_gap_2",
+      "steps": [
+        "pbe_rpa_gap_2"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_total_1",
+      "steps": [
+        "pbe_rpa_total_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_strength_1",
+      "steps": [
+        "pbe_rpa_strength_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_moment_1",
+      "steps": [
+        "pbe_rpa_moment_1"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "pbe_rpa_derived_total",
+      "steps": [
+        "pbe_rpa_derived_total"
+      ],
+      "status": "covered"
+    },
+    {
+      "goal": "rpa_tda_gap_comparison",
+      "steps": [
+        "rpa_tda_gap_comparison"
+      ],
+      "status": "covered"
+    }
+  ],
+  "assumptions": [
+    "Psi4 calls complete successfully with documented return values and molecule updates.",
+    "Each calculation uses a private clone and native option defaults plus the declared model and calculation settings.",
+    "Option isolation covers native modules and explicitly named option modules. Unlisted plugin state, process resources, and concurrent option mutation remain outside this contract.",
+    "Geometry equality means shared provenance, not numerical or physical equivalence.",
+    "Energy formulas use exact real arithmetic; floating-point errors are not bounded.",
+    "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
+    "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
+    "TD-SCF roots are energy-ordered within the requested spin/irrep allocation, without physical state tracking. Irrep-specific occupied/virtual spaces and a suitable reference are assumed; RPA also assumes the required stability. Numerical convergence and physical accuracy remain separate.",
+    "The builder preserves declared operations and dependencies; this lowering implementation is tested rather than formally proved.",
+    "Native inputs retain future geometries in memory. Symbolic expressions are recipes for a separate result consumer."
+  ]
+}

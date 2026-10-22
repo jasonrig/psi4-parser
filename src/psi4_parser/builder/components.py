@@ -81,6 +81,30 @@ class MoleculeDeclaration(Component):
         return Reference(name=self.name)
 
 
+class MoleculeClone(Component):
+    """Copy an earlier structured molecule while retaining its stable atom layout.
+
+    The generated input creates a separate Psi4 molecule at this point. Later
+    constraints can use the source's atom IDs on the clone. The source must have
+    a consistent structured layout on every path that reaches this component.
+    """
+
+    kind: Literal["molecule_clone"] = Field(
+        default="molecule_clone", description="Selects a private copy of a molecule."
+    )
+    name: str = Field(
+        min_length=1, description="New Python name for the cloned molecule."
+    )
+    source: Reference = Field(
+        description="Reference to an earlier structured molecule."
+    )
+
+    @property
+    def ref(self) -> Reference:
+        """Return a reference to the new molecule for subsequent calculations."""
+        return Reference(name=self.name)
+
+
 class OptionExpression(Model):
     """A Psi4 option value supplied as input text."""
 
@@ -366,6 +390,19 @@ class Calculation(Component):
             "Settings for this calculation, restored afterward even if it fails."
         ),
     )
+    isolate_options: bool = Field(
+        default=False,
+        description="Reset native options before applying local_options, then "
+        "restore captured values and changed flags even on failure. Covers native "
+        "modules, explicitly named option modules, and the selected module.",
+    )
+    pcm_input: str | None = Field(
+        default=None,
+        min_length=1,
+        description="PCMSolver configuration text applied through PCM__INPUT within "
+        "this call's option scope; null supplies no solver block. The parsed filename "
+        "is restored afterward; Psi4 manages the helper's scratch files.",
+    )
 
     @property
     def ref(self) -> Reference:
@@ -566,7 +603,7 @@ type NativeComponent = (
     MoleculeDeclaration | Options | Basis | External | PCM | CFour | Memory
 )
 
-type LeafComponent = NativeComponent | Calculation | Call | Python
+type LeafComponent = NativeComponent | MoleculeClone | Calculation | Call | Python
 type ControlComponent = ForLoop | Conditional | WhileLoop | WithBlock | TryBlock
 type JobComponent = Annotated[
     LeafComponent | ControlComponent,
@@ -734,6 +771,8 @@ def _calculation(  # noqa: PLR0913 - Mirror the public driver construction field
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     return Calculation(
@@ -743,17 +782,21 @@ def _calculation(  # noqa: PLR0913 - Mirror the public driver construction field
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         kwargs=tuple(Keyword(name=k, value=value(v)) for k, v in kwargs.items()),
     )
 
 
-def energy(
+def energy(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to compute an electronic energy when the Psi4 input runs.
@@ -767,6 +810,12 @@ def energy(
         constraints: Use an empty tuple; typed constraints belong to optimize().
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -784,17 +833,21 @@ def energy(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
 
-def gradient(
+def gradient(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to compute an energy gradient when the Psi4 input runs.
@@ -808,6 +861,12 @@ def gradient(
         constraints: Use an empty tuple; typed constraints belong to optimize().
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -825,17 +884,21 @@ def gradient(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
 
-def hessian(
+def hessian(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to compute an energy Hessian when the Psi4 input runs.
@@ -849,6 +912,12 @@ def hessian(
         constraints: Use an empty tuple; typed constraints belong to optimize().
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -866,17 +935,21 @@ def hessian(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
 
-def optimize(
+def optimize(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to optimize a molecular geometry when the Psi4 input runs.
@@ -891,6 +964,12 @@ def optimize(
             molecule reference whose geometry contains these atoms.
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -911,17 +990,21 @@ def optimize(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
 
-def frequency(
+def frequency(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to compute vibrational frequencies when the Psi4 input runs.
@@ -935,6 +1018,12 @@ def frequency(
         constraints: Use an empty tuple; typed constraints belong to optimize().
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -952,17 +1041,21 @@ def frequency(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
 
-def properties(
+def properties(  # noqa: PLR0913 - Mirror the typed calculation fields.
     method: InputValue,
     *,
     molecule: Reference | None = None,
     assign: Assignment = None,
     constraints: tuple[Constraint, ...] = (),
     local_options: tuple[Options, ...] = (),
+    isolate_options: bool = False,
+    pcm_input: str | None = None,
     **kwargs: InputValue,
 ) -> Calculation:
     """Add a step to compute molecular properties when the Psi4 input runs.
@@ -976,6 +1069,12 @@ def properties(
         constraints: Use an empty tuple; typed constraints belong to optimize().
         local_options: Settings applied for this call and restored afterward,
             including if it raises. Compose options separately for persistent settings.
+        pcm_input: PCMSolver text applied inside the call through PCM__INPUT;
+            None supplies no solvent configuration. Psi4 manages its scratch files.
+        isolate_options: Start from native option defaults, then apply local_options
+            and restore captured values/changed flags afterward. The default keeps
+            ambient options available. Resource settings and unlisted plugin
+            state remain separate.
         **kwargs: Additional Psi4 arguments. Strings are literal text; Reference
             and Expression use values from the generated input.
 
@@ -993,6 +1092,8 @@ def properties(
         assign=assign,
         constraints=constraints,
         local_options=local_options,
+        isolate_options=isolate_options,
+        pcm_input=pcm_input,
         **kwargs,
     )
 
