@@ -15,8 +15,9 @@ for separately requested runtime inspection or calculation execution. Continue i
 work without Psi4; follow the [source guidance](../../references/psi4.md) when
 choosing documentation.
 
-1. Read [runtime and discovery](../../references/runtime.md), then the
-   [CLI workflow](../../references/cli.md).
+1. Follow [runtime and discovery](../../references/runtime.md): check uv caching,
+   fetch and verify the latest code, and explain setup and execution only through
+   uv/uvx. Then read the [CLI workflow](../../references/cli.md).
 2. Inspect the selected command's `--help`. Choose validation, formatting,
    conversion, or schema export to match the requested result.
 3. For structured edits, inspect `psi4_parser.job` with `dir()`, `help()`, and

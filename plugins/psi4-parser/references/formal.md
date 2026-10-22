@@ -33,22 +33,23 @@ Use `psi4-parser formal --help` for compact CLI operations, or inspect the
 connected server's `formal_*` tools when available. The Python workspace API is
 `PlanningWorkspace`. Keep discovery and calls on the same source revision.
 
-If the selected runtime lacks these APIs, use a source revision that contains
-them. A local development checkout may contain changes absent from remote
-`main`; use that checkout's environment for discovery and scripts. Never bypass
-scientific verification by substituting the older relationship-only call.
+If an API is missing, first verify freshness through the shared runtime workflow.
+If the verified latest runtime still lacks it, report the unavailable API and
+stop the affected operation. Never bypass scientific verification by substituting
+the older relationship-only call.
 
 ## Use compact planning interfaces
 
 Prefer the `formal` CLI group or planning MCP tools for saved requests and
 catalogs. Compose new scientific requests in Python when geometry preparation or
-goal expansion requires it. Read leaf-command help before adapting a command:
+goal expansion requires it. Run all commands through the refreshed uvx runtime.
+Read leaf-command help before adapting a command:
 
 ```sh
-psi4-parser formal schema request --definition Model --field basis
-psi4-parser formal contracts --driver optimize
-psi4-parser formal catalogs
-psi4-parser formal --workspace planning-artifacts propose request.json
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser formal schema request --definition Model --field basis
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser formal contracts --driver optimize
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser formal catalogs
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser formal --workspace planning-artifacts propose request.json
 ```
 
 CLI calls return compact JSON and keep full records in the persistent workspace.
@@ -91,8 +92,14 @@ and [example 34](https://github.com/jasonrig/psi4-parser/tree/main/examples/34-f
 
 ### Compact MCP tools and saved evidence
 
-Start `psi4-parser mcp --planning-only` to expose compact planning tools without
-the recursive builder schema. Propose, verify, and export use the shared Psi4
+Start the server through the same refreshed uvx runtime:
+
+```sh
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser mcp --planning-only
+```
+
+This exposes compact planning tools without the recursive builder schema.
+Propose, verify, and export use the shared Psi4
 contracts when `capabilities` is omitted. No release profile is required.
 For targeted discovery, load the shared rules with
 `formal_load(kind="capabilities", catalog="psi4")`. Supply exactly

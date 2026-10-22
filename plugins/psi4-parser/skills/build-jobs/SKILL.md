@@ -12,8 +12,9 @@ dependencies, or versions, or warn about their availability. Runtime deployment
 and any separately requested execution belong to the operator. Follow the
 [source guidance](../../references/psi4.md) when choosing documentation.
 
-1. Read [runtime and discovery](../../references/runtime.md). Record the parser
-   identity; keep API discovery and builder commands in the same environment.
+1. Follow [runtime and discovery](../../references/runtime.md): check uv caching,
+   fetch and verify the latest code, and explain setup and execution only through
+   uv/uvx. Keep discovery and builder commands on the same verified revision.
 2. Follow the [Python workflow](../../references/python.md). Resolve consequential
    ambiguities, then inspect the selected helpers and model fields before coding.
    When the user gives a scientific objective requiring calculation planning,

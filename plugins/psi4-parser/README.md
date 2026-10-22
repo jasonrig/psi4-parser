@@ -29,9 +29,6 @@ In the desktop plugin directory, add `https://github.com/jasonrig/psi4-parser`
 as a repository marketplace, then install **Psi4 Inputs**. Start a new conversation
 to load the skills.
 
-For local testing, replace `jasonrig/psi4-parser` in the first command with the
-absolute path to this checkout.
-
 ### Claude Code
 
 ```sh
@@ -39,8 +36,7 @@ claude plugin marketplace add jasonrig/psi4-parser
 claude plugin install psi4-parser@psi4-parser
 ```
 
-Start a new session. For local testing, use the absolute checkout path as the
-marketplace source.
+Start a new session.
 
 ### Other clients
 
@@ -51,23 +47,24 @@ same skills; their installation commands vary.
 
 ## Run the library
 
-Installing this plugin copies its skills and references. It does not install a
-Python environment or bundle the library source. The agent uses `uvx` to fetch
-and cache the package and its dependencies directly from this repository:
+The agent uses `uvx` (equivalently `uv tool run`) to obtain and execute the package
+and its dependencies from this repository. Every invocation bypasses installed
+tools and refreshes cached data:
 
 ```sh
-uvx --python 3.15 --from 'git+https://github.com/jasonrig/psi4-parser.git@main' python build.py
-uvx --python 3.15 --from 'git+https://github.com/jasonrig/psi4-parser.git@main' psi4-parser validate input.dat
+uvx --isolated --refresh --python 3.15 --from 'git+https://github.com/jasonrig/psi4-parser.git@main' python build.py
+uvx --isolated --refresh --python 3.15 --from 'git+https://github.com/jasonrig/psi4-parser.git@main' psi4-parser validate input.dat
 ```
 
-This needs no checkout, `uv sync`, or dependency edits in the user's project.
-The first invocation needs network access. The installed Python source is
+Network access is required to verify freshness. The agent checks uv's cache and
+tool settings and compares the fetched package's Git commit with upstream `main`.
+If freshness cannot be verified, it reports the problem and stops parser execution.
+The installed Python source is
 available through `inspect.getfile()` and `inspect.getsource()` in that same
 runtime. Repository guides and examples remain available on GitHub.
 
-`main` follows the repository's development branch. Replace it with a commit or
-tag for a repeatable workflow, using the same source for discovery and execution.
-See [runtime and discovery](references/runtime.md) for details.
+Use the same verified revision for discovery and execution. See
+[runtime and discovery](references/runtime.md) for cache checks and recovery.
 
 ## Package layout
 

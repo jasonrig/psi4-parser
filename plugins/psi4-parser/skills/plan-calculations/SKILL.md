@@ -18,8 +18,9 @@ fits the task, and how those approaches combine with formal planning.
 
 ## Default workflow
 
-1. Follow [runtime and discovery](../../references/runtime.md) once per environment.
-   Discover the selected runtime's exports, signatures, relevant model fields,
+1. Follow [runtime and discovery](../../references/runtime.md): check uv caching,
+   fetch and verify the latest code, and explain setup and execution only through
+   uv/uvx. Discover the verified runtime's exports, signatures, relevant model fields,
    and command or tool help before coding. Use Python to compose new requests;
    prefer compact CLI/MCP operations for saved work. Read the
    [construction and repair example](../../references/formal-start.md) when you

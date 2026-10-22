@@ -5,14 +5,14 @@ For checked scientific planning, use the separate `formal` command group and
 independent request coverage, and scientific exit statuses differ from ordinary
 input validation. Start with `psi4-parser formal --help` in the selected runtime.
 
-Use the runtime from [runtime and discovery](runtime.md). Inspect command help
-in that same environment:
+Use the verified latest runtime from [runtime and discovery](runtime.md), retaining
+the isolation and refresh flags on every invocation. Inspect command help there:
 
 ```sh
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser validate --help
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser format --help
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser convert --help
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser schema --help
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser validate --help
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser format --help
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser convert --help
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser schema --help
 ```
 
 Select the operation by the requested outcome:
@@ -41,8 +41,8 @@ input. It returns text without executing the generated calculation statements.
 To check a saved input in the same runtime:
 
 ```sh
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser validate input.dat
-uvx --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser format check input.dat
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser validate input.dat
+uvx --isolated --refresh --python 3.15 --from "$PSI4_PARSER_SOURCE" psi4-parser format check input.dat
 ```
 
 These commands check syntax and formatting without executing the input. Report
