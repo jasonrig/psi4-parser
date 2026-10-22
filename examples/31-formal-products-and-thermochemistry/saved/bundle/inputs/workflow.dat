@@ -108,7 +108,7 @@ with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
     }
 
     set {
-        WRITER_FILE_LABEL  "formal_ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c_1"
+        WRITER_FILE_LABEL  "formal_1"
     }
 
     set FINDIF {

@@ -102,7 +102,6 @@ def _profile() -> CapabilityCatalog:
                 id="fixture",
                 source="Synthetic solvent test declarations",
                 kind="declaration",
-                application_version="fixture/1",
             ),
         ),
         methods=(
@@ -182,10 +181,7 @@ def _profile() -> CapabilityCatalog:
         ),
         components=(
             ComponentCapability(
-                name="pyddx",
-                version="fixture/1",
-                status="supported",
-                evidence=("fixture",),
+                name="pyddx", status="supported", evidence=("fixture",)
             ),
         ),
         environments=(

@@ -59,19 +59,6 @@ class Evidence(Record):
     kind: Literal["documentation", "source", "probe", "declaration"] = Field(
         description="Origin of this evidence; declarations remain explicit assumptions."
     )
-    application_version: str | None = Field(
-        default=None,
-        min_length=1,
-        description="Optional source version label; never a runtime requirement.",
-    )
-    build: str | None = Field(
-        default=None, description="Build or commit identity, if applicable."
-    )
-    digest: str | None = Field(
-        default=None,
-        pattern=r"^[a-f0-9]{64}$",
-        description="SHA-256 of saved evidence when available.",
-    )
 
 
 class OptionCondition(Record):
@@ -119,9 +106,6 @@ class ComponentCapability(Record):
     """Record availability of an optional application or Python component."""
 
     name: str = Field(min_length=1, description="Component identity, such as optking.")
-    version: str | None = Field(
-        default=None, min_length=1, description="Recorded component version, if known."
-    )
     status: Support = Field(
         description="Supported, unsupported, or unknown availability."
     )
@@ -441,9 +425,6 @@ class CapabilityCatalog(Record):
     as scientific coverage grows; a new Psi4 version needs no new catalog.
     """
 
-    schema_version: Literal["1"] = Field(
-        default="1", description="Capability-catalog serialization format version."
-    )
     id: str = Field(
         default="psi4",
         min_length=1,

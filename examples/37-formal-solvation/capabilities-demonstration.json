@@ -1,15 +1,11 @@
 {
-  "schema_version": "1",
   "id": "solvent-demonstration",
   "application": "psi4",
   "evidence": [
     {
       "id": "fixture",
       "source": "Explicit teaching declarations, not evidence for an installed application.",
-      "kind": "declaration",
-      "application_version": "demonstration/1",
-      "build": null,
-      "digest": null
+      "kind": "declaration"
     }
   ],
   "methods": [
@@ -211,7 +207,6 @@
   "components": [
     {
       "name": "pyddx",
-      "version": "demonstration/1",
       "status": "supported",
       "evidence": [
         "fixture"

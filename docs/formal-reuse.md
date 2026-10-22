@@ -84,7 +84,7 @@ its last report's diagnostic paths. It is never an accepted `plan`. Workspace
 summaries return its saved handle. `capability_status` describes application
 evidence for represented calls separately from coverage and scientific findings.
 Exact report replay requires its saved `limits`, request, catalog, and plan;
-limits are part of verification identity.
+limits are retained in the verification report.
 
 These fields have backward-compatible defaults. An empty older manifest mapping
 makes no coverage declaration. Reverify and export to obtain current evidence.

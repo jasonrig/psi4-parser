@@ -1,5 +1,4 @@
 {
-  "schema_version": "1",
   "molecules": [
     {
       "comments": [],
@@ -304,7 +303,7 @@
       "models": [
         {
           "method": "hf",
-          "basis": "cc-pvdz",
+          "basis": "sto-3g",
           "reference": "rhf",
           "frozen_core": false,
           "puream": true,

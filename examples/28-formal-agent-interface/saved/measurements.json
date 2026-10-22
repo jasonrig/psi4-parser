@@ -2,14 +2,14 @@
   "cli_calls": 6,
   "response_bytes": {
     "01-schema.json": 1709,
-    "02-contract.json": 570,
-    "03-capabilities.json": 1222,
-    "04-proposal.json": 2973,
-    "05-assumptions.json": 963,
-    "06-export.json": 1659
+    "02-contract.json": 534,
+    "03-capabilities.json": 1082,
+    "04-proposal.json": 2171,
+    "05-assumptions.json": 823,
+    "06-export.json": 1017
   },
-  "total_response_bytes": 9096,
-  "full_proposal_bytes": 267883,
+  "total_response_bytes": 7336,
+  "full_proposal_bytes": 267413,
   "choice_count": 8,
   "previewed_choices": 8,
   "responses_contain_smt2": false,

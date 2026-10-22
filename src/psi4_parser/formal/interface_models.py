@@ -51,15 +51,10 @@ class CapabilityQuery(Record):
 
 
 class RecordReference(Record):
-    """Locate a validated immutable record by kind and saved-content identity."""
+    """Locate a saved scientific record by kind and workspace identifier."""
 
-    handle: str = Field(
-        description="Workspace-local kind:SHA256 handle for later calls."
-    )
+    handle: str = Field(description="Workspace-local kind:ID handle for later calls.")
     kind: RecordKind = Field(description="Scientific document format of this record.")
-    sha256: str = Field(
-        pattern=r"^[a-f0-9]{64}$", description="Hash of the saved bytes."
-    )
     path: str = Field(description="Absolute JSON path; MCP files expire at shutdown.")
     bytes: int = Field(ge=0, description="Size of the complete saved JSON in bytes.")
 
@@ -100,19 +95,6 @@ class VerificationSummary(Record):
     assumption_count: int = Field(
         ge=0, description="Assumptions available through explain."
     )
-    verification_digest: str = Field(
-        description="Identity of the verification context."
-    )
-    rule_version: str = Field(
-        description="Scientific contract version used for this check."
-    )
-    capability_digest: str | None = Field(
-        description="Verification's capability identity; null without a catalog."
-    )
-    request_digest: str | None = Field(
-        description="Independent request identity; null for relationship scope."
-    )
-    plan_digest: str = Field(description="Verified calculation-plan identity.")
     required_components: tuple[ComponentRequirement, ...] = Field(
         default=(),
         description="Unpinned native component names, without runtime checks.",
@@ -282,15 +264,8 @@ class ExportSummary(Record):
     manifest_path: str | None = Field(
         description="Saved manifest path, or null after rejection."
     )
-    manifest_digest: str | None = Field(
-        description="Manifest SHA-256, or null after rejection."
-    )
     native_inputs: tuple[str, ...] = Field(
         description="Absolute input paths, empty after rejection."
-    )
-    backend_version: str | None = Field(
-        default=None,
-        description="Lowering contract version; null when no accepted bundle exists.",
     )
     option_policy: Literal["native_defaults_per_calculation"] | None = Field(
         default=None,

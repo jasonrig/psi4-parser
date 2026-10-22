@@ -39,14 +39,10 @@ installation, optional libraries, and execution failures belong to the operator.
 
 Reports and manifests state `runtime_policy="operator_managed"`.
 `capability_status` describes scientific/input contracts, not runtime readiness.
-Version strings, build hashes, and component observations in individual evidence
-are provenance only. They do not need to match the target machine or one another.
-`required_components` retains descriptive names with unpinned versions; it is
+`required_components` retains descriptive names; it is
 not a preflight check. Optional component and solvent-table catalogues can be
 queried for reference, but their absence or status never blocks verification.
 
-Artifact hashes still bind a request, plan, rules, and source evidence. Checking
-saved bytes for corruption is independent of checking an execution environment.
 An accepted construction does not establish convergence or scientific accuracy.
 
 ## Preserve explicit scientific choices
@@ -94,8 +90,8 @@ protocols. Broader scientific contracts and lowering remain on the roadmap.
 
 Extend method/driver/reference cases, option domains, basis facts, and product
 contracts as needed. Give each addition its own documentation, source, or
-separately collected evidence IDs. The loader checks packaged evidence hashes
-individually; it does not require all entries to share one revision or audit.
+separately collected evidence IDs. Entries can cite different source revisions
+or collections.
 Scientific rules are reusable across releases. Review affected entries when a
 known behavior changes instead of producing catalogues for every existing version.
 
@@ -112,9 +108,8 @@ uv run python -m psi4_parser.maintenance.capabilities \
   --engine-python /path/to/reference-psi4-python --destination new-capability-audit
 ```
 
-This developer tool fingerprints reviewed source and basis files, records
-metadata, and calls reviewed route selectors with `probe=True`. It executes no
-chemistry drivers. Its source-identity checks prevent mislabelling evidence and
-are not invoked by planning or verification. Neither this collector nor access
+This developer tool collects basis dimensions and calls reviewed route selectors
+with `probe=True`. It executes no chemistry drivers. Review its observations
+against the cited sources before curating a contribution. Neither this collector nor access
 to any Psi4 binary is a prerequisite for building jobs. It is not a required
 maintenance step for a new Psi4 release.

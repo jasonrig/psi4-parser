@@ -114,20 +114,17 @@ def main() -> None:
             "terms": [
                 {
                     "result": term.result,
-                    "coefficient": (
-                        str(term.coefficient.fraction)
-                        if isinstance(term.coefficient, Rational)
-                        else str(term.coefficient)
-                    ),
+                    "coefficient": str(term.coefficient.fraction)
+                    if isinstance(term.coefficient, Rational)
+                    else str(term.coefficient),
                 }
                 for term in exported.manifest.expressions[0].terms
             ],
         },
         "unsupported_proposal": rejected.status,
-        "unsupported_verification": (
-            rejected.report.status if rejected.report is not None else None
-        ),
-        "manifest_digest": exported.manifest_digest,
+        "unsupported_verification": rejected.report.status
+        if rejected.report is not None
+        else None,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

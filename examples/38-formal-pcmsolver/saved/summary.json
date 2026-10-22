@@ -5,11 +5,8 @@
   "runtime_policy": "operator_managed",
   "required_components": [
     {
-      "name": "pcmsolver",
-      "version": null
+      "name": "pcmsolver"
     }
   ],
-  "wrong_weight_status": "no_candidate",
-  "backend_version": "psi4-builder/8",
-  "manifest_digest": "f8c1f8022dd80a507768435414363e9fc302a299fb72dd8eef116074903c4e28"
+  "wrong_weight_status": "no_candidate"
 }

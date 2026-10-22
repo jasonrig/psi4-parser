@@ -7,8 +7,8 @@ option state. An ambient module-local `SCF.REFERENCE` or a preceding call's
 
 The emitted helper uses Psi4 and the Python standard library. The generated input
 requires no `psi4_parser` installation. Export records
-`option_policy="native_defaults_per_calculation"` with backend version
-`psi4-builder/8`. An absent policy parses as null and makes no isolation claim
+`option_policy="native_defaults_per_calculation"`. An absent policy parses as
+null and makes no isolation claim
 for older bundles.
 
 ## Preserve values and changed flags
@@ -106,6 +106,5 @@ additional modules, skipped branches, and deliberate failure. Separate reference
 and product tests run small calculations. The public framework constructs inputs;
 it has no execution or numerical result-acceptance API.
 
-This is a tested lowering contract. Artifact hashes bind the selected inputs,
-rules, and evidence; they do not formally prove the compiler or promise that an
-application call will converge or achieve scientific accuracy.
+This is a tested lowering contract. It does not formally prove the compiler or
+promise that an application call will converge or achieve scientific accuracy.

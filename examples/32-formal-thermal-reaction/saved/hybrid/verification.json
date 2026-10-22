@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -381,7 +379,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "co",
@@ -1169,8 +1166,8 @@
     {
       "producer": "oxidation:frequency:co",
       "format": "psi4_vibrec",
-      "label": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_4",
-      "filename_template": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_4.{pid}.vibrec",
+      "label": "formal_4",
+      "filename_template": "formal_4.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -1183,8 +1180,8 @@
     {
       "producer": "oxidation:frequency:oxygen",
       "format": "psi4_vibrec",
-      "label": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_8",
-      "filename_template": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_8.{pid}.vibrec",
+      "label": "formal_8",
+      "filename_template": "formal_8.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -1197,8 +1194,8 @@
     {
       "producer": "oxidation:frequency:co2",
       "format": "psi4_vibrec",
-      "label": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_12",
-      "filename_template": "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_12.{pid}.vibrec",
+      "label": "formal_12",
+      "filename_template": "formal_12.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -1212,15 +1209,12 @@
   "native_variables": [],
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
-  "request_digest": "44cf16bc40161ab146449ccd3bc2a813261218484b6af0282401e5b1e98e939d",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -1337,13 +1331,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "7745a9f7ec159011fd99b6defff8e1b6ea26669363f3834e17c5720c14c463ef"
+  }
 }

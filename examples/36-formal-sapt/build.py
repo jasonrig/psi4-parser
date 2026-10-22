@@ -201,9 +201,7 @@ def main() -> None:
         "native_product_files": len(exported.manifest.native_outputs),
         "namespace_policy": exported.manifest.namespace_policy,
         "option_policy": exported.manifest.option_policy,
-        "backend_version": exported.manifest.backend_version,
         "rejected": rejected_status,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

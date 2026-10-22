@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "254dd8c6d0d161642c9d6396629460bf734fc6d5f3a2e8c14aa7975b49d8a163",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -231,7 +229,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "TD-SCF roots are energy-ordered within the requested spin/irrep allocation, without physical state tracking. Irrep-specific occupied/virtual spaces and a suitable reference are assumed; RPA also assumes the required stability. Numerical convergence and physical accuracy remain separate."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "molecule",
@@ -1435,7 +1432,6 @@
     }
   ],
   "required_components": [],
-  "request_digest": "8b8f5bca04a9d942075524a543fcdc04be082e201e67d74d240c2cc096fe57a8",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -1594,13 +1590,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "db92508f3c697adca6adecbbc7d21ae27e0e48e23bc74b04ea4b6e4c8f0604c0"
+  }
 }

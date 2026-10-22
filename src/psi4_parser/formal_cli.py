@@ -96,7 +96,7 @@ def command(context: click.Context, workspace: Path) -> None:
     """Plan, verify, explain, and export calculations without executing them.
 
     Print compact JSON; retain full records in the persistent --workspace.
-    Later commands accept either local JSON paths or returned kind:SHA256 handles.
+    Later commands accept either local JSON paths or returned kind:ID handles.
     Discovery commands do not create a workspace. Exit 0 for accepted work,
     1 for rejected scientific work, 2 for input/file errors, and 3 for undecided
     or exhausted work.
@@ -134,7 +134,7 @@ def request_command(context: click.Context, template: str) -> None:
 
     Args:
         context: Selected planning workspace.
-        template: RequestTemplate JSON path or request_template:SHA256 handle.
+        template: RequestTemplate JSON path or request_template:ID handle.
     """
     with _errors():
         workspace = _workspace(context)

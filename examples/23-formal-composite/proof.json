@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": null,
-  "plan_digest": "5e85e947e627c3c719592a1a2c35b38448a03fea1cdd686657e7a1256566b2c9",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -52,7 +50,6 @@
     "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "h2",
@@ -260,17 +257,14 @@
   "native_outputs": [],
   "native_variables": [],
   "required_components": [],
-  "request_digest": null,
   "scope": "relationships",
   "coverage": [],
   "request_complete": false,
-  "capability_digest": null,
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "98340cb094221483510a31a70d83df00c2e73c60616fa5141dff19c3d54d7381"
+  }
 }

@@ -1,7 +1,5 @@
 """Prove plan relationships by asking Z3 for a violating assignment."""
 
-import hashlib
-import json
 from dataclasses import dataclass, field
 from fractions import Fraction
 from time import monotonic
@@ -16,7 +14,7 @@ from psi4_parser.formal.capabilities import (
     matching_method,
 )
 from psi4_parser.formal.catalogs import load_catalog
-from psi4_parser.formal.contracts import RULE_VERSION, Inspection, inspect_contracts
+from psi4_parser.formal.contracts import Inspection, inspect_contracts
 from psi4_parser.formal.coordinate_models import (
     CoordinateRange,
     CoordinateValue,
@@ -650,29 +648,13 @@ class _Audit:
                 for item in self.catalog.evidence
                 if item.kind == "declaration"
             )
-        identity = json.dumps(
-            (
-                self.plan.model_dump_json(),
-                self.request.model_dump_json() if self.request else None,
-                self.catalog.model_dump_json() if self.catalog else None,
-                RULE_VERSION,
-                z3.get_version_string(),
-                self.limits.model_dump_json(),
-            ),
-            separators=(",", ":"),
-        )
         return Report(
             status=status,
             runtime_policy="operator_managed",
             capability_status=self.capability_status,
-            plan_digest=hashlib.sha256(
-                self.plan.model_dump_json().encode()
-            ).hexdigest(),
-            solver_version=z3.get_version_string(),
             assumptions=assumptions,
             diagnostics=self.diagnostics,
             obligations=self.obligations,
-            rule_version=RULE_VERSION,
             geometries=self.inspection.geometries if self.inspection else (),
             quantities=self.inspection.quantities if self.inspection else (),
             native_outputs=self.inspection.native_outputs if self.inspection else (),
@@ -680,21 +662,10 @@ class _Audit:
             if self.inspection
             else (),
             required_components=components,
-            request_digest=hashlib.sha256(
-                self.request.model_dump_json().encode()
-            ).hexdigest()
-            if self.request
-            else None,
             scope="scientific_request" if self.request else "relationships",
             coverage=self.coverage.goals if self.coverage else (),
             request_complete=self.request is not None and status == "proved",
-            capability_digest=hashlib.sha256(
-                self.catalog.model_dump_json().encode()
-            ).hexdigest()
-            if self.catalog
-            else None,
             limits=self.limits,
-            verification_digest=hashlib.sha256(identity.encode()).hexdigest(),
         )
 
 

@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "0a20643e5c88b95e2e44399561a3639e9c7fb9efe1d3f451f6fd5b4b6519261c",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -383,7 +381,6 @@
     "The chosen exponential law estimates the HF reference limit; decay suitability, asymptotic convergence, reference-state consistency, and physical accuracy remain assumptions.",
     "Exponential weights have a certified absolute coefficient bound, separate from physical accuracy and floating-point evaluation. The resulting two-point energy error is bounded by that coefficient error times the absolute difference between the input energies."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "water",
@@ -828,7 +825,6 @@
   "native_outputs": [],
   "native_variables": [],
   "required_components": [],
-  "request_digest": "5cbec73268e1fa5f11c4d5d36c6d5e8ac5ce3d5f346174f3a8a9bb51ec691072",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -945,13 +941,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "e50cc86b4eda048871848feef0b4fd8cf124363e5d013b63c9244f48f73bbeff"
+  }
 }

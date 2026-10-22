@@ -5,8 +5,6 @@
     "status": "violated",
     "runtime_policy": "operator_managed",
     "capability_status": "supported",
-    "plan_digest": "b98b7ec7ad99317404fc3b2e0c5d1011c75e1f4ac75c848aecf4a9fe5f667628",
-    "solver_version": "5.3.1",
     "diagnostics": [
       {
         "path": [
@@ -296,7 +294,6 @@
       "SAPT uses the declared monomer partition, basis treatment, induction choice, and native component definitions. Convergence and scientific suitability remain assumptions.",
       "Native SAPT variable bindings are declarations only. A separate consumer must collect transient values before later application state changes; export does not snapshot them."
     ],
-    "rule_version": "scientific-contracts/15",
     "geometries": [
       {
         "id": "complex",
@@ -1084,11 +1081,9 @@
     ],
     "required_components": [
       {
-        "name": "sapt",
-        "version": null
+        "name": "sapt"
       }
     ],
-    "request_digest": "07db70a17444f2ce3c351519f8cbb6021ac5ab82513cea8f7b2494ff738fcc70",
     "scope": "scientific_request",
     "coverage": [
       {
@@ -1212,15 +1207,13 @@
       }
     ],
     "request_complete": false,
-    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
     "limits": {
       "timeout_ms": 1000,
       "resource_limit": 0,
       "max_steps": 10000,
       "max_obligations": 10000,
-      "total_timeout_ms": 29994
-    },
-    "verification_digest": "457f9fc3b325074d7af868f897aa6513843a6cfa81d87aff73f2be6b0de1a5ee"
+      "total_timeout_ms": 29992
+    }
   },
   "attempts": 1,
   "choices": [],
@@ -1242,7 +1235,6 @@
   },
   "reuses": [],
   "last_candidate": {
-    "schema_version": "2",
     "molecules": [
       {
         "comments": [],

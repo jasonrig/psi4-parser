@@ -182,7 +182,6 @@ def main() -> None:
             ),
             "native_records": len(exported.manifest.native_outputs),
             "target": "oxidation:reaction",
-            "manifest_digest": exported.manifest_digest,
         }
     wrong = oxidation_request(hybrid=False, co2_temperature=400.0)
     rejected = propose(wrong, catalog)

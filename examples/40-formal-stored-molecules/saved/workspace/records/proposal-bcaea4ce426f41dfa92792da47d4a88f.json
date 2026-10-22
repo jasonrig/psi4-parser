@@ -1,7 +1,6 @@
 {
   "status": "constructed",
   "plan": {
-    "schema_version": "2",
     "molecules": [
       {
         "comments": [],
@@ -358,8 +357,6 @@
     "status": "proved",
     "runtime_policy": "operator_managed",
     "capability_status": "supported",
-    "plan_digest": "ede35c61fe1f4d92002b2e8944d6d397617c49cb0433b6342fe28db347902fe5",
-    "solver_version": "5.3.1",
     "diagnostics": [],
     "obligations": [
       {
@@ -397,7 +394,6 @@
       "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
       "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims."
     ],
-    "rule_version": "scientific-contracts/15",
     "geometries": [
       {
         "id": "waters",
@@ -487,7 +483,6 @@
     "native_outputs": [],
     "native_variables": [],
     "required_components": [],
-    "request_digest": "bf075b7fa60ecc32b4a66920a77003f27e4211ea5a3ae2cfb47562ae0e7ea9a6",
     "scope": "scientific_request",
     "coverage": [
       {
@@ -499,15 +494,13 @@
       }
     ],
     "request_complete": true,
-    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
     "limits": {
       "timeout_ms": 1000,
       "resource_limit": 0,
       "max_steps": 10000,
       "max_obligations": 10000,
-      "total_timeout_ms": 29997
-    },
-    "verification_digest": "6a61c5d17dff3273123330f8683e7d559793bb52f4baef7a076bf3b3e4f5738b"
+      "total_timeout_ms": 29973
+    }
   },
   "attempts": 1,
   "choices": [

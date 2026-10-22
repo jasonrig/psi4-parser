@@ -11,14 +11,14 @@ implementation, public documentation, and independent behavior tests agree.
 | Phase | Required implementation and evidence | State |
 | --- | --- | --- |
 | 1. Construction boundary | No generated result-validation guards or execution APIs; compatibility entry points retained; source-level boundary regression. | Complete |
-| 2. Scientific model | Typed systems, model settings, expected quantities, rational expressions, provenance, constraints, frames, and versioned serialization. | Complete |
+| 2. Scientific model | Typed systems, model settings, expected quantities, rational expressions, provenance, constraints, frames, and JSON serialization. | Complete |
 | 3. Operation contracts | Reusable preconditions, effects, products, and dependencies; molecular, geometry, model, expression, derivative, scan, and environment rules. | Complete |
 | 4. Scientific intent | Independent requests generate mandatory obligations and coverage checks; omitted work cannot pass through a trivial assertion. | Complete |
 | 5. Capabilities | Source catalogs for scientific/input contracts, methods, drivers, options, elements, bases, and ECPs; provenance retained; runtime dependencies, versions, binaries, and compilation remain operator-managed. | Complete |
-| 6. Verification | Located structural/scientific findings, solver proofs and counterexamples, assumption accounting, coverage, budgets, and report identity including rule/capability versions. | Complete |
+| 6. Verification | Located structural/scientific findings, solver proofs and counterexamples, assumption accounting, coverage, and explicit verification budgets. | Complete |
 | 7. Construction | Bounded deterministic expansion and solver selection among permitted alternatives; preferences and search exhaustion distinguished from impossibility. | Complete |
 | 8. Scientific coverage | Fundamental calculations, composites and reactions, fragments and counterpoise/many-body methods, finite studies, environments, excited states, and properties with explicit support boundaries. | Complete |
-| 9. Lowering/export | Backend contracts; checked builder lowering; plan/request/proof/manifest/input bundle; hashes and explicit dependency handoffs; no execution or parsed results. | Complete |
+| 9. Lowering/export | Backend contracts; checked builder lowering; plan/request/proof/manifest/input bundle and explicit dependency handoffs; no execution or parsed results. | Complete |
 | 10. AI interface | Targeted capability/contract discovery, construction, verification, explanations, export, CLI/MCP surfaces, concise diagnostics, docs, examples, and agent-facing measures. | Complete |
 
 Verification must include deliberately damaged plans, JSON/schema consistency,
@@ -39,7 +39,7 @@ The focused tests cover:
   fixed model choices, required capability evidence, and exact request locations
   for malformed relationships before candidate search.
 - `test_formal_capabilities.py`: exact combinations, negative support, literal
-  option values and types, orbital occupancy, catalog identity, versionless source
+  option values and types, orbital occupancy, source
   records, and acceptance independent of runtime observations.
 - `test_formal_planning.py`: permitted alternatives and bounded search.
 - `test_formal_catalogs.py`: shared source contracts and independent contributions
@@ -86,12 +86,12 @@ The focused tests cover:
   common thermal state with species-specific symmetry, independent correction
   treatments, rational nested reactions, deliberate scientific errors, and
   finite-case export with preserved native bindings.
-- `test_formal_export.py`: symbolic recipes, bundle hashes, native syntax,
+- `test_formal_export.py`: symbolic recipes, bundle payloads, native syntax,
   and preservation of existing destinations.
 - `test_formal_isolation.py`: native default baselines, hostile global/local
   settings, raw values and changed flags, additional native modules, failure
   restoration, and scope setup independent of skipped branches.
-- `test_formal_workspace.py`: copied record identity, tamper detection, size bounds,
+- `test_formal_workspace.py`: independent record copies, size bounds,
   complete pagination, selected schema closure, and independent export acceptance.
 - `test_formal_stored_inputs.py`: molecular handle reuse, exact metadata and
   independent intent preservation, changed/missing records, aggregate size bounds,
@@ -202,7 +202,7 @@ additional response operations, and state-specific derivatives remain unfinished
 Example 40 saves exact molecular inputs once and reuses them across four request
 templates. Python, CLI, and MCP assemble complete independent requests before
 planning; verification/export continue to consume full molecular inputs.
-Hashes, states, stable IDs, isotopes, ghosts, fragments, units, and frame settings
+States, stable IDs, isotopes, ghosts, fragments, units, and frame settings
 are preserved. The example compares compact upload sizes and equivalent tool calls;
 it does not measure model tokens or agent reliability.
 
@@ -226,11 +226,11 @@ same reference rule, and malformed intent points directly to its supplied field.
 | 2. Scientific model | All seven complete record schemas pass JSON Schema validation. All 85 exported record classes have field descriptions. Schema/JSON, rational, metadata, nuclear, quantity and frame cases cover the typed model. |
 | 3. Operation contracts | Discovery and implemented checks cover six drivers; deliberate state, scalar/tensor, constraint, environment and product errors are rejected. Supported contracts are exercised through the retained examples. |
 | 4. Scientific intent | Intent/reuse tests check omitted work, fixed alternatives, unauthorized sharing and optimized dependencies. Eight malformed relationship cases now identify exact request fields before search; workspace explanations preserve those paths. |
-| 5. Capabilities | An independent contribution is composed, discovered, planned, verified and exported. Removing it leaves support unknown. Its caller assumption and catalogue digest remain in the bundle. Runtime observations never gate acceptance. |
-| 6. Verification | Proof replay, violated formulas, unknown/bounded outcomes, consistency checks and identity tests cover the verifier. Rejected candidates retain their matching context. Fresh verification agrees with all 19 saved bundle identities and coverage records. |
+| 5. Capabilities | An independent contribution is composed, discovered, planned, verified and exported. Removing it leaves support unknown. Its caller assumption and catalogue entries remain in the bundle. Runtime observations never gate acceptance. |
+| 6. Verification | Proof replay, violated formulas, unknown/bounded outcomes, consistency checks cover the verifier. Rejected candidates retain their matching context. Fresh verification checks the saved bundles and their coverage records. |
 | 7. Construction | Planning/reuse tests exercise request-order selection, fixed conflicts, scientific backtracking, explicit sharing and encoding/search limits. No performance-scoring policy remains. |
 | 8. Scientific coverage | All 19 retained bundles pass fresh checks across calculations, composites, reactions, fragments, studies, environments, response and products. Negative cases in the scientific test modules preserve explicit unsupported/unknown boundaries. |
-| 9. Lowering/export | Every saved payload hash passes; native re-export is byte-identical for all 19 bundles. Both relationship-only examples also remain identical. All 21 native inputs preprocess and compile separately. Five native isolation checks pass with observed drivers, including restoration after failure. |
+| 9. Lowering/export | Saved bundle payloads and native re-export are checked for consistency. Both relationship-only examples remain covered. All 21 native inputs preprocess and compile separately. Five native isolation checks pass with observed drivers, including restoration after failure. |
 | 10. AI interface | Python examples, compact CLI/MCP tests, reusable handles and paged findings cover the agent workflow. Examples 28/40 retain actual response/upload sizes. Plugin 0.1.20 has three parsed skills; 330 repository links pass. An independent wheel import plans, verifies, exports and locates invalid intent without importing Psi4. |
 
 The affected proof/request/catalogue/coordinate/construction/export modules pass

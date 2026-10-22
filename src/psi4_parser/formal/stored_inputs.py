@@ -1,6 +1,6 @@
 """Reuse molecular inputs while preserving complete independent scientific intent."""
 
-from typing import Literal, Self
+from typing import Self
 
 from pydantic import Field, model_validator
 
@@ -18,9 +18,6 @@ class StoredMolecule(Record):
     validity; scientific checks occur after assembly into a ScientificRequest.
     """
 
-    schema_version: Literal["1"] = Field(
-        default="1", description="Stored-molecule serialization format version."
-    )
     geometry: Molecule = Field(
         description="Complete builder molecule, including units, atom IDs, states, "
         "fragments, isotope and ghost data, symmetry, and frame settings."
@@ -35,8 +32,8 @@ class MoleculeBinding(Record):
         description="Molecular input name used by this request's goals and relations.",
     )
     molecule: str = Field(
-        pattern=r"^molecule:[a-f0-9]{64}$",
-        description="Workspace-local molecule:SHA256 handle; checked when the "
+        pattern=r"^molecule:[a-f0-9]{32}$",
+        description="Workspace-local molecule:ID handle; checked when the "
         "request is assembled. The stored molecule itself has no input name.",
     )
 
@@ -50,9 +47,6 @@ class RequestTemplate(Record):
     resulting complete request.
     """
 
-    schema_version: Literal["1"] = Field(
-        default="1", description="Request-template serialization format version."
-    )
     molecules: tuple[MoleculeBinding, ...] = Field(
         min_length=1,
         description="Ordered, uniquely named bindings to exact saved molecular inputs.",

@@ -37,18 +37,12 @@ from psi4_parser.formal.science import (
 )
 from psi4_parser.formal.semantics import expression_semantics
 
-# Change this identity whenever the meaning or coverage of a built-in rule changes.
-RULE_VERSION = "scientific-contracts/15"
-
 
 class OperationContract(Record):
     """Discover an operation's prerequisites, effects, and expected products."""
 
     driver: Driver = Field(
         description="Application operation covered by this contract."
-    )
-    version: str = Field(
-        default=RULE_VERSION, description="Version of the operation rules."
     )
     prerequisites: tuple[str, ...] = Field(
         description="Conditions checked before construction."

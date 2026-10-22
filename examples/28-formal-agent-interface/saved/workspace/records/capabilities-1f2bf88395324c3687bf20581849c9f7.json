@@ -1,15 +1,11 @@
 {
-  "schema_version": "1",
   "id": "demonstration-only-not-engine-evidence",
   "application": "psi4",
   "evidence": [
     {
       "id": "teaching-assumptions",
       "source": "examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build",
-      "kind": "declaration",
-      "application_version": "demonstration/1",
-      "build": null,
-      "digest": null
+      "kind": "declaration"
     }
   ],
   "methods": [

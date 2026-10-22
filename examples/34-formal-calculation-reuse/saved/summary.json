@@ -80,6 +80,5 @@
       "status": "covered"
     }
   ],
-  "changed_request_status": "violated",
-  "manifest_digest": "f38212a9a2c1b779bdcbb931a7ba0fb2dffde012aec47654bf97ac70d041157a"
+  "changed_request_status": "violated"
 }

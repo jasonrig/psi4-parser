@@ -189,9 +189,6 @@ class ScientificRequest(Record):
     declared behavior of future optimized geometries.
     """
 
-    schema_version: Literal["1"] = Field(
-        default="1", description="Scientific-request serialization format version."
-    )
     molecules: tuple[MoleculeDeclaration, ...] = Field(
         min_length=1, description="Exact molecular inputs the plan must preserve."
     )

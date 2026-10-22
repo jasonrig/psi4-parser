@@ -2,11 +2,10 @@
   "status": "exported",
   "verification": {
     "reference": {
-      "handle": "verification:e78cfc22b2751d90e210bf38e905843f42144a1d46afac994a5e2865762aaf1a",
+      "handle": "verification:084502cb3787424fa3cb5bf4e5f90129",
       "kind": "verification",
-      "sha256": "e78cfc22b2751d90e210bf38e905843f42144a1d46afac994a5e2865762aaf1a",
-      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-e78cfc22b2751d90e210bf38e905843f42144a1d46afac994a5e2865762aaf1a.json",
-      "bytes": 8482
+      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-084502cb3787424fa3cb5bf4e5f90129.json",
+      "bytes": 8051
     },
     "runtime_policy": "operator_managed",
     "status": "proved",
@@ -21,20 +20,13 @@
     },
     "diagnostic_count": 0,
     "assumption_count": 7,
-    "verification_digest": "40519848be7dfac0f5c00d839a8e919ef8d3206294c93379a87cf074a942a620",
-    "rule_version": "scientific-contracts/15",
-    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-    "request_digest": "e2bb45dc20600c8855e061e726d691e880b45ee4ab902a1011b1e7c99e1669e4",
-    "plan_digest": "01db1464c064251e3bfb937b87696e04c374a268f7000784dcdfa8c6082e96cc",
     "required_components": []
   },
   "directory": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/bundle",
   "manifest_path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/bundle/manifest.json",
-  "manifest_digest": "ef705632ea9c4d4e6b03df75be3850922de7b8ba04e2c3ba62809c6f79b0d0e1",
   "native_inputs": [
     "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/bundle/inputs/workflow.dat"
   ],
-  "backend_version": "psi4-builder/8",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation"
 }

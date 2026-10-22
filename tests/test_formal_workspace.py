@@ -1,6 +1,5 @@
 """Check reusable records, compact explanations, and independent export acceptance."""
 
-import hashlib
 from pathlib import Path
 
 import pytest
@@ -40,8 +39,8 @@ def _request(count: int = 1) -> ScientificRequest:
     )
 
 
-def test_imported_records_are_stable_copies_and_hash_checked(tmp_path: Path) -> None:
-    """Retain input identity after source edits and reject modified cached bytes.
+def test_imported_records_are_reusable_copies(tmp_path: Path) -> None:
+    """Keep saved inputs independent of their source and preserve handles on reopen.
 
     Args:
         tmp_path: External request file and persistent workspace.
@@ -54,19 +53,17 @@ def test_imported_records_are_stable_copies_and_hash_checked(tmp_path: Path) -> 
     reference = workspace.import_file("request", path)
     same = workspace.import_json("request", request.model_dump_json(indent=2))
 
-    assert reference == same
-    assert (
-        reference.sha256
-        == hashlib.sha256(Path(reference.path).read_bytes()).hexdigest()
-    )
+    assert Path(reference.path).read_bytes() == Path(same.path).read_bytes()
+    assert "sha256" not in type(reference).model_fields
     path.write_text("changed original")
     reopened = PlanningWorkspace(workspace.directory)
     assert reopened.reference(reference.handle) == reference
+    assert (
+        ScientificRequest.model_validate_json(Path(reference.path).read_bytes())
+        == request
+    )
     with pytest.raises(ValueError, match="Expected plan"):
         reopened.resolve("plan", reference.handle)
-    Path(reference.path).write_text("changed cached bytes")
-    with pytest.raises(ValueError, match="content no longer matches"):
-        reopened.reference(reference.handle)
 
 
 @pytest.mark.parametrize("source", [False, True])
@@ -195,7 +192,6 @@ def test_export_reverifies_the_independent_request_and_preserves_existing_files(
         proposal.plan.handle, request.handle, catalog.handle, tmp_path / "bundle"
     )
     assert exported.status == "exported"
-    assert exported.backend_version == "psi4-builder/8"
     assert exported.namespace_policy == "restore_after_calculation"
     assert exported.option_policy == "native_defaults_per_calculation"
     assert exported.verification.request_complete

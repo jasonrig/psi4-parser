@@ -53,6 +53,5 @@
   "rejections": {
     "wrong-family": "no_candidate",
     "wrong-weights": "no_candidate"
-  },
-  "manifest_digest": "0770297ee7c2c0f67cb5126ae575df4c945071da92f2ffb9706ec93375d653bd"
+  }
 }

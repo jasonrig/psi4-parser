@@ -1,7 +1,6 @@
 {
   "status": "constructed",
   "plan": {
-    "schema_version": "2",
     "molecules": [
       {
         "comments": [],
@@ -306,7 +305,7 @@
         "geometry": "waters",
         "model": {
           "method": "hf",
-          "basis": "sto-3g",
+          "basis": "cc-pvdz",
           "reference": "rhf",
           "frozen_core": false,
           "puream": true,
@@ -348,8 +347,6 @@
     "status": "proved",
     "runtime_policy": "operator_managed",
     "capability_status": "supported",
-    "plan_digest": "18d48c8aed712638afe0efb10d2c7cac9510e21d7bcfd1b064e4780fb4832016",
-    "solver_version": "5.3.1",
     "diagnostics": [],
     "obligations": [
       {
@@ -360,7 +357,7 @@
         ],
         "status": "proved",
         "message": "Require energy to consume geometry waters.",
-        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
         "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 115)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"waters\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"waters\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"waters\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"waters\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"waters\") false))))\n  (mp (asserted (distinct geometry_0 \"waters\")) a!8 false)))))))",
         "counterexample": []
       },
@@ -373,7 +370,7 @@
         ],
         "status": "proved",
         "message": "Require energy to consume geometry waters.",
-        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
+        "smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun geometry_0 () String)\n(declare-fun model_0 () String)\n(assert\n (let (($x9 (and (distinct geometry_0 \"waters\") true)))\n (not $x9)))\n(assert\n (let (($x67 (and (distinct model_0 \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true)))\n (not $x67)))\n(assert\n (and (distinct geometry_0 \"waters\") true))\n(check-sat)\n",
         "proof": "(let ((a!1 (str.++ (seq.unit (_ Char 119))\n                   (seq.unit (_ Char 97))\n                   (seq.unit (_ Char 116))\n                   (seq.unit (_ Char 101))\n                   (seq.unit (_ Char 114))\n                   (seq.unit (_ Char 115)))))\n(let ((a!2 (rewrite (= (distinct geometry_0 a!1) (not (= geometry_0 a!1)))))\n      (a!4 (= (not (distinct geometry_0 \"waters\"))\n              (not (not (= geometry_0 a!1)))))\n      (a!5 (= (not (not (= geometry_0 a!1))) (= geometry_0 a!1))))\n(let ((a!3 (trans (monotonicity (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct geometry_0 a!1)))\n                  a!2\n                  (= (distinct geometry_0 \"waters\") (not (= geometry_0 a!1))))))\n(let ((a!6 (trans (monotonicity a!3 a!4)\n                  (rewrite a!5)\n                  (= (not (distinct geometry_0 \"waters\")) (= geometry_0 a!1)))))\n(let ((a!7 (mp (asserted (not (distinct geometry_0 \"waters\")))\n               a!6\n               (= geometry_0 a!1))))\n(let ((a!8 (trans (monotonicity a!7\n                                (rewrite (= \"waters\" a!1))\n                                (= (distinct geometry_0 \"waters\")\n                                   (distinct a!1 a!1)))\n                  (rewrite (= (distinct a!1 a!1) false))\n                  (= (distinct geometry_0 \"waters\") false))))\n  (mp (asserted (distinct geometry_0 \"waters\")) a!8 false)))))))",
         "counterexample": []
       }
@@ -387,7 +384,6 @@
       "Primary return values have the declared quantity types; their physical interpretation depends on application capability evidence.",
       "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims."
     ],
-    "rule_version": "scientific-contracts/15",
     "geometries": [
       {
         "id": "waters",
@@ -433,7 +429,7 @@
         "geometry": "waters",
         "model": {
           "method": "hf",
-          "basis": "sto-3g",
+          "basis": "cc-pvdz",
           "reference": "rhf",
           "frozen_core": false,
           "puream": true,
@@ -467,7 +463,6 @@
     "native_outputs": [],
     "native_variables": [],
     "required_components": [],
-    "request_digest": "c8506c52e281bd5dfb931f646941e15baac75585fd10397cf7f23f71e07d5b6e",
     "scope": "scientific_request",
     "coverage": [
       {
@@ -479,15 +474,13 @@
       }
     ],
     "request_complete": true,
-    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
     "limits": {
       "timeout_ms": 1000,
       "resource_limit": 0,
       "max_steps": 10000,
       "max_obligations": 10000,
-      "total_timeout_ms": 29933
-    },
-    "verification_digest": "a822c4674aa858a396f035be6d08563081e8a8d2a2dc6e870b903cee1481a5ff"
+      "total_timeout_ms": 29986
+    }
   },
   "attempts": 1,
   "choices": [
@@ -495,7 +488,7 @@
       "goal": "energy",
       "model": {
         "method": "hf",
-        "basis": "sto-3g",
+        "basis": "cc-pvdz",
         "reference": "rhf",
         "frozen_core": false,
         "puream": true,
@@ -520,7 +513,7 @@
     }
   ],
   "diagnostics": [],
-  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"sto-3g\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n goal_0_choice_0)\n(check-sat)\n",
+  "selection_smt2": "; benchmark generated from python API\n(set-info :status unknown)\n(declare-fun goal_0_choice_0 () Bool)\n(declare-fun goal_0_model () String)\n(declare-fun goal_0_route () String)\n(assert\n (or goal_0_choice_0))\n(assert\n ((_ at-most 1) goal_0_choice_0))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_model \"[\"\"hf\"\",\"\"cc-pvdz\"\",\"\"rhf\"\",false,true,[],[],[],null,null,null,null,null,[[[\"\"\"\",\"\"scf_type\"\"],\"\"{\\\"\"value\\\"\":\\\"\"PK\\\"\"}\"\"]]]\") true))))\n(assert\n (=> goal_0_choice_0 (not (and (distinct goal_0_route \"automatic\") true))))\n(assert\n goal_0_choice_0)\n(check-sat)\n",
   "preferences": {
     "calculation_reuse": "prefer"
   },

@@ -20,8 +20,7 @@ STO-3G basis illustrate the API, rather than a research recommendation.
 
 Inspect the [summary](saved/summary.json), [request](saved/bundle/scientific-request.json),
 and [manifest](saved/bundle/manifest.json). The manifest records
-`option_policy="native_defaults_per_calculation"` and backend version
-`psi4-builder/6`. The [input](saved/bundle/inputs/workflow.dat) contains a standalone
+`option_policy="native_defaults_per_calculation"`. The [input](saved/bundle/inputs/workflow.dat) contains a standalone
 native option helper, with no parser-library runtime dependency.
 The summary and manifest also record
 `namespace_policy="restore_after_calculation"`: cleanup restores the IO

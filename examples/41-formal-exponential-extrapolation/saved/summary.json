@@ -3,7 +3,6 @@
   "mandatory_goals": 16,
   "driver_calls": 5,
   "shared_calls": 2,
-  "manifest_digest": "c33f8fe9e1947e2bed595aacfe5b99e8bcdde7d1b3f3ed01751615f904d434d6",
   "wrong_weight_status": "no_candidate",
   "coefficient_bound": "Absolute error at most 1e-18 per exponential weight",
   "scope": "Construction and symbolic formulas; physical convergence assumed"

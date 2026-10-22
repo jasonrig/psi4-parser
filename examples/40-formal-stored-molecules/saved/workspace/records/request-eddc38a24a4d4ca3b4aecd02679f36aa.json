@@ -1,5 +1,4 @@
 {
-  "schema_version": "2",
   "molecules": [
     {
       "comments": [],
@@ -295,60 +294,47 @@
       }
     }
   ],
-  "steps": [
+  "goals": [
     {
-      "kind": "calculation",
+      "kind": "calculate",
       "id": "energy",
       "driver": "energy",
-      "sapt": null,
       "geometry": "waters",
-      "model": {
-        "method": "mp2",
-        "basis": "sto-3g",
-        "reference": "rhf",
-        "frozen_core": false,
-        "puream": true,
-        "basis_assignments": [],
-        "auxiliary_bases": [],
-        "ecps": [],
-        "environment": null,
-        "external_potential": null,
-        "electric_field": null,
-        "electronic_target": null,
-        "tdscf": null,
-        "settings": [
-          {
-            "name": "scf_type",
-            "value": "PK",
-            "module": null
-          },
-          {
-            "name": "mp2_type",
-            "value": "CONV",
-            "module": null
-          },
-          {
-            "name": "qc_module",
-            "value": "OCC",
-            "module": null
-          }
-        ]
-      },
-      "constraints": [],
-      "quantity": null,
-      "derivative_route": "automatic",
-      "properties": [],
-      "satisfies": [
-        "energy"
+      "models": [
+        {
+          "method": "hf",
+          "basis": "cc-pvdz",
+          "reference": "rhf",
+          "frozen_core": false,
+          "puream": true,
+          "basis_assignments": [],
+          "auxiliary_bases": [],
+          "ecps": [],
+          "environment": null,
+          "external_potential": null,
+          "electric_field": null,
+          "electronic_target": null,
+          "tdscf": null,
+          "settings": [
+            {
+              "name": "scf_type",
+              "value": "PK",
+              "module": null
+            }
+          ]
+        }
       ],
-      "analysis": null
+      "quantity": null,
+      "constraints": [],
+      "derivative_routes": [
+        "automatic"
+      ],
+      "properties": [],
+      "reason": "Requested calculation",
+      "analysis": null,
+      "reuse_group": null,
+      "sapt": null
     }
   ],
-  "requirements": [
-    {
-      "kind": "uses_geometry",
-      "calculation": "energy",
-      "geometry": "waters"
-    }
-  ]
+  "relations": []
 }

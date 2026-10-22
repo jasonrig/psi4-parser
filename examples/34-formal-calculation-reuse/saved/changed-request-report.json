@@ -2,8 +2,6 @@
   "status": "violated",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f",
-  "solver_version": "5.3.1",
   "diagnostics": [
     {
       "path": [
@@ -166,7 +164,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "Native harmonic/thermal analysis is applied as requested; stationary-point character, imaginary-mode handling, symmetry number, and RRHO suitability remain scientific assumptions."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "water",
@@ -485,8 +482,8 @@
     {
       "producer": "spectrum_analysis",
       "format": "psi4_vibrec",
-      "label": "formal_5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f_1",
-      "filename_template": "formal_5a4d1b03bbb703826470cb24b81ad3147b2689c766b1b05986a6107c19d4891f_1.{pid}.vibrec",
+      "label": "formal_1",
+      "filename_template": "formal_1.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -505,15 +502,12 @@
   "native_variables": [],
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
-  "request_digest": "ad1db0fe399a0226bfa70581b534841e516dd7349d3e94571a7064081590c093",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -574,13 +568,11 @@
     }
   ],
   "request_complete": false,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "eea9ce85bba9804d713d07b488120a08f359dec86e5b01e3727cfda69e5d4083"
+  }
 }

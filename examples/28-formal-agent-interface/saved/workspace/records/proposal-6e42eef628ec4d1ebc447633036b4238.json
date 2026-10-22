@@ -1,7 +1,6 @@
 {
   "status": "constructed",
   "plan": {
-    "schema_version": "2",
     "molecules": [
       {
         "comments": [],
@@ -811,8 +810,6 @@
     "status": "proved",
     "runtime_policy": "operator_managed",
     "capability_status": "supported",
-    "plan_digest": "99bee92ce773e66c3c2919672c58e8a807a71c1025bffaf4591b1ac064fa3bec",
-    "solver_version": "5.3.1",
     "diagnostics": [],
     "obligations": [
       {
@@ -1181,7 +1178,6 @@
       "Coordinate measurements use floating-point geometry and unit conversions; caller tolerances define accepted input differences. Future coordinate bounds assume successful enforcement of the declared optimizer constraints.",
       "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build"
     ],
-    "rule_version": "scientific-contracts/15",
     "geometries": [
       {
         "id": "r3:cluster",
@@ -1729,7 +1725,6 @@
     "native_outputs": [],
     "native_variables": [],
     "required_components": [],
-    "request_digest": "ae346ddc4f6652fb2b0f47f37457319b1af68c366e081a128e281e1699a9f0af",
     "scope": "scientific_request",
     "coverage": [
       {
@@ -1846,15 +1841,13 @@
       }
     ],
     "request_complete": true,
-    "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
     "limits": {
       "timeout_ms": 1000,
       "resource_limit": 0,
       "max_steps": 10000,
       "max_obligations": 10000,
       "total_timeout_ms": 29989
-    },
-    "verification_digest": "67da7020dfbd7b07541eda053483fd5843b5226055a0cb71ce4a93a644e2a977"
+    }
   },
   "attempts": 1,
   "choices": [

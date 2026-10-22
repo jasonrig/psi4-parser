@@ -106,13 +106,17 @@ def test_reused_geometry_yields_the_exact_independent_request(tmp_path: Path) ->
 
     materialized = workspace.materialize_request(template.handle)
 
-    assert saved == same
-    assert materialized == direct
+    assert Path(saved.path).read_bytes() == Path(same.path).read_bytes()
+    assert Path(materialized.path).read_bytes() == Path(direct.path).read_bytes()
     # A copied workspace remains usable without its original absolute paths.
     relocated = tmp_path / "relocated"
     workspace.directory.rename(relocated)
     reopened = PlanningWorkspace(relocated)
-    assert reopened.materialize_request(template.handle).handle == direct.handle
+    assembled = reopened.materialize_request(template.handle)
+    assert (
+        Path(assembled.path).read_bytes()
+        == Path(reopened.reference(direct.handle).path).read_bytes()
+    )
     proposal = reopened.propose(direct.handle)
     assert proposal.status == "constructed"
     assert proposal.verification is not None
@@ -172,7 +176,7 @@ def test_molecular_metadata_survives_materialization(tmp_path: Path) -> None:
 def test_changed_or_missing_dependencies_cannot_be_materialized(
     tmp_path: Path, damage: str
 ) -> None:
-    """Reject changed saved bytes or a missing molecule without saving a request.
+    """Reject malformed saved records or a missing molecule without saving a request.
 
     Args:
         tmp_path: Workspace whose imported copy is deliberately damaged.
@@ -190,7 +194,7 @@ def test_changed_or_missing_dependencies_cannot_be_materialized(
     else:
         path.write_text("{}")
         error = ValueError
-        message = "content no longer matches"
+        message = "Field required"
 
     with pytest.raises(error, match=message):
         workspace.materialize_request(template.handle)
@@ -249,7 +253,7 @@ def test_assembled_size_bound_cannot_be_bypassed_by_small_handles(
         RequestTemplate(
             molecules=(
                 *bindings,
-                MoleculeBinding(name="unread", molecule="molecule:" + "a" * 64),
+                MoleculeBinding(name="unread", molecule="molecule:" + "a" * 32),
             ),
             goals=(_goal("input_0"),),
         ).model_dump_json(),
@@ -266,11 +270,11 @@ def test_assembled_size_bound_cannot_be_bypassed_by_small_handles(
 
 def test_template_names_and_handle_kinds_are_unambiguous() -> None:
     """Reject duplicate input names and handles for non-molecular records."""
-    binding = MoleculeBinding(name="h2", molecule="molecule:" + "a" * 64)
+    binding = MoleculeBinding(name="h2", molecule="molecule:" + "a" * 32)
     with pytest.raises(ValidationError, match="names must be unique"):
         RequestTemplate(molecules=(binding, binding), goals=(_goal(),))
     with pytest.raises(ValidationError, match="string_pattern_mismatch"):
-        MoleculeBinding(name="h2", molecule="request:" + "a" * 64)
+        MoleculeBinding(name="h2", molecule="request:" + "a" * 32)
 
 
 def test_template_and_molecule_are_not_accepted_as_complete_requests(
@@ -304,10 +308,10 @@ def test_stored_input_schemas_are_discoverable_and_closed() -> None:
     validator = Draft202012Validator(selected.json_schema)
     validator.check_schema(selected.json_schema)
     template = RequestTemplate(
-        molecules=(MoleculeBinding(name="h2", molecule="molecule:" + "a" * 64),),
+        molecules=(MoleculeBinding(name="h2", molecule="molecule:" + "a" * 32),),
         goals=(_goal(),),
     )
     value = TypeAdapter(JsonValue).validate_json(
-        template.model_dump_json(exclude={"schema_version", "relations"})
+        template.model_dump_json(exclude={"relations"})
     )
     assert validator.is_valid(value)

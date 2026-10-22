@@ -114,7 +114,6 @@ def test_verification_budgets_remain_undecided() -> None:
 
     assert report.status == "unknown"
     assert report.limits.max_steps == 1
-    assert report.verification_digest
     assert report.diagnostics[0].code == "verification_budget"
 
 

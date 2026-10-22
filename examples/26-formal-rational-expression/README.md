@@ -26,6 +26,6 @@ energy. [unsupported-meaning.json](saved/unsupported-meaning.json) records
 `no_candidate` with an `unsupported` verification report: matching scalar units
 and correct algebra cannot supply the missing thermochemical contract.
 
-Bundle payloads are hashed. The sibling request, summary, and rejection record
+The manifest lists the bundle payloads. The sibling request, summary, and rejection record
 are teaching artifacts outside that manifest. The example performs no
 calculations and requires an unused output directory.

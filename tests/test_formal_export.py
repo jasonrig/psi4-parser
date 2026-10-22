@@ -1,6 +1,5 @@
 """Export construction artifacts without executing jobs or accepting their results."""
 
-import hashlib
 from pathlib import Path
 
 import pytest
@@ -46,10 +45,10 @@ def expression_request() -> ScientificRequest:
     )
 
 
-def test_bundle_binds_request_plan_proof_and_native_input(
+def test_bundle_exports_request_plan_products_and_native_input(
     tmp_path: Path, formal_profile: CapabilityCatalog
 ) -> None:
-    """Export dependencies and recipes with independently checked hashes.
+    """Export scientific handoffs and readable files without lineage metadata.
 
     Args:
         tmp_path: Isolated parent for the exported bundle.
@@ -71,19 +70,31 @@ def test_bundle_binds_request_plan_proof_and_native_input(
         ).option_policy
         is None
     )
-    assert exported.manifest_digest == hashlib.sha256(manifest_bytes).hexdigest()
-    for item in manifest.files:
-        assert (
-            hashlib.sha256((destination / item.path).read_bytes()).hexdigest()
-            == item.sha256
-        )
+    assert "backend_version" not in type(manifest).model_fields
+    assert "manifest_digest" not in type(exported).model_fields
+    assert set(manifest.files) == {
+        "scientific-request.json",
+        "calculation-plan.json",
+        "capabilities.json",
+        "verification.json",
+        "inputs/workflow.dat",
+    }
+    assert all((destination / name).is_file() for name in manifest.files)
     assert (
         Plan.model_validate_json((destination / "calculation-plan.json").read_text())
         == proposal.plan
     )
     report = Report.model_validate_json((destination / "verification.json").read_text())
     assert report.request_complete
-    assert report.verification_digest == manifest.verification_digest
+    assert report.coverage == manifest.goal_coverage
+    assert {
+        "plan_digest",
+        "request_digest",
+        "capability_digest",
+        "verification_digest",
+        "solver_version",
+        "rule_version",
+    }.isdisjoint(type(report).model_fields)
     assert manifest.expressions[0].id == "difference"
     assert manifest.quantities[-1].operands == ("a", "b")
     assert manifest.quantities[-1].system is None

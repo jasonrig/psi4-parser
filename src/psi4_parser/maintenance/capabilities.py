@@ -1,6 +1,5 @@
 """Collect reviewed engine metadata and curate a conditional capability snapshot."""
 
-import hashlib
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -41,27 +40,15 @@ from psi4_parser.maintenance.capability_reference import (
     AUDITED_COMMIT,
     BASIS_ELEMENTS,
     BASIS_ROLES,
-    BASIS_SOURCES,
-    PYTHON_SOURCES,
 )
 from psi4_parser.maintenance.tdscf_contracts import tdscf_catalog
 
 _CATALOG_ID = "psi4"
 _SOURCE_URL = f"https://github.com/psi4/psi4/blob/{AUDITED_COMMIT}/"
-_OPTIONS_SHA256 = "4c90f0223e9a0203b8dc626ec0976ccb27dbd555d0f2f7c2d5070d590c26f093"
 _PROBE_SOURCE = (
     f"package://psi4_parser.formal.catalogs/{_CATALOG_ID}/reference-audit.json"
 )
 _DERIVATIVE_LEVELS = 3
-
-
-class SourceFingerprint(Record):
-    """Bind an inspected engine source or basis definition to its bytes."""
-
-    path: str = Field(
-        description="Path within the installed Python or basis directory."
-    )
-    sha256: str = Field(pattern=r"^[a-f0-9]{64}$", description="Source file SHA-256.")
 
 
 class InspectedBasis(Record):
@@ -98,27 +85,8 @@ class InspectedRoute(Record):
 
 
 class CapabilityAudit(Record):
-    """Retain reproducible metadata evidence for one reviewed engine binary."""
+    """Retain measured basis dimensions and non-computing routing observations."""
 
-    application_version: str = Field(description="Psi4 release/development version.")
-    version_long: str = Field(description="Version with source revision suffix.")
-    source_commit: str = Field(description="Reviewed complete source commit.")
-    core_sha256: str = Field(
-        pattern=r"^[a-f0-9]{64}$", description="Native core binary SHA-256."
-    )
-    python_version: str = Field(
-        description="Interpreter version used for the inspection."
-    )
-    platform: str = Field(description="Operating-system and architecture description.")
-    audit_sha256: str = Field(
-        pattern=r"^[a-f0-9]{64}$", description="Inspection script SHA-256."
-    )
-    python_sources: tuple[SourceFingerprint, ...] = Field(
-        description="Verified Python source bytes."
-    )
-    basis_sources: tuple[SourceFingerprint, ...] = Field(
-        description="Verified basis definition bytes."
-    )
     basis_dimensions: tuple[InspectedBasis, ...] = Field(
         description="Measured orbital dimensions."
     )
@@ -128,9 +96,6 @@ class CapabilityAudit(Record):
     )
     ddx_available: bool = Field(
         default=False, description="The reviewed Psi4 DDX interface imported pyddx."
-    )
-    pyddx_version: str | None = Field(
-        default=None, description="Optional pyddx distribution version; null if absent."
     )
     ddx_solvents: tuple[str, ...] = Field(
         default=(), description="Available named static dielectric lookups."
@@ -144,10 +109,6 @@ class CapabilityAudit(Record):
     )
     libint2: dict[str, tuple[int | None, ...]] = Field(
         description="Compiled integral angular limits."
-    )
-    optking_version: str = Field(description="Imported optimizer distribution version.")
-    qcelemental_version: str = Field(
-        description="Native vibration-record Datum serializer distribution version."
     )
     oeprop_methods: tuple[str, ...] = Field(
         description="Registered one-electron property names."
@@ -164,10 +125,10 @@ def inspect_capabilities(
         timeout: Positive inspection timeout in seconds, default 120.
 
     Returns:
-        Validated source hashes, routing probes, basis dimensions, and build identity.
+        Validated routing observations and measured basis dimensions.
 
     Raises:
-        ValueError: The engine, source bytes, or inspection result fails the audit.
+        ValueError: The inspection fails or its scientific observations are incomplete.
     """
     if timeout <= 0:
         raise ValueError("Use a positive inspection timeout")
@@ -185,12 +146,7 @@ def inspect_capabilities(
         raise ValueError(
             f"Engine capability inspection failed: {completed.stderr[-2000:]}"
         )
-    audit = CapabilityAudit.model_validate_json(completed.stdout)
-    if audit.source_commit != AUDITED_COMMIT:
-        raise ValueError("Inspection did not use the reviewed source revision")
-    if audit.audit_sha256 != hashlib.sha256(reference.read_bytes()).hexdigest():
-        raise ValueError("Inspection script changed while the audit was running")
-    return audit
+    return CapabilityAudit.model_validate_json(completed.stdout)
 
 
 def _quantity(driver: Driver) -> QuantityType:
@@ -504,21 +460,6 @@ def _sapt_methods() -> tuple[MethodCapability, ...]:
     )
 
 
-def _check_fingerprints(audit: CapabilityAudit) -> None:
-    for actual, expected in (
-        (audit.python_sources, PYTHON_SOURCES),
-        (
-            audit.basis_sources,
-            {f"{name}.gbs": value for name, value in BASIS_SOURCES.items()},
-        ),
-    ):
-        if (
-            len(actual) != len(expected)
-            or {item.path: item.sha256 for item in actual} != expected
-        ):
-            raise ValueError("Curation requires the reviewed source fingerprints")
-
-
 def _check_dimensions(audit: CapabilityAudit) -> None:
     expected = {
         (basis, role, element)
@@ -572,27 +513,14 @@ def _check_routing(audit: CapabilityAudit) -> None:
 
 
 def _validate_audit(audit: CapabilityAudit) -> None:
-    if audit.qcelemental_version != "0.51.3":
-        raise ValueError(
-            "Curation requires the reviewed QCEElemental Datum serialization version"
-        )
-    if audit.source_commit != AUDITED_COMMIT:
-        raise ValueError("Curation requires the reviewed application revision")
-    reference = Path(__file__).with_name("capability_reference.py")
-    if audit.audit_sha256 != hashlib.sha256(reference.read_bytes()).hexdigest():
-        raise ValueError("Curation requires the reviewed inspection script")
-    _check_fingerprints(audit)
     _check_dimensions(audit)
     _check_routing(audit)
     if audit.ddx_available and (
-        audit.pyddx_version is None
-        or not audit.ddx_solvents
+        not audit.ddx_solvents
         or set(audit.ddx_radii_elements) != {"uff", "bondi"}
         or any(not values for values in audit.ddx_radii_elements.values())
     ):
-        raise ValueError(
-            "Curation requires DDX version, solvent, and cavity table metadata"
-        )
+        raise ValueError("Curation requires DDX solvent and cavity table metadata")
     if set(audit.libint2) != {"onebody", "eri", "eri2", "eri3"} or any(
         len(limits) != _DERIVATIVE_LEVELS
         or any(limit is not None and limit < 0 for limit in limits)
@@ -771,19 +699,16 @@ def curate_catalog(audit: CapabilityAudit) -> CapabilityCatalog:
     or catalog. Each entry retains its own source provenance.
 
     Args:
-        audit: Metadata collected by the source-pinned standalone inspector.
+        audit: Basis and routing facts collected by the standalone inspector.
 
     Returns:
         Release-independent scientific/input contracts from the reviewed sources.
 
     Raises:
-        ValueError: Source fingerprints, probe conditions, or metadata are incomplete
-            or differ from the reviewed scope.
+        ValueError: Probe conditions or scientific metadata are incomplete
+            or differ from the supported scope.
     """  # noqa: DOC502 - _validate_audit enforces the documented evidence errors.
     _validate_audit(audit)
-    build = f"sha256:{audit.core_sha256}"
-    audit_bytes = (audit.model_dump_json(indent=2) + "\n").encode()
-    hashes = {item.path: item.sha256 for item in audit.python_sources}
     evidence = (
         Evidence(
             id="documentation-pcmsolver-input",
@@ -794,114 +719,68 @@ def curate_catalog(audit: CapabilityAudit) -> CapabilityCatalog:
             id="source-pcm-input",
             source=_SOURCE_URL + "psi4/driver/p4util/python_helpers.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/p4util/python_helpers.py"],
         ),
         Evidence(
             id="source-ddx",
             source=_SOURCE_URL + "psi4/driver/procrouting/solvent/ddx.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/procrouting/solvent/ddx.py"],
         ),
         Evidence(
             id="source-scf-iteration",
             source=_SOURCE_URL + "psi4/driver/procrouting/scf_proc/scf_iterator.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/procrouting/scf_proc/scf_iterator.py"],
         ),
         Evidence(
             id="source-sapt-molecule",
             source=_SOURCE_URL + "psi4/driver/procrouting/proc_util.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/procrouting/proc_util.py"],
         ),
         Evidence(
             id="source-sapt-components",
             source=_SOURCE_URL + "psi4/driver/qcdb/psivardefs.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/qcdb/psivardefs.py"],
         ),
         Evidence(
             id="source-basis-sequences",
             source=_SOURCE_URL + "psi4/driver/driver_cbs.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/driver_cbs.py"],
         ),
         Evidence(
             id="source-extrapolation",
             source=_SOURCE_URL + "psi4/driver/driver_cbs_helper.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/driver_cbs_helper.py"],
         ),
         Evidence(
             id="source-native-writer",
             source=_SOURCE_URL + "psi4/src/psi4/libmints/get_writer_file_prefix.cc",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest="53ed270125111059e6f157d7a60c5582706f4ba7300abc5f717727151bb18ed0",
         ),
         Evidence(
             id="source-vibrations",
             source=_SOURCE_URL + "psi4/driver/qcdb/vib.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/qcdb/vib.py"],
         ),
         Evidence(
             id="source-oeprop",
             source=_SOURCE_URL + "psi4/src/psi4/libmints/oeprop.cc",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest="c1f250d525d937e1a2203fabaaff48fda5b1c97f439eac3d0efb80420801e004",
         ),
         Evidence(
             id="source-procedures",
             source=_SOURCE_URL + "psi4/driver/procrouting/proc.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/procrouting/proc.py"],
         ),
         Evidence(
             id="source-driver",
             source=_SOURCE_URL + "psi4/driver/driver.py",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashes["driver/driver.py"],
         ),
         Evidence(
             id="source-options",
             source=_SOURCE_URL + "psi4/src/read_options.cc",
             kind="source",
-            application_version=audit.application_version,
-            build=build,
-            digest=_OPTIONS_SHA256,
         ),
-        Evidence(
-            id="runtime-metadata",
-            source=_PROBE_SOURCE,
-            kind="probe",
-            application_version=audit.application_version,
-            build=build,
-            digest=hashlib.sha256(audit_bytes).hexdigest(),
-        ),
+        Evidence(id="runtime-metadata", source=_PROBE_SOURCE, kind="probe"),
     )
     bases = tuple(
         BasisCapability(
@@ -1017,27 +896,19 @@ def curate_catalog(audit: CapabilityAudit) -> CapabilityCatalog:
         components=(
             ComponentCapability(
                 name="pyddx",
-                version=audit.pyddx_version,
                 status="supported" if audit.ddx_available else "unsupported",
                 evidence=("runtime-metadata",),
             ),
             ComponentCapability(
                 name="sapt",
-                version=audit.application_version,
                 status="supported" if audit.native_sapt_available else "unsupported",
                 evidence=("runtime-metadata",),
             ),
             ComponentCapability(
-                name="qcelemental",
-                version=audit.qcelemental_version,
-                status="supported",
-                evidence=("runtime-metadata",),
+                name="qcelemental", status="supported", evidence=("runtime-metadata",)
             ),
             ComponentCapability(
-                name="optking",
-                version=audit.optking_version,
-                status="supported",
-                evidence=("runtime-metadata",),
+                name="optking", status="supported", evidence=("runtime-metadata",)
             ),
         ),
         environments=tuple(

@@ -173,7 +173,6 @@ def main() -> None:
             for item in exported.manifest.goal_coverage
         ],
         "changed_request_status": rejection.status,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

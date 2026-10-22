@@ -149,12 +149,9 @@ def main() -> None:
         "calls": sum(isinstance(step, Calculation) for step in proposal.plan.steps),
         "runtime_policy": bundle.manifest.runtime_policy,
         "required_components": [
-            {"name": item.name, "version": item.version}
-            for item in bundle.manifest.required_components
+            {"name": item.name} for item in bundle.manifest.required_components
         ],
         "wrong_weight_status": rejected.status,
-        "backend_version": bundle.manifest.backend_version,
-        "manifest_digest": bundle.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

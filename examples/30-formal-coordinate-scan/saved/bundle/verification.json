@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "96c4d0bc243d28d75dcc0d63fee126956e95283c1bcd8abae97559c4aa95031a",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -119,7 +117,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "Coordinate measurements use floating-point geometry and unit conversions; caller tolerances define accepted input differences. Future coordinate bounds assume successful enforcement of the declared optimizer constraints."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "short:water",
@@ -268,11 +265,9 @@
   "native_variables": [],
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     }
   ],
-  "request_digest": "1785ab394bded378eaed65cea6a9903df7e91f3bde21cf57eae570a4b972aac3",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -291,13 +286,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "0e2d1e7a4d05c81bb1a96131f6fb2f4cfdd2b4b742a799488b3a8830589b15d6"
+  }
 }

@@ -5,8 +5,6 @@
     "status": "unsupported",
     "runtime_policy": "operator_managed",
     "capability_status": "unsupported",
-    "plan_digest": "d22e1644835cf1d06ecad1551f4b8851be877fc0d8f3e91d7fb224c70c7b0644",
-    "solver_version": "5.3.1",
     "diagnostics": [
       {
         "path": [
@@ -158,7 +156,6 @@
       "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
       "Declared capability assumption teaching-assumptions: examples/README.md: synthetic assumptions for formal examples; not evidence for any installed Psi4 build"
     ],
-    "rule_version": "scientific-contracts/15",
     "geometries": [
       {
         "id": "h2",
@@ -325,7 +322,6 @@
     "native_outputs": [],
     "native_variables": [],
     "required_components": [],
-    "request_digest": "c563b88574d0fe833346ac0f65f9d771717fbd7be768cad77d0941801f369282",
     "scope": "scientific_request",
     "coverage": [
       {
@@ -351,15 +347,13 @@
       }
     ],
     "request_complete": false,
-    "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
     "limits": {
       "timeout_ms": 1000,
       "resource_limit": 0,
       "max_steps": 10000,
       "max_obligations": 10000,
-      "total_timeout_ms": 29991
-    },
-    "verification_digest": "0d472e3e4998fe04517a07efdfb53cc75f8ae62a89462153ef0cd60e94a39141"
+      "total_timeout_ms": 29990
+    }
   },
   "attempts": 1,
   "choices": [],
@@ -377,7 +371,6 @@
   },
   "reuses": [],
   "last_candidate": {
-    "schema_version": "2",
     "molecules": [
       {
         "comments": [],

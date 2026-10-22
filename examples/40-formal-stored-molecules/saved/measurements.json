@@ -1,24 +1,24 @@
 {
   "requests": 4,
   "molecule_uploads": 1,
-  "molecular_input_upload_bytes": 2828,
-  "request_template_upload_bytes": 3068,
-  "handle_workflow_upload_bytes": 5896,
-  "equivalent_inline_request_upload_bytes": 14072,
-  "upload_bytes_saved": 8176,
+  "molecular_input_upload_bytes": 2807,
+  "request_template_upload_bytes": 2856,
+  "handle_workflow_upload_bytes": 5663,
+  "equivalent_inline_request_upload_bytes": 13988,
+  "upload_bytes_saved": 8325,
   "proposals_constructed": 4,
   "assembled_requests_equal_independent_inputs": true,
   "complete_request_bytes": [
-    8035,
-    8036,
-    8282,
-    8283
+    8010,
+    8011,
+    8257,
+    8258
   ],
   "summary_response_bytes": [
-    2087,
-    2088,
-    2088,
-    2089
+    1285,
+    1286,
+    1286,
+    1287
   ],
   "equivalent_compact_tool_calls": {
     "formal_load_molecule": 1,

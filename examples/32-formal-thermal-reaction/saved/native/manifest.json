@@ -1,44 +1,21 @@
 {
-  "schema_version": "1",
-  "plan_digest": "5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef",
-  "request_digest": "e369df7804d084817d32d36b479facf84ad0798b379f4f7d56bab46b30aceb45",
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-  "verification_digest": "a215ceda688d99b737f930a596d44dcaab60480f8309a89aff26275aa2eee730",
-  "backend_version": "psi4-builder/8",
   "runtime_policy": "operator_managed",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation",
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
   "files": [
-    {
-      "path": "scientific-request.json",
-      "sha256": "63937c05f801b98391bd654edf9a028e441ccaee7afab45509f3432e16aa371d"
-    },
-    {
-      "path": "calculation-plan.json",
-      "sha256": "e38ea75fdaea8610e75ed8b16f3bcd6edeb395c4efe7a8324086d7192d858525"
-    },
-    {
-      "path": "capabilities.json",
-      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
-    },
-    {
-      "path": "verification.json",
-      "sha256": "3936b804d03113d96d28e5356b82f6136a8078c64a90aa1f1abb1184f9a0f055"
-    },
-    {
-      "path": "inputs/workflow.dat",
-      "sha256": "57f7c6752132e1bcf35d61468d3c0cbf06a2f9200b651bea4c4bad96aa303cef"
-    }
+    "scientific-request.json",
+    "calculation-plan.json",
+    "capabilities.json",
+    "verification.json",
+    "inputs/workflow.dat"
   ],
   "native_inputs": [
     "inputs/workflow.dat"
@@ -47,8 +24,8 @@
     {
       "producer": "oxidation:frequency:co",
       "format": "psi4_vibrec",
-      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_3",
-      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_3.{pid}.vibrec",
+      "label": "formal_3",
+      "filename_template": "formal_3.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -61,8 +38,8 @@
     {
       "producer": "oxidation:frequency:oxygen",
       "format": "psi4_vibrec",
-      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_5",
-      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_5.{pid}.vibrec",
+      "label": "formal_5",
+      "filename_template": "formal_5.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {
@@ -75,8 +52,8 @@
     {
       "producer": "oxidation:frequency:co2",
       "format": "psi4_vibrec",
-      "label": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_7",
-      "filename_template": "formal_5a3faad3c0f88afaa78a09c22dfb343c153c0ce02f029e6fdc73dca61ab100ef_7.{pid}.vibrec",
+      "label": "formal_7",
+      "filename_template": "formal_7.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {

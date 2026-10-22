@@ -93,8 +93,6 @@ def main() -> None:
         "goals": len(request.goals),
         "option_policy": exported.manifest.option_policy,
         "namespace_policy": exported.manifest.namespace_policy,
-        "backend_version": exported.manifest.backend_version,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(

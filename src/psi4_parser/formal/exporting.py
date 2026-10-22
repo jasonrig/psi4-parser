@@ -1,6 +1,5 @@
 """Export verified scientific plans and native inputs for a separate consumer."""
 
-import hashlib
 from pathlib import Path
 from typing import Literal
 
@@ -32,18 +31,6 @@ from psi4_parser.formal.science import (
 )
 from psi4_parser.formal.verification import verify
 
-# This identifies the lowering contract, rather than asserting a compiler proof.
-BACKEND_VERSION = "psi4-builder/8"
-
-
-class BundleFile(Record):
-    """Bind a relative bundle file name to its exact saved bytes."""
-
-    path: str = Field(description="Path relative to the exported bundle directory.")
-    sha256: str = Field(
-        pattern=r"^[a-f0-9]{64}$", description="SHA-256 of the saved file bytes."
-    )
-
 
 class Dependency(Record):
     """Describe a geometry or quantity handoff without scheduling its execution."""
@@ -60,24 +47,8 @@ class Dependency(Record):
 
 
 class BundleManifest(Record):
-    """Describe expected artifacts, dependencies, formulas, and file identities."""
+    """Describe expected artifacts, dependencies, formulas, and bundle files."""
 
-    schema_version: Literal["1"] = Field(
-        default="1", description="Construction-bundle serialization version."
-    )
-    plan_digest: str = Field(description="Plan identity from independent verification.")
-    request_digest: str = Field(
-        description="Scientific-request identity from verification."
-    )
-    capability_digest: str = Field(
-        description="Capability catalog identity from verification."
-    )
-    verification_digest: str = Field(
-        description="Identity binding the complete verification context."
-    )
-    backend_version: str = Field(
-        default=BACKEND_VERSION, description="Psi4 lowering contract identity."
-    )
     runtime_policy: Literal["operator_managed"] | None = Field(
         default=None,
         description="No runtime dependency, binary, or version checks or warnings; "
@@ -98,8 +69,8 @@ class BundleManifest(Record):
         description="Native component names used by these inputs; "
         "availability is not checked and versions are not pinned.",
     )
-    files: tuple[BundleFile, ...] = Field(
-        description="Hashes of all bundle payloads; the manifest excludes itself."
+    files: tuple[str, ...] = Field(
+        description="Payload paths relative to the bundle directory."
     )
     native_inputs: tuple[str, ...] = Field(
         description="Native input paths in dependency order."
@@ -141,16 +112,13 @@ class BundleManifest(Record):
 
 
 class ExportedBundle(Record):
-    """Locate a complete construction bundle and its manifest's identity."""
+    """Locate a complete construction bundle and its scientific handoffs."""
 
     directory: str = Field(
         description="Absolute directory containing the saved construction bundle."
     )
-    manifest_digest: str = Field(
-        pattern=r"^[a-f0-9]{64}$", description="SHA-256 of the saved manifest bytes."
-    )
     manifest: BundleManifest = Field(
-        description="Expected artifacts, dependencies, and payload hashes."
+        description="Expected artifacts, dependencies, products, and formulas."
     )
 
 
@@ -176,9 +144,9 @@ def _dependencies(plan: Plan) -> tuple[Dependency, ...]:
 def _manifest(
     plan: Plan,
     report: Report,
-    files: tuple[BundleFile, ...],
+    files: tuple[str, ...],
 ) -> BundleManifest:
-    if report.request_digest is None or report.capability_digest is None:
+    if not report.request_complete:
         raise ValueError(
             "A construction bundle requires request and capability verification"
         )
@@ -186,10 +154,6 @@ def _manifest(
         runtime_policy="operator_managed",
         option_policy="native_defaults_per_calculation",
         namespace_policy="restore_after_calculation",
-        plan_digest=report.plan_digest,
-        request_digest=report.request_digest,
-        capability_digest=report.capability_digest,
-        verification_digest=report.verification_digest,
         required_components=report.required_components,
         files=files,
         native_inputs=("inputs/workflow.dat",),
@@ -236,7 +200,7 @@ def export_bundle(
         limits: Verification bounds; null uses the standard limits.
 
     Returns:
-        Absolute bundle path, manifest, and the manifest's SHA-256 identity.
+        Absolute bundle path and its scientific handoff manifest.
 
     Raises:
         ValueError: No destination was supplied.
@@ -265,10 +229,7 @@ def export_bundle(
         "verification.json": report.model_dump_json(indent=2) + "\n",
         "inputs/workflow.dat": source,
     }
-    files = tuple(
-        BundleFile(path=name, sha256=hashlib.sha256(content.encode()).hexdigest())
-        for name, content in payloads.items()
-    )
+    files = tuple(payloads)
     manifest = _manifest(plan, report, files)
     manifest_bytes = (manifest.model_dump_json(indent=2) + "\n").encode()
     destination = destination.absolute()
@@ -277,8 +238,4 @@ def export_bundle(
     for name, content in payloads.items():
         atomic_replace(destination / name, content.encode(), mode=0o600)
     atomic_replace(destination / "manifest.json", manifest_bytes, mode=0o600)
-    return ExportedBundle(
-        directory=str(destination),
-        manifest_digest=hashlib.sha256(manifest_bytes).hexdigest(),
-        manifest=manifest,
-    )
+    return ExportedBundle(directory=str(destination), manifest=manifest)

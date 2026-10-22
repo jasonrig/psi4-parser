@@ -514,7 +514,6 @@ async def test_planning_only_mode_checks_evidence_exports_and_cleanup(
             ExportSummary,
         )
         assert exported.status == "exported"
-        assert exported.backend_version == "psi4-builder/8"
         assert exported.namespace_policy == "restore_after_calculation"
         assert exported.option_policy == "native_defaults_per_calculation"
         assert exported.manifest_path is not None

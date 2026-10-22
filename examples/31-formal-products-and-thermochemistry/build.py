@@ -183,7 +183,6 @@ def main() -> None:
         "wrong_temperature": rejection.status,
         "temperature_kelvin": analysis.conditions.temperature_kelvin,
         "pressure_pascal": analysis.conditions.pressure_pascal,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

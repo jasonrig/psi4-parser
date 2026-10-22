@@ -104,7 +104,7 @@ def test_request_derives_the_optimized_geometry_requirement(
         report = verify(plan, request=request, catalog=formal_profile)
 
         assert report.status == expected
-        assert report.request_digest
+        assert report.scope == "scientific_request"
         assert report.scope == "scientific_request"
         assert report.request_complete == (expected == "proved")
 

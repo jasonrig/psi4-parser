@@ -98,9 +98,7 @@ def main() -> None:
             proposal.model_dump_json(indent=2) + "\n", encoding="utf-8"
         )
         raise SystemExit(f"Planning returned {proposal.status}; inspect proposal.json")
-    exported = export_bundle(
-        proposal.plan, request, catalog, args.destination / "bundle"
-    )
+    export_bundle(proposal.plan, request, catalog, args.destination / "bundle")
     (args.destination / "request.json").write_text(
         request.model_dump_json(indent=2) + "\n", encoding="utf-8"
     )
@@ -115,7 +113,6 @@ def main() -> None:
         "wrong_point": wrong.status,
         "unconstrained_future": unconstrained.status,
         "coordinate_checks": len(request.relations),
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

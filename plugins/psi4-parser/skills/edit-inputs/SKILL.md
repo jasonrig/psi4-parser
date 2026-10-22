@@ -28,9 +28,9 @@ choosing documentation.
 
 For an input exported from a checked formal plan, revise its source request or
 plan and use the [planning workflow](../plan-calculations/SKILL.md) to verify and
-export again. Editing the emitted input alone does not update its proof or
-manifest hashes. A scientific intent check requires the independent request and
-capability evidence; accepted input syntax cannot reconstruct them.
+export again. Editing the emitted input alone does not reverify its scientific
+intent. A scientific intent check requires the independent request and capability
+evidence; accepted input syntax cannot reconstruct them.
 Retain source provenance and scientific method conditions when re-exporting.
-Version/build labels and installed dependencies never constrain construction or
-produce deployment warnings; runtime is operator-managed.
+Installed dependencies remain operator-managed and never constrain construction
+or produce deployment warnings.

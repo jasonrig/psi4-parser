@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "4a796b1fbe66042e92a95c07576c4d59671bdd75ccc120c4f03ffa2ca7f19589",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -217,7 +215,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "Equilibrium continuum equations, dielectric values, cavity choices, and discretization are scientific inputs. An electronic solvation shift omits thermal, non-electrostatic, and standard-state terms."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "h2",
@@ -572,11 +569,9 @@
   "native_variables": [],
   "required_components": [
     {
-      "name": "pcmsolver",
-      "version": null
+      "name": "pcmsolver"
     }
   ],
-  "request_digest": "87c36d1c51bb836a894cc91a1c8027bbd87fe7210d10a601be5a854451a76de3",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -637,13 +632,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "0ff41d5d809b64e6f3d11478562dbe0955fed9c56bfc1a98aed1fb16c57dc763"
+  }
 }

@@ -156,7 +156,6 @@ def main() -> None:
         ],
         "expressions": [item.id for item in exported.manifest.expressions],
         "omitted_goal": missing_work.status,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

@@ -155,9 +155,7 @@ def main() -> None:
     )
     if proposed.plan is None:
         raise SystemExit(f"Inspect the {proposed.status} proposal")
-    bundle = export_bundle(
-        proposed.plan, request, destination=args.destination / "bundle"
-    )
+    export_bundle(proposed.plan, request, destination=args.destination / "bundle")
     correct = linear.goals[-1]
     if not isinstance(correct, ExpressionGoal):
         raise SystemExit("Expected an exponential reference expression")
@@ -191,7 +189,6 @@ def main() -> None:
             isinstance(step, Calculation) for step in proposed.plan.steps
         ),
         "shared_calls": len(proposed.reuses),
-        "manifest_digest": bundle.manifest_digest,
         "wrong_weight_status": rejected.status,
         "coefficient_bound": "Absolute error at most 1e-18 per exponential weight",
         "scope": "Construction and symbolic formulas; physical convergence assumed",

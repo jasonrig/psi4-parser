@@ -91,11 +91,11 @@ class _PlanningTools:
 
         Args:
             template: Request-template handle returned by formal_load. Each
-                molecular binding names a saved molecule:SHA256 handle.
+                molecular binding names a saved molecule:ID handle.
 
         Returns:
             Complete request handle for planning, verification, and export. Saved
-            molecular bytes are hash checked and copied into the request.
+            molecular records are validated and copied into the request.
         """
         with _errors():
             return self._workspace().materialize_request(template)

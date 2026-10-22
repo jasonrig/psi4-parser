@@ -1,6 +1,5 @@
 """Load shared scientific contracts without selecting an engine version."""
 
-import hashlib
 from importlib.resources import files
 
 from pydantic import Field, JsonValue, TypeAdapter
@@ -45,7 +44,7 @@ class CatalogInfo(Record):
 
 
 def load_catalog(catalog_id: str = "psi4") -> CapabilityCatalog:
-    """Load shared scientific/input contracts and check packaged source integrity.
+    """Load shared scientific/input contracts with their source citations.
 
     No engine is imported or inspected. Entries cite their own sources, which
     may span revisions; no per-release catalog or target version is required.
@@ -57,7 +56,7 @@ def load_catalog(catalog_id: str = "psi4") -> CapabilityCatalog:
         Scientific/input contracts with per-entry source/probe provenance.
 
     Raises:
-        ValueError: The name is unknown or a packaged evidence digest disagrees.
+        ValueError: The collection name is unknown or the packaged catalogue is invalid.
     """
     if catalog_id not in _CATALOG_IDS:
         raise ValueError(f"Unknown bundled capability catalog: {catalog_id}")
@@ -65,15 +64,6 @@ def load_catalog(catalog_id: str = "psi4") -> CapabilityCatalog:
     catalog = CapabilityCatalog.model_validate_json(
         directory.joinpath("catalog.json").read_bytes()
     )
-    prefix = "package://psi4_parser.formal.catalogs/"
-    for evidence in catalog.evidence:
-        if evidence.source.startswith(prefix):
-            parts = evidence.source.removeprefix(prefix).split("/")
-            if any(part in {"", ".", ".."} or "\\" in part for part in parts):
-                raise ValueError("Packaged evidence must use contained resource paths")
-            payload = files(__package__).joinpath(*parts).read_bytes()
-            if evidence.digest != hashlib.sha256(payload).hexdigest():
-                raise ValueError("Packaged evidence bytes do not match their digest")
     if catalog.id != catalog_id:
         raise ValueError("Bundled catalog identity differs from its resource name")
     return catalog

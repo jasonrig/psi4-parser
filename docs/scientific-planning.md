@@ -179,7 +179,7 @@ proposal = propose(request, catalog)
 print(proposal.status, proposal.attempts)
 if proposal.plan is not None:
     exported = export_bundle(proposal.plan, request, catalog, Path("job-bundle"))
-    print(exported.directory, exported.manifest_digest)
+    print(exported.directory)
 ```
 
 Selection defaults to finite alternatives in the request's preference order. Z3 enforces
@@ -215,10 +215,9 @@ inputs/workflow.dat
 ```
 
 The manifest records expected quantities, dependencies, symbolic expressions,
-assumptions, engine requirements, and payload hashes. Its own hash is returned.
-Verification identity binds the plan, request, capability snapshot, rule and
-solver versions, and limits. Hashes establish artifact identity; Python lowering
-remains a tested component rather than a formally proved compiler.
+assumptions, component names, and payload paths. Export verifies the supplied
+request and plan afresh before writing. Python lowering remains a tested
+component rather than a formally proved compiler.
 
 Native input passes future geometries in memory. Symbolic expressions remain
 recipes for a separate result consumer. Bundles contain no execution status or

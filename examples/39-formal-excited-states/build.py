@@ -172,8 +172,6 @@ def main() -> None:
         "native_variables": len(bundle.manifest.native_variables),
         "runtime_policy": bundle.manifest.runtime_policy,
         "wrong_weight_status": rejected.status,
-        "backend_version": bundle.manifest.backend_version,
-        "manifest_digest": bundle.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

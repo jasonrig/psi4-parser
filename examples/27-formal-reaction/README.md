@@ -36,5 +36,5 @@ This example describes closed electronic-energy reactions. See
 reaction contracts. External particle reservoirs and reaction pathways need more
 contracts. The native input contains only species calculations. The reaction
 expression stays symbolic for a separate consumer; no calculations or output
-validation run in this example. Bundle hashes cover its payloads; sibling
+validation run in this example. The manifest lists its payloads; sibling
 teaching records are outside the manifest. Rebuilding requires a new destination.

@@ -175,7 +175,7 @@ with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
     }
 
     set {
-        WRITER_FILE_LABEL  "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_4"
+        WRITER_FILE_LABEL  "formal_4"
     }
 
     set FINDIF {
@@ -225,7 +225,7 @@ with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
     }
 
     set {
-        WRITER_FILE_LABEL  "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_8"
+        WRITER_FILE_LABEL  "formal_8"
     }
 
     set FINDIF {
@@ -275,7 +275,7 @@ with _psi4_builder_isolated_options(('FINDIF', 'THERMO')):
     }
 
     set {
-        WRITER_FILE_LABEL  "formal_ab252086fefdeed8fc8d16559ebb7e0f4a1413616f1204f91c99883b7d0a930c_12"
+        WRITER_FILE_LABEL  "formal_12"
     }
 
     set FINDIF {

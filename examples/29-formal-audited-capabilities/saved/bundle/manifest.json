@@ -1,44 +1,21 @@
 {
-  "schema_version": "1",
-  "plan_digest": "c5b96c96ab46a2628b9e1654275408cdd25f4c55f68fc3f15e71e5db1ae7610f",
-  "request_digest": "acd1cdf8846d30d09f512056e0dace93d4fb56b3189401a65d58f48f0c15b447",
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-  "verification_digest": "9782c569a0ad611cb6b53c42ed476c54e8e4b34223a3e2d47ed94d854aab8921",
-  "backend_version": "psi4-builder/8",
   "runtime_policy": "operator_managed",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation",
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
   "files": [
-    {
-      "path": "scientific-request.json",
-      "sha256": "b8a10131f93697694f500edb70c99d7dd40400c43a1c9c5f61a913beef67f703"
-    },
-    {
-      "path": "calculation-plan.json",
-      "sha256": "d97c21fbc6e427a8f0c65981b073685291d38e2ed572457897ed3f4aa07e85a0"
-    },
-    {
-      "path": "capabilities.json",
-      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
-    },
-    {
-      "path": "verification.json",
-      "sha256": "2b3e979de16d9132cdf6c459708f92b40f636a1f070e554bb9185053b0e2ea8b"
-    },
-    {
-      "path": "inputs/workflow.dat",
-      "sha256": "311a19282e1eacfa4e3fb5d1135e9441b9217c29f63ecd47555e271c815c7721"
-    }
+    "scientific-request.json",
+    "calculation-plan.json",
+    "capabilities.json",
+    "verification.json",
+    "inputs/workflow.dat"
   ],
   "native_inputs": [
     "inputs/workflow.dat"

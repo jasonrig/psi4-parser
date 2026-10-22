@@ -640,7 +640,9 @@ def test_rejected_candidate_is_retained_with_the_matching_proof_context() -> Non
         catalog=load_catalog("psi4"),
         limits=proposal.report.limits,
     )
-    assert fresh.verification_digest == proposal.report.verification_digest
+    assert fresh.coverage == proposal.report.coverage
+    assert fresh.status == proposal.report.status
+    assert not fresh.request_complete
 
 
 @pytest.mark.skipif(

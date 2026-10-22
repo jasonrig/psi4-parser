@@ -1,35 +1,14 @@
 {
-  "schema_version": "1",
-  "plan_digest": "5d587c9f35428460f6ef1baaa78447c65cb132269f38619669665a3d34b3baa8",
-  "request_digest": "392963184ed12e54a584c227150b795c2d482d4ec23877fea481cbf9d7be1a10",
-  "capability_digest": "584ca666d2acdd3bd768aa48dc4851afb8b8a41bd4eec2c95595a245a370ce2a",
-  "verification_digest": "c14f55caf873b3d8f2ccb38dbd09609fa68654ab3cd40b5dc028ce560f44f909",
-  "backend_version": "psi4-builder/8",
   "runtime_policy": "operator_managed",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation",
   "required_components": [],
   "files": [
-    {
-      "path": "scientific-request.json",
-      "sha256": "900647bb99165144d61a8fa32aa8e6c5e343025662438a19d4ae55764758171c"
-    },
-    {
-      "path": "calculation-plan.json",
-      "sha256": "81ca0718486705845938a5d3e0a57630b167a45fb573a54e3863cee8201ee557"
-    },
-    {
-      "path": "capabilities.json",
-      "sha256": "c3c9855080c29b241a27380b5beb8fde9718b74b509804fd93f00059f3856787"
-    },
-    {
-      "path": "verification.json",
-      "sha256": "0182be8201f80586779b1300cd59ad5bc5a463317a3f831c0a454467e8602702"
-    },
-    {
-      "path": "inputs/workflow.dat",
-      "sha256": "2f721d63df86f2af549a1a1d8abc6eb4aca957060566b69f2500bc05250a4656"
-    }
+    "scientific-request.json",
+    "calculation-plan.json",
+    "capabilities.json",
+    "verification.json",
+    "inputs/workflow.dat"
   ],
   "native_inputs": [
     "inputs/workflow.dat"

@@ -1,27 +1,24 @@
 {
   "proposal": {
-    "handle": "proposal:c7ec3fffb9cd65f21f3d79d2220d301fec5d6a9e6931b1480d654754202ed133",
+    "handle": "proposal:8930499300bc485fbd43f8b9ec3cbcb3",
     "kind": "proposal",
-    "sha256": "c7ec3fffb9cd65f21f3d79d2220d301fec5d6a9e6931b1480d654754202ed133",
-    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/proposal-c7ec3fffb9cd65f21f3d79d2220d301fec5d6a9e6931b1480d654754202ed133.json",
-    "bytes": 18477
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/proposal-8930499300bc485fbd43f8b9ec3cbcb3.json",
+    "bytes": 18007
   },
   "status": "constructed",
   "attempts": 1,
   "plan": {
-    "handle": "plan:8e9019bd303108b593a6e8129c8b11cf37c1b96cb8423a823fb55d5a56f3ec50",
+    "handle": "plan:1886d9feca17489da628b7ccb6fd05f4",
     "kind": "plan",
-    "sha256": "8e9019bd303108b593a6e8129c8b11cf37c1b96cb8423a823fb55d5a56f3ec50",
-    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/plan-8e9019bd303108b593a6e8129c8b11cf37c1b96cb8423a823fb55d5a56f3ec50.json",
-    "bytes": 8044
+    "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/plan-1886d9feca17489da628b7ccb6fd05f4.json",
+    "bytes": 8019
   },
   "verification": {
     "reference": {
-      "handle": "verification:47dac25b42a525c83215d4af49b38504f0d6ad9d67e104e9d71fe0612efa2054",
+      "handle": "verification:e8f301ab33624c7aabf0c6dc68079f41",
       "kind": "verification",
-      "sha256": "47dac25b42a525c83215d4af49b38504f0d6ad9d67e104e9d71fe0612efa2054",
-      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-47dac25b42a525c83215d4af49b38504f0d6ad9d67e104e9d71fe0612efa2054.json",
-      "bytes": 7953
+      "path": "/Users/jason/PycharmProjects/psi4-parser/examples/40-formal-stored-molecules/saved/workspace/records/verification-e8f301ab33624c7aabf0c6dc68079f41.json",
+      "bytes": 7522
     },
     "runtime_policy": "operator_managed",
     "status": "proved",
@@ -36,11 +33,6 @@
     },
     "diagnostic_count": 0,
     "assumption_count": 7,
-    "verification_digest": "747d421e8dfbb7421d6850bcd1f06dc80bc7b3c1bb11941db692a1ffda5cb25b",
-    "rule_version": "scientific-contracts/15",
-    "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-    "request_digest": "84f7516c5de032a6b4152cd7d4afebab97b250f4e7eac249179af50f76009bcf",
-    "plan_digest": "3dea10fdc6749e447802b4214f95b68075a37cdec03d0840fcf4ade544451fbf",
     "required_components": []
   },
   "choice_count": 1,

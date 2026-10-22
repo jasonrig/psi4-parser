@@ -14,6 +14,5 @@
     ]
   },
   "unsupported_proposal": "no_candidate",
-  "unsupported_verification": "unsupported",
-  "manifest_digest": "b6d4e427e0b348ae3e18d0f42b8cbe65ec0d4db49cfe53c902b31f3f618f855e"
+  "unsupported_verification": "unsupported"
 }

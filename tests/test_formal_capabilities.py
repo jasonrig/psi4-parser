@@ -298,10 +298,7 @@ def test_optional_component_observations_do_not_constrain_construction(
         if availability is None
         else (
             ComponentCapability(
-                name="optking",
-                version="test/2",
-                status=availability,
-                evidence=("fixture",),
+                name="optking", status=availability, evidence=("fixture",)
             ),
         ),
     )
@@ -341,10 +338,7 @@ def test_component_requirements_survive_verification_and_export(
         ),
         components=(
             ComponentCapability(
-                name="auxiliary_library",
-                version="test/2",
-                status="supported",
-                evidence=("fixture",),
+                name="auxiliary_library", status="supported", evidence=("fixture",)
             ),
         ),
     )
@@ -358,10 +352,10 @@ def test_component_requirements_survive_verification_and_export(
     assert exported.manifest.required_components == expected
 
 
-def test_declared_support_and_proof_are_bound_to_the_profile(
+def test_declared_support_preserves_explicit_assumptions(
     formal_profile: CapabilityCatalog,
 ) -> None:
-    """Record evidence identity and expose explicit declaration assumptions.
+    """Expose the scientific assumptions supplied by caller declarations.
 
     Args:
         formal_profile: Synthetic capability declarations used only by planner tests.
@@ -372,21 +366,11 @@ def test_declared_support_and_proof_are_bound_to_the_profile(
 
     assert report.status == "proved"
     assert report.request_complete
-    assert report.capability_digest
     assert "application_version" not in type(report).model_fields
     assert any(
         "Declared capability assumption fixture" in item for item in report.assumptions
     )
     assert render(plan, request=request, catalog=formal_profile)
-    renamed = CapabilityCatalog.model_validate_json(
-        formal_profile.model_dump_json().replace(
-            '"synthetic-planner-fixture"', '"second-snapshot"'
-        )
-    )
-    assert (
-        verify(plan, request=request, catalog=renamed).capability_digest
-        != report.capability_digest
-    )
 
 
 def test_an_unlisted_method_is_unknown_not_supported(
@@ -460,24 +444,6 @@ def test_option_values_are_checked_for_the_method_combination(
     assert verify(plan, request=request, catalog=formal_profile).status == status
 
 
-def test_capability_version_labels_do_not_constrain_construction(
-    formal_profile: CapabilityCatalog,
-) -> None:
-    """Retain source labels without requiring them to describe the execution host.
-
-    Args:
-        formal_profile: Synthetic version-matched catalog.
-    """
-    changed = formal_profile.model_dump_json().replace(
-        '"application_version":"fixture/1"', '"application_version":"different/2"', 1
-    )
-    changed = changed.replace('"build":null', '"build":"different-binary"', 1)
-
-    catalog = CapabilityCatalog.model_validate_json(changed)
-    request, plan = single_point(Model(method="scf", basis="sto-3g", reference="rhf"))
-    assert verify(plan, request=request, catalog=catalog).request_complete
-
-
 def test_source_contracts_need_no_application_version_or_build(
     formal_profile: CapabilityCatalog,
 ) -> None:
@@ -488,14 +454,15 @@ def test_source_contracts_need_no_application_version_or_build(
     """
     document = TypeAdapter(JsonValue).validate_json(formal_profile.model_dump_json())
     assert isinstance(document, dict)
-    document.pop("application_version", None)
-    document.pop("build", None)
+    assert "application_version" not in document
+    assert "build" not in document
     evidence = document["evidence"]
     assert isinstance(evidence, list)
     for entry in evidence:
         assert isinstance(entry, dict)
-        entry.pop("application_version", None)
-        entry.pop("build", None)
+        assert "application_version" not in entry
+        assert "build" not in entry
+        assert "digest" not in entry
     catalog = CapabilityCatalog.model_validate_json(json.dumps(document))
     request, plan = single_point(Model(method="scf", basis="sto-3g", reference="rhf"))
 

@@ -15,6 +15,5 @@
     "r3:cp:interaction",
     "r4:cp:interaction"
   ],
-  "omitted_goal": "violated",
-  "manifest_digest": "672a38b6397dcd8e0d6175aedf606ec26977f68cdfda74eea020eb203df334a7"
+  "omitted_goal": "violated"
 }

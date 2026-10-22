@@ -1,8 +1,7 @@
 # Plan with source-audited capability cases
 
 This construction-only example uses the bundled `psi4`
-source-contract snapshot. Reference versions and binary hashes are provenance;
-they do not constrain the execution machine. Loading the snapshot does
+source-contract snapshot. Loading the snapshot does
 not import, detect, or launch Psi4. The scientific choices illustrate the API;
 they are not a recommended water protocol.
 

@@ -1,44 +1,21 @@
 {
-  "schema_version": "1",
-  "plan_digest": "ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c",
-  "request_digest": "b8d78b0286e8f68efb226bef097b72bfbdb84c0d8e736187498dab8b0192bdeb",
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-  "verification_digest": "7e79ad5ddf7325527064150613f4c3fcaf22a458959366852ca281e6251418ba",
-  "backend_version": "psi4-builder/8",
   "runtime_policy": "operator_managed",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation",
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
   "files": [
-    {
-      "path": "scientific-request.json",
-      "sha256": "fdc29cc5080f458a4fa8d097800cf7a5cde54b4cc4bb68eae928bad298c13cf7"
-    },
-    {
-      "path": "calculation-plan.json",
-      "sha256": "b25632924309fcbe3588f3d206376e5743541f8b8bcdb47192466aa8bc07485f"
-    },
-    {
-      "path": "capabilities.json",
-      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
-    },
-    {
-      "path": "verification.json",
-      "sha256": "13c60fa76810b5fd8febd35650767c2287db62fe600b370599d54f1a007dab1e"
-    },
-    {
-      "path": "inputs/workflow.dat",
-      "sha256": "ffe1db9fee0e7b3eec58ce5775034c1db877cfd90335866cb590d4e2de196080"
-    }
+    "scientific-request.json",
+    "calculation-plan.json",
+    "capabilities.json",
+    "verification.json",
+    "inputs/workflow.dat"
   ],
   "native_inputs": [
     "inputs/workflow.dat"
@@ -47,8 +24,8 @@
     {
       "producer": "frequency",
       "format": "psi4_vibrec",
-      "label": "formal_ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c_1",
-      "filename_template": "formal_ee01ec9287cfc370a608e79d4685d66bca4c0c943509bf4823052dfa498f328c_1.{pid}.vibrec",
+      "label": "formal_1",
+      "filename_template": "formal_1.{pid}.vibrec",
       "directory": "engine_output_directory",
       "bindings": [
         {

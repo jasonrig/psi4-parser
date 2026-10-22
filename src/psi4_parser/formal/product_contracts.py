@@ -1,7 +1,5 @@
 """Check named products against their producing operation and declared context."""
 
-import hashlib
-
 from psi4_parser.builder import Molecule
 from psi4_parser.formal.excited_contracts import (
     tdscf_product_issues,
@@ -30,7 +28,6 @@ def native_product_outputs(plan: Plan) -> tuple[NativeProductOutput, ...]:
     Returns:
         Unique filename templates and native member bindings for requested products.
     """
-    digest = hashlib.sha256(plan.model_dump_json().encode()).hexdigest()
     keys = {
         "electronic_energy": "E0",
         "hessian": "hessian",
@@ -60,8 +57,8 @@ def native_product_outputs(plan: Plan) -> tuple[NativeProductOutput, ...]:
     return tuple(
         NativeProductOutput(
             producer=step.id,
-            label=f"formal_{digest}_{index}",
-            filename_template=f"formal_{digest}_{index}.{{pid}}.vibrec",
+            label=f"formal_{index}",
+            filename_template=f"formal_{index}.{{pid}}.vibrec",
             bindings=tuple(products[step.id]),
         )
         for index, step in enumerate(plan.steps)

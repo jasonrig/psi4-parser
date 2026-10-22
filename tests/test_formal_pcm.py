@@ -93,9 +93,7 @@ def test_pcmsolver_plan_needs_no_local_library_or_version() -> None:
     assert proposal.report.request_complete, proposal.report.diagnostics
     assert proposal.report.runtime_policy == "operator_managed"
     assert proposal.report.diagnostics == ()
-    assert [
-        (item.name, item.version) for item in proposal.report.required_components
-    ] == [("pcmsolver", None)]
+    assert [item.name for item in proposal.report.required_components] == ["pcmsolver"]
     assert "PCM__INPUT" in render(proposal.plan, request=request, catalog=catalog)
 
 
@@ -112,10 +110,7 @@ def test_pcmsolver_runtime_observations_never_change_acceptance(
     """
     catalog = load_catalog("psi4")
     component = ComponentCapability(
-        name="pcmsolver",
-        status=status,
-        version="unrelated",
-        evidence=("runtime-metadata",),
+        name="pcmsolver", status=status, evidence=("runtime-metadata",)
     )
     catalog = _edit(
         catalog, ("components",), [_JSON.validate_json(component.model_dump_json())]
@@ -126,7 +121,6 @@ def test_pcmsolver_runtime_observations_never_change_acceptance(
     assert proposal.report is not None
     assert proposal.report.request_complete
     assert proposal.report.diagnostics == ()
-    assert proposal.report.required_components[0].version is None
     assert list(recwarn) == []
 
 

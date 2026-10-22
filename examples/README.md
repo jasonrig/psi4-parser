@@ -45,7 +45,6 @@ recipes, and native inputs. Separate development checks execute the generated
 inputs without adding execution to the builder. The latest check rebuilt all
 41 examples and executed all 42 generated inputs: 39 completed, while examples
 16 and 38 require the missing PCMSolver module and example 37 requires pyddx.
-The [verification log](verification.log) records each input hash and result.
 The stored-molecule example uses HF/MP2 with STO-3G and cc-pVDZ for a runnable
 input-reuse demonstration.
 
@@ -71,12 +70,11 @@ input-reuse demonstration.
 | [41: exponential reference limits](41-formal-exponential-extrapolation/README.md) | Two exponential decay laws, certified rational weight bounds, correlation-limit composition, and permitted HF reuse. |
 
 The shared [demonstration catalog](formal-demo-capabilities.json) contains
-**synthetic caller declarations**, with application version `demonstration/1`.
+**synthetic caller declarations**.
 It teaches capability matching and conditional proofs; it is not evidence for
 any installed Psi4 build. In particular, its PK-only option contract does not
 claim that Psi4 lacks DF support. For actual work, supply independently
-reviewed scientific/input contracts. Version/build labels are provenance and
-never constrain the execution host. Example 29 uses a bundled source-audited
+reviewed scientific/input contracts. Example 29 uses a bundled source-audited
 snapshot, whose method scope is described in
 [capability evidence](../docs/formal-capabilities.md).
 STO-3G examples are API illustrations,

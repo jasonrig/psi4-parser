@@ -134,10 +134,15 @@ def test_schema_and_json_preserve_requirements() -> None:
     plan = composite_plan()
     schema = TypeAdapter(JsonValue).validate_python(Plan.model_json_schema())  # type: ignore[misc]  # Pydantic schema returns Any; validate at the boundary.
     assert isinstance(schema, dict)
+    properties = schema["properties"]
+    assert isinstance(properties, dict)
+    assert "schema_version" not in properties
+    assert "schema_version" not in plan.model_dump_json()
     validator = Draft202012Validator(schema)
     validator.check_schema(schema)
     assert Plan.model_validate_json(plan.model_dump_json()) == plan
-    assert verify(plan).plan_digest != verify(composite_plan(wrong=True)).plan_digest
+    assert verify(plan).status == "proved"
+    assert verify(composite_plan(wrong=True)).status == "violated"
     for field in Plan.model_fields.values():
         assert field.description
 

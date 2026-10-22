@@ -95,10 +95,8 @@ def main() -> None:
             proposal.model_dump_json(indent=2) + "\n", encoding="utf-8"
         )
         raise SystemExit(f"Planning returned {proposal.status}; inspect proposal.json")
-    exported = export_bundle(
-        proposal.plan, request, catalog, args.destination / "bundle"
-    )
-    # Removing all capability entries preserves the version/evidence identity,
+    export_bundle(proposal.plan, request, catalog, args.destination / "bundle")
+    # Removing all capability entries preserves the cited evidence,
     # but must leave scientific verification unknown. Never bypass that status.
     missing = CapabilityCatalog(
         id="demonstration-without-capability-entries",
@@ -131,7 +129,6 @@ def main() -> None:
         ],
         "missing_evidence": no_evidence.status,
         "one_candidate_budget": bounded.status,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

@@ -2,8 +2,6 @@
   "status": "proved",
   "runtime_policy": "operator_managed",
   "capability_status": "supported",
-  "plan_digest": "b5484bf35ccdd9384e73e58539929345f4fe0e98ffec2f6a73bc107d0fbf6660",
-  "solver_version": "5.3.1",
   "diagnostics": [],
   "obligations": [
     {
@@ -393,7 +391,6 @@
     "Electronic-state suitability, convergence, and scientific accuracy are outside the encoded construction claims.",
     "The explicitly chosen inverse-power model estimates the requested basis-limit correction; asymptotic convergence, exponent suitability, reference-state consistency, and numerical accuracy are assumptions."
   ],
-  "rule_version": "scientific-contracts/15",
   "geometries": [
     {
       "id": "h2",
@@ -891,7 +888,6 @@
   "native_outputs": [],
   "native_variables": [],
   "required_components": [],
-  "request_digest": "6415e21b1943ec7c74ca9bd0329d3f737c7b81b7fc6f23125ff039532a5f3565",
   "scope": "scientific_request",
   "coverage": [
     {
@@ -1008,13 +1004,11 @@
     }
   ],
   "request_complete": true,
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
   "limits": {
     "timeout_ms": 1000,
     "resource_limit": 0,
     "max_steps": 10000,
     "max_obligations": 10000,
     "total_timeout_ms": 30000
-  },
-  "verification_digest": "12bbaa22b1469365a25281b476deb2d2c0970e25406f11f3632ef803b2e3ccad"
+  }
 }

@@ -116,13 +116,11 @@ def main() -> None:
         "attempts": proposal.attempts,
         "catalog": catalog.id,
         "required_components": [
-            {"name": item.name, "version": item.version}
-            for item in exported.manifest.required_components
+            {"name": item.name} for item in exported.manifest.required_components
         ],
         "routes": {item.goal: item.derivative_route for item in proposal.choices},
         "analytic_only": refused.status,
         "missing_algorithm": missing.status,
-        "manifest_digest": exported.manifest_digest,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

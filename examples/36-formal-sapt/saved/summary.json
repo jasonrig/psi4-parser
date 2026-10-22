@@ -47,10 +47,8 @@
   "native_product_files": 0,
   "namespace_policy": "restore_after_calculation",
   "option_policy": "native_defaults_per_calculation",
-  "backend_version": "psi4-builder/8",
   "rejected": {
     "wrong-partition": "no_candidate",
     "wrong-sum": "no_candidate"
-  },
-  "manifest_digest": "23318bb087e5641e848be9098fc181add888a8e839e597e2e03d3d78ed4b6ea3"
+  }
 }

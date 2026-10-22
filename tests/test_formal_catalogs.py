@@ -1,6 +1,5 @@
 """Check bundled, source-audited facts without requiring a Psi4 installation."""
 
-import hashlib
 import json
 import sys
 from importlib.resources import files
@@ -29,7 +28,6 @@ from psi4_parser.formal import (
 )
 from psi4_parser.formal.capabilities import DerivativeRoute
 from psi4_parser.formal.science import Driver
-from psi4_parser.maintenance import capability_reference as reference
 from psi4_parser.maintenance.capabilities import CapabilityAudit, curate_catalog
 
 
@@ -66,7 +64,6 @@ def test_independent_contributions_can_extend_contracts_without_a_binary_audit(
                 id="caller-method",
                 source="Explicit caller scientific assumption",
                 kind="declaration",
-                build="another-source-revision",
             ),
         ),
         methods=(
@@ -127,7 +124,7 @@ def test_independent_contributions_can_extend_contracts_without_a_binary_audit(
         (Path(exported.directory) / "capabilities.json").read_bytes()
     )
     assert saved == combined
-    assert exported.manifest.capability_digest == report.capability_digest
+    assert exported.manifest.goal_coverage == report.coverage
     assert (
         exported.manifest.assumptions[: len(report.assumptions)] == report.assumptions
     )
@@ -198,7 +195,10 @@ def test_shared_catalog_keeps_source_provenance_without_selecting_a_binary() -> 
 
     assert ("psi4" in sys.modules) == before
     assert [item.id for item in collections] == [catalog.id]
-    assert any(item.application_version == "1.12a1.dev43" for item in catalog.evidence)
+    assert any(
+        item.kind == "source" and item.source.startswith("https://github.com/psi4/")
+        for item in catalog.evidence
+    )
     assert {"scf", "hf", "mp2", "sapt0", "ssapt0", "sapt2+3"} <= {
         item.method for item in catalog.methods
     }
@@ -264,25 +264,10 @@ def test_audited_mp2_cases_distinguish_analytic_and_automatic_routes(
 
 
 def test_audited_profile_and_probe_are_reproducible_from_retained_evidence() -> None:
-    """Rebuild the curated facts and bind them to the exact standalone inspector."""
+    """Rebuild the scientific facts from retained basis and routing observations."""
     audit = _audit()
 
-    assert (
-        audit.audit_sha256
-        == hashlib.sha256(Path(reference.__file__).read_bytes()).hexdigest()
-    )
     assert curate_catalog(audit) == load_catalog("psi4")
-
-
-def test_curation_rejects_unreviewed_python_source_bytes() -> None:
-    """Avoid turning a modified routing implementation into source-audited support."""
-    audit = _audit()
-    changed = CapabilityAudit.model_validate_json(
-        audit.model_dump_json().replace(audit.python_sources[0].sha256, "0" * 64, 1)
-    )
-
-    with pytest.raises(ValueError, match="source fingerprints"):
-        curate_catalog(changed)
 
 
 def test_reference_compiled_limits_do_not_change_input_contracts() -> None:
@@ -307,7 +292,7 @@ def test_default_empty_module_is_not_an_explicitly_settable_option() -> None:
 
 @pytest.mark.parametrize(
     "missing",
-    ["python_sources", "basis_sources", "basis_dimensions", "routing", "libint2"],
+    ["basis_dimensions", "routing", "libint2"],
 )
 def test_curation_rejects_incomplete_metadata(missing: str) -> None:
     """Require the full evidence inventory before deriving broader support cases.

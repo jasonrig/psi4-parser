@@ -4,12 +4,10 @@
   "catalog": "psi4",
   "required_components": [
     {
-      "name": "optking",
-      "version": null
+      "name": "optking"
     },
     {
-      "name": "qcelemental",
-      "version": null
+      "name": "qcelemental"
     }
   ],
   "routes": {
@@ -19,6 +17,5 @@
     "correlated_gradient": "automatic"
   },
   "analytic_only": "no_candidate",
-  "missing_algorithm": "unknown",
-  "manifest_digest": "beaca034468b35ec48bc866f15ce5562e75a09eef96140845ff7925816a86411"
+  "missing_algorithm": "unknown"
 }

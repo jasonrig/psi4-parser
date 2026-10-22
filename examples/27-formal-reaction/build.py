@@ -104,9 +104,7 @@ def main() -> None:
             proposal.model_dump_json(indent=2) + "\n", encoding="utf-8"
         )
         raise SystemExit(f"Planning returned {proposal.status}; inspect proposal.json")
-    exported = export_bundle(
-        proposal.plan, request, catalog, args.destination / "bundle"
-    )
+    export_bundle(proposal.plan, request, catalog, args.destination / "bundle")
     wrong_request = dissociation(1)
     (args.destination / "unbalanced-request.json").write_text(
         wrong_request.model_dump_json(indent=2) + "\n", encoding="utf-8"
@@ -120,10 +118,9 @@ def main() -> None:
         "target": "dissociation:reaction",
         "formula": "2 * E(H, UHF) - E(H2, RHF)",
         "unbalanced_proposal": rejected.status,
-        "unbalanced_verification": (
-            rejected.report.status if rejected.report is not None else None
-        ),
-        "manifest_digest": exported.manifest_digest,
+        "unbalanced_verification": rejected.report.status
+        if rejected.report is not None
+        else None,
     }
     (args.destination / "summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"

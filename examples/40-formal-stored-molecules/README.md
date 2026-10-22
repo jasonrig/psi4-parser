@@ -10,7 +10,7 @@ uv run python examples/40-formal-stored-molecules/build.py --destination /tmp/ps
 
 `StoredMolecule` retains exact builder molecular data. Each `RequestTemplate`
 binds its handle to the name used by independently chosen goals and relations.
-`PlanningWorkspace.materialize_request()` checks saved hashes and returns a
+`PlanningWorkspace.materialize_request()` validates saved records and returns a
 complete `ScientificRequest`. The example compares every assembled request to
 an independently constructed request with explicit coordinates, then plans each
 using shared scientific contracts. It exports the final plan as a self-contained
@@ -21,7 +21,7 @@ The compact CLI equivalents are:
 ```sh
 psi4-parser formal --workspace planning-artifacts load molecule saved/molecule.json
 psi4-parser formal --workspace planning-artifacts request template.json
-psi4-parser formal --workspace planning-artifacts propose request:RETURNED_SHA256
+psi4-parser formal --workspace planning-artifacts propose request:RETURNED_ID
 ```
 
 Write `template.json` using the returned molecule handle; the saved templates
@@ -34,13 +34,13 @@ structural preparation; scientific acceptance still requires propose or verify.
 one molecule plus four templates against four complete inline requests. They
 also retain proposal response sizes and equivalent tool-call counts. These
 measurements describe this construction fixture, not model token counts or
-agent reliability. Hash handles reduce repeated coordinate uploads but require
+agent reliability. Record handles reduce repeated coordinate uploads but require
 assembly calls. For a small molecule used once, a complete request is simpler.
 Read the retained measurements for current byte totals.
 
 Molecule handles are local to the workspace. CLI workspaces persist; MCP files
 expire at shutdown. A completed request embeds the molecular data and can be
 verified without the source records. The [bundle](saved/bundle/manifest.json)
-contains complete intent, evidence, proof, input, and payload hashes. Copy
+contains complete intent, evidence, proof, input, and payload paths. Copy
 complete bundles to retain them. For storage and error behavior, see
 [planning interfaces](../../docs/formal-interfaces.md).

@@ -280,9 +280,6 @@ class Plan(Record):
     to obtain a checked builder job, or render() to produce Psi4 input.
     """
 
-    schema_version: Literal["2"] = Field(
-        default="2", description="Scientific-plan serialization format version."
-    )
     molecules: tuple[MoleculeDeclaration, ...] = Field(
         min_length=1,
         description=(
@@ -430,10 +427,6 @@ class Report(Record):
         description="Scientific/input contract coverage, separately from goal "
         "coverage; deployment is not checked. Null means checks were not completed.",
     )
-    plan_digest: str = Field(
-        description="SHA-256 of the complete Plan JSON checked by this report."
-    )
-    solver_version: str = Field(description="Z3 runtime version used for these checks.")
     diagnostics: tuple[Diagnostic, ...] = Field(
         default=(),
         description=(
@@ -448,9 +441,6 @@ class Report(Record):
     )
     assumptions: tuple[str, ...] = Field(
         description="Execution and mathematical assumptions that limit the claims."
-    )
-    rule_version: str = Field(
-        default="legacy/1", description="Scientific contract implementation identity."
     )
     geometries: tuple[GeometryArtifact, ...] = Field(
         default=(), description="Derived known and future geometry provenance."
@@ -472,10 +462,6 @@ class Report(Record):
         default=(),
         description="Native component names used by the plan, without runtime checks.",
     )
-    request_digest: str | None = Field(
-        default=None,
-        description="SHA-256 of the independent scientific request, if checked.",
-    )
     scope: Literal["relationships", "scientific_request"] = Field(
         default="relationships",
         description="Whether mandatory scientific goal coverage was checked.",
@@ -487,15 +473,7 @@ class Report(Record):
         default=False,
         description="Whether the complete declared request passed all checks.",
     )
-    capability_digest: str | None = Field(
-        default=None,
-        description="SHA-256 of the supplied application capability catalog.",
-    )
     limits: Limits = Field(
         default_factory=Limits,
         description="Resource bounds used for this verification.",
-    )
-    verification_digest: str = Field(
-        default="",
-        description="SHA-256 of the plan, intent, catalog, rules, solver, and limits.",
     )

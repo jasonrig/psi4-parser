@@ -1,5 +1,4 @@
 {
-  "schema_version": "2",
   "molecules": [
     {
       "comments": [],
@@ -303,7 +302,7 @@
       "sapt": null,
       "geometry": "waters",
       "model": {
-        "method": "hf",
+        "method": "mp2",
         "basis": "sto-3g",
         "reference": "rhf",
         "frozen_core": false,
@@ -320,6 +319,16 @@
           {
             "name": "scf_type",
             "value": "PK",
+            "module": null
+          },
+          {
+            "name": "mp2_type",
+            "value": "CONV",
+            "module": null
+          },
+          {
+            "name": "qc_module",
+            "value": "OCC",
             "module": null
           }
         ]

@@ -17,7 +17,7 @@ uv run python examples/24-formal-planning/build.py --destination /tmp/psi4-plan-
 ```
 
 The optional `--capabilities PATH` loads a different catalog. The default is
-synthetic evidence for `demonstration/1`, not a catalog for a real Psi4 build.
+synthetic teaching evidence, rather than a catalog for an installed Psi4 build.
 Proofs remain conditional on those declarations and the report's assumptions.
 
 Inspect the retained [summary](saved/summary.json),
@@ -35,7 +35,7 @@ Two additional files illustrate failures without launching Psi4:
 - [bounded-search.json](saved/bounded-search.json): a one-candidate budget is
   `exhausted` under the default catalog. This does not prove impossibility.
 
-The script creates a fresh destination. Its `bundle/manifest.json` hashes the
+The script creates a fresh destination. Its `bundle/manifest.json` lists the
 exported payloads; the sibling request, summary, and diagnostic files are teaching
 artifacts outside that manifest. No execution or numerical output validation is
 part of this example.

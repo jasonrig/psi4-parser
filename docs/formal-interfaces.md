@@ -2,7 +2,7 @@
 
 The `formal` CLI group, planning MCP tools, and `PlanningWorkspace` use the same
 construction service. Save independent requests once, then pass file paths or
-content handles. Shared scientific contracts apply by default; optional custom
+record handles. Shared scientific contracts apply by default; optional custom
 catalogues extend coverage. Responses summarize
 acceptance and locate complete records. Full solver queries stay in JSON files.
 
@@ -40,10 +40,10 @@ Choose a durable destination for records you need to retain.
 
 The proposal response includes `status`, `attempts`, `choice_count`, at most ten
 choice previews, and references to the full proposal, accepted plan, and
-verification. References contain `handle`, `kind`, `sha256`, `path`, and `bytes`.
+verification. References contain `handle`, `kind`, `path`, and `bytes`.
 The response also reports top-level `calculation_count` and `shared_call_count`.
 A rejected checked graph is available as `last_candidate`, never as an accepted `plan`.
-The `path` is absolute. A handle has the form `kind:SHA256`; substitute the
+The `path` is absolute. A handle has the form `kind:ID`; substitute the
 returned values in later commands. `formal load KIND PATH` imports a record
 without starting search.
 
@@ -51,14 +51,14 @@ without starting search.
 
 Save a `StoredMolecule` once with `formal load molecule molecule.json`. Its JSON
 contains `geometry` in the builder's molecule format. The returned
-`molecule:SHA256` handle identifies the exact molecular input, including atom IDs,
+`molecule:ID` handle identifies the exact molecular input, including atom IDs,
 units, fragments, states, isotopes, ghosts, symmetry, and frame settings.
 
 Prepare a `RequestTemplate` with handle bindings instead of coordinates:
 
 ```json
 {
-  "molecules": [{"name": "water", "molecule": "molecule:<returned SHA256>"}],
+  "molecules": [{"name": "water", "molecule": "molecule:<returned ID>"}],
   "goals": [{
     "kind": "calculate", "id": "energy", "geometry": "water", "driver": "energy",
     "models": [{"method": "hf", "basis": "cc-pvdz", "reference": "rhf",
@@ -71,11 +71,11 @@ Replace the placeholder with the complete returned handle. Then assemble and pla
 
 ```sh
 uv run psi4-parser formal --workspace planning-artifacts request template.json
-uv run psi4-parser formal --workspace planning-artifacts propose request:RETURNED_SHA256
+uv run psi4-parser formal --workspace planning-artifacts propose request:RETURNED_ID
 ```
 
-`request` accepts a template path or a saved `request_template:SHA256` handle.
-Every molecular record is hash checked and copied into a complete
+`request` accepts a template path or a saved `request_template:ID` handle.
+Every molecular record is structurally validated and copied into a complete
 `ScientificRequest`; goals and relations are preserved. The resulting request
 handle works with the ordinary propose, verify, and export operations. Exported
 bundles contain full molecular inputs and need no template workspace. Imports
@@ -141,8 +141,8 @@ Machine-readable scientific responses go to stdout, including nonzero scientific
 outcomes. Usage and file errors go to stderr. A `no_candidate` outcome concerns
 only the declared finite alternatives; exhaustion does not prove impossibility.
 
-Accepted export summaries include `backend_version`, `option_policy`, and
-`namespace_policy` alongside the manifest path and hash. They expose the native
+Accepted export summaries include `option_policy` and `namespace_policy`
+alongside the manifest path. They expose the native
 option and call-entry namespace restoration contracts without
 loading the full manifest. Rejected exports, or older summaries without these
 fields, make no option-isolation claim.
@@ -196,19 +196,15 @@ bad handles, malformed inputs, and file failures are tool errors.
 
 MCP workspaces and handles last until server shutdown. Exported bundles also
 remain temporary. Copy complete bundles and any needed `records/` directory to
-durable storage before closing the server. Bundle payload hashes survive a
-byte-preserving copy. A copied record directory can be reopened as a workspace
-in its new location. See [MCP connection configuration](mcp.md).
+durable storage before closing the server. A copied record directory can be
+reopened as a workspace in its new location. See [MCP connection configuration](mcp.md).
 
 ## Inspect evidence without hiding failures
 
 Verification summaries include scope, completeness, coverage counts, obligation
-counts, diagnostic and assumption counts, rule version, and verification identity.
-They also identify the plan, independent request, capability context, and
-descriptive component names. `runtime_policy` is
+counts, diagnostic and assumption counts, and descriptive component names.
+`runtime_policy` is
 `operator_managed`: deployment is neither checked nor warned about.
-A record's `sha256` hashes its saved bytes; verification
-digests bind the normalized scientific documents and verification context.
 Coverage records the presence and compatibility of requested work. Application
 evidence can still leave a plan unknown or rejected when every goal is covered.
 `capability_status` summarizes that evidence separately for represented calls.
@@ -221,11 +217,10 @@ scientific `path` is separate from its location in the report. Request additiona
 pages or read the located file when more evidence is needed.
 
 Importing a report does not grant scientific acceptance. Handles identify saved
-bytes; export always performs independent verification. Files are structurally
-validated on import, copied into the workspace, and hash checked when read.
-Changing an original source does not change its imported copy. Changing cached
-bytes causes a hash mismatch. Input and generated records have a default 16 MiB
-per-record limit; the Python workspace constructor can set another positive limit.
+records; export always performs independent verification. Files are copied into
+the workspace and structurally validated on import and use. Changing an original
+source does not change its imported copy. Input and generated records have a
+default 16 MiB per-record limit; the Python workspace constructor can set another positive limit.
 
 `PlanningWorkspace` exposes the same import, propose, verify, explain,
 capability-query, and export operations in Python. Inspect its signatures and

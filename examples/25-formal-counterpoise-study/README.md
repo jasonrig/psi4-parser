@@ -43,5 +43,5 @@ subsystems, formula, and independent scan-coordinate requirements. Future
 coordinate bounds are conditional on successful optimizer enforcement; measured
 inputs use the stated tolerances. It does not prove the numerical optimization
 outcome. Execution and result parsing remain
-separate. The bundle hashes its payloads; sibling teaching files are outside the
+separate. The bundle lists its payloads; sibling teaching files are outside the
 manifest. Rebuilding requires an unused destination.

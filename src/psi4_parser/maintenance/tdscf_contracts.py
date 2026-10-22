@@ -14,42 +14,15 @@ from psi4_parser.formal.science import ProductName, QuantityType
 
 _SOURCE = "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/"
 _FILES = {
-    "response": (
-        "psi4/driver/procrouting/response/scf_response.py",
-        "4bd88655499b4fb55e70ed494d7b64875e63b30ec62d25e65d935561b191e78d",
-    ),
-    "procedure": (
-        "psi4/driver/procrouting/proc.py",
-        "98ac648d84cc4587ec034b9207d3c6fbc3cd74df4c0409a85478e5467c0dd408",
-    ),
-    "driver": (
-        "psi4/driver/driver.py",
-        "7d2485decb726bf62f18ca5f6c624b6dbc36d540dc9fbe2187a232189be13db6",
-    ),
-    "routing": (
-        "psi4/driver/procrouting/proc_table.py",
-        "995fb0b19407cbc17d29f3c10052f5fe2beeef331eb097250c34ddedcb9cbe73",
-    ),
-    "hf-definition": (
-        "psi4/driver/procrouting/dft/hyb_functionals.py",
-        "9f675874fa289d39f2542c34c7f7ccd659e97f5cbdf63fd53cbde493f0b1d22c",
-    ),
-    "gga-definition": (
-        "psi4/driver/procrouting/dft/gga_functionals.py",
-        "035704c9d548a89709611e3f825e38a6e1d550317b6a7c1650c10f9e12d301e7",
-    ),
-    "hybrid-definition": (
-        "psi4/driver/procrouting/dft/libxc_functionals.py",
-        "d3e5f17f1e19788ecc21c1a8e3967c4fd77f5b6ec510b4f61d60b4033c5c5726",
-    ),
-    "options": (
-        "psi4/src/read_options.cc",
-        "4c90f0223e9a0203b8dc626ec0976ccb27dbd555d0f2f7c2d5070d590c26f093",
-    ),
-    "manual": (
-        "doc/sphinxman/source/tdscf.rst",
-        "c4f4bef8e0421d3fa72b7fc941e0d886f25baf4ebfe611a34ae07a4870b5d1ee",
-    ),
+    "response": "psi4/driver/procrouting/response/scf_response.py",
+    "procedure": "psi4/driver/procrouting/proc.py",
+    "driver": "psi4/driver/driver.py",
+    "routing": "psi4/driver/procrouting/proc_table.py",
+    "hf-definition": "psi4/driver/procrouting/dft/hyb_functionals.py",
+    "gga-definition": "psi4/driver/procrouting/dft/gga_functionals.py",
+    "hybrid-definition": "psi4/driver/procrouting/dft/libxc_functionals.py",
+    "options": "psi4/src/read_options.cc",
+    "manual": "doc/sphinxman/source/tdscf.rst",
 }
 
 
@@ -61,13 +34,8 @@ def tdscf_catalog() -> CapabilityCatalog:
     Basis dimensions and orbital coverage can be supplied by another contribution.
     """
     evidence = tuple(
-        Evidence(
-            id="source-tdscf-" + name,
-            source=_SOURCE + path,
-            kind="source",
-            digest=digest,
-        )
-        for name, (path, digest) in _FILES.items()
+        Evidence(id="source-tdscf-" + name, source=_SOURCE + path, kind="source")
+        for name, path in _FILES.items()
     )
     references: tuple[Reference, ...] = ("rhf", "uhf", "rohf")
     names: tuple[ProductName, ...] = ("electronic_energy", *sorted(TDSCF_PRODUCTS))

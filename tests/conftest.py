@@ -57,7 +57,6 @@ def formal_profile_fixture() -> CapabilityCatalog:
                 id="fixture",
                 source="Planner tests: explicit synthetic declarations",
                 kind="declaration",
-                application_version="fixture/1",
             ),
         ),
         methods=methods,

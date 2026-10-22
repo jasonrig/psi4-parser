@@ -1,40 +1,18 @@
 {
-  "schema_version": "1",
-  "plan_digest": "9ef5cac6e767cfe14e1325e5ab9ef2cdede442978f689c5c5740cc6e3f217ec9",
-  "request_digest": "52de9e9401765e6baa4e9f4c5bf5dff90a2e93bbeca8c2bae023c76b21d05aec",
-  "capability_digest": "47418cfe4479f37d4d754bad3b0fa19ec8bde072534bc2d2c2c4e9cd54e9dda2",
-  "verification_digest": "32f1c19538d57a79914bc56c08759ae58e27f21970c8ad6af8f0f720979621ef",
-  "backend_version": "psi4-builder/8",
   "runtime_policy": "operator_managed",
   "option_policy": "native_defaults_per_calculation",
   "namespace_policy": "restore_after_calculation",
   "required_components": [
     {
-      "name": "pyddx",
-      "version": null
+      "name": "pyddx"
     }
   ],
   "files": [
-    {
-      "path": "scientific-request.json",
-      "sha256": "f451240ecb1e8941b86224f80e1bb5a67e8d5fb1d0bacafcb7893cd7c4e7c447"
-    },
-    {
-      "path": "calculation-plan.json",
-      "sha256": "5d5d19e2178a69672480d785f4ed9113f9ce1b5cafc07738c50ead9e1e65572d"
-    },
-    {
-      "path": "capabilities.json",
-      "sha256": "bacb7529da7fa19091b0a67f03ac7feb2ebaddb68c44df80caa95642a82c7500"
-    },
-    {
-      "path": "verification.json",
-      "sha256": "c9446de4064b5e7bc88e7b2da661ba0b7e61fbcad2ee0ee4591922697ea454ca"
-    },
-    {
-      "path": "inputs/workflow.dat",
-      "sha256": "204950c0ec7711425fd673fdec81297df6a3ba6cd2c55ac6824b25230428223d"
-    }
+    "scientific-request.json",
+    "calculation-plan.json",
+    "capabilities.json",
+    "verification.json",
+    "inputs/workflow.dat"
   ],
   "native_inputs": [
     "inputs/workflow.dat"

@@ -107,7 +107,7 @@ compact CLI/MCP operations return short summaries with handles and paged
 explanations. CLI workspaces persist; copy MCP artifacts before server shutdown.
 
 Retain the complete exported bundle, including goal coverage, native output
-bindings, symbolic recipes, option policies, and hashes, for the separate result
+bindings, symbolic recipes, option policies, and payload paths for the separate result
 consumer. Revise the source request or plan and re-export when changing a checked
 job; editing emitted input alone does not update its proof. Use the matching
 library source for discovery and construction, as described in

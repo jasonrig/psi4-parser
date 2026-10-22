@@ -379,13 +379,6 @@ class ComponentRequirement(Record):
     """Identify an optional component needed by the constructed calculation plan."""
 
     name: str = Field(min_length=1, description="Required component name.")
-    version: str | None = Field(
-        default=None,
-        min_length=1,
-        description=(
-            "Informational version if supplied; constructed plans leave it null."
-        ),
-    )
 
 
 class Model(Record):

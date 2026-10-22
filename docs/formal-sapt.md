@@ -50,7 +50,7 @@ method conditions specify the exact orbital/fitting names and SCF algorithm.
 Missing or mismatched pairings remain unknown; the planner does not invent
 fitting defaults or infer their quality from their names.
 
-The source-pinned snapshot covers fifteen legacy HF-SAPT method spellings,
+The source-reviewed snapshot covers fifteen legacy HF-SAPT method spellings,
 including scaled, higher-order, CCD-dispersion, and delta-MP2 variants. Only
 SAPT0 has positive open-shell reference cases. Reviewed monomer-centered support
 is restricted to RHF SAPT0. Induction and midbond coverage are explicit features.
@@ -91,7 +91,7 @@ cannot be merged just because their `Model` records match.
 
 ## Native input state and scope
 
-Backend `psi4-builder/8` restores the default scratch namespace captured at each
+The generated input restores the default scratch namespace captured at each
 call's entry, as well as native option values and flags. The manifest records
 `namespace_policy="restore_after_calculation"`. Native molecule declarations may
 select a namespace before that scope starts. Scratch paths, file preservation,

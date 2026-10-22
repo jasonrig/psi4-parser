@@ -30,7 +30,7 @@ model. Its weights sum to one and its requested algebra is self-consistent;
 the exponential coefficient contract rejects it.
 
 The [bundle manifest](saved/bundle/manifest.json) retains both exponential recipes,
-the inverse-power recipe, rational weights, goal coverage, and payload hashes.
+the inverse-power recipe, rational weights, goal coverage, and payload paths.
 The native input uses ordinary HF/MP2 calls and explicit conventional MP2 routing.
 No CBS helper evaluates energies, no calculation is executed, and no output is
 collected or validated by this example. See the

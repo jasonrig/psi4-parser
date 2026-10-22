@@ -1,9 +1,8 @@
 {
-  "schema_version": "1",
   "molecules": [
     {
       "name": "waters",
-      "molecule": "molecule:23868ea72f5418217a0312327e68942211330bed82b8a776f752a9a53cb7758e"
+      "molecule": "molecule:5ec8d79418434d009c9038be16c2e7c0"
     }
   ],
   "goals": [

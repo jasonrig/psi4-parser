@@ -150,7 +150,6 @@ def _profile() -> CapabilityCatalog:
                 id="fixture",
                 source="Synthetic SAPT test declarations",
                 kind="declaration",
-                application_version="fixture/1",
             ),
         ),
         methods=tuple(

@@ -1,199 +1,126 @@
 {
-  "schema_version": "1",
   "id": "psi4",
   "application": "psi4",
   "evidence": [
     {
       "id": "documentation-pcmsolver-input",
       "source": "https://pcmsolver.readthedocs.io/en/stable/users/input.html",
-      "kind": "documentation",
-      "application_version": null,
-      "build": null,
-      "digest": null
+      "kind": "documentation"
     },
     {
       "id": "source-pcm-input",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/p4util/python_helpers.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "0c39ba0ef11a32fb1a4e921dae64213e5af38ab69d9007170ace44113c49574f"
+      "kind": "source"
     },
     {
       "id": "source-ddx",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/solvent/ddx.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "d436f2365a9131b524e6f438fd816b934534b8aa362d4a54a61d8de822d652f6"
+      "kind": "source"
     },
     {
       "id": "source-scf-iteration",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/scf_proc/scf_iterator.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "4de3bf96fb09d46d2ad7cace03dbad667068e00526edf4adf4ea00df60d7aa8a"
+      "kind": "source"
     },
     {
       "id": "source-sapt-molecule",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/proc_util.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "84d87df1244a0c06beaa9c626d108d3ed3ac80db586e81b5e2db5b589d73c12f"
+      "kind": "source"
     },
     {
       "id": "source-sapt-components",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/qcdb/psivardefs.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "d560503e47c53f7c3b63d88a8ff5a21fd218054ce910e1eb26a04c8e61297c16"
+      "kind": "source"
     },
     {
       "id": "source-basis-sequences",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/driver_cbs.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "f956c0831c4023dc95b96bcbdcbab798fe58870eab4c7dfffb7f4b3319d5d869"
+      "kind": "source"
     },
     {
       "id": "source-extrapolation",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/driver_cbs_helper.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "1d26785aa87334267de8b1964725c21c5b659d0557406c758416396d9ee83dbc"
+      "kind": "source"
     },
     {
       "id": "source-native-writer",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/src/psi4/libmints/get_writer_file_prefix.cc",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "53ed270125111059e6f157d7a60c5582706f4ba7300abc5f717727151bb18ed0"
+      "kind": "source"
     },
     {
       "id": "source-vibrations",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/qcdb/vib.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "154d637bce0be27d472c915d838e7e04cbed33b4253178267b107c20745a3b7d"
+      "kind": "source"
     },
     {
       "id": "source-oeprop",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/src/psi4/libmints/oeprop.cc",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "c1f250d525d937e1a2203fabaaff48fda5b1c97f439eac3d0efb80420801e004"
+      "kind": "source"
     },
     {
       "id": "source-procedures",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/proc.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "98ac648d84cc4587ec034b9207d3c6fbc3cd74df4c0409a85478e5467c0dd408"
+      "kind": "source"
     },
     {
       "id": "source-driver",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/driver.py",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "7d2485decb726bf62f18ca5f6c624b6dbc36d540dc9fbe2187a232189be13db6"
+      "kind": "source"
     },
     {
       "id": "source-options",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/src/read_options.cc",
-      "kind": "source",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "4c90f0223e9a0203b8dc626ec0976ccb27dbd555d0f2f7c2d5070d590c26f093"
+      "kind": "source"
     },
     {
       "id": "runtime-metadata",
       "source": "package://psi4_parser.formal.catalogs/psi4/reference-audit.json",
-      "kind": "probe",
-      "application_version": "1.12a1.dev43",
-      "build": "sha256:9d7d5b5cd7e6b940f5aa6b15e83806a289e73c993a1410345c3291101c12ecb1",
-      "digest": "634ed905fc2368cd39a6b0119ce85db748d2607f214532f4febe8b2b936e80c2"
+      "kind": "probe"
     },
     {
       "id": "source-tdscf-response",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/response/scf_response.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "4bd88655499b4fb55e70ed494d7b64875e63b30ec62d25e65d935561b191e78d"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-procedure",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/proc.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "98ac648d84cc4587ec034b9207d3c6fbc3cd74df4c0409a85478e5467c0dd408"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-driver",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/driver.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "7d2485decb726bf62f18ca5f6c624b6dbc36d540dc9fbe2187a232189be13db6"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-routing",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/proc_table.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "995fb0b19407cbc17d29f3c10052f5fe2beeef331eb097250c34ddedcb9cbe73"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-hf-definition",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/dft/hyb_functionals.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "9f675874fa289d39f2542c34c7f7ccd659e97f5cbdf63fd53cbde493f0b1d22c"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-gga-definition",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/dft/gga_functionals.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "035704c9d548a89709611e3f825e38a6e1d550317b6a7c1650c10f9e12d301e7"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-hybrid-definition",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/driver/procrouting/dft/libxc_functionals.py",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "d3e5f17f1e19788ecc21c1a8e3967c4fd77f5b6ec510b4f61d60b4033c5c5726"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-options",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/psi4/src/read_options.cc",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "4c90f0223e9a0203b8dc626ec0976ccb27dbd555d0f2f7c2d5070d590c26f093"
+      "kind": "source"
     },
     {
       "id": "source-tdscf-manual",
       "source": "https://github.com/psi4/psi4/blob/60c9b2a773c05abc26991c5ed48cf9862cdb4978/doc/sphinxman/source/tdscf.rst",
-      "kind": "source",
-      "application_version": null,
-      "build": null,
-      "digest": "c4f4bef8e0421d3fa72b7fc941e0d886f25baf4ebfe611a34ae07a4870b5d1ee"
+      "kind": "source"
     }
   ],
   "methods": [
@@ -64936,7 +64863,6 @@
   "components": [
     {
       "name": "pyddx",
-      "version": null,
       "status": "unsupported",
       "evidence": [
         "runtime-metadata"
@@ -64944,7 +64870,6 @@
     },
     {
       "name": "sapt",
-      "version": "1.12a1.dev43",
       "status": "supported",
       "evidence": [
         "runtime-metadata"
@@ -64952,7 +64877,6 @@
     },
     {
       "name": "qcelemental",
-      "version": "0.51.3",
       "status": "supported",
       "evidence": [
         "runtime-metadata"
@@ -64960,7 +64884,6 @@
     },
     {
       "name": "optking",
-      "version": "0.5.0",
       "status": "supported",
       "evidence": [
         "runtime-metadata"

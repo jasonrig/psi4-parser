@@ -52,7 +52,7 @@ psi4-parser formal --workspace planning-artifacts propose request.json
 ```
 
 CLI calls return compact JSON and keep full records in the persistent workspace.
-Reuse the returned `kind:SHA256` handles, or supply local JSON paths. Use
+Reuse the returned `kind:ID` handles, or supply local JSON paths. Use
 `formal explain` for paged issues, coverage, assumptions, or choices. Interpret
 exit 1 as scientific rejection, 2 as input/file failure, and 3 as unknown or
 exhausted; discovery and accepted construction return 0. Read stdout even after
@@ -66,7 +66,7 @@ or `PlanningWorkspace.save_molecule()`. A template binds each saved handle to th
 input name used by its independent goals and relations. Load the template with
 `kind="request_template"`, then call `formal_request(template=HANDLE)`; the CLI
 equivalent is `formal request TEMPLATE_PATH_OR_HANDLE`. Python callers use
-`PlanningWorkspace.materialize_request()`. Assembly checks saved molecular hashes
+`PlanningWorkspace.materialize_request()`. Assembly validates saved molecular records
 and returns a full request with exact inputs. Propose, verify, and export use that
 request; bundles retain complete coordinates without requiring the original
 handles. Assembly is preparation, not scientific approval. See
@@ -309,7 +309,7 @@ Path("proposal.json").write_text(proposal.model_dump_json(indent=2), encoding="u
 print(proposal.status, proposal.attempts)
 if proposal.plan is not None:
     exported = export_bundle(proposal.plan, request, destination=Path("new-job-bundle"))
-    print(exported.directory, exported.manifest_digest)
+    print(exported.directory)
 ```
 
 `SearchLimits` bounds alternatives, candidates, solver calls, and time. Selection
@@ -333,7 +333,7 @@ contracts. Exact report replay uses the saved report limits as part of context.
 
 | Verification status | Next action |
 | --- | --- |
-| `proved` | Require `scope="scientific_request"` and `request_complete=True`; inspect coverage, assumptions, and capability identity before export. |
+| `proved` | Require `scope="scientific_request"` and `request_complete=True`; inspect coverage, assumptions, and scientific/input evidence before export. |
 | `invalid` | Correct malformed inputs or references at the reported path. |
 | `violated` | Inspect failed obligations as well as diagnostics; repair the counterexample, missing work, or scientific contract violation against the saved request. |
 | `unsupported` | Explain the unsupported evidence or lowering contract; do not claim acceptance. |
@@ -366,7 +366,7 @@ repeatedly printing whole schemas, capabilities, or SMT expressions.
 Export requires complete accepted intent and a new destination whose parent
 exists. It saves the request, plan, capability snapshot, verification, native
 input, and a manifest containing dependencies, expected products, symbolic
-recipes, assumptions, and hashes. Existing directories are never overwritten.
+recipes, assumptions, and payload paths. Existing directories are never overwritten.
 
 ### Named products and thermochemistry
 
@@ -390,7 +390,7 @@ and transient lifetime. Export emits no variable retrieval or collection writer.
 The separate consumer must collect after the producer and before a later call
 overwrites the variables; these bindings do not promise durable results.
 The input carries future geometries in memory; expressions stay symbolic for a
-separate consumer. Hashes bind saved artifacts, not a formally proved compiler.
+separate consumer. The lowering implementation is tested rather than formally proved.
 
 ### Export option and namespace policies
 
@@ -406,7 +406,7 @@ explicit setting. A missing manifest policy makes no isolation claim.
 `namespace_policy="restore_after_calculation"` also restores the native IO
 namespace at call entry, including after SAPT and failures. Native molecule
 declarations may change the namespace before that boundary. Compact export
-summaries retain both policies and the backend version.
+summaries retain both policies.
 
 ## Keep the claims precise
 

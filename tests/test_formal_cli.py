@@ -1,6 +1,5 @@
 """Exercise compact scientific planning through the public command line."""
 
-import hashlib
 from pathlib import Path
 
 import pytest
@@ -154,7 +153,7 @@ def test_cli_materializes_saved_molecules_before_proposing(tmp_path: Path) -> No
 def test_cli_constructs_reusable_artifacts_without_printing_proofs(
     tmp_path: Path, formal_profile: CapabilityCatalog
 ) -> None:
-    """Save accepted work and return small, hash-bound references to complete records.
+    """Save accepted work and return small references to complete records.
 
     Args:
         tmp_path: Independent source documents and planning workspace.
@@ -184,7 +183,8 @@ def test_cli_constructs_reusable_artifacts_without_printing_proofs(
     plan_path = plan_ref["path"]
     assert isinstance(plan_path, str)
     plan_bytes = Path(plan_path).read_bytes()
-    assert hashlib.sha256(plan_bytes).hexdigest() == plan_ref["sha256"]
+    assert Plan.model_validate_json(plan_bytes).steps
+    assert "sha256" not in plan_ref
     assert len(Plan.model_validate_json(plan_bytes).steps) == 1
     verification = document["verification"]
     assert isinstance(verification, dict)

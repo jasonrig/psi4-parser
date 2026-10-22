@@ -120,7 +120,7 @@ The bundle contains `scientific-request.json`, `calculation-plan.json`,
 frequency call; no optimized coordinates are needed while planning.
 
 Keep the bundle together. The manifest links goals to implementing steps,
-expected products, native output bindings, symbolic recipes, and artifact hashes.
+expected products, native output bindings, symbolic recipes, and payload paths.
 A covered spectrum goal establishes that the required frequency product is
 requested in the right context. It does not establish that the optimization
 will converge, that its stationary point is a minimum, or that the resulting

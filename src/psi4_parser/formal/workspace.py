@@ -1,9 +1,9 @@
-"""Save immutable scientific records and expose compact construction workflows."""
+"""Save scientific records and expose compact construction workflows."""
 
-import hashlib
 import re
 from collections import Counter
 from pathlib import Path
+from uuid import uuid4
 
 from pydantic import JsonValue
 
@@ -42,7 +42,7 @@ from psi4_parser.formal.verification import verify
 
 _HANDLE = re.compile(
     r"^(molecule|request_template|request|capabilities|plan|proposal|verification):"
-    r"([a-f0-9]{64})$"
+    r"([a-f0-9]{32})$"
 )
 _CHOICE_PREVIEW = 10
 _TEXT_PREVIEW = 1000
@@ -223,15 +223,15 @@ def _capability_entry(item: Record, query: CapabilityQuery) -> JsonValue:
 
 
 class PlanningWorkspace:
-    """Keep checked records on disk and pass their content hashes between calls.
+    """Keep checked records on disk and pass short handles between calls.
 
     Imported files are copied into this directory after structural validation.
-    Every read checks the saved bytes against its handle. Handles are local to
-    this workspace; they do not grant scientific acceptance. CLI workspaces are
-    persistent; an MCP workspace is removed when its server shuts down.
+    Handles locate saved copies within this workspace; they do not grant
+    scientific acceptance. CLI workspaces are persistent; an MCP workspace is
+    removed when its server shuts down.
 
     Attributes:
-        directory: Absolute workspace directory, containing immutable JSON records.
+        directory: Absolute workspace directory, containing saved JSON records.
         max_record_bytes: Positive size limit for each imported or generated record.
     """
 
@@ -266,17 +266,12 @@ class PlanningWorkspace:
         content = (record.model_dump_json(indent=2) + "\n").encode()
         if len(content) > self.max_record_bytes:
             raise ValueError(f"Record exceeds the {self.max_record_bytes}-byte limit")
-        digest = hashlib.sha256(content).hexdigest()
-        destination = self._records / f"{kind}-{digest}.json"
-        if destination.exists():
-            if self._bounded(destination) != content:
-                raise ValueError("Saved record content no longer matches its handle")
-        else:
-            atomic_replace(destination, content, mode=0o600)
+        identifier = uuid4().hex
+        destination = self._records / f"{kind}-{identifier}.json"
+        atomic_replace(destination, content, mode=0o600)
         return RecordReference(
-            handle=f"{kind}:{digest}",
+            handle=f"{kind}:{identifier}",
             kind=kind,
-            sha256=digest,
             path=str(destination),
             bytes=len(content),
         )
@@ -289,7 +284,7 @@ class PlanningWorkspace:
             source: Complete JSON text or UTF-8 bytes, within the record-size limit.
 
         Returns:
-            Reusable content handle and complete saved JSON path.
+            Reusable record handle and complete saved JSON path.
 
         Raises:
             ValueError: The JSON is invalid or exceeds the record byte limit.
@@ -319,7 +314,7 @@ class PlanningWorkspace:
         return self._save("capabilities", load_catalog(catalog_id))
 
     def save_molecule(self, geometry: Molecule) -> RecordReference:
-        """Save an exact molecule once and return a reusable content handle.
+        """Save an exact molecule once and return a reusable record handle.
 
         Args:
             geometry: Complete builder molecule; naming occurs in each request.
@@ -333,7 +328,7 @@ class PlanningWorkspace:
     def materialize_request(self, template: str) -> RecordReference:
         """Assemble and save a complete independent request from molecule handles.
 
-        Every referenced molecular record is read and hash checked. Coordinates,
+        Referenced molecular records are read and structurally validated. Coordinates,
         states, fragments, and metadata are copied into the resulting request;
         subsequent planning and export need no template or molecule handles.
 
@@ -344,10 +339,10 @@ class PlanningWorkspace:
             Self-contained request reference for propose, verify, and export.
 
         Raises:
-            ValueError: A handle has the wrong kind, saved bytes changed, or the
+            ValueError: A handle has the wrong kind, a record is malformed, or the
                 assembled request exceeds this workspace's record-size limit.
             OSError: A referenced record is missing or unreadable.
-        """  # noqa: DOC502 - Delegates record, hash, and size validation.
+        """  # noqa: DOC502 - Delegates record and size validation.
         draft = self._read(template, "request_template", RequestTemplate)
         molecules: list[MoleculeDeclaration] = []
         molecular_bytes = 0
@@ -377,18 +372,16 @@ class PlanningWorkspace:
     def _content(self, handle: str) -> tuple[RecordReference, bytes]:
         match = _HANDLE.fullmatch(handle)
         if match is None:
-            raise ValueError("Use a saved kind:SHA256 record handle")
-        kind, digest = _kind(match[1]), match[2]
-        path = self._records / f"{kind}-{digest}.json"
+            raise ValueError("Use a saved kind:ID record handle")
+        kind, identifier = _kind(match[1]), match[2]
+        path = self._records / f"{kind}-{identifier}.json"
         content = self._bounded(path)
-        if hashlib.sha256(content).hexdigest() != digest:
-            raise ValueError("Saved record content no longer matches its handle")
         return RecordReference(
-            handle=handle, kind=kind, sha256=digest, path=str(path), bytes=len(content)
+            handle=handle, kind=kind, path=str(path), bytes=len(content)
         ), content
 
     def reference(self, handle: str) -> RecordReference:
-        """Return a saved record's path and identity after checking its content hash."""
+        """Return a saved record's path, kind, and size."""
         reference, _ = self._content(handle)
         return reference
 
@@ -423,11 +416,6 @@ class PlanningWorkspace:
             obligations=dict(Counter(item.status for item in report.obligations)),
             diagnostic_count=len(report.diagnostics),
             assumption_count=len(report.assumptions),
-            verification_digest=report.verification_digest,
-            rule_version=report.rule_version,
-            capability_digest=report.capability_digest,
-            request_digest=report.request_digest,
-            plan_digest=report.plan_digest,
             required_components=report.required_components,
         )
 
@@ -683,7 +671,6 @@ class PlanningWorkspace:
                 verification=self._verification(error.report),
                 directory=None,
                 manifest_path=None,
-                manifest_digest=None,
                 native_inputs=(),
             )
         directory = Path(exported.directory)
@@ -695,8 +682,6 @@ class PlanningWorkspace:
             verification=self._verification(report),
             directory=exported.directory,
             manifest_path=str(directory / "manifest.json"),
-            manifest_digest=exported.manifest_digest,
-            backend_version=exported.manifest.backend_version,
             option_policy=exported.manifest.option_policy,
             namespace_policy=exported.manifest.namespace_policy,
             native_inputs=tuple(
